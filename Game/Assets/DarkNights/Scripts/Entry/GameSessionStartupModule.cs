@@ -10,9 +10,7 @@ using DarkNights.Runtime.Framework;
 using DarkNights.Runtime.Objects;
 using GameCore.Objects.Definition;
 using DarkNights.View;
-using ED.SC.Components;
 using FishNet;
-using GameCore.Interactions;
 using Runtime.AppStartup;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,6 +41,8 @@ namespace DarkNights.Entry
 #if UNITY_EDITOR
             scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", scenePath);
 #endif
+            if (System.Environment.GetCommandLineArgs().Contains("--dn-physics-study"))
+                scenePath = MapModule.MapModuleEntry.PhysicsStudyScene;
             Scene scene = SceneManager.GetSceneByPath(scenePath);
             if (!scene.isLoaded)
             {
@@ -56,6 +56,21 @@ namespace DarkNights.Entry
             }
             GameCatalog catalog = context.Resolve<GameCatalog>();
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SceneReady");
+            var moduleStudy = scene.GetRootGameObjects().SelectMany(root =>
+                root.GetComponentsInChildren<MapModule.MapModuleEntry>(true)).SingleOrDefault();
+            if (moduleStudy != null)
+            {
+                await moduleStudy.Initialize(context, catalog, cancellationToken);
+                context.Register(moduleStudy.Network); context.Register(moduleStudy.Layout);
+                moduleStudy.StartWhenReady(cancellationToken).Forget();
+                return;
+            }
+            var whitebox = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Terrain.WhiteboxEntry>(true)).SingleOrDefault();
+            if (whitebox != null)
+            {
+                await whitebox.Initialize(catalog, cancellationToken);
+                return;
+            }
             var lab = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Terrain.GeologyLabEntry>(true)).SingleOrDefault();
             if (lab != null)
             {
@@ -64,6 +79,9 @@ namespace DarkNights.Entry
             }
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
             LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
+            var physics = scene.GetRootGameObjects().SelectMany(root =>
+                root.GetComponentsInChildren<Runtime.Physics.PhysicsSceneAuthoring>(true)).SingleOrDefault();
+            if (physics != null) { layout = physics.Freeze(layout); physics.HideAuthoring(); }
             var randomLevel = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true)).SingleOrDefault();
             if (randomLevel != null)
             {
@@ -101,40 +119,8 @@ namespace DarkNights.Entry
             if (debugHeroSpeed > 1) Debug.Log("DARK_NIGHTS_DEBUG_HERO_SPEED multiplier=" + debugHeroSpeed);
             stage.Initialize(layout);
             var terrainEntry = randomLevel != null ? Terrain.RandomLevelEntry.Install(network, randomLevel, stage) : null;
-            var entities = network.gameObject.AddComponent<SessionEntityViews>();
-            entities.Initialize(network.Client, catalog, stage, network);
-            var ui = network.gameObject.AddComponent<SessionUiController>();
-            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiStarted");
-            await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
-            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
-            if (terrainEntry != null) lighting.Initialize(network, entities, ui.Actions, terrainEntry);
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-            DebugObjectHub.Install(network);
-            QuickTestHub.Install(network, ui, layout.Expedition);
-#endif
-            ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
-            if (console != null)
-            {
-                console.gameObject.AddComponent<SmartConsoleLogBridge>().Initialize(console);
-                YYInteractionSessionHandle consoleModal = null;
-                console.OnActivate += () => consoleModal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
-                {
-                    Kind = "dark_nights.console", Owner = "SmartConsole", Priority = 200,
-                    Blocks = YYInteractionBlockFlags.All, ConflictPolicy = YYInteractionConflictPolicy.SuspendLowerPriority
-                });
-                console.OnDeactivate += () => { consoleModal?.Dispose(); consoleModal = null; };
-            }
-            network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, ui.Input, stage, catalog, layout);
-            await network.gameObject.AddComponent<SessionEffects>().Initialize(network.Client, ui, stage, layout.GroundY);
-            var expeditionPanel = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<ExpeditionPanel>(true)).SingleOrDefault();
-            if (expeditionPanel != null)
-            {
-                var expedition = network.gameObject.AddComponent<ExpeditionHud>();
-                expedition.Initialize(network, expeditionPanel);
-            }
+            await SessionPresentationSetup.Initialize(network, catalog, stage, layout, scene, lighting, terrainEntry, physics?.Profile);
             SessionAutomation.Install(network);
-            Application.runInBackground = true;
-            Application.targetFrameRate = 60;
             Debug.Log("DARK_NIGHTS_SESSION_AVAILABLE protocol=" + DarkNights.Runtime.Session.SessionAuthority.ProtocolVersion + " level=" + catalog.Level.Id);
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SessionAvailable");
         }

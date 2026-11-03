@@ -5,6 +5,7 @@
 - 游戏为 Dark Nights，灰松谷一个关卡，2–4 人合作、共享营地。当前开放／暂停玩法以[地面基础玩法范围](docs/GROUND_GAMEPLAY_BASELINE.md)和后续获批切片为准；旧代码、历史完成记录或共享营地目标不授权恢复暂停玩法。
 - 开始任务先读 [README](README.md)、[现行文档索引](docs/README.md)和[开发执行计划](docs/DEVELOPMENT.md)。修改代码／状态／对象装配时读[技术架构](docs/ARCHITECTURE.md)，涉及权限／同步／恢复时读[联机设计](docs/MULTIPLAYER.md)及[存档合同](docs/SAVE_FORMAT.md)；专项文档按索引进入。
 - 当前协议、存档和依赖查对应合同、锁定配置与执行状态；阶段历史从[归档索引](docs/archive/README.md)追溯。历史协议、构建和通过数不能证明当前候选或前台性能通过。
+- 用户要求将设计图／visualize开发为新版地图模块时，以[MapModule模块开发工作流](docs/MAP_MODULE_WORKFLOW.md)为统一执行入口；专题按需进入，进度仍归DEVELOPMENT，不依赖历史聊天作为工作流。
 
 ## 阶段计划与进度维护
 

@@ -1,0 +1,27 @@
+<div id="terrain-flow">
+  <div class="fl-heading"><h3>同一张地图，逐步生成</h3></div>
+  <div class="viz-controls" aria-label="地形方案">
+    <button type="button" class="btn" data-method="dual" aria-pressed="true">16型 Dual Grid</button>
+    <button type="button" class="btn" data-method="wfc" aria-pressed="false">扩展 WFC</button>
+    <button type="button" class="btn" data-method="hybrid" aria-pressed="false">WFC＋Dual Grid</button>
+  </div>
+  <div class="fl-navigation">
+    <label class="form-label"><span class="sr-only">生成步骤</span><select class="form-select" id="fl-stage"></select></label>
+    <button type="button" class="btn" id="fl-prev">上一步</button>
+    <button type="button" class="btn btn-primary" id="fl-play">播放流程</button>
+    <button type="button" class="btn" id="fl-next">下一步</button>
+  </div>
+  <div id="fl-phase" class="text-small text-muted" role="status" aria-live="polite">正在记录生成过程…</div>
+  <canvas id="fl-canvas" role="img" aria-label="固定坐标与镜头下，同一张洞穴地图连续生成和开挖的过程。"></canvas>
+  <div id="fl-detail" class="text-small" aria-live="polite"></div>
+  <div id="fl-error" class="text-small text-destructive" role="alert" hidden></div>
+</div>
+<style>
+#terrain-flow{display:grid;gap:calc(var(--font-size-base)*.6);color:var(--foreground)}
+#terrain-flow .fl-heading{padding-inline-end:95px}
+#terrain-flow .fl-navigation{display:flex;flex-wrap:wrap;gap:calc(var(--font-size-base)*.5);align-items:center}
+#terrain-flow .fl-navigation label{flex:1;min-width:0}
+#terrain-flow canvas{display:block;width:100%;height:auto;aspect-ratio:8/5;min-height:260px;touch-action:pan-y}
+#terrain-flow [hidden]{display:none}
+@media(max-width:600px){#terrain-flow .fl-navigation label{flex-basis:100%}}
+</style>

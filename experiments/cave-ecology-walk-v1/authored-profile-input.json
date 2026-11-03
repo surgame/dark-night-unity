@@ -1,0 +1,22 @@
+{
+  "version": "bridge-authored-profile-v2",
+  "source": "../../美术素材/地图/20261031-cave-ecology-studies-v1/sources/bridge-authored-v2.png",
+  "sourceRole": "User-provided bridge design; full internal artwork is authoritative.",
+  "nativeWidth": 1536,
+  "nativeHeight": 1024,
+  "moduleWidth": 623,
+  "displayWidth": 495,
+  "insetX": 64,
+  "alphaThreshold": 220,
+  "floorGuideRole": "Foot path on the drawn soil tops, separate from decorative rubble silhouettes.",
+  "nativeFloorGuide": [
+    [0,586],[100,585],[300,586],[470,592],[507,593],[520,598],
+    [524,673],[600,675],[610,680],[614,756],[650,759],[658,768],
+    [663,878],[760,878],[865,879],[877,873],[880,760],[916,756],
+    [927,748],[932,677],[1000,675],[1009,667],[1015,597],
+    [1100,589],[1300,586],[1536,587]
+  ],
+  "nativeBridgeAnchors": [510,1026],
+  "nativeCrumblePlate": [[550,665],[596,665]],
+  "interfacePolicy": "The full original illustration occupies x64..559 at uniform scale. Two extra 64-unit collars lie outside that core. Only the first/last 8 core units blend into the collars; internal rock, soil, rubble and terraces are retained."
+}

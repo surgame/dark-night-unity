@@ -1,0 +1,50 @@
+[
+  {
+    "name": "rock.png",
+    "width": 1254,
+    "height": 1254,
+    "alpha": false,
+    "bytes": 2367014,
+    "sha256": "6d18a937e5931b000813b23e159213e5dcd777117eb0c5e6eb5da0844b71b049"
+  },
+  {
+    "name": "floor-wide-v2.png",
+    "width": 1536,
+    "height": 1024,
+    "alpha": true,
+    "bytes": 1917377,
+    "sha256": "eea2fd9b2c8cf47962b2125608d8b4aad9d13918e805df5b63693f0acd8c91d6"
+  },
+  {
+    "name": "ceiling.png",
+    "width": 1536,
+    "height": 1024,
+    "alpha": true,
+    "bytes": 1275853,
+    "sha256": "c1681fd779a1bebfb80d71a5a5c7428b94d130bff1edfcaef2c0a040b53608b1"
+  },
+  {
+    "name": "backdrop.png",
+    "width": 1536,
+    "height": 1024,
+    "alpha": false,
+    "bytes": 2459021,
+    "sha256": "8582b9a9ff5539f80f34e5becbfd3402d88dbc8fd1209b9fda6681122509c653"
+  },
+  {
+    "name": "ore.png",
+    "width": 1254,
+    "height": 1254,
+    "alpha": true,
+    "bytes": 829743,
+    "sha256": "e879d76c3897146e82b0738baa4fd2d6340c0e3909953e779eb132e4e8b9ee68"
+  },
+  {
+    "name": "hero-scale-reference.png",
+    "width": 282,
+    "height": 309,
+    "alpha": true,
+    "bytes": 36504,
+    "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+  }
+]

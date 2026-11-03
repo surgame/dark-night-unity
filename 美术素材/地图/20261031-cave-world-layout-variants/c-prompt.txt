@@ -1,0 +1,18 @@
+VARIANT C — GEOLOGICAL RIDGES AND FISSURES.
+Exact title: “方案 C · 岩脊裂隙”
+
+Follow the guide's 17-node branching tree. A jagged diagonal descending central fracture has alternating long slanted side fissures, separated by thick fin-shaped rock ridges. This layout must look structurally different from rounded branch-root tunnels and clustered rooms. Use tapered fissure openings, squeezed sloping galleries, narrow working shelves, wedged rock overhangs and occasional elongated end pockets. Avoid simply drawing an ordinary winding road and placing crystal rooms beside it.
+
+The rock ridges visibly separate neighboring fissures so one can sometimes perceive a high ore clue in a different ledge plane, while the route to it still follows its own branch. Do not cut new connections through the ridges. Keep the branches physically connected only as in the tree. A steep-looking geological composition is fine, but no implied guaranteed jumps, no compulsory giant free-fall chute and no preinstalled ladders/ropes. Use natural slopes and short shelves along the main fracture.
+
+Eight exact content labels:
+“斜裂入口” at the first trunk junction around (360,355).
+“高位露头” at the upper-middle far ledge around (900,220).
+“窄缝支洞” at the long left fissure's blind pocket around (130,730).
+“岩脊分岔” at the central branching fracture around (650,540).
+“隔壁矿线” at the upper-right end around (1360,280), with hidden hatched ore inside the adjacent ridge.
+“薄壳厚矿” at the lower-left fissure end around (290,850).
+“塌方候选” at the separate right side fracture around (1420,520), just a fractured-rock candidate annotation.
+“远端矿巢” at the main lower-right terminus around (1300,950), a potential ore/nest location with no creature shown.
+
+The exploration interest comes from sight lines, height differences, thin shells, rock barriers and a choice of narrow working spaces. Keep fore/background material separation clear and terminal pockets small. All right and bottom endpoints must close within the image. Dark weighty angular strata and bright readable warm-ivory labels, sparse amber minerals. Not a giant open vertical shaft.

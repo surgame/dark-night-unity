@@ -166,6 +166,16 @@ namespace DarkNights.Runtime.Save
             writer.Write(layout.BuildMinX);
             writer.Write(layout.BuildMaxX);
             writer.Write(layout.SpawnX);
+            if (layout.Physics != null)
+            {
+                writer.Write(Core.Physics.PhysicsWorldDefinition.Backend);
+                writer.Write(layout.Physics.Identity);
+            }
+            if (layout.MapModuleStudy)
+            {
+                writer.Write("mapmodule-study-v1"); writer.Write(layout.MapModuleIdentity);
+                writer.Write(layout.MapModuleSpawnHeight);
+            }
             // CameraX 仅为本地显示默认值，不影响世界兼容性。
             WritePlacements(writer, layout.Buildings);
             WritePlacements(writer, layout.Worksites);

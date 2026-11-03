@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-01",
+  "modules": ["CL-01", "CL-08"],
+  "purpose": "Correct the previous three material studies into a strict flat side-view cross-section without visible ground top planes.",
+  "method": "Built-in image_gen.imagegen; three reference-guided image revisions using a deterministic planar shape guide.",
+  "methodReason": "Hand-drawn large concept illustrations. Deterministic SVG is only the shape guide, not a substitute for painted output.",
+  "requestedCanvas": [1536, 1024],
+  "nativeDimensions": "Record actual generated PNG dimensions; preserve original bytes.",
+  "transparency": "Opaque full scenes.",
+  "seams": "No tile or common-edge claim; the shared guide constrains composition only.",
+  "shapePrecision": "Planar silhouette is the target. Generated curves are not certified collision geometry or exact guide pixels.",
+  "projectionContract": [
+    "Camera normal to the gameplay XY plane; no view from above.",
+    "Ground has one visible boundary, without an upper surface or receding path.",
+    "Rock interior lies below/above the silhouette as a flat illustrated cut-section.",
+    "Character feet and plants attach to the same contour, not rows at different depths.",
+    "Backgrounds are quiet flat silhouette layers.",
+    "Rock markings and ore are flat material drawings, not extruded volumes."
+  ],
+  "sourceReferences": {
+    "character": "../20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+    "headComponent": "../../角色/主角/images/head.png",
+    "originalIdentityRecord": "../20261101-hero-terrain-palette-studies/source-identities.json",
+    "materialScenes": [
+      "../20261101-hero-terrain-palette-studies/01-terracotta-strata.png",
+      "../20261101-hero-terrain-palette-studies/02-sage-slate.png",
+      "../20261101-hero-terrain-palette-studies/03-moonwhite-salt.png"
+    ]
+  },
+  "guide": {"editable": "flat-shape-guide.svg", "raster": "flat-shape-guide.png", "size": [1536, 1024]},
+  "outputs": [
+    {"file": "01-terracotta-flat.png", "prompt": "prompt-01.txt"},
+    {"file": "02-sage-flat.png", "prompt": "prompt-02.txt"},
+    {"file": "03-moonwhite-flat.png", "prompt": "prompt-03.txt"}
+  ],
+  "scope": "Static art-direction correction only. No source sprite, Spine, Game, YYGC, collision, WFC or Unity changes."
+}

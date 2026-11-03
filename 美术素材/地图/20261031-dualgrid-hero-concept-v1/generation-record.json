@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-31",
+  "method": "built-in image_gen",
+  "modelId": "not exposed by the built-in tool",
+  "purpose": "Single simpler art-direction concept based on existing DualGrid and the original protagonist",
+  "inputs": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "bytes": 36504,
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+      "nativeSize": [
+        282,
+        309
+      ],
+      "mode": "RGBA",
+      "hasAlpha": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\CaveExploration\\cave-dualgrid.png",
+      "bytes": 221373,
+      "sha256": "7b09069fcfe79d996ccc1942a4221f32a7ac3db9fbad4dffbb3a84934b4b0a4a",
+      "nativeSize": [
+        512,
+        1024
+      ],
+      "mode": "RGBA",
+      "hasAlpha": true
+    }
+  ],
+  "outputs": [
+    {
+      "role": "initial detailed draft",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\dualgrid-cave-detail-draft.png",
+      "bytes": 1945912,
+      "sha256": "2d8bf0958272e9c756d07de2aaa1a0ced2c01724196dc59fa205495310798058",
+      "nativeSize": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "hasAlpha": false
+    },
+    {
+      "role": "selected cleaner concept",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\dualgrid-cave-clean.png",
+      "bytes": 1475425,
+      "sha256": "983492b3a054d82a0e856e1c6df158c301de107ecd7b84c5bca8757d9fb8549b",
+      "nativeSize": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "hasAlpha": false
+    }
+  ],
+  "prompts": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\prompt.txt",
+      "bytes": 4338,
+      "sha256": "800f36fde5702f033349a72d2c57eddad64585905c10e57d4093e7d8b411ef07"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\refine-prompt.txt",
+      "bytes": 1911,
+      "sha256": "446dde0568d0caa0c604128b15451dc151e99341d84f66208b16adee8eb8a27d"
+    }
+  ],
+  "implementationInputs": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\CaveTerrainAssets.cs",
+      "bytes": 6484,
+      "sha256": "bc96d95975dbac506b1c702f709f87e86a13fd6a954c3363c082da54334d9bba"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\CaveExploration\\SOURCE.md",
+      "bytes": 1670,
+      "sha256": "44522019957e9958d5454da89a2029623b19976edb7d94e9411aa998c1ac3b69"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\CaveExploration\\CavePixelRock.shader",
+      "bytes": 7595,
+      "sha256": "03eac4fcb63a4292e1ec26f5b9f8b6833d3fe9a9266c9d431b6a68a2f6a0a8d2"
+    }
+  ],
+  "visualReview": {
+    "completeFrame": true,
+    "originalHeroIdentityRecognizable": true,
+    "heroIsReferenceRedrawNotExactComposite": true,
+    "flatForegroundSimplified": true,
+    "smallEdgeVocabulary": true,
+    "ecologyDepictedAsSeparableObjects": true,
+    "notes": [
+      "Terrain is a style concept, not an exact 16-mask atlas or validated tile/collision geometry.",
+      "Water and vegetation are static design references for future independent animation layers.",
+      "Cleaner version retains some broad tonal variation; final tile palette and edge pixels remain to be authored."
+    ]
+  },
+  "unityChanged": false,
+  "spineChanged": false,
+  "testsOrPlayExecuted": false
+}

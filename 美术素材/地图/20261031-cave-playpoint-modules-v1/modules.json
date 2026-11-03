@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "world": {"width": 768, "height": 512, "cell": 16, "heroHeight": 41},
+  "reference": "../20261030-modular-cave-playground/exports-v3/foreground/module-1.png",
+  "modules": [
+    {
+      "id": "entry", "name": "浅洞试跳", "cards": ["B01", "C01", "C10"],
+      "roof": [[0,224],[64,224],[120,200],[184,208],[256,184],[320,200],[400,176],[480,192],[560,208],[640,208],[704,224],[768,224]],
+      "floor": [[0,352],[64,352],[128,352],[208,344],[304,352],[336,352],[336,384],[352,400],[368,400],[384,384],[384,352],[464,352],[560,344],[640,352],[704,352],[768,352]],
+      "ports": [{"side":"left","floor":352},{"side":"right","floor":352}],
+      "stages": ["观察断口", "试跳越口", "浅凹找回"],
+      "poses": [[[224,352],[496,352]],[[360,310],[496,352]],[[360,400],[496,352]]],
+      "detail": "来侧先投石看浅凹；3格断口两端都有实岩落脚，失误后能看清落区。",
+      "art": "An intimate uneven-roof cave with a clearly visible SHORT shallow notch in the middle of the walkable floor. The notch is three 16-unit cells wide, not a ravine. Thick supporting lower bedrock, very small loose rubble only on solid shoulders. No stones or glow props in the air opening."
+    },
+    {
+      "id": "hall", "name": "错层岩台厅", "cards": ["B01","B03","B04","B05"],
+      "roof": [[0,224],[64,224],[112,160],[192,88],[288,48],[384,56],[480,80],[576,144],[640,184],[704,192],[768,192]],
+      "floor": [[0,352],[64,352],[144,352],[240,352],[272,352],[272,384],[304,384],[304,336],[368,336],[368,368],[400,368],[400,320],[496,320],[496,352],[528,352],[528,288],[624,288],[656,320],[704,320],[768,320]],
+      "ports": [{"side":"left","floor":352},{"side":"right","floor":320}],
+      "stages": ["观察升台", "分段登台", "公共绳路"],
+      "poses": [[[200,352],[432,320]],[[316,296],[456,320]],[[452,320],[582,288]]],
+      "detail": "大空腔下缘保留连续岩台支撑；先分段跳跃，抵达上窝后可放自带绳，最后一人也能离开。",
+      "art": "A genuinely spacious bell-shaped cavern: a very tall arched air volume and small low mouths on both sides. The lower rock is a series of chunky bedrock terraces and tiny intervening recesses, with the higher optional alcove supported by the right rock mass. Keep the terraced silhouettes from the guide; never add floating islands, doors, ladders or ropes."
+    },
+    {
+      "id": "bridge", "name": "承重断桥", "cards": ["A03","B06"],
+      "roof": [[0,224],[64,224],[144,192],[224,160],[320,176],[400,160],[496,184],[592,192],[704,224],[768,224]],
+      "floor": [[0,352],[64,352],[208,352],[304,352],[304,384],[320,384],[320,416],[336,416],[336,448],[432,448],[432,416],[448,416],[448,384],[464,384],[464,352],[592,352],[704,352],[768,352]],
+      "ports": [{"side":"left","floor":352},{"side":"right","floor":352}],
+      "stages": ["轻载通行", "负重预警", "断后补救"],
+      "poses": [[[264,352],[544,352]],[[384,360],[544,352]],[[352,448],[510,352]]],
+      "detail": "桥体独立于岩体，两岸都有等候和暂存区；负重先出现下沉，首样板桥下浅折坡供补救。",
+      "art": "A broad ledge-to-ledge cave opening with a central stepped shallow rescue gully cut into the lower bedrock. Two clean level rock banks face one another over a ten-cell opening. There is NO bridge at all in this terrain asset: the wooden bridge is a separate interactive sprite. Keep gully floor and side steps visible, quiet ample space above the bridge position."
+    },
+    {
+      "id": "cargo", "name": "低顶货槽", "cards": ["C15","C19","B06"],
+      "roof": [[0,224],[64,224],[144,224],[208,256],[256,288],[304,296],[464,296],[512,288],[560,240],[624,208],[704,224],[768,224]],
+      "floor": [[0,352],[64,352],[208,352],[288,352],[304,368],[464,368],[480,352],[608,352],[704,352],[768,352]],
+      "ports": [{"side":"left","floor":352},{"side":"right","floor":352}],
+      "stages": ["携矿受阻", "放下送槽", "对侧取回"],
+      "poses": [[[240,352],[544,352]],[[280,352],[512,352]],[[520,352],[624,352]]],
+      "detail": "人物穿低顶，举高的大矿会受阻；两端站位可放取矿物，单人能先放、穿过、再取。",
+      "art": "A long low-ceiling cave with a massive central overhang almost touching the walking line. The central air slit is low but genuinely open, with a shallow recessed channel in its floor. Generous headroom only in the left and right end bays. Carve a small dry side resting nook toward the right. No conveyor machinery, crates or ore in the terrain image."
+    },
+    {
+      "id": "liquid", "name": "油盆干台", "cards": ["A02","C01","C18"],
+      "roof": [[0,224],[64,224],[144,200],[240,176],[336,168],[432,184],[528,176],[624,208],[704,224],[768,224]],
+      "floor": [[0,352],[64,352],[224,352],[256,352],[256,400],[288,416],[304,448],[464,448],[480,416],[512,400],[512,352],[624,352],[704,352],[768,352]],
+      "solids": [[[224,352],[336,352],[334,368],[288,376],[256,384]],[[384,352],[544,352],[512,384],[432,376],[386,368]]],
+      "ports": [{"side":"left","floor":352},{"side":"right","floor":352}],
+      "stages": ["辨认油盆", "干台跨口", "局部油火"],
+      "poses": [[[208,352],[544,352]],[[360,312],[544,352]],[[176,352],[592,352]]],
+      "detail": "油盆在干台下方，48单位短口与油面分开；来侧阀门可处理供应，火只影响声明的局部。",
+      "art": "A bowl-shaped side cavern with an empty basin below two thick dry overhanging rock shelves. The shelves are supported from their respective left and right banks, leaving a SHORT three-cell gap between shelf lips. Keep the low basin distinct from the higher dry crossing. NO liquid, fire, pipe or valve in the terrain image; all are separate interactive layers."
+    },
+    {
+      "id": "rift", "name": "竖裂木梁口", "cards": ["A04","B01","B06"],
+      "roof": [[0,224],[64,224],[144,208],[224,176],[288,112],[336,48],[384,24],[432,64],[480,144],[544,192],[624,208],[704,224],[768,224]],
+      "floor": [[0,352],[64,352],[144,352],[272,352],[272,512],[496,512],[496,352],[624,352],[704,352],[768,352]],
+      "ports": [{"side":"left","floor":352},{"side":"right","floor":352}],
+      "stages": ["观察深裂", "搬梁部署", "公共通路"],
+      "poses": [[[224,352],[592,352]],[[272,352],[544,352]],[[400,352],[608,352]]],
+      "detail": "14格开口配来侧16格木梁，两端各1格支撑；此处不画普通跳弧，材料损失会改变通路。",
+      "art": "A tall narrow vertical geological fissure widening upward into a high pointed chimney. Its LOWER central chasm is deep and continues beyond the bottom image boundary. Clean massive left and right rock banks at exactly the same height, separated by a fourteen-cell gap. No bridge, no beam, no ropes or planks in this terrain source."
+    },
+    {
+      "id": "remains", "name": "遗骸盲端", "cards": ["A01","C19"],
+      "roof": [[0,224],[64,224],[144,208],[224,192],[320,176],[416,192],[512,208],[592,240],[656,288],[688,352]],
+      "floor": [[0,352],[64,352],[144,352],[240,368],[320,384],[448,384],[576,384],[640,384],[688,352]],
+      "ports": [{"side":"left","floor":352}],
+      "stages": ["观察退路", "首次取头", "抽动撤离"],
+      "poses": [[[352,384],[208,368]],[[544,384],[368,384]],[[432,384],[240,368]]],
+      "detail": "盲端先留观察与转身空间，再接近遗物；一次1/3首取头判定仅保留来源，本预览不抽概率。",
+      "art": "An intimate asymmetrical dead-end cave pocket. One open mouth only on the left, gently descending into a rounded closed chamber that terminates in solid rock well before the right image edge. The rightmost quarter must be SOLID foreground rock, not a second tunnel. Bare dusty ground and sparse rubble, space to turn around in front of the closed end. No bones, skulls, crates or symbols baked into terrain."
+    },
+    {
+      "id": "mine", "name": "深部矿碗", "cards": ["B02","B06"],
+      "roof": [[0,160],[64,160],[144,144],[240,96],[336,80],[448,96],[560,112],[640,160],[688,240],[704,352]],
+      "floor": [[0,288],[64,288],[192,288],[224,320],[272,352],[320,400],[384,432],[528,432],[624,416],[672,384],[704,352]],
+      "ports": [{"side":"left","floor":288}],
+      "stages": ["露头引路", "破壳露矿", "退回高台"],
+      "poses": [[[144,288],[288,368]],[[576,432],[240,336]],[[224,320],[144,288]]],
+      "detail": "入口先到高处暂存台，再下探露头；矿物在独立层，破壳后只在低处显示积气候选。",
+      "art": "A deep rounded mineral bowl cavern with one high entrance on the left and a closed massive right-hand wall. A solid dry staging ledge at upper left descends by chunky bedrock slopes into the lowest bowl toward center-right. Thick closed right wall and thick floor must remain blank brown rock, ready for separately overlaid exposed and buried mineral layers. No ore, gas, crates, ladders or props painted in the terrain."
+    }
+  ]
+}

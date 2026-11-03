@@ -20,7 +20,7 @@ namespace DarkNights.View
         /// <summary>一帧主角操作的只读值；边沿缓冲和业务解释仍由主角采样器负责。</summary>
         public readonly struct HeroFrame
         {
-            public readonly float Move;
+            public readonly float Move, Climb;
             public readonly Vector2 Pointer;
             public readonly bool Allowed, JumpHeld, JumpPressed, DropHeld, DropPressed, SprintHeld, InteractPressed;
             public readonly bool UseAllowed, UseHeld, UsePressed, UseReleased, LightToggle;
@@ -30,6 +30,7 @@ namespace DarkNights.View
             {
                 Allowed = source.CanRead(source.move);
                 Move = Allowed ? source.move.ReadValue<float>() : 0;
+                Climb = Allowed && source.climb != null ? source.climb.ReadValue<float>() : 0;
                 JumpHeld = Allowed && source.CanRead(source.jump) && source.jump.IsPressed();
                 JumpPressed = Allowed && source.CanRead(source.jump) && source.jump.WasPressedThisFrame();
                 DropHeld = Allowed && source.CanRead(source.drop) && source.drop.IsPressed();
@@ -98,7 +99,7 @@ namespace DarkNights.View
         private PointerEventData pointer;
         private readonly List<RaycastResult> hits = new List<RaycastResult>();
         private InputActionMap camp, hero, ui;
-        private InputAction point, menu, scroll, move, jump, drop, sprint, interact, useItem;
+        private InputAction point, menu, scroll, move, climb, jump, drop, sprint, interact, useItem;
         private InputAction item1, item2, item3, item4, heroToggle, campToggle, lightToggle;
         private InputAction cameraMove, select, orders, append, pan, panDelta;
         private InputAction pause, help, save, load, home, guards, idle;
@@ -129,7 +130,7 @@ namespace DarkNights.View
             inventory = ui.FindAction("Inventory", true);
             point = ui.FindAction("Point", true); menu = ui.FindAction("Cancel", true);
             scroll = ui.FindAction("ScrollWheel", true);
-            move = hero.FindAction("Move", true); jump = hero.FindAction("Jump", true);
+            move = hero.FindAction("Move", true); climb = hero.FindAction("Climb", false); jump = hero.FindAction("Jump", true);
             drop = hero.FindAction("Crouch", true); useItem = hero.FindAction("Attack", true);
             sprint = hero.FindAction("Sprint", true); interact = hero.FindAction("Interact", true);
             item1 = hero.FindAction("Item1", true); item2 = hero.FindAction("Item2", true);
@@ -245,7 +246,7 @@ namespace DarkNights.View
         }
 
         private bool Rebindable(InputAction action) => action != null &&
-            (action == move || action == jump || action == drop || action == sprint || action == interact || action == useItem ||
+            (action == move || action == climb || action == jump || action == drop || action == sprint || action == interact || action == useItem ||
              action == item1 || action == item2 || action == item3 || action == item4 || action == heroToggle || action == lightToggle ||
              action == cameraMove || action == select || action == orders || action == append || action == pan ||
              action == pause || action == help || action == save || action == load || action == home ||

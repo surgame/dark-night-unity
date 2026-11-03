@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-30",
+  "tool": "built-in image_gen.imagegen",
+  "outputs": [
+    {
+      "file": "03-open-mineral-hall.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18896-3db9-7340-b606-b6184a07f49c\\call_sV4dKd24vgiBDVjwoDO7xOku.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1679834,
+      "sha256": "f09a3973d84546eb8de8fc866d698ce5cd49a3039ce5cce7f2d68ce2b6d31020"
+    },
+    {
+      "file": "04-winding-passage.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18896-3db9-7340-b606-b6184a07f49c\\call_9QsGaEdBtDIPVNCrN9huGuV8.png",
+      "width": 1672,
+      "height": 940,
+      "bytes": 1621211,
+      "sha256": "87a0a0b54ffebbae822c1caf242260c601558af6101788930bb1536e0b815b73"
+    },
+    {
+      "file": "05-tiered-cavern.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18896-3db9-7340-b606-b6184a07f49c\\call_ByzR7k9up2AJKCR0xwYjhfwz.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1721892,
+      "sha256": "0a8845d61bfffce67eb1896e0760266df48b3fad760b896338067a897767113e"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "美术素材/地图/20261030-hero-led-cave-concepts/01-flat-cave.png",
+      "sha256": "97a775ebd7b3398d956f031a7abd309a952dd8914ce7caaae6eb9987f668ec98"
+    },
+    {
+      "path": "美术素材/地图/20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    }
+  ],
+  "visualReview": "Inspected all three generated images: approved palette and outlines retained, open hall / low passage / tiered space clearly differentiated. Character scale varies between concepts; gradients remain. Tiered ledges are conceptual, not traversal or collision validation.",
+  "unityImported": false
+}

@@ -1,0 +1,18 @@
+VARIANT B — ASYMMETRIC CHAMBER CLUSTERS.
+Exact title: “方案 B · 矿厅簇群”
+
+Follow the guide's 14-node tree: three identifiable MEDIUM cave halls arranged left-middle, upper-right and lower-middle, connected by narrow winding necks. Each hall has several different short side-pocket destinations. Upper-right hall connects only to the first hall and its own pockets; do NOT reconnect it to the lower hall. All local arms end in rock. The three halls are orientation landmarks and places that concentrate different content choices, not three huge empty oval arenas.
+
+Make hall silhouettes distinct: the first an off-center low arch with rubble and several exits; upper-right a layered slanted shelf with a pinched ceiling and elevated side pocket; lower hall a deep concave working bowl with a heavy roof and lower mineral alcoves. Hall clearance about four to six tiny character heights, ordinary necks about two. No large central pillar creating a traversal loop. Small optional wall shelves are acceptable. Keep halls in the same 2D side view.
+
+Eight exact content labels:
+“试采矿厅” at the first left-middle hall around (420,470).
+“碎石矿窝” at its lower-left side pocket around (180,640).
+“薄壳厚矿” at its separate lower side pocket around (450,700), small exposed clue and hidden hatched ore.
+“分叉矿厅” at the upper-right hall around (1120,340).
+“高位露头” at that hall's upper-right blind ledge around (1370,225).
+“侧壁矿窝” at its lower blind side pocket around (1070,520).
+“深部矿厅” at the lower main hall around (860,800).
+“矿巢候选” at the lower hall's far-right branch around (1390,825); a small candidate marker only.
+
+Show that arriving at each hall presents several different content interactions and a decision about local exploration before committing to the next hall. Let the terrain architecture create the activities: nearby exposed ore, a thin shell in one wall, a high ore clue on a ledge, a sheltered side mining nook. Several unlabeled little pockets are intentional. Sparse visible gold, stronger distinct room composition, no arrow-heavy single main road.

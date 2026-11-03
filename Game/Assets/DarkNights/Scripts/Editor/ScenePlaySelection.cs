@@ -26,6 +26,8 @@ namespace DarkNights.Editor
 
         private static bool IsLevel(Scene scene) => scene.IsValid() && scene.isLoaded &&
             scene.GetRootGameObjects().Any(root => root.GetComponentInChildren<LevelLayoutAuthoring>(true) != null ||
+                root.GetComponentInChildren<Entry.Terrain.WhiteboxEntry>(true) != null ||
+                root.GetComponentInChildren<Entry.MapModule.MapModuleEntry>(true) != null ||
                 root.GetComponentInChildren<Entry.Terrain.GeologyLabEntry>(true) != null);
 
         private static void Configure()

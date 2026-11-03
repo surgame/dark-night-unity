@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "sourceChat": {
+    "title": "整理主角 Spine 素材并制作预览",
+    "threadId": "01a181a5-8822-7850-acb8-0ca72115ae1f",
+    "selectionTurnId": "01a181bc-16b5-77c2-99c8-df91764c1295",
+    "selectionQuote": "帮我衔接一下run5和jump2看看效果",
+    "airborneTurnId": "01a181ef-2a91-71d1-8b67-67b4925db299",
+    "landingCorrectionTurnId": "01a18259-d0af-7e63-b52e-2a21501e99a9"
+  },
+  "authorProject": "美术素材/角色/主角/主角-腾空腿部.spine",
+  "idle": "ai_idel1_ok",
+  "move": "ai_mie_run5_ok",
+  "jumpBase": "ai_jump2_ok",
+  "airMovingLegs": "air_move_legs",
+  "airStationaryLegs": "air_idle_legs",
+  "airSampleStart": 0.12,
+  "airSampleEnd": 0.6,
+  "airSampleSeconds": 1.0,
+  "framesPerSecond": 12,
+  "landing": "真实接地立即按实际位移选择idle或move，不补播jump2末0.2秒",
+  "missingUnrelatedArt": "与原预览一致，只在派生播放数据隐藏尚缺工具等附件；不补画或改写原spine",
+  "notSelected": [
+    "ai_walk不能替代已选run5",
+    "单张腾空定格不能替代jump2加腿姿",
+    "中立身体／按速度前倾方案仅讨论，尚未制作或确认"
+  ]
+}

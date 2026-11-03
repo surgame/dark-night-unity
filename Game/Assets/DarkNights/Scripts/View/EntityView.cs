@@ -36,7 +36,7 @@ namespace DarkNights.View
 
         public abstract void Preview(int identity, int variant);
 
-        public void TintSurface(Color tint)
+        public virtual void TintSurface(Color tint)
         {
             tintTargets.Apply(tint, Ambient);
         }

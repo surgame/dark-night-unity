@@ -48,7 +48,7 @@ namespace DarkNights.View
                 if (selected || hover || actor.Hp < maximum)
                     Bar(mesh, Point(visual.StatusAnchor.position), 14, 2, actor.Hp / maximum,
                         new Color32(21, 33, 38, 255), actor.Enemy ? new Color32(193, 119, 112, 255) : new Color32(162, 199, 149, 255));
-                if (actor.Kind == "worker" && actor.Activity == "Idle")
+                if (selectionGuidesVisible && !actor.ManualControl && actor.Kind == "worker" && actor.Activity == "Idle")
                     Ellipse(mesh, root + new Vector2(0, -17) * zoom, Vector2.one * zoom, new Color32(223, 198, 139, 255));
             }
             foreach (BuildingViewData building in frame.World.Buildings)

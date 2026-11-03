@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-30",
+  "tool": "built-in image_gen.imagegen",
+  "outputs": [
+    {
+      "file": "06-near-wall-mining-draft.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18896-3db9-7340-b606-b6184a07f49c\\call_2LA9vrYS7QsyP3GX6LW6mLfS.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1655921,
+      "sha256": "fcaace98ca1466f80aa2fd3c8814a23559af8e43f40eea0e75ba25a84ddfb6f2"
+    },
+    {
+      "file": "06-near-wall-mining.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18896-3db9-7340-b606-b6184a07f49c\\call_4aErtFSiDBqCfjD4f32UXdVH.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1712347,
+      "sha256": "832f05d351561400dac4ac01607db44e0368fd44e7dc59f667479ffc05b530f3"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "美术素材/地图/20261030-hero-led-cave-concepts/01-flat-cave.png",
+      "sha256": "97a775ebd7b3398d956f031a7abd309a952dd8914ce7caaae6eb9987f668ec98"
+    },
+    {
+      "path": "美术素材/地图/20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    }
+  ],
+  "visualReview": "Draft and refinement inspected. Refinement breaks continuous yellow path into bedrock and sand patches, directs light toward working wall, depicts partial embedded ore and a local mining recess. Original cyan hero identity and approved outline/palette retained.",
+  "limitations": "Concept only: image does not validate tool range, scale, collision, grid cuts, lighting or shadow occlusion. Far background remains relatively bright; backwall could be flatter. No clear separate side route was produced. Two-player pose is illustrative, not a required division of labor or dependency on teammate light.",
+  "unityImported": false
+}

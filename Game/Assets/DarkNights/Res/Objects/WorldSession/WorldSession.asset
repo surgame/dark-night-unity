@@ -44,6 +44,7 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.ExpeditionJourneyBehaviour
   - DarkNights.Runtime.Objects.ExpeditionFlowBehaviour
   - DarkNights.Runtime.Objects.TerrainGameplayBehaviour
+  - DarkNights.Runtime.Objects.PhysicsSessionBehaviour
   SharedConfigs:
   - rid: 6961529734502023168
   - rid: 1002
@@ -86,6 +87,7 @@ MonoBehaviour:
           Seed: STRATA-0922
           Surface: rolling
           OrganicCaves: 0
+          DisableValleySculpt: 0
           Amplitude: 1
           OreDensity: 1
           ResourceProfile: cave-exploration
@@ -135,6 +137,7 @@ MonoBehaviour:
             ExposedShare: 0.35
             RichShare: 0.35
             Nests: 1
+          SurfaceAlgorithm: 
           Relief:
             Enabled: 1
             BaseHeightCells: 0
@@ -142,7 +145,9 @@ MonoBehaviour:
             WavelengthCells: 84
             DockTransitionCells: 16
           RegionOverrides: []
-        MineMap: {fileID: 0}
+          SeedSelection:
+            Mode: fixed
+            Seeds: []
         ReviewedMap: {fileID: 11400000, guid: c2b5e403d16dc4649a764a56b1854b74, type: 2}
         Geology:
           Enabled: 1

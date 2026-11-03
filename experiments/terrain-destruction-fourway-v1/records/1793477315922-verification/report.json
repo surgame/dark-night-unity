@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-01",
+  "models": [
+    {
+      "w": 64,
+      "h": 40,
+      "seed": 271,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    },
+    {
+      "w": 96,
+      "h": 60,
+      "seed": 902,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    },
+    {
+      "w": 320,
+      "h": 192,
+      "seed": 271,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    }
+  ],
+  "views": [
+    {
+      "method": "dual",
+      "variation": 570366,
+      "signature": "613d2fb4"
+    },
+    {
+      "method": "whole",
+      "variation": 570366,
+      "signature": "613d2fb4"
+    },
+    {
+      "method": "hybrid",
+      "variation": 570366,
+      "signature": "613d2fb4"
+    },
+    {
+      "method": "edge",
+      "variation": 570360,
+      "signature": "5e34a72d"
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "scheme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 736,
+      "scheme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "scheme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "scheme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "scheme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "scheme": "dark",
+      "overflow": false,
+      "clipped": 0
+    }
+  ],
+  "errors": [],
+  "scope": "Independent four-way WebGL2 prototype.",
+  "finiteCatalogueRejectsThreeWay": true,
+  "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "mouse": {
+    "clickCount": 1,
+    "dragCount": 6,
+    "allMethodsSame": true,
+    "panWithoutBreaking": true
+  },
+  "restore": true,
+  "referenceCases": [
+    "96",
+    "320"
+  ],
+  "contextRestored": true,
+  "touch": {
+    "tapCount": 1,
+    "panWithoutBreaking": true
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/terrain-fourway.html",
+    "sha256": "539e497b9150e082b655ea33556167bf5126f3ccf248642742c78ff9c45d6324"
+  },
+  "passed": true
+}

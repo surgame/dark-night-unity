@@ -1,0 +1,221 @@
+<div id="cave-entry-variants-v1">
+  <style>
+    #cave-entry-variants-v1 { color:var(--foreground); }
+    #cave-entry-variants-v1 .ev-gap { margin-top:calc(var(--font-size-base) * .75); }
+    #cave-entry-variants-v1 .ev-title { padding-right:96px; }
+    #cave-entry-variants-v1 .ev-fields { display:flex; flex-wrap:wrap; gap:calc(var(--font-size-base) * .75); }
+    #cave-entry-variants-v1 .ev-field { display:grid; gap:calc(var(--font-size-base) * .25); flex:1 1 220px; }
+    #cave-entry-variants-v1 .ev-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:calc(var(--font-size-base) * .75); }
+    #cave-entry-variants-v1 .ev-meta { display:flex; justify-content:space-between; flex-wrap:wrap; gap:calc(var(--font-size-base) * .5); }
+    #cave-entry-variants-v1 .ev-legend { display:flex; flex-wrap:wrap; gap:calc(var(--font-size-base) * 1); }
+    #cave-entry-variants-v1 .ev-key { display:inline-flex; align-items:center; gap:calc(var(--font-size-base) * .35); }
+    #cave-entry-variants-v1 .ev-dot { width:8px; height:8px; border-radius:50%; background:var(--ev-color); }
+    #cave-entry-variants-v1 .ev-map { display:block; width:100%; overflow:visible; }
+    #cave-entry-variants-v1 .ev-map text { fill:var(--foreground); }
+    #cave-entry-variants-v1 .ev-rock { fill:color-mix(in srgb,var(--viz-series-2) 18%,var(--background)); }
+    #cave-entry-variants-v1 .ev-edge { fill:none; stroke:color-mix(in srgb,var(--foreground) 60%,var(--background)); stroke-width:1.25; vector-effect:non-scaling-stroke; }
+    #cave-entry-variants-v1 .ev-air { fill:color-mix(in srgb,var(--viz-series-3) 7%,var(--background)); }
+    #cave-entry-variants-v1 .ev-plant { fill:var(--viz-series-1); }
+    #cave-entry-variants-v1 .ev-fungus { fill:var(--viz-series-2); }
+    #cave-entry-variants-v1 .ev-water { fill:var(--viz-series-3); }
+    #cave-entry-variants-v1 .ev-foliage-line { fill:none; stroke:var(--viz-series-1); stroke-width:.027; stroke-linecap:round; }
+    #cave-entry-variants-v1 .ev-waterline { fill:none; stroke:var(--viz-series-3); stroke-width:.026; stroke-linecap:round; }
+    #cave-entry-variants-v1 .ev-flowmark { fill:none; stroke:var(--background); stroke-width:.018; stroke-linecap:round; }
+    #cave-entry-variants-v1 .ev-struct { fill:none; stroke:var(--border); stroke-width:1; }
+    #cave-entry-variants-v1 .ev-boundary { fill:none; stroke:var(--muted-foreground); stroke-width:1; stroke-dasharray:4 4; }
+    #cave-entry-variants-v1 .ev-callout { stroke:var(--muted-foreground); stroke-width:1; fill:none; }
+    #cave-entry-variants-v1 .ev-photo { display:block; }
+    #cave-entry-variants-v1 [data-animation] { transform-box:fill-box; }
+    #cave-entry-variants-v1 [data-animation="grass"], #cave-entry-variants-v1 [data-animation="fungus"] { transform-origin:50% 100%; }
+    #cave-entry-variants-v1 [data-animation="root"] { transform-origin:50% 0%; }
+    #cave-entry-variants-v1 .ev-hidden { display:none; }
+    @media (max-width:520px) {
+      #cave-entry-variants-v1 .ev-title { padding-right:88px; }
+      #cave-entry-variants-v1 .ev-field { flex-basis:130px; }
+    }
+  </style>
+  <h2 class="ev-title">入口与第二片 · 六种走向</h2>
+  <div class="ev-fields ev-gap">
+    <label class="ev-field form-label">地形方案
+      <select id="ev-variant" class="form-select">
+        <option value="descent">缓坡续深</option>
+        <option value="steps">岩阶入洞</option>
+        <option value="lowpass">浅坳低口</option>
+        <option value="shoulder">岩肩上台</option>
+        <option value="stream">沿溪深入</option>
+        <option value="shelf">岩棚分岔</option>
+      </select>
+    </label>
+    <label class="ev-field form-label">观察范围
+      <select id="ev-view" class="form-select">
+        <option value="all">两片连续</option>
+        <option value="entry">入口放大</option>
+        <option value="join">接缝放大</option>
+        <option value="next">第二片放大</option>
+      </select>
+    </label>
+  </div>
+  <div class="ev-toolbar ev-gap">
+    <label class="form-check"><input id="ev-ecology" class="form-check-input" type="checkbox" checked><span class="form-check-label">生态</span></label>
+    <label class="form-check"><input id="ev-bounds" class="form-check-input" type="checkbox" checked><span class="form-check-label">模块线</span></label>
+    <button id="ev-preview" type="button" class="btn">动作预演</button>
+    <span id="ev-motion-status" class="text-small" aria-live="polite">草／垂根摆动 · 菌盖回弹 · 水流</span>
+  </div>
+  <div class="ev-meta ev-gap text-small">
+    <span>每片 2×1 · 6.4×3.2（尺寸草案）</span>
+    <span>同镜头 · 主角 H≈0.48</span>
+  </div>
+  <svg id="ev-map" class="ev-map ev-gap" role="img" aria-labelledby="ev-svg-title ev-svg-desc"></svg>
+  <div id="ev-detail" class="ev-gap" aria-live="polite"></div>
+  <div class="ev-legend ev-gap text-small" aria-label="生态图例">
+    <span class="ev-key"><span class="ev-dot" style="--ev-color:var(--viz-series-1)"></span>草与垂根</span>
+    <span class="ev-key"><span class="ev-dot" style="--ev-color:var(--viz-series-2)"></span>菌簇</span>
+    <span class="ev-key"><span class="ev-dot" style="--ev-color:var(--viz-series-3)"></span>浅水与渗流</span>
+  </div>
+  <div id="ev-ecology-detail" class="text-small ev-gap"></div>
+  <script>
+  (() => {
+    const root = document.getElementById("cave-entry-variants-v1");
+    const schemes = __SCHEMES__;
+    const heroSource = __HERO__;
+    const variantSelect = root.querySelector("#ev-variant");
+    const viewSelect = root.querySelector("#ev-view");
+    const ecologyInput = root.querySelector("#ev-ecology");
+    const boundsInput = root.querySelector("#ev-bounds");
+    const previewButton = root.querySelector("#ev-preview");
+    const motionStatus = root.querySelector("#ev-motion-status");
+    const map = root.querySelector("#ev-map");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const views = {all:[0,12.8],entry:[0,6.4],join:[3.2,9.6],next:[6.4,12.8]};
+    let state = {design:"cave-entry-variants-v1",variant:"descent",view:root.clientWidth<520?"entry":"all",ecology:true,bounds:true};
+    let frame = 0, startTime = 0, active = false, visible = true;
+    const number = n => Number(n.toFixed(4));
+    const current = () => schemes.find(scheme => scheme.id === state.variant);
+    function restore(saved) {
+      if (!saved || saved.design !== state.design) return;
+      if (schemes.some(s => s.id === saved.variant)) state.variant = saved.variant;
+      if (views[saved.view]) state.view = saved.view;
+      if (typeof saved.ecology === "boolean") state.ecology = saved.ecology;
+      if (typeof saved.bounds === "boolean") state.bounds = saved.bounds;
+    }
+    function persist() {
+      const selected = current();
+      if (window.openai && window.openai.setWidgetState) {
+        window.openai.setWidgetState({modelContent:{...state,name:selected.name,entryPort:selected.port,nextExitFloors:selected.ends,sizeDraft:true},privateContent:null}).catch(() => {});
+      }
+    }
+    function stopMotion() {
+      cancelAnimationFrame(frame);
+      active = false;
+      map.querySelectorAll("[data-animation]").forEach(el => {
+        el.removeAttribute("style");
+        if (el.dataset.animation === "flow") el.setAttribute("transform","translate(0 0)");
+      });
+      previewButton.disabled = !state.ecology;
+      previewButton.textContent = "动作预演";
+    }
+    function grass(plant, index) {
+      const body = "M-.15 0 Q-.18 -.1 -.15 -.19 Q-.09 -.14 -.055 -.065 Q-.07 -.23 -.015 -.32 Q.04 -.21 .025 -.07 Q.09 -.23 .15 -.21 Q.15 -.08 .1 0Z";
+      return `<g transform="translate(${plant.x} ${plant.y}) scale(${plant.scale})"><g data-animation="grass" data-phase="${index*.83}" style="transform-origin:50% 100%"><path class="ev-plant" d="${body}"/></g></g>`;
+    }
+    function fungus(plant,index) {
+      return `<g transform="translate(${plant.x} ${plant.y}) scale(${plant.scale})"><path class="ev-fungus" opacity=".6" d="M-.018 0L-.03 -.18H.025L.018 0Z M.16 0V-.11H.185L.19 0Z"/><g data-animation="fungus" data-phase="${index*.91}" style="transform-origin:50% 100%"><path class="ev-fungus" d="M-.17 -.17Q-.15 -.34 0 -.35Q.12 -.34 .16 -.19Q.05 -.14 -.17 -.17Z M.08 -.1Q.1 -.23 .18 -.23Q.26 -.22 .29 -.11Q.2 -.08 .08 -.1Z"/></g></g>`;
+    }
+    function roots(plant,index) {
+      const length = plant.length;
+      return `<g transform="translate(${plant.x} ${plant.y})"><g data-animation="root" data-phase="${index*.79}" style="transform-origin:50% 0%"><path class="ev-foliage-line" d="M-.08 0Q-.12 ${length*.6} -.06 ${length} M.01 0Q.09 ${length*.4} .03 ${length*1.23} M.1 0Q.16 ${length*.5} .12 ${length*.8}"/><path class="ev-plant" d="M.035 ${length*.46}Q.22 ${length*.3} .12 ${length*.7}Z M-.09 ${length*.25}Q-.25 ${length*.15} -.12 ${length*.52}Z"/></g></g>`;
+    }
+    function water(scheme) {
+      if (!scheme.water) return "";
+      const w = scheme.water;
+      const pool = `M${w.left} ${w.surface}H${w.right}L${w.right} 3.2H${w.left}Z`;
+      let lines = "";
+      for (let i=0;i<7;i++) {
+        const y=w.top+i*.27;
+        lines += `<path class="ev-flowmark" data-animation="flow" data-phase="${i}" d="M${w.x-.028+(i%2)*.06} ${y}q-.035 .065 -.005 .13"/>`;
+      }
+      return `<g clip-path="url(#ev-air-clip)"><path class="ev-water" opacity=".25" d="${pool}"/><path class="ev-waterline" d="M${w.left} ${w.surface}Q${(w.left+w.right)/2} ${w.surface-.025} ${w.right} ${w.surface}"/><path class="ev-water" opacity=".65" d="M${w.x-.065} ${w.top}Q${w.x+.08} ${w.top+.4} ${w.x+.03} ${w.bottom}H${w.x-.07}Q${w.x-.03} ${w.top+.4} ${w.x-.065} ${w.top}Z"/><g clip-path="url(#ev-flow-clip)">${lines}</g><g data-animation="ripple"><path class="ev-waterline" d="M${w.x-.16} ${w.bottom}q.16 -.12 .32 0 M${w.x+.2} ${w.bottom+.025}h.24 M9.2 ${w.bottom+.065}h.32"/></g></g>`;
+    }
+    function render() {
+      stopMotion();
+      const scheme = current(), width = Math.max(280,root.clientWidth);
+      variantSelect.value=state.variant; viewSelect.value=state.view;
+      ecologyInput.checked=state.ecology; boundsInput.checked=state.bounds;
+      const [left,right]=views[state.view], pad=10;
+      const scale=(width-2*pad)/(right-left), top=45;
+      const height=top+3.2*scale+35;
+      map.setAttribute("viewBox",`0 0 ${width} ${height}`);
+      map.setAttribute("height",height);
+      map.dataset.variant=scheme.id;
+      map.dataset.scale=scale;
+      map.dataset.worldWindow=JSON.stringify([left,right]);
+      const tx=pad-left*scale;
+      let plants=scheme.plants.map((p,i)=>p.kind==="grass"?grass(p,i):fungus(p,i)).join("");
+      plants += scheme.roots.map(roots).join("");
+      if(scheme.shelfPlant) plants += fungus({x:scheme.shelfPlant[0],y:scheme.shelfPlant[1],scale:.88},7);
+      const ecology=state.ecology?`<g data-ecology>${plants}${water(scheme)}</g>`:"";
+      const heroes=scheme.heroes.map((hero,i)=>`<image class="ev-photo" data-hero="${i}" x="${number(hero.x-.48*232/251/2)}" y="${number(hero.y-.48)}" width="${number(.48*232/251)}" height=".48" href="${heroSource}"/>`).join("");
+      const outlines=scheme.shelf?`<path class="ev-rock" data-rock-shelf d="${scheme.shelf}"/><path class="ev-edge" d="${scheme.shelf}"/>`:"";
+      let bounds="",heads="";
+      for (let i=0;i<2;i++) {
+        const x=i*6.4;
+        if(state.bounds) bounds+=`<rect class="ev-boundary" x="${pad+(x-left)*scale}" y="${top}" width="${6.4*scale}" height="${3.2*scale}"/>`;
+        const title=i===0?"入口 · 地表 → 洞内":"第二片 · "+(scheme.id==="shelf"?"上下分岔":"继续探索");
+        if(x>=left-.001 && x+6.4<=right+.001) heads+=`<text class="text-small" x="${pad+(x-left)*scale+5}" y="18">${title}</text>`;
+      }
+      if(state.view==="join") heads=`<text class="text-small" x="${pad+4}" y="18">入口后段</text><text class="text-small" x="${width/2+12}" y="18">第二片前段</text>`;
+      const featureMarks=scheme.features.filter(([x])=>x>left+.25 && x<right-.25).map(([x,label])=>{
+        const px=pad+(x-left)*scale;
+        return `<text class="text-small" x="${px}" y="${height-8}" text-anchor="middle">${label}</text>`;
+      }).join("");
+      const worldAir=`M0 0H12.8V3.2H0Z`;
+      const flowClip=scheme.water?`<clipPath id="ev-flow-clip"><rect x="${scheme.water.x-.1}" y="${scheme.water.top}" width=".2" height="${scheme.water.bottom-scheme.water.top}"/></clipPath>`:"";
+      map.innerHTML=`<title id="ev-svg-title">${scheme.name}：入口与第二片连续地形</title><desc id="ev-svg-desc">严格正侧视。左侧露天地面经过洞檐进入地下。${scheme.rhythm}。两片各占2乘1，同一主角高度0.48。生态为展示草案，不含碰撞或采集。</desc><defs><clipPath id="ev-viewport"><rect x="${pad}" y="${top}" width="${width-pad*2}" height="${scale*3.2}"/></clipPath><mask id="ev-air-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="12.8" height="3.2"><path fill="white" d="${worldAir}"/><path fill="black" d="${scheme.floorSolid}"/><path fill="black" d="${scheme.ceilingSolid}"/>${scheme.shelf?`<path fill="black" d="${scheme.shelf}"/>`:""}</mask><clipPath id="ev-air-clip"><path d="${scheme.floorPath} L12.8 0 H0Z"/></clipPath><linearGradient id="ev-daylight"><stop stop-color="var(--viz-series-2)" stop-opacity=".14"/><stop offset=".22" stop-color="var(--viz-series-2)" stop-opacity=".07"/><stop offset=".4" stop-color="var(--viz-series-2)" stop-opacity="0"/></linearGradient>${flowClip}</defs>${heads}<g clip-path="url(#ev-viewport)"><g data-world transform="translate(${tx} ${top}) scale(${scale})"><path class="ev-air" d="${worldAir}"/><path fill="url(#ev-daylight)" mask="url(#ev-air-mask)" d="${worldAir}"/>${ecology}<path class="ev-rock" data-floor-solid d="${scheme.floorSolid}"/><path class="ev-rock" data-ceiling-solid d="${scheme.ceilingSolid}"/><path class="ev-edge" data-floor-edge d="${scheme.floorPath}"/><path class="ev-edge" data-ceiling-edge d="${scheme.ceilingPath}"/>${outlines}${heroes}</g>${bounds}</g>${featureMarks}`;
+      root.querySelector("#ev-detail").textContent=scheme.rhythm;
+      root.querySelector("#ev-ecology-detail").textContent=state.ecology?scheme.ecology:"纯地形";
+      motionStatus.textContent=state.ecology?"草／垂根摆动 · 菌盖回弹 · 水流":"生态已隐藏";
+      root.dataset.state=JSON.stringify(state);
+    }
+    function animate(time) {
+      if(!active || !visible) return;
+      const elapsed=(time-startTime)/1000;
+      if(elapsed>=5) {
+        stopMotion();
+        motionStatus.textContent="预演结束 · 动态仅为表现草案";
+        return;
+      }
+      map.querySelectorAll("[data-animation]").forEach(element=>{
+        const phase=Number(element.dataset.phase||0), type=element.dataset.animation;
+        const envelope=Math.min(1,elapsed*3,(5-elapsed)*3);
+        if(type==="grass") element.style.transform=`rotate(${Math.sin(elapsed*2.7+phase)*6*envelope}deg)`;
+        if(type==="root") element.style.transform=`rotate(${Math.sin(elapsed*1.7+phase)*4*envelope}deg)`;
+        if(type==="fungus") element.style.transform=`scale(${1+Math.sin(elapsed*8+phase)*Math.exp(-elapsed*1.4)*.06},${1-Math.sin(elapsed*8+phase)*Math.exp(-elapsed*1.4)*.1})`;
+        if(type==="flow") element.setAttribute("transform",`translate(0 ${(elapsed*.9)% .27})`);
+        if(type==="ripple") element.style.opacity=String(.5+Math.sin(elapsed*9)*.25);
+      });
+      frame=requestAnimationFrame(animate);
+    }
+    variantSelect.addEventListener("change",()=>{state.variant=variantSelect.value;render();persist();});
+    viewSelect.addEventListener("change",()=>{state.view=viewSelect.value;render();persist();});
+    ecologyInput.addEventListener("change",()=>{state.ecology=ecologyInput.checked;render();persist();});
+    boundsInput.addEventListener("change",()=>{state.bounds=boundsInput.checked;render();persist();});
+    previewButton.addEventListener("click",()=>{
+      if(active) {stopMotion();motionStatus.textContent="预演已停止";return;}
+      if(reduced.matches) {motionStatus.textContent="已遵循系统的减少动态设置";return;}
+      active=true;startTime=performance.now();previewButton.textContent="停止预演";
+      motionStatus.textContent="动作预演中 · 5秒";
+      frame=requestAnimationFrame(animate);
+    });
+    document.addEventListener("visibilitychange",()=>{if(document.hidden){stopMotion();motionStatus.textContent="预演已暂停";}});
+    const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible)stopMotion();});
+    intersection.observe(root);
+    const resize=new ResizeObserver(()=>render());resize.observe(root);
+    window.addEventListener("openai:set_globals",event=>{
+      const incoming=event.detail && event.detail.globals && event.detail.globals.widgetState;
+      restore(incoming);render();
+    });
+    restore(window.openai && window.openai.widgetState);
+    render();
+  })();
+  </script>
+</div>

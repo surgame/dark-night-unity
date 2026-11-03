@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-31",
+  "scope": "Focused offline phase checks with small fixtures; no Unity, visual acceptance or movement tuning.",
+  "source": [
+    {
+      "file": "engine.js",
+      "sha256": "54bea96bfe12355f9c3b00d5a33a6f62c5bd3958718b8eefcc490a242b601187"
+    },
+    {
+      "file": "renderer.js",
+      "sha256": "7055d190a8da408ad9095eb6af7d4bcc54a91115d3ff856d1b9fbaaae305a888"
+    },
+    {
+      "file": "verify-phases.cjs",
+      "sha256": "4f637d8863327e9b5be9271042760a7bd575f5d1205444f4063cf0a0aa017d9c"
+    }
+  ],
+  "checks": [
+    {
+      "name": "Bridge support waits for construction, including a saved midpoint",
+      "ok": true
+    },
+    {
+      "name": "In-flight cargo cannot be picked up; identity and remaining duration survive restore",
+      "ok": true
+    },
+    {
+      "name": "Phase snapshots do not expose mutable construction or cargo state",
+      "ok": true
+    }
+  ],
+  "failures": [],
+  "ok": true
+}

@@ -44,6 +44,7 @@ namespace DarkNights.Runtime.Objects
         public EconomyBehaviour Economy { get; private set; }
         public WaveBehaviour Waves { get; private set; }
         public ProjectileBehaviour Projectiles { get; private set; }
+        public PhysicsSessionBehaviour Physics { get; private set; }
         public TerrainGameplayBehaviour TerrainGameplay { get; private set; }
         public SessionGeology Geology { get; }
         public ExpeditionJourneyBehaviour Journey { get; private set; }
@@ -114,6 +115,8 @@ namespace DarkNights.Runtime.Objects
             Economy = owner.GetBehaviour<EconomyBehaviour>() ?? throw new InvalidOperationException("Missing economy capability.");
             Waves = owner.GetBehaviour<WaveBehaviour>() ?? throw new InvalidOperationException("Missing wave capability.");
             Projectiles = owner.GetBehaviour<ProjectileBehaviour>() ?? throw new InvalidOperationException("Missing projectile capability.");
+            Physics = owner.GetBehaviour<PhysicsSessionBehaviour>();
+            if (Layout.Physics != null && Physics == null) throw new InvalidOperationException("物理候选缺少会话状态能力。");
             Journey = owner.GetBehaviour<ExpeditionJourneyBehaviour>();
             Flow = owner.GetBehaviour<ExpeditionFlowBehaviour>();
             TerrainGameplay = owner.GetBehaviour<TerrainGameplayBehaviour>();
@@ -126,6 +129,7 @@ namespace DarkNights.Runtime.Objects
             Economy.Prepare();
             Waves.Prepare();
             Projectiles.Prepare();
+            Physics?.Prepare();
             persistence = new ObjectSessionPersistence(this, placements);
             Mutations.Run(() =>
             {
@@ -227,7 +231,6 @@ namespace DarkNights.Runtime.Objects
         public int Recruit() => Mutations.Run(Commands.Recruit);
         public bool Repair(int id) => Mutations.Run(() => Commands.Repair(id));
         public bool StartNight() => Mutations.Run(Waves.StartNight);
-
         public void SetTime(bool paused, int speed) => Commands.SetTime(paused, speed);
 
         public void Advance(double seconds)
@@ -238,11 +241,7 @@ namespace DarkNights.Runtime.Objects
             Mutations.Run(() =>
             {
                 double delta = Camp.BeginStep(seconds);
-                foreach (ActorBehaviour actor in Index.Actors.Where(a => a.Read().ManualControl).ToArray())
-                {
-                    if (Camp.Read().Mode != SessionMode.Playing) return true;
-                    actor.Tick(delta);
-                }
+                SessionActorMotion.Advance(this, delta);
                 Projectiles.Tick(delta);
                 return true;
             });
@@ -250,7 +249,6 @@ namespace DarkNights.Runtime.Objects
 
         internal void Notify(string text, bool error = false) => Mutations.AfterCommit(() => Feedback.Notify(text, error));
         internal void Emit(VisualCue cue) => Mutations.AfterCommit(() => Feedback.Emit(cue));
-
         private void Release(ObjectInstance instance) => ReleaseEntity(instance);
 
         internal void ReleaseEntity(ObjectInstance instance)
@@ -267,6 +265,7 @@ namespace DarkNights.Runtime.Objects
             if (disposed) return;
             if (Mutations.IsOpen) throw new InvalidOperationException("Cannot retire a session inside a state notification.");
             disposed = true;
+            Physics?.Invalidate();
             Flow?.ResetPending();
             Geology.Dispose();
             ObjectInstance[] entities = Index.FreezeOrder().Select(e => e.Object).ToArray();

@@ -57,7 +57,7 @@ namespace DarkNights.Runtime.Objects
                 actors, buildings, sites, shots,
                 new StatisticsSnapshot(camp.Kills, camp.Lost, session.Economy.Gathered),
                 camp.Mode, identities, session.Terrain?.Capture(), ExpeditionMapping.Capture(session),
-                Array.Empty<MineralDepositSnapshot>());
+                Array.Empty<MineralDepositSnapshot>(), session.Physics?.Capture(forSave: true));
         }
 
         internal static CampSimulationState Camp(SessionSnapshot s) => new CampSimulationState

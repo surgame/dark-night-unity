@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-31",
+  "scope": "Focused offline phase checks with small fixtures; no Unity, visual acceptance or movement tuning.",
+  "source": [
+    {
+      "file": "engine.js",
+      "sha256": "7694f132a507f755362a9c4b96bfe8031602ecef2945264b190b514e82c13273"
+    },
+    {
+      "file": "renderer.js",
+      "sha256": "c8a018aa2e51ec2bc162752654266ed8c1be48c2f124f4b89584a4a1aafc3c91"
+    },
+    {
+      "file": "verify-phases.cjs",
+      "sha256": "35380be8afddb7289fa0ec07ad49b1b0429e91ddb77d88c50e3793efb68bf28a"
+    }
+  ],
+  "checks": [
+    {
+      "name": "Bridge support waits for construction, including a saved midpoint",
+      "ok": true
+    },
+    {
+      "name": "In-flight cargo cannot be picked up; identity and remaining duration survive restore",
+      "ok": true
+    },
+    {
+      "name": "Phase snapshots do not expose mutable construction or cargo state",
+      "ok": true
+    },
+    {
+      "name": "Horizontal motion respects the authored ceiling and permits escape from an initial overlap",
+      "ok": true
+    },
+    {
+      "name": "Cargo clearance uses actual roof geometry instead of the lowroof metadata rectangle",
+      "ok": true
+    }
+  ],
+  "failures": [],
+  "ok": true
+}

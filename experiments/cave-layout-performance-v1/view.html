@@ -1,0 +1,69 @@
+<div id="cave-layout-performance">
+  <style>
+    #cave-layout-performance{--cp-rock:color-mix(in srgb,var(--foreground) 22%,var(--background));--cp-edge:color-mix(in srgb,var(--foreground) 72%,var(--background));display:flex;flex-direction:column;gap:calc(var(--font-size-base)*.7);color:var(--foreground);overflow-wrap:anywhere}
+    #cave-layout-performance .cp-heading{padding-inline-end:90px}
+    #cave-layout-performance [hidden]{display:none!important}
+    #cave-layout-performance .cp-row{display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap}
+    #cave-layout-performance .cp-field{display:flex;gap:6px;align-items:center;min-width:0;max-width:100%;white-space:nowrap}
+    #cave-layout-performance .cp-field select{max-width:100%}
+    #cave-layout-performance .cp-stage{position:relative;width:100%;aspect-ratio:1.6}
+    #cave-layout-performance .cp-stage canvas{position:absolute;width:100%;height:100%;display:block}
+    #cave-layout-performance #cp-overlay{pointer-events:none}
+    #cave-layout-performance .cp-caption{position:absolute;left:8px;top:8px;background:var(--background);padding:3px 6px;pointer-events:none}
+    #cave-layout-performance .cp-table{min-width:0;max-width:100%}
+    #cave-layout-performance .cp-table table{min-width:720px}
+    #cave-layout-performance .cp-table th:first-child,#cave-layout-performance .cp-table td:first-child{white-space:nowrap}
+    #cave-layout-performance .cp-meta{min-height:1.4em}
+    #cave-layout-performance progress{width:100%}
+  </style>
+  <div class="cp-heading">洞网性能 · 预设房间与随机连接</div>
+  <div class="cp-row">
+    <label class="cp-field">端口<select class="form-select" id="cp-profile"><option value="mixed">混合宽度</option><option value="standard">标准宽度</option></select></label>
+    <label class="cp-field">位置<select class="form-select" id="cp-size"><option value="128">128</option><option value="512" selected>512</option><option value="2048">2048</option></select></label>
+    <label class="cp-field">轮次<select class="form-select" id="cp-rounds"><option value="8">8</option><option value="16" selected>16</option><option value="32">32</option></select></label>
+  </div>
+  <div class="cp-row" aria-label="预览地形方式">
+    <button type="button" class="btn" data-method="contour" aria-pressed="false">连续轮廓</button>
+    <button type="button" class="btn" data-method="blocks" aria-pressed="false">大块直拼</button>
+    <button type="button" class="btn" data-method="bridges" aria-pressed="true">大块＋过渡</button>
+    <button type="button" class="btn" data-method="wfc" aria-pressed="false">大块WFC</button>
+  </div>
+  <div class="cp-row">
+    <label class="cp-field">预览<select class="form-select" id="cp-view"><option value="local" selected>固定房间近看</option><option value="all">完整洞网</option></select></label>
+    <label class="cp-field">绘制<select class="form-select" id="cp-policy"><option value="chunks">统一分块</option><option value="instances">模板实例复用</option></select></label>
+    <button type="button" class="btn" id="cp-seed">换种子</button>
+  </div>
+  <div class="cp-stage">
+    <canvas id="cp-scene" aria-label="当前随机洞网的实际WebGL2网格，方框标出保持原样的预设房间"></canvas>
+    <canvas id="cp-overlay" aria-hidden="true"></canvas><span id="cp-caption" class="cp-caption text-small"></span>
+  </div>
+  <div id="cp-plan" class="text-small cp-meta"></div>
+  <div class="cp-row">
+    <button type="button" class="btn btn-primary" id="cp-run">测当前规模</button>
+    <button type="button" class="btn" id="cp-all">测三档规模</button>
+    <button type="button" class="btn" id="cp-cancel" hidden>停止</button>
+    <button type="button" class="btn" id="cp-export">导出报告</button>
+  </div>
+  <progress id="cp-progress" max="1" value="0" hidden aria-label="基准测试进度"></progress>
+  <div class="text-small" id="cp-status" role="status" aria-live="polite"></div>
+  <div class="text-small text-muted" id="cp-hardware"></div>
+  <div class="text-small" id="cp-source"></div>
+  <div class="text-small">时间：CPU阶段P50；完成时间P50／P95（毫秒）</div>
+  <div class="cp-table table-responsive">
+    <table class="table table-sm tabular-nums" aria-label="四种方案的生成与绘制计时">
+      <thead><tr><th>方案</th><th class="text-end">生成</th><th class="text-end">几何</th><th class="text-end">分块</th><th class="text-end">分块就绪CPU</th><th class="text-end">上传P50<br>分块／复用</th><th class="text-end">64次分块绘制</th><th class="text-end">64次实例绘制</th></tr></thead>
+      <tbody id="cp-times"></tbody>
+    </table>
+  </div>
+  <div class="text-small">资源：代表种子；轮廓引用区块，大块引用模块；形状配置不等于手绘tile</div>
+  <div class="cp-table table-responsive">
+    <table class="table table-sm tabular-nums" aria-label="四种方案的形状库、几何引用与缓冲有效载荷">
+      <thead><tr><th>方案</th><th class="text-end">预设房型<br>用／库</th><th class="text-end">额外形状<br>用／库</th><th class="text-end">几何引用</th><th class="text-end">缓冲顶点<br>分块／源库</th><th class="text-end">有效载荷MiB<br>分块／复用</th></tr></thead>
+      <tbody id="cp-resources"></tbody>
+    </table>
+  </div>
+  <div class="text-small text-muted">960×600输出 · 256×160固定相机 · 绘制列为64次实际同步绘制总时长；单次原始样本见报告 · 无贴图／物理／照明／联网 · 非Unity帧率</div>
+  <div class="text-small text-muted">每轮新种子、新几何缓存；复用指同图模块实例。连续轮廓不另建terrain tile库，仍需材质与预设内容。</div>
+  <div class="text-small text-muted">CPU合计按统一分块流程计时；纯实例流程可以省掉分块阶段，表中只分别比较其上传、绘制与缓冲。</div>
+  <div class="text-small text-destructive" id="cp-error" role="alert" hidden></div>
+</div>

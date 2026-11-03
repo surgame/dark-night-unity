@@ -1,0 +1,31 @@
+Use case: stylized-concept, whole-level environment planning.
+
+Create ONE complete illustrated 2D SIDE-VIEW cave cross-section, landscape 2560 x 1760 requested, with DRAMATICALLY DIFFERENT CHAMBER SIZES AND SILHOUETTES. The user's previous concepts failed because every room became another two-character-high tunnel or small oval mine pocket. The primary acceptance criterion here is the instantly visible contrast between truly large open caverns and tight passages. Branch count is secondary.
+
+REFERENCE ROLES:
+Image 1, shape-guide.png, is the authoritative macro AIR-SHAPE AND SCALE guide. Gray is open cave air, brown is solid rock. Two tiny cyan figures give a constant scale. Preserve the eight very different air envelopes, their approximate relative proportions and the narrow connecting passages. Keep the main giant hall as a HUGE CONTINUOUS OPEN AIR AREA, not a thin path around a new central rock mass. Preserve the broad open upper-left bell chamber, the broad center terrace chamber, the bottom bowl, the tall right-hand rift and the low wide upper chamber. The tiny triangular end nook must stay tiny. Naturalize the coarse polygon corners, but do NOT shrink big rooms back into uniform corridors. The guide is a side cross-section, not a top-down diagram.
+Image 2, user-style-reference.png, is ONLY for thick black ink contours, matte warm brown rocks, cool gray backwall, restrained painted facets and small cyan-hooded character design. Its narrow-corridor CAMERA COMPOSITION AND PROPORTIONS MUST NOT be inherited. Keep the art language and change the spatial architecture.
+
+WORLD COMPOSITION:
+A full mine under a small pine-valley surface strip, single entrance upper-left. All terminal walls close well inside the canvas with visible solid rock outside. In the same image, a player standing in the main giant hall is tiny beneath a roof roughly 10-15 character heights overhead, while the smallest connecting cleft is around 1.5-2 character heights. Use ONE fixed character scale throughout: only two tiny cyan miners together on the bottom floor of the bell-shaped chamber. Do not enlarge those figures to fill the giant space. This is an editor overview with all designed rooms visible, not a playable screenshot with fog.
+
+EIGHT REQUIRED DISTINCT SPACES, based on the guide:
+1. UPPER-LEFT GIANT BELL HALL: a tall, broad, lopsided cathedral-like natural cavity, flaring wide near its uneven bottom floor, narrowing toward a high offset apex. A huge visibly empty cool-gray wall field spans between its floor and ceiling. Only a few large ceiling overhangs. No pillar in the center and no busy decorative stalactite forest. The tiny people stand at its lowest floor. Exact label: “巨大钟形厅”.
+2. UPPER-RIGHT FLAT WIDE CHAMBER: an extremely long horizontal bedding-plane space, broad but low with a flat layered roof and uneven rock shelf. Distinct from both a tall hall and a short tunnel. Label: “扁平宽室”.
+3. CENTER SPLIT-LEVEL TERRACE HALL: a generous open cavity whose lower boundary and wall edges form several asymmetric natural attached terraces and an overhang. The shelves belong to the surrounding rock, not floating platforms or wooden structures. Keep a clear open volume above them. Label: “错层岩台厅”.
+4. FAR-RIGHT VERTICAL RIFT: a dramatically tall, slender, angular fault cavity with irregular inset ledges attached to alternating walls. Its large vertical negative space must be obvious. Do not turn it into a normal horizontal corridor or fill the shaft with rocks. This is a conceptual vertical exploration space, not a promise of easy jumps or mandatory free fall. Label: “竖向裂谷”.
+5. LOWER-CENTER COLLAPSE BOWL: a wide concave basin-shaped floor under a broken low arch, with fallen angular slabs accumulated at the bottom. The floor dips into a bowl and rises toward its edges. No water, no lava. Its profile differs from the tall bell and the flat room. Label: “塌落碗厅”.
+6. BETWEEN CENTRAL HALL AND RIGHT RIFT, a truly compressed long low fault cleft, almost pinched shut by a thick slanted roof slab. Its aperture should be about one tenth the height of the giant bell hall. Label: “压顶窄缝”.
+7. LEFT LOWER BRANCH, a fine crooked vertical fissure with close irregular walls, much tighter than the tall rift. Label: “细长裂隙”.
+8. LOW LEFT TERMINUS, a tiny asymmetric triangular rock recess connected to that thin fissure. This is the only small mine nook in that branch. Label: “盲端矿窝”.
+
+SURFACE AND ROCK VARIATION:
+Use different geological structures as well as different contours: huge broad ceiling blocks in the bell hall; horizontal bedding slabs at the flat chamber; attached stratified ledges in the terrace hall; tall slanted plates at the rift; broken angular scree in the bowl. Avoid identical rounded boulder patterns everywhere. No even rows of same-sized chambers, no uniform branching tubes. Respect the guide's thick separators and declared connections. Do not add traversal loops, extra entrances or detached rooms.
+
+Keep exposed amber ore sparse and subordinate to the architecture. At most two or three tiny clues and a restrained ochre hatched mineral patch behind one rock wall, rather than a gold reward pile in every room. Clean cool-gray background walls should make the huge air volumes legible. Warm dusty floors and dark warm foreground walls, hand-inked contours, no glossy 3D, no top-down view.
+
+TEXT AND PRESENTATION:
+Exact title at top: “洞室尺度与形态”
+Eight exact labels above, each once, warm ivory Chinese type with fine leader lines placed in rock margins. No long route arrows, no colored path overlays, no UI panels. Small bottom note only: “同一人物比例 · 大洞与窄路交替 · 设计示意”
+
+No spaceships, camp, buildings, preinstalled ladders, ropes, bridges, machinery, ruins, new gear, enemies, bosses, treasure chests, water, lava, magical glow, numbers claiming rewards or route timings, HUD, logos or watermarks. Do not solve the scale contrast by drawing a zoomed inset: all spaces belong to ONE coherent full side-view map at one scale.

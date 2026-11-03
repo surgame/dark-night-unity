@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-31",
+  "tool": "built-in image_gen.imagegen",
+  "modelIdentity": "not exposed by tool",
+  "sourcePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\rock-material-v2.png",
+  "generatedOriginal": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\call_niFqDXeuurZt7Eeh3tVN8UlM.png",
+  "nativeSize": [
+    1536,
+    1024
+  ],
+  "mode": "RGB",
+  "bytes": 1530659,
+  "sha256": "19183e896ed5a0642fb133333894100425693d5a038548066a7ddef4f22cc371",
+  "copiedWithoutImageChanges": true,
+  "promptFile": "prompts/repair-rock-material-v2.json",
+  "role": "Rock material only; derived exact geometry, multilayer ports and road-depth projection remain separate.",
+  "periodicity": "No claim that generated edges tile; world-space mirrored addressing is the rendering contract."
+}

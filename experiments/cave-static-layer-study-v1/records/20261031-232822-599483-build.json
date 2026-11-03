@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-31",
+  "scope": "Static author terrain, equivalent WFC encodings; no digging or Unity changes.",
+  "output": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\cave-static-layers.html",
+  "bytes": 97827,
+  "sha256": "fb879703e01a1fa4f78a0e5d76773a70ab6a69e77e7e98663912425d3c2371f6",
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-static-layer-study-v1\\view.html",
+      "sha256": "c28ea9b63b409f1d78d46c7bc841387791208054899026cbc50b9f10c9bd489e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\plan.js",
+      "sha256": "58f6ea6d3028a9088ec97f9fc2675c4ab8260c0be84abf65a182823e52748b47"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\catalog.js",
+      "sha256": "26d9e94189409769833f7201f26de4ad0a2928069b5cd19f963f302d0003c908"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\model.js",
+      "sha256": "a636b292edc996d63d4968691117bd3b9d9102dfff43c572f1a785c3f2b265b2"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\renderer.js",
+      "sha256": "4c89c5c64ec8cc4ea4ced6183225ecbaa62eb8c1af0064b41c295a5b42b892b8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-static-layer-study-v1\\model.js",
+      "sha256": "4a1c011031a3048aeb1517bf233d0c838130ae7948c04cf606f24a51fa8c4dec"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-static-layer-study-v1\\renderer.js",
+      "sha256": "b9fc5e1c3fe2e3b36afd53f97166718a96198cb09bd15200d5a522c390597ae8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-static-layer-study-v1\\app.js",
+      "sha256": "9fbe40315dea5150fe05793485c2b7d724c9537244cafc9a5c4ddc3933294135"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-static-layer-study-v1\\build.py",
+      "sha256": "f6e0be9c519492909f72a1c72ac1c113eeafc635d2d774d60251fe119cf9df69"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    }
+  ]
+}

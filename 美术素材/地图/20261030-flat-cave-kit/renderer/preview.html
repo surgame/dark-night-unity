@@ -1,0 +1,39 @@
+<div id="flat-cave-kit">
+  <div class="viz-controls">
+    <label class="form-label">查看
+      <select class="form-select" id="flat-view">
+        <option value="compare">同位置画面对照</option>
+        <option value="mining">近壁采掘对照</option>
+        <option value="local">WFC 局部</option>
+        <option value="overview">WFC 全图</option>
+        <option value="sources">素材与形状</option>
+      </select>
+    </label>
+    <label class="form-label" id="flat-style-label">画法
+      <select class="form-select" id="flat-style"><option value="new">修复后：清爽手绘</option><option value="distorted">修复前：拉扯与重影</option><option value="previous">旧包：手绘写实</option></select>
+    </label>
+    <label class="form-label" id="flat-stage-label">开挖阶段
+      <select class="form-select" id="flat-stage">
+        <option value="0">仅露矿头</option><option value="1">浅挖矿窝</option><option value="2">继续向内挖</option>
+      </select>
+    </label>
+    <label class="form-label" id="flat-seed-label" hidden>地图
+      <select class="form-select" id="flat-seed">
+        <option value="271">种子 271</option><option value="902">种子 902</option><option value="1643">种子 1643</option>
+      </select>
+    </label>
+    <label class="form-check" id="flat-light-label"><input class="form-check-input" id="flat-light" type="checkbox"><span class="form-check-label">照明示意</span></label>
+    <button class="btn" type="button" id="flat-next" hidden>下一洞室</button>
+  </div>
+  <canvas id="flat-scene" role="img" aria-label="清爽手绘洞穴素材拼装与分阶段开挖对照"></canvas>
+  <div id="flat-status" class="text-small text-muted" aria-live="polite"></div>
+</div>
+<style>
+#flat-cave-kit {width:100%;min-width:0}
+#flat-cave-kit [hidden] {display:none!important}
+#flat-scene {display:block;width:100%;height:auto;aspect-ratio:16/10;touch-action:none}
+</style>
+<script>
+/*__SOURCES__*/
+/*__CODE__*/
+</script>

@@ -11,8 +11,8 @@ namespace DarkNights.View.Lighting
         private static readonly int CountKey = Shader.PropertyToID("_DNLocalFillCount");
         private static readonly int OriginKey = Shader.PropertyToID("_DNLocalFillOrigins");
         private static readonly int ColorKey = Shader.PropertyToID("_DNLocalFillColors");
-        private readonly Dictionary<SpriteRenderer, Buffer> buffers = new Dictionary<SpriteRenderer, Buffer>();
-        private readonly List<SpriteRenderer> removed = new List<SpriteRenderer>();
+        private readonly Dictionary<Renderer, Buffer> buffers = new Dictionary<Renderer, Buffer>();
+        private readonly List<Renderer> removed = new List<Renderer>();
         private MaterialPropertyBlock properties;
 
         /// <summary>单个 Renderer 的有界临时贡献；只缓存视图参数，每帧重新计数，不成为装备或照明状态所有者。</summary>

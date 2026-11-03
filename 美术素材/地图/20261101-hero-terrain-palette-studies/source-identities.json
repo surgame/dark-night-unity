@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-01",
+  "originalHeroFiles": [
+    {
+      "file": "../../角色/主角/images/body.png",
+      "bytes": 1872,
+      "sha256": "72614ea9d309b30f78fd2287173c107b16bafc9e0bb0c21462460f667eb1d3f2",
+      "width": 66,
+      "height": 62
+    },
+    {
+      "file": "../../角色/主角/images/eyes.png",
+      "bytes": 534,
+      "sha256": "db05e3890f9b9b8be6aef8f919b70b8ceff3f6b51f9035064c4dbfe07b287b8f",
+      "width": 89,
+      "height": 19
+    },
+    {
+      "file": "../../角色/主角/images/eyesbow.png",
+      "bytes": 573,
+      "sha256": "91d811a751cfcd657e28bbadfae12e92e47bb45e74ddaf6833e27c60ec804891",
+      "width": 97,
+      "height": 12
+    },
+    {
+      "file": "../../角色/主角/images/face.png",
+      "bytes": 3906,
+      "sha256": "5a2d35972589730c7a118c4a3c25a4e65eba71388e772100bb6e3425fdfc6858",
+      "width": 146,
+      "height": 96
+    },
+    {
+      "file": "../../角色/主角/images/head.png",
+      "bytes": 11283,
+      "sha256": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b",
+      "width": 229,
+      "height": 185
+    },
+    {
+      "file": "../../角色/主角/images/left-hand.png",
+      "bytes": 690,
+      "sha256": "c204c0f191089ee233937c8ebdc0b4107861a4e5aefb414c7938e26e7e03bd02",
+      "width": 12,
+      "height": 46
+    },
+    {
+      "file": "../../角色/主角/images/left-leg.png",
+      "bytes": 992,
+      "sha256": "cb58f6141c1c10dfb15367676e77b5a24fdb1ffcbe0f69ec79824a42009e410d",
+      "width": 21,
+      "height": 38
+    },
+    {
+      "file": "../../角色/主角/images/mouse.png",
+      "bytes": 1256,
+      "sha256": "9ad5db654897ec9e5eae506ced79ce369fe44db2285699a787144e83b6a7b10f",
+      "width": 76,
+      "height": 27
+    },
+    {
+      "file": "../../角色/主角/images/right-hand.png",
+      "bytes": 640,
+      "sha256": "3ecb5584447d8451083824ea2a3dbcac80fbcef55c869168130deb1c99d5935a",
+      "width": 12,
+      "height": 50
+    },
+    {
+      "file": "../../角色/主角/images/right-leg.png",
+      "bytes": 923,
+      "sha256": "541398e47e83bb80d17e69a2b88d54e20c050e71697ed1396e01268dfc2537af",
+      "width": 20,
+      "height": 38
+    },
+    {
+      "file": "../../角色/主角/主角-腾空腿部.spine",
+      "bytes": 170354,
+      "sha256": "58e8bbc7669eb9b1845e559fc380149f7fd6e2b4e1780d2bf6e3f68863237263"
+    },
+    {
+      "file": "../../角色/主角/主角.spine",
+      "bytes": 170188,
+      "sha256": "472a0e00cdd95bdaf01c55e5125f3e5c9f8b4a61766ac71a5035f211bd9b7989"
+    }
+  ],
+  "generationReferences": [
+    {
+      "file": "../20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "bytes": 36504,
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+      "width": 282,
+      "height": 309
+    },
+    {
+      "file": "../../角色/主角/images/head.png",
+      "bytes": 11283,
+      "sha256": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b",
+      "width": 229,
+      "height": 185
+    },
+    {
+      "file": "../20261101-planet-to-mine-concepts/user-style-reference.png",
+      "bytes": 2276413,
+      "sha256": "9b3ef3bbe137a35b294fa3cfc7b9a82f084ae22348ec89c36f46593928e464ab",
+      "width": 1536,
+      "height": 1024
+    }
+  ]
+}

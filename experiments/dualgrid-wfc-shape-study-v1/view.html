@@ -1,0 +1,42 @@
+<div id="dg-wfc-study">
+  <div class="ds-heading"><h3>同尺度洞形白模</h3><span id="ds-seed" class="text-small text-muted"></span></div>
+  <div class="viz-controls" aria-label="比较方法">
+    <button type="button" class="btn" data-method="dual" aria-pressed="true">16型 Dual Grid</button>
+    <button type="button" class="btn" data-method="wfc" aria-pressed="false">扩展 WFC</button>
+    <button type="button" class="btn" data-method="hybrid" aria-pressed="false">组合：WFC＋Dual Grid</button>
+  </div>
+  <div class="viz-controls">
+    <label class="form-label">洞形 <select id="ds-scene" class="form-select"><option value="basin">斜坡与自然凹岸</option><option value="shoulder">低顶与斜肩窄道</option><option value="network">洞厅与侧窝</option></select></label>
+    <label class="form-label">镜头 <select id="ds-camera" class="form-select"><option value="whole">全景</option><option value="close">轮廓近看</option></select></label>
+    <button type="button" class="btn" id="ds-next">换一组</button>
+  </div>
+  <canvas id="ds-canvas" role="img" aria-label="同一格尺寸、同一角点占据下的Dual Grid和扩展WFC洞形白模；人物高度为三格。"></canvas>
+  <div id="ds-summary" class="text-small" role="status" aria-live="polite"></div>
+  <div class="viz-controls">
+    <label class="form-check"><input type="checkbox" class="form-check-input" id="ds-grid"><span class="form-check-label">格网与角点</span></label>
+    <label class="form-check"><input type="checkbox" class="form-check-input" id="ds-overlay"><span class="form-check-label">叠加参考轮廓</span></label>
+    <label class="form-check"><input type="checkbox" class="form-check-input" id="ds-atlas"><span class="form-check-label">查看格型</span></label>
+    <button type="button" class="btn" id="ds-dig" aria-pressed="false">局部挖一格</button>
+  </div>
+  <span id="ds-selection" class="text-small text-muted" aria-live="polite"></span>
+  <div id="ds-atlas-region" hidden>
+    <span id="ds-atlas-label" class="text-small"></span>
+    <canvas id="ds-atlas-canvas" role="img" aria-label="16种基础拓扑或同一拓扑的16种扩展角点配置。"></canvas>
+  </div>
+  <span id="ds-legend" class="text-small text-muted"></span>
+  <span id="ds-error" class="text-small text-destructive" role="alert" hidden></span>
+</div>
+<style>
+#dg-wfc-study{display:grid;gap:calc(var(--font-size-base)*.6);color:var(--foreground)}
+#dg-wfc-study .ds-heading{display:flex;flex-wrap:wrap;gap:calc(var(--font-size-base)*.6);align-items:center;justify-content:space-between;padding-inline-end:95px}
+#dg-wfc-study canvas{display:block;width:100%;touch-action:pan-y}
+#dg-wfc-study #ds-canvas{aspect-ratio:12/7}
+#dg-wfc-study #ds-atlas-canvas{aspect-ratio:4/1}
+#dg-wfc-study #ds-atlas-region{display:grid;gap:calc(var(--font-size-base)*.4)}
+#dg-wfc-study [hidden],#dg-wfc-study #ds-atlas-region[hidden]{display:none}
+@media(max-width:480px){
+#dg-wfc-study .ds-heading{padding-inline-end:0}
+#dg-wfc-study #ds-canvas{aspect-ratio:5/4}
+#dg-wfc-study #ds-atlas-canvas{aspect-ratio:1/1}
+}
+</style>

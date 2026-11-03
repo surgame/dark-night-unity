@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-30",
+  "method": "built-in image_gen",
+  "outputs": [
+    {
+      "file": "01-low-dark-passage.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a188f2-0acf-75c1-a745-df6c43554d68\\call_JjhkgsGrSHrNKADpwoxWmOyC.png",
+      "nativeSize": [
+        1672,
+        941
+      ],
+      "bytes": 1431546,
+      "sha256": "8a034fa2ca7f197c7c9e46ccb0fc4d7a51302d66ae97bd2e0cb51eab5f03470a"
+    },
+    {
+      "file": "02-enclosed-mineral-pocket.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a188f2-0acf-75c1-a745-df6c43554d68\\call_U6s7XUXjZr2pqNlQBpLxR3vZ.png",
+      "nativeSize": [
+        1672,
+        941
+      ],
+      "bytes": 1544084,
+      "sha256": "e70a12cd50a5ad691be42218c1a7ee3536bc77ba074cb065577e9b9ad4521b0f"
+    }
+  ],
+  "review": "Visually reviewed as concept art only; character identity approximate, no collision, light occlusion or tile seam validation."
+}

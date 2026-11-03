@@ -1,0 +1,15 @@
+Use case: precise-object-edit.
+Asset type: ONE strictly flat 2D side-scrolling mineral cave concept, 1536x1024.
+
+INPUT ROLES: Image 1 is the previous MOON-WHITE SALT material reference. Its visible floor top and volumetric rocks are rejected for implementation. Image 2 is the AUTHORITATIVE PLANAR SHAPE GUIDE: gray is solid, dark is open air. Use its side-elevation silhouette with no added depth. Images 3 and 4 show the actual original cyan protagonist and its head component; preserve that character.
+
+MAIN CORRECTION: Draw a STRICTLY FLAT 2D GEOLOGICAL SECTION / SIDE ELEVATION. Camera perpendicular to the gameplay XY plane, never looking down. The player stands on ONE floor boundary. Air is above, solid mineral is below. The solid region is a flat illustrated cut-section, not a 3D cliff with an upper shelf. No visible top surface anywhere, no stage depth, no front/back floor edges, no bevel, no diagonal receding walking band or perspective. Follow image 2's single-contour geometry.
+
+MATERIAL AND ART: Moon-white and pearl mineral with muted dusty lilac internal patches, thin pale pink salt seams and sparse dark mauve cracks. Use broad FLAT painted color shapes, hand-inked irregular outline and limited two-tone shade. Dry chalk/salt, not snow, ice or fluffy frost. No glossy faceted boulders, curved volumetric gradients or bright upper-plane highlight. Roundness comes from the outer 2D contour, not 3D rendering. A tiny contour accent is fine, but no wide pink walkway ribbon.
+
+CHARACTER: One original cyan hero near x470, feet on the guide boundary near y624, about 145 pixels tall. Oversized cyan hood with source's original proportions, beige opening, small angled brows, upright eyes and angular wide V mouth, gray segmented neck rim, tiny flat cyan body and short limbs. Imperfect black line and simple flat source colors. No helmet redesign, U smile, boots, gloves, headlamp, backpack or visor glass.
+
+SCENE: Sparse wine-red tiny fungi, burgundy little stems and silver-sage grass attach to the same silhouette as the hero. A modest muted rose-copper mineral patch is a FLAT drawing within the right wall, not a protruding pile of 3D gems. Dark desaturated blue-violet backwall with a maximum of two simple low-contrast planar cave silhouettes. No pool or water surface, keeping this version's projection unambiguous.
+
+OUTPUT: One complete full-bleed game scene with no text, labels, title, panels, grid, arrows, UI, border or watermark.
+ABSOLUTELY AVOID: visible terrain top faces, downward view, elliptical surfaces, top-down grass patches, diagonal receding floor ribbons, bevels, extrusion, isometric or 2.5D, volumetric rocks, snow/ice, magical purple glow, floating platforms and square stair grids.

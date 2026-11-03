@@ -1,0 +1,183 @@
+{
+  "scope": "Design-display inspection only. No gameplay, solver, physical traversal or Unity test.",
+  "errors": [],
+  "modules": [
+    {
+      "selection": "M01 洞口缓入 · 首做 · 24H × 16H",
+      "invalid": false
+    },
+    {
+      "selection": "M02 浅层试采台 · 首做 · 24H × 12H",
+      "invalid": false
+    },
+    {
+      "selection": "M03 长檐窄路 · 首做 · 24H × 12H",
+      "invalid": false
+    },
+    {
+      "selection": "M04 错层岩台厅 · 首做 · 40H × 24H",
+      "invalid": false
+    },
+    {
+      "selection": "M05 天然岔洞 · 首做 · 32H × 20H",
+      "invalid": false
+    },
+    {
+      "selection": "M06 层状转坡 · 第二批 · 32H × 16H",
+      "invalid": false
+    },
+    {
+      "selection": "M07 浅沟跳口 · 第二批 · 24H × 16H",
+      "invalid": false
+    },
+    {
+      "selection": "M08 露头矿窝 · 首做 · 24H × 16H",
+      "invalid": false
+    },
+    {
+      "selection": "M09 壁后富矿厅 · 首做 · 40H × 24H",
+      "invalid": false
+    },
+    {
+      "selection": "M10 侧巢矿厅 · 第二批 · 32H × 20H",
+      "invalid": false
+    },
+    {
+      "selection": "M11 塌方咽喉 · 第二批 · 32H × 20H",
+      "invalid": false
+    },
+    {
+      "selection": "M12 深部折返厅 · 首做 · 40H × 24H",
+      "invalid": false
+    },
+    {
+      "selection": "M13 高处悬台 · 扩展 · 32H × 28H",
+      "invalid": false
+    },
+    {
+      "selection": "M14 菌根凹厅 · 扩展 · 32H × 20H",
+      "invalid": false
+    },
+    {
+      "selection": "M15 泉瀑干台 · 扩展 · 40H × 24H",
+      "invalid": false
+    },
+    {
+      "selection": "M16 天然竖裂 · 扩展 · 24H × 32H",
+      "invalid": false
+    }
+  ],
+  "layouts": [
+    {
+      "width": 704,
+      "scroll": 704,
+      "state": {
+        "view": "assembly",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 704,
+      "scroll": 704,
+      "state": {
+        "view": "module",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 704,
+      "scroll": 704,
+      "state": {
+        "view": "port",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 328,
+      "scroll": 328,
+      "state": {
+        "view": "assembly",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 328,
+      "scroll": 328,
+      "state": {
+        "view": "module",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 328,
+      "scroll": 328,
+      "state": {
+        "view": "port",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 288,
+      "scroll": 288,
+      "state": {
+        "view": "assembly",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 288,
+      "scroll": 288,
+      "state": {
+        "view": "module",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    },
+    {
+      "width": 288,
+      "scroll": 288,
+      "state": {
+        "view": "port",
+        "module": "M04",
+        "bounds": true,
+        "content": true
+      }
+    }
+  ],
+  "initial": {
+    "state": {
+      "view": "assembly",
+      "module": "M04",
+      "bounds": true,
+      "content": true
+    },
+    "modules": 16,
+    "first": 8,
+    "core": 12,
+    "placements": 10,
+    "edges": 9,
+    "caption": "主干按原路折返组织；切到单块可比较形状与角色尺。示意尚未执行拼装／通行验证。"
+  },
+  "restored": {
+    "view": "module",
+    "module": "M15",
+    "bounds": true,
+    "content": true
+  },
+  "ok": true
+}

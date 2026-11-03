@@ -1,0 +1,27 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "calls": [
+    {
+      "output": "sources/floor-shelf.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a18896-3db9-7340-b606-b6184a07f49c/call_OROdnFGUHLmkUetRW82uis0d.png",
+      "references": [
+        "../20261029-wfc-cave-kit/sources/floor-wide-v2.png",
+        "../20261030-hero-led-cave-concepts/01-flat-cave.png"
+      ],
+      "requestedCanvas": [1536,1024],
+      "transparentBackground": true,
+      "prompt": "Create a production terrain surface sprite by REDRAWING reference 1 into the clean cartoon ink visual style of reference 2. Reference 1 defines the REQUIRED STRUCTURE: a genuinely wide visible ground top face with back edge and front lip, backed by a thick irregular rocky front wall extending to bottom edge. Reference 2 defines the STYLE and PALETTE: clean charcoal outlines, grey-brown rocks, broad flat facets, pale muted sand, NO mossy realism or hatching. Landscape 1536x1024, actual transparent alpha above the terrain. A single continuous generally LEVEL horizontal ledge goes through both left and right image boundaries, NO end caps. Top back edge around y=480, front lip around y=610; the top face between them has visually substantial depth and a gently varying width. Mostly desaturated ochre sandy earth MIXED with broad exposed warm grey bedrock patches, not a uniform yellow stripe or a road with borders. Several small irregular rocks embedded across the top, a few projecting over the front edge, larger masses visible on the front wall. The lip is not a smooth straight line: shallow chips, uneven stone shoulders and protrusions create a natural broken edge. Broad grey-brown rock wall below, chunky asymmetric planes and restrained dark cracks, around 6 to 8 medium rocks across, clear shadow directly under the front lip for thickness. Large flat color shapes with at most three simple shaded planes per rock, a little irregular hand-drawn character, no brush grain, no speckles, no crosshatching, no gradient glow. No grass, no plants, no moss, no ore, no person, no cave background, no perspective vanishing point. Empty alpha above the back edge and protruding rocks. Solid rock continues all the way to bottom edge, not a floating island. No white matte, checkerboard, text, labels or borders. IMPORTANT: retain the dimensional top-plane and irregular edging quality of reference 1; do NOT simplify this to a thin outline on a rock texture."
+    },
+    {
+      "output": "sources/ceiling-edge.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a18896-3db9-7340-b606-b6184a07f49c/call_357OqYiMv3wSRMV0iQcq2mFU.png",
+      "references": [
+        "../20261029-wfc-cave-kit/sources/ceiling.png",
+        "../20261030-hero-led-cave-concepts/01-flat-cave.png"
+      ],
+      "requestedCanvas": [1536,1024],
+      "transparentBackground": true,
+      "prompt": "Production cave CEILING EDGE SPRITE, landscape 1536x1024, real transparent alpha. Reference 1 defines the modular ceiling structure only, reference 2 defines the clean cartoon ink style and grey-brown palette. Redraw into the simple clean hand-inked style of reference 2. TOP approximately 35 percent filled with solid broad warm grey-brown rock, continuing through top and both side boundaries. Below y approximately 320 to 420 an irregular downward-facing rock lip, with thick overlapping angular-rounded rock shoulders and several short blunt hanging stone teeth reaching to y approximately 500. Substantial ledge thickness, naturally varied silhouette; not a horizontal straight cut. Around 7 to 9 main rock masses across, restrained dark crevice lines, 2 or 3 broad matte shaded planes, dark underside shadows for thickness. Genuine empty transparent area below all rock, no brown atmospheric haze and no glow around silhouette. NO moss, plants, roots, soil, tiny texture, hatching, stippling, photorealism or gradients. No ground, character, ore, backdrop, text, labels, borders or checkerboard. Horizontally continuous source with no side endcaps; overall ceiling level so it can later follow a shared curve. Important: visibly shaped rock edges and overhang volume, not simply a flat rock texture ending at a line."
+    }
+  ]
+}

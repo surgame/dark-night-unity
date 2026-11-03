@@ -1,0 +1,18 @@
+{
+  "scope": "surface entrance and vertical design display only",
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-surface-depth.html",
+    "bytes": 24344,
+    "sha256": "aca5bcbb64173172855bf1d7d1628a75ee29cca57168bd61d6b40310f0b9bde5"
+  },
+  "displayReview": "records/1793561576457-depth-review/report.json",
+  "displayOk": true,
+  "declaredEndpointsMatch": true,
+  "entranceStraddlesSurface": true,
+  "priorSourcesAndFragmentsPreserved": true,
+  "availablePhysicalGiBBeforeDisplay": 16,
+  "diskFreeGiB": {
+    "C": 17.75,
+    "D": 88.82
+  }
+}

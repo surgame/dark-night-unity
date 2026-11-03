@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-31",
+  "tool": "Built-in image_gen.imagegen",
+  "requestedSize": [
+    2560,
+    1760
+  ],
+  "outputs": [
+    {
+      "key": "a",
+      "title": "层叠枝状",
+      "file": "a-layered-branches.png",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_AHE0PXnUMXublczE37z3XD5X.png",
+      "width": 1513,
+      "height": 1040,
+      "hasAlpha": false,
+      "bytes": 2287200,
+      "sha256": "e12ff2cc4c84757cb15f9c4fa30f4e4297779c9f56634fa0beb50949a9da0347",
+      "copiedWithoutResizing": true,
+      "promptFiles": [
+        "prompt-common.txt",
+        "a-prompt.txt"
+      ],
+      "promptComposition": "Trim both parts, join with two newlines; reference topology guide first, style image second.",
+      "completePromptSha256": "2c304f03591da1e7b6d4c63d351a03a2cb137b28eb50f17bb7739668fc2bfb7b"
+    },
+    {
+      "key": "b",
+      "title": "矿厅簇群",
+      "file": "b-chamber-clusters.png",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_fcyulYLFUkYEP4uKwBwUqZDO.png",
+      "width": 1512,
+      "height": 1040,
+      "hasAlpha": false,
+      "bytes": 2189384,
+      "sha256": "44751dc7b73897c551410a3d71bb04b0d499a8391cc90a63f8f458073736d86c",
+      "copiedWithoutResizing": true,
+      "promptFiles": [
+        "prompt-common.txt",
+        "b-prompt.txt"
+      ],
+      "promptComposition": "Trim both parts, join with two newlines; reference topology guide first, style image second.",
+      "completePromptSha256": "9c114b836f1ece7324f3c7a1eb7448bb85ef20a1b65a679fdf6d35dbf3d45a91"
+    },
+    {
+      "key": "c",
+      "title": "岩脊裂隙",
+      "file": "c-ridge-fissures.png",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_oqpsPT3siGkpYkkoSN9BuJmR.png",
+      "width": 1512,
+      "height": 1040,
+      "hasAlpha": false,
+      "bytes": 2161487,
+      "sha256": "4d802fe869f614d727e32f600ba3ce525a58d1e456b3501c390e63bcdb84f762",
+      "copiedWithoutResizing": true,
+      "promptFiles": [
+        "prompt-common.txt",
+        "c-prompt.txt"
+      ],
+      "promptComposition": "Trim both parts, join with two newlines; reference topology guide first, style image second.",
+      "completePromptSha256": "f84cc4996b5abd62857715bb4cf903bc0650d0b7d606b36cbc367487ee1634a3"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "brief.json",
+      "sha256": "dbc102ea1f530666f80befc74d0f99fe102c568c9d3e0d4ffc1c79411cf963ef"
+    },
+    {
+      "file": "layouts.json",
+      "sha256": "e4562e70431161b30679d9cff4b09cb4cc5b0c1391d629da75bc5727f1a2d01b"
+    },
+    {
+      "file": "make-guides.cjs",
+      "sha256": "caae0b0a8853c5ca1e1dd8fb0c9b362b7e75f475f74ee2eff0e12f5c25e5225f"
+    },
+    {
+      "file": "prompt-common.txt",
+      "sha256": "a94178087dcd829deee3456b4bca2d5589e149761e278dfcba69acbdeced587c"
+    },
+    {
+      "file": "a-prompt.txt",
+      "sha256": "ee1df89cdc1f89c351e183a158d415e000020b06af5f9243abc1d746d91df8ea"
+    },
+    {
+      "file": "b-prompt.txt",
+      "sha256": "61ab45c3dae8f6a6a51b05920cd51c6aa3d3efb8d422e99372a6dbe8b2754a15"
+    },
+    {
+      "file": "c-prompt.txt",
+      "sha256": "966907fca2ff0292615eaae735653d661e5ee7f07eb467e0af02541bf331001b"
+    },
+    {
+      "file": "a-guide.svg",
+      "sha256": "390646c7cba83dc30338f0f5eb6995b6dc0a405b389a34d8beed5cb38e090c61"
+    },
+    {
+      "file": "a-guide.png",
+      "sha256": "771fbcbd3118e4de4c406e267e600243ddee28beaf1156d1f1e7eb02fc7cf71e"
+    },
+    {
+      "file": "b-guide.svg",
+      "sha256": "818b6881576081b0f9f06482c071f66c06deda3851fd1c4f0f459d21ace0d76f"
+    },
+    {
+      "file": "b-guide.png",
+      "sha256": "c3a82aff4e704656fca5e0228b0d4889c8cb473b16242dcdc02b331ef78d3932"
+    },
+    {
+      "file": "c-guide.svg",
+      "sha256": "a0973b7bb067c989b584bd26612c6dd84dc32bba81587f9863ebe28957acbc5d"
+    },
+    {
+      "file": "c-guide.png",
+      "sha256": "8114b6d3af6db8bf1c9d992e724c11a8d21dea790e18e252cc9857427e4e50c0"
+    }
+  ],
+  "styleReference": {
+    "file": "../20261030-modular-cave-playground/sources/user-style-reference.png",
+    "sha256": "36cf0768ba9df891e074ae9cdfdd977d73d6c640978b8e7a9b6c7e68168a21a4"
+  },
+  "scope": "Three concept design alternatives only; no runtime WFC or playable map generated."
+}

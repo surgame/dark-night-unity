@@ -79,6 +79,7 @@ namespace DarkNights.Runtime.Network
             manager.TransportManager.Transport.SetTimeout(15, true);
             string[] args = System.Environment.GetCommandLineArgs();
             storage.Initialize(args);
+            if (layout.MapModuleStudy) storage.UseMapModule(layout.MapModuleIdentity);
             // 地图编辑命令只迁移程序集，注册 ID 与载荷不变；握手仍使用已发布的类型表身份。
             DefinitionNetworkProfile.RegisterWireAssemblyAlias(typeof(TerrainEditCommand), "AnyRules.FishNet");
             Rooms = gameObject.AddComponent<SessionRoomService>();
@@ -201,13 +202,15 @@ namespace DarkNights.Runtime.Network
         private async UniTask<ObjectView> CreateCurrent(string key, int current, ObjectSessionContext objectSession = null)
         {
             var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey(key);
+            if (definition == null) throw new InvalidOperationException("正式对象定义缺失：" + key);
             // 锁定的 YYGC 工厂唯一 await 是该缓存加载。先完成它，再检查代次；命中缓存后的
             // 实例化、定义装配和 Spawn 在同一主线程片段完成，旧尝试不会先广播对象再被销毁。
-            var prefab = await FastInstantiator.GetOrLoadComponentAsync<ObjectView>(definition.PrefabRef);
+            var prefab = await FastInstantiator.GetOrLoadComponentAsync<ObjectInstance>(definition.PrefabRef);
             if (this == null || current != attempt || !manager.IsServerStarted) return null;
             if (prefab == null) throw new InvalidOperationException("正式对象资源加载失败：" + key);
-            return await ObjectInstanceFactory.CreateObjectInstanceAsync(definition, Vector3.zero, Quaternion.identity,
-                session: objectSession, activate: objectSession == null);
+            var instance = await ObjectInstanceFactory.CreateAsync(definition, Vector3.zero, Quaternion.identity,
+                serverManager: manager.ServerManager, session: objectSession, activate: objectSession == null);
+            return instance.GetView<ObjectView>();
         }
 
         private void ClientState(ClientConnectionStateArgs args)

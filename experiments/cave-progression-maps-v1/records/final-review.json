@@ -1,0 +1,55 @@
+{
+  "scope": "Authored graph and display geometry, no actor physics, gameplay, actual travel time or Unity test.",
+  "build": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-progression-maps-v1\\records\\2026-11-01T20-53-41-331Z-build.json",
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-progression-maps.html",
+    "bytes": 24590,
+    "sha256": "f65559120cce88ae5fdbc294b7400a9ef9b260ecd2b55953aadc3941fcc33133"
+  },
+  "review": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-progression-maps-v1\\records\\1793566421659-display-review\\report.json",
+  "priorPreserved": true,
+  "models": [
+    {
+      "id": "advanced",
+      "stats": {
+        "rooms": 18,
+        "forks": 6,
+        "terminals": 7,
+        "main": 9,
+        "side": 9,
+        "sideDepth": 2,
+        "layers": 4,
+        "routeLength": 210.08955966267263
+      },
+      "connected": true,
+      "tree": true,
+      "unintendedDrawingContacts": [],
+      "contactSamples": 0,
+      "crossedLinks": []
+    },
+    {
+      "id": "expert",
+      "stats": {
+        "rooms": 29,
+        "forks": 10,
+        "terminals": 11,
+        "main": 12,
+        "side": 17,
+        "sideDepth": 4,
+        "layers": 5,
+        "routeLength": 285.15902207410136
+      },
+      "connected": true,
+      "tree": true,
+      "unintendedDrawingContacts": [],
+      "contactSamples": 0,
+      "crossedLinks": []
+    }
+  ],
+  "layouts": 18,
+  "selections": 47,
+  "displayRouteSamples": 1602,
+  "clippedRouteSamples": 0,
+  "localLinks": 5,
+  "ok": true
+}

@@ -30,6 +30,8 @@ namespace DarkNights.Runtime.Objects
             }
             switch (request.Operation)
             {
+                case SessionOperation.PhysicsLink:
+                    return session.Physics?.Enabled == true && !session.Paused;
                 case SessionOperation.IssueOrders:
                     return request.ActorIds.Count > 0 && request.X >= 0 && request.X <= session.Layout.WorldWidth &&
                         (request.TargetId == 0 || session.Index.Find(request.TargetId) != null);

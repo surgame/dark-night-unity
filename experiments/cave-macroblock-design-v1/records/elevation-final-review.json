@@ -1,0 +1,13 @@
+{
+  "scope": "elevation design display only",
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-macroblock-elevation.html",
+    "bytes": 24449,
+    "sha256": "6eb4cd0f343a47fbe18fbd9a1c001d069a9862f7cf77415731ed7c54fc275874"
+  },
+  "originalSourceAndFragmentPreserved": true,
+  "displayReview": "records/1793559768773-elevation-review/report.json",
+  "displayOk": true,
+  "fixedCamera": true,
+  "availablePhysicalGiBBeforeDisplay": 13.86
+}

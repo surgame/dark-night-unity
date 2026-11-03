@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c969981050e18440b3e9f0f55350e4f, type: 3}
+  m_Name: M17Physics
+  m_EditorClassIdentifier: DarkNights.Runtime::DarkNights.Runtime.Physics.PhysicsProfile
+  GroundAcceleration: 2400
+  GroundBraking: 3600
+  ActorMass: 1
+  PropFriction: 0.6
+  LinkReach: 112
+  LinkMaximum: 192
+  PropViewPrefab: {fileID: 2941769725312406688, guid: 3edf80b1a600ef14a976372c70f2df32, type: 3}
+  RopeViewPrefab: {fileID: 7041674011095044917, guid: afde373b465ccf44a862c17108431524, type: 3}
+  PropMass: 2

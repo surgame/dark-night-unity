@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-01",
+  "scope": "Batched four-way CPU throughput and independent completion stress; no Unity writes.",
+  "fragment": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\terrain-pressure.html",
+  "bytes": 435601,
+  "sha256": "73fbdfa51ab7839a99b3e8ecefcc8dccb2d84dca3be05047b0d132c4f9d2e52e",
+  "verification": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\records\\1793516966549-pressure-verification\\report.json",
+  "measurement": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\records\\1793516305486-pressure-verification",
+  "independentCompletionSamples": 4096,
+  "timedValidEdits": 14008320,
+  "filesBeforeReceipt": 119,
+  "bytesBeforeReceipt": 23207032,
+  "frozenOriginal": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\revisions\\single-cell-v1",
+  "notValidated": [
+    "Unity FPS",
+    "collision",
+    "lighting",
+    "networking",
+    "production assets"
+  ]
+}

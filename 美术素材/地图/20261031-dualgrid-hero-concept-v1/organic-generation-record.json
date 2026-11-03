@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-31",
+  "method": "built-in image_gen",
+  "modelId": "not exposed by the built-in tool",
+  "input": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\organic-reference.png",
+    "bytes": 2249700,
+    "sha256": "6c96b4db383ff5efe34d34d977edc284c2475605224bc811b64e6a525e6ba558",
+    "nativeSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "hasAlpha": false
+  },
+  "originalAttachment": {
+    "path": "C:\\Users\\Jobscn\\AppData\\Local\\Temp\\codex-clipboard-f5a4b6ec-48c4-4a02-8bd0-37096eeda73e.png",
+    "bytes": 2249700,
+    "sha256": "6c96b4db383ff5efe34d34d977edc284c2475605224bc811b64e6a525e6ba558",
+    "nativeSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "hasAlpha": false
+  },
+  "output": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\dualgrid-cave-organic.png",
+    "bytes": 1960865,
+    "sha256": "8c7ae14625c6572e2d86598227900d4998ab4d24f472ae32a45dc075c07c1db8",
+    "nativeSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "hasAlpha": false
+  },
+  "prompt": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\organic-prompt.txt",
+    "bytes": 3619,
+    "sha256": "8807fcfd4a8ac57eaccecd8919fd563a41325603a01f4c5d2b22c53023f20077"
+  },
+  "brief": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-dualgrid-hero-concept-v1\\organic-brief.json",
+    "bytes": 1513,
+    "sha256": "2d99ea3e1380a08a3d22e5c5707990f62214b69d96b09a5898594d5ccd84eca3"
+  },
+  "visualReview": {
+    "richerSelectedRockStyleRetained": true,
+    "cyanHeroRecognizable": true,
+    "longRectangularStepsReplacedBySlopes": true,
+    "poolBanksAsymmetric": true,
+    "ceilingArchedAndIrregular": true,
+    "characterFeetSupported": true,
+    "limits": [
+      "Scene concept only; not a final tile atlas or slope collision certificate.",
+      "Water and vegetation remain static depiction of future independent dynamic layers.",
+      "Organic curves must later be mapped to actual terrain shapes; not every painted bump is authoritative geometry."
+    ]
+  },
+  "gameChanged": false,
+  "spineChanged": false,
+  "unityOrTestsRun": false
+}

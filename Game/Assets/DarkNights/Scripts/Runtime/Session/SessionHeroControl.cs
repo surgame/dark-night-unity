@@ -17,7 +17,8 @@ namespace DarkNights.Runtime.Session
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
             operation == SessionOperation.UseHeroItem || operation == SessionOperation.SetHeroLight || operation == SessionOperation.Expedition ||
             operation == SessionOperation.SelectDestination || operation == SessionOperation.CancelJourney || operation == SessionOperation.SelectNavigationPoint ||
-            operation == SessionOperation.SellCarriedOre || operation == SessionOperation.BuyEquipment;
+            operation == SessionOperation.SellCarriedOre || operation == SessionOperation.BuyEquipment ||
+            operation == SessionOperation.PhysicsLink;
 
         internal int AssignDefault(SessionConnection connection)
         {
@@ -97,6 +98,7 @@ namespace DarkNights.Runtime.Session
                 case SessionOperation.SelectHeroItem:
                 case SessionOperation.SetHeroLight:
                 case SessionOperation.UseHeroItem:
+                case SessionOperation.PhysicsLink:
                     return ApplyOwned(connection, request);
                 default:
                     return 0;
@@ -135,6 +137,8 @@ namespace DarkNights.Runtime.Session
                     return 1;
                 }
                 if (world.Paused || world.IsExpedition && actor.Read().Boarded) return 0;
+                if (request.Operation == SessionOperation.PhysicsLink)
+                    return world.Physics?.ToggleLink(actor, request.TargetId) ?? 0;
                 if (request.Operation == SessionOperation.SetHeroLight)
                     return actor.Object.GetBehaviour<HeroLightBehaviour>()?.SetEnabled(request.Value == 1) == true ? 1 : 0;
                 var inventory = actor.Object.GetBehaviour<HeroInventoryBehaviour>();
@@ -168,7 +172,7 @@ namespace DarkNights.Runtime.Session
         private bool ValidInput(HeroInputRequest input, long tick)
         {
             if (input.ActorId <= 0 || input.ControlLease <= 0 || input.Sequence <= 0) return false;
-            if (input.Horizontal < -1 || input.Horizontal > 1 || input.ObservedTick < 0 ||
+            if (input.Climb < -1 || input.Climb > 1 || input.Horizontal < -1 || input.Horizontal > 1 || input.ObservedTick < 0 ||
                 input.ObservedTick > tick || tick - input.ObservedTick > 60) return false;
             if (world.Paused || world.Camp.Read().Mode != SessionMode.Playing) return false;
             if (input.Mining.Present)
@@ -195,7 +199,7 @@ namespace DarkNights.Runtime.Session
         {
             state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
             state.LightAimAngle = input.LightAimAngle;
-            state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld; state.SprintHeld = input.SprintHeld;
+            state.Horizontal = input.Horizontal; state.Climb = input.Climb; state.JumpHeld = input.JumpHeld; state.SprintHeld = input.SprintHeld;
             if (input.CancelUse || input.SelectionRevision != state.SelectionRevision)
             { state.AimAngle = input.AimAngle; HeroEquipment.Cancel(state); }
             else
@@ -235,7 +239,7 @@ namespace DarkNights.Runtime.Session
             {
                 var current = actor.Read();
                 if (!current.ManualControl || (!world.Paused && tick - current.LastInputTick <= InputTimeoutTicks) ||
-                    (current.Horizontal == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending && !current.PickaxeSwingActive && string.IsNullOrEmpty(current.MiningWorldId))) continue;
+                    (current.Horizontal == 0 && current.Climb == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending && !current.PickaxeSwingActive && string.IsNullOrEmpty(current.MiningWorldId))) continue;
                 world.Mutations.Run(() => { ClearInput(actor.Edit()); return true; });
             }
         }
@@ -262,7 +266,7 @@ namespace DarkNights.Runtime.Session
         private static void ClearInput(ActorState state)
         {
             HeroEquipment.Cancel(state);
-            state.Horizontal = 0; state.SprintHeld = false; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
+            state.Horizontal = state.Climb = 0; state.SprintHeld = false; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
             HeroJumpMotion.Clear(state, clearVelocity: false);
         }
         private int Claim(SessionConnection connection, ActorBehaviour actor)

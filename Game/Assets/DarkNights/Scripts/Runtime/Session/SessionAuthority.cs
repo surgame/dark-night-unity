@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     public sealed class SessionAuthority : IDisposable
     {
-        public const int ProtocolVersion = 36;
+        public const int ProtocolVersion = 38;
         public const int MaximumPendingPerPlayer = 16;
         public const int ResultWindow = 64;
         private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
@@ -154,6 +154,8 @@ namespace DarkNights.Runtime.Session
                 gate = SessionResultCode.PermissionDenied;
             if (gate == SessionResultCode.Applied && !world.ValidRequest(request)) gate = SessionResultCode.InvalidRequest;
             bool storage = request.Operation == SessionOperation.Save || request.Operation == SessionOperation.BeginLoad || request.Operation == SessionOperation.Restart;
+            if (gate == SessionResultCode.Applied && world.Layout.MapModuleStudy && storage && request.Operation != SessionOperation.Restart)
+                gate = SessionResultCode.PermissionDenied;
             if (gate == SessionResultCode.Applied && storage && StorageRequest != null) gate = SessionResultCode.Loading;
             if (gate == SessionResultCode.Applied && storage && world.Flow?.CanSave == false) gate = SessionResultCode.Loading;
             if (gate != SessionResultCode.Applied) return Receipt(connection, request, gate);

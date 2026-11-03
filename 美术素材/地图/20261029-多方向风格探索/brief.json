@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-29",
+  "owner": "01a18820-685c-7ac2-a63a-caf825451d27",
+  "modules": ["CL-01", "CL-08"],
+  "status": "complete-awaiting-visual-review",
+  "purpose": "六组固定画面风格探索，前三组直接拓展历史实机画面，后三组比较不同地质形态与绘制方式；待用户评审。",
+  "method": "built-in image_gen; one independent call per candidate",
+  "nativeInputs": [
+    {
+      "path": "docs/archive/evidence/strata-cave-2026-09-22/player-mining.png",
+      "size": [1280, 720],
+      "role": "A/B/C共同的历史Unity实机布局底稿，日期2026-09-22；不代表当前版本"
+    },
+    {
+      "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/29/01a18683-ec6b-7c81-82f7-5707635d072c/painted-cave-rebuild-v1/reference.png",
+      "size": [1672, 941],
+      "role": "既有灰绿厚岩体、冷后壁、暖矿物的画风参考"
+    },
+    {
+      "path": "artifacts/dot-cave-handoff-20261029/01-character/hero-idle.png",
+      "size": [282, 309],
+      "role": "D/E/F主角身份和造型参考"
+    }
+  ],
+  "outputContract": {
+    "desiredAspect": "16:9 landscape; native output dimensions recorded after generation",
+    "purpose": "完整不透明效果图，原生尺寸和游戏镜头比例审阅",
+    "alpha": "opaque",
+    "sharedEdges": "不要求生产tile共边；固定整幅构图",
+    "shapePrecision": "A/B/C尽量保持实机主要坡面和上方岩唇的位置，生成结果逐张回读；非像素级碰撞合同",
+    "rationale": "大幅风格探索适合内置生图；未制作16x16 tile、随机拼接或破坏后边缘",
+    "scope": "仅新增独立美术候选和对照预览，不修改Game、作者地图或其他聊天候选"
+  },
+  "variants": [
+    {
+      "id": "A",
+      "name": "原版像素强化",
+      "file": "A-pixel-refinement.png",
+      "inputs": ["runtime"],
+      "prompt": "Use case: style-transfer. Asset type: a direct art-direction paintover of a real 2D side-scrolling mining game screenshot. Input image is the EDIT TARGET, not merely an inspiration. Output one 16:9 landscape scene with exactly the same framing and camera scale. Preserve the large diagonal solid floor running from x0 y255 down to approximately x1120 y720, the upper-right rock shelf beginning around x850 y300, the tiny loose rock near x775 y270, and the miner with raised pickaxe at approximately x640 y350. Preserve the miner's small pixel sprite identity, colors, size and pose. Remove all debug HUD panels, buttons and text and reconstruct their covered environment. Change the environment art into a refined, deliberate PIXEL ART version of the original: crisp nearest-neighbor pixel clusters, brown charcoal rock with a few broad geological seams, reduced noisy repeating cracks, clear dark front cliff face and a narrow ochre top edge that accurately follows the existing steep slope. Add a recessed desaturated blue-gray cavern wall behind the playable empty space, two restrained distant rock layers, sparse roots at the edges, and a small amber ore exposure on the upper-right shelf. Keep believable darkness but readable midtones and a light focal area around the miner. This is the conservative upgrade, still visibly the original game, not painterly illustration. Do not flatten or change the slope, move the player, introduce a new platform, add a bridge, add a second character, or turn rock into evenly outlined bricks. No HUD, text, borders, labels, photorealism or 3D rendering."
+    },
+    {
+      "id": "B",
+      "name": "原版简化手绘",
+      "file": "B-inked-runtime.png",
+      "inputs": ["runtime"],
+      "prompt": "Use case: style-transfer. Asset type: a direct environment paintover of this real 2D side-scrolling mining screenshot. The input is the EDIT TARGET. Keep exactly its 16:9 composition, steep diagonal foreground floor descending from left y255 toward bottom-right x1120 y720, upper-right rock shelf at x850 y300, small floating remnant around x775 y270, and the original tiny miner sprite with raised pickaxe centered around x640 y350. Retain the miner's original pixel character unchanged in identity, color, silhouette, pose and screen size as a compatibility test. Remove every debug HUD, text and button and paint the covered scene. Redesign only the environment as SIMPLE BOLD HAND-INKED GAME ART: irregular chunky graphite and olive stone masses, lively thick dark outer contours, only two or three broad matte shading planes per rock, very little surface noise, grouped cracks following long geological seams, large quiet solid regions rather than a dense mosaic. A visible moss-earth walking strip follows the SAME steep diagonal, with a short dark front lip and opaque heavy rock beneath. The back wall uses only three softly separated muted slate-teal depth layers, with sparse pendulous roots and a few small rusty amber ore accents in the right shelf. Clear atmospheric separation without transparency in any near rocks. Intimate underground passage, same game view, no grand landscape vista. Resist painterly microdetail; this should look economical to draw and have the charm of a strong indie game art direction. No altered slope, new platform or path, extra characters, new props, HUD, text, borders, photorealism, smooth 3D or uniform polygon tiles."
+    },
+    {
+      "id": "C",
+      "name": "原版厚岩体改绘",
+      "file": "C-painted-runtime.png",
+      "inputs": ["runtime", "painted"],
+      "prompt": "Use case: style-transfer. Asset type: high quality direct paintover of a REAL playable mining scene. Image 1 is the EDIT TARGET and controls geometry, camera, player position and framing. Image 2 is only a reference for hand-painted olive-gray rock, lively black ink contours, cold recessed cavern layers and restrained warm amber crystals; do not copy its composition or its cyan character. Output the same 16:9 game screenshot layout as Image 1, with the steep solid foreground slope descending from x0 y255 to about x1120 y720, right hanging shelf starting at x850 y300, small remnant near x775 y270, and the original small pixel miner with raised pickaxe at x640 y350. Keep this miner identity, screen size and pose unchanged. Remove all HUD, panels and text and reconstruct the occluded environment. Transform the rock surfaces into substantial, irregular, overlapping geological slabs of charcoal olive stone, broad sculpted shadows, selective fine brush texture, deep ink crevices, small hanging moss, and thick fully opaque front cliff masses. Along the existing steep slope paint a visibly planar dirt-and-pebble TOP SURFACE roughly 18 to 25 pixels deep at this camera size, with a distinct dark front lip, not just a luminous line. Its supporting silhouette must still follow Image 1. Paint the formerly flat background as an intimate deep slate-teal cavern with a subdued distant arch and quiet wall strata, without blocking the open traversable channel. A few amber mineral veins embedded in the right ledge motivate warm highlights; most of the scene remains calm and desaturated. Prioritize playable slope clarity and the original small player scale. No changing the slope angle or composition, flattening the route, gigantic landscape vista, extra characters, buildings, props, text, UI, labels, borders, photorealism or 3D."
+    },
+    {
+      "id": "D",
+      "name": "灰松洞口",
+      "file": "D-greypine-entrance.png",
+      "inputs": ["hero", "painted"],
+      "prompt": "Use case: stylized-concept. Asset type: finished game-scale environment art exploration for Dark Nights, one full 16:9 side-view screen. Image 1 is CHARACTER IDENTITY reference: retain the cyan round helmet, simple expressive peach face, black ink outline and little cyan suit. Image 2 is only a general mood reference, not a composition to copy. Create a new gray-pine forest cave entrance using a restrained, bold STORYBOOK INK style with soft gouache fills. Camera is side-on with a slightly visible walking top plane. One small cyan explorer, approximately 12 percent of image height, stands just right of center with feet near 74 percent image height. A continuous gently descending dirt path crosses the screen, with 25 to 40 pixels of visible earthy top surface at native scene scale, a separate dark front lip, and a substantial opaque stone face underneath. At left a pale misty opening reveals layered pine silhouettes; at right an organic heavy wall contains several modest amber mineral exposures. The ceiling is a few very large dark gray-olive rock masses with hanging roots, rather than hundreds of outlined small rocks. Shape language is rounded but weighty and irregular, with broad quiet surfaces, selective broken black contours, sparse moss and a few pebbles. Three clearly separated cool gray-teal background layers provide cavern depth. Forest daylight is the main soft source, ore only a small warm accent. Prioritize strong large shapes, clean route readability, character compatibility and designed negative space. All near and middle rock structures must be solid and opaque. No monster, second character, mushrooms, huge crystal clusters, architecture, machinery, HUD, text, labels, frames, photorealism, glossy 3D, pixel filter or repetitive mosaic."
+    },
+    {
+      "id": "E",
+      "name": "层叠页岩",
+      "file": "E-layered-shale.png",
+      "inputs": ["hero"],
+      "prompt": "Use case: stylized-concept. Asset type: a polished game-scale screen of a side-scrolling cave exploration game, 16:9 landscape. The input image is CHARACTER IDENTITY reference only: reproduce the friendly simple cyan round-helmeted explorer with peach face and strong black ink outline. Show one explorer at 12 percent of image height, just right of center, feet at about 74 percent height. Design an underground SHALE GALLERY with long asymmetrical horizontal overlapping plates, broad overhangs, thin rusty sediment bands, and small graphite chips. Geological shape language is deliberately long, flat and stratified rather than round boulders. Art direction is crisp hand-cut graphic shapes with broken dry-brush edges and restrained etched contour accents, about three shadow values per rock, large restful planes and sophisticated low-saturation slate blue, charcoal, dusty beige and small copper-amber accents. A continuous gently sloped traversable ledge has a visible broad dusty top surface, a dark front lip, and a deep opaque foreground rock face. The route passes beneath a compressed overhang at left and opens into a taller quiet chamber at right. Behind it, massive but subdued layered shale columns and far wall silhouettes create three solid overlapping depth planes. Sparse exposed amber ore lies in a seam on the right wall; no giant neon crystals. The explorer's cyan head reads clearly against the darker wall. Mood is quiet, dry and mysterious, lit by a faint cold fissure from upper left and the tiniest warm ore reflection. Treat this as actual side-view gameplay framing, not cinematic concept art with a tiny invisible traveler. No additional character, bridge, ruins, architecture, mushrooms, machinery, HUD, text, labels, frames, see-through rocks, polygon mosaic, glossy 3D, photorealism or noisy fine texture."
+    },
+    {
+      "id": "F",
+      "name": "黏土夹岩",
+      "file": "F-earthen-burrow.png",
+      "inputs": ["hero"],
+      "prompt": "Use case: stylized-concept. Asset type: finished 16:9 game-scale side-view cave screen for an exploration game. Input image is CHARACTER IDENTITY reference only: the simple friendly cyan helmeted explorer with peach face, expressive black lines and tiny cyan suit, preserve that recognizable design. One character only, 12 percent of image height, just right of center, feet near 74 percent image height. Explore a very different EARTHEN CAVE art direction: warm umber and dusty terracotta clay banks with sparse massive dark embedded basalt boulders, curved sediment bands, root cross-sections and scalloped excavated shapes. Clay should occupy most of the solid ground and ceiling, only a few big rocks, avoiding an entire surface of separately outlined stones. Flat gouache and charcoal drawing with gently grainy broad fills, thick selective ink accents, appealing handmade shapes and controlled detail. A winding but continuous gently descending walking ledge crosses left to right. Give its dusty pale brown top surface visible depth, a darker front lip, and a thick opaque earthen face with layers underneath. A small natural alcove on the left compresses the path; the center opens to an airy subterranean gallery with subdued cool blue-gray far walls and very sparse descending roots. A compact warm amber ore seam in the right clay bank provides a focal discovery without large crystal spikes. Strong warm earth versus cool cavity separation, the cyan explorer is a clear focal contrast. Moderate ambient light, no theatrical volumetric beams. This should feel achievable as a coherent small-game art style, with few materials and memorable shapes. No extra character, enemies, mushrooms, architecture, machinery, bridges, HUD, text, labels, frames, photorealism, glossy clay 3D, soft plastic, mosaic rocks or transparency in the solid banks."
+    }
+  ]
+}

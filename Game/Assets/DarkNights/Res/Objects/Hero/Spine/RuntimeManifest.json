@@ -1,0 +1,104 @@
+{
+  "authorProject": "美术素材/角色/主角/主角-腾空腿部.spine",
+  "authorSha256": "58e8bbc7669eb9b1845e559fc380149f7fd6e2b4e1780d2bf6e3f68863237263",
+  "selectionSha256": "b1ea21fbee992054dfd1302cab808250c351eeb1f6090f0e9d7b40c73d5d5902",
+  "nativeJsonSha256": "89948ce57e4662f67f7de89d9249f90b27ed7e7dc8e4607f7cad7182aea04f26",
+  "derivedJsonSha256": "4f2485a0111897a97e8eff7c15c201909b46011ef1a3f0390973a34204fcaae9",
+  "sourceImages": {
+    "body.png": "72614ea9d309b30f78fd2287173c107b16bafc9e0bb0c21462460f667eb1d3f2",
+    "eyes.png": "db05e3890f9b9b8be6aef8f919b70b8ceff3f6b51f9035064c4dbfe07b287b8f",
+    "blink/eyes_closed.png": "f903b36af90e6d908db1ad947b18558d3c891d836b583a8bcd94211b57a5ba3e",
+    "blink/eyes_half.png": "2b8c86f5dc5d97a871a3172bd21cfe1304e7367fb44abf20fb5f779d32b18155",
+    "eyesbow.png": "91d811a751cfcd657e28bbadfae12e92e47bb45e74ddaf6833e27c60ec804891",
+    "face.png": "5a2d35972589730c7a118c4a3c25a4e65eba71388e772100bb6e3425fdfc6858",
+    "head.png": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b",
+    "left-hand.png": "c204c0f191089ee233937c8ebdc0b4107861a4e5aefb414c7938e26e7e03bd02",
+    "left-leg.png": "cb58f6141c1c10dfb15367676e77b5a24fdb1ffcbe0f69ec79824a42009e410d",
+    "mouse.png": "9ad5db654897ec9e5eae506ced79ce369fe44db2285699a787144e83b6a7b10f",
+    "right-hand.png": "3ecb5584447d8451083824ea2a3dbcac80fbcef55c869168130deb1c99d5935a",
+    "right-leg.png": "541398e47e83bb80d17e69a2b88d54e20c050e71697ed1396e01268dfc2537af"
+  },
+  "hiddenMissingAttachments": [
+    [
+      "body",
+      "body_back"
+    ],
+    [
+      "body",
+      "body_rear"
+    ],
+    [
+      "carry-left-grip",
+      "grip"
+    ],
+    [
+      "carry-right-forearm",
+      "arm_forearm"
+    ],
+    [
+      "carry-right-grip",
+      "grip"
+    ],
+    [
+      "carry-right-upper",
+      "arm_upper"
+    ],
+    [
+      "dig-grip-far",
+      "grip"
+    ],
+    [
+      "dig-grip-near",
+      "grip"
+    ],
+    [
+      "dig-pick-handle",
+      "pick_handle"
+    ],
+    [
+      "dig-pick-head",
+      "pick_head"
+    ],
+    [
+      "dig2-pick-head",
+      "rear-pick-head"
+    ],
+    [
+      "eyes",
+      "eyes_scare"
+    ],
+    [
+      "hammer-handle",
+      "hammer_handle"
+    ],
+    [
+      "hammer-head",
+      "hammer_head"
+    ],
+    [
+      "head",
+      "head_back"
+    ],
+    [
+      "head",
+      "head_rear"
+    ],
+    [
+      "mouse",
+      "mouse_scare"
+    ]
+  ],
+  "runtime": "spine-unity 4.3, native binary, straight-alpha/bleed atlas",
+  "derivation": "Selected run5/idle; jump2 without root translation plus authored air leg timelines.",
+  "outputs": {
+    "HeroRuntime.atlas.txt": "e48ca961b81fd5884fa6009de940a82bea3744aaab6baf594934babc1836b889",
+    "HeroRuntime.png": "a84fa90247037c259c3638c456bac5d7ad17b5491bdf22060a315c654c9b9e67",
+    "HeroRuntime.skel.bytes": "63593039af71bc65bb42a1bee7d648a9a2197d8e6642d87caf07727d0f3a19cf",
+    "HeroRuntime_2.png": "da1bc59e812f7d0e7daf20321f456529afef88806d2015b9c38cc16aa5872d44",
+    "HeroRuntime.source.json.txt": "4f2485a0111897a97e8eff7c15c201909b46011ef1a3f0390973a34204fcaae9"
+  },
+  "legacySourceRenames": {
+    "Export/Hero.json": "Export/Hero.json.txt",
+    "Export/Hero.atlas.txt": "Export/Hero.atlas.source.txt"
+  }
+}

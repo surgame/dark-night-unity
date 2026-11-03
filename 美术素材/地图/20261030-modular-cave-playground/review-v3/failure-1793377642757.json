@@ -1,0 +1,4 @@
+{
+  "message": "The expression evaluated to a falsy value:\n\n  assert(crossed.player.x>623&&crossed.player.grounded)\n",
+  "stack": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(crossed.player.x>623&&crossed.player.grounded)\n\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\check.cjs:51:3"
+}

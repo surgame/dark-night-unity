@@ -1,0 +1,168 @@
+{
+  "date": "2026-10-31",
+  "buildId": "f04f68487ce5af902661679f2d1a522897a23092b18788db1949235c7e36ee2c",
+  "inputManifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\manifest.json",
+  "inputManifestSha256": "c8ad737df2af7803c1389822b0820d9c3b8f1b180a1ed6a7006929dd7c21a1ff",
+  "files": [
+    {
+      "file": "assets/hero.png",
+      "bytes": 36504,
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    },
+    {
+      "file": "assets/back.png",
+      "bytes": 1770912,
+      "sha256": "350fbbd30d656fe10c4a5c64e41e67448f4e6a99c1260ac541b650eb9b128827"
+    },
+    {
+      "file": "assets/rockMaterial.png",
+      "bytes": 1530659,
+      "sha256": "19183e896ed5a0642fb133333894100425693d5a038548066a7ddef4f22cc371"
+    },
+    {
+      "file": "assets/bridgeDesign.png",
+      "bytes": 1556905,
+      "sha256": "d08626d839ab4d60ba6fa3efabec7ce51688db8def25f0441886bdded927a790"
+    },
+    {
+      "file": "assets/panel0.png",
+      "bytes": 213783,
+      "sha256": "ee9d8fbd166cebcbc152e62507a886a669527fd9a1fe832398354b42d158ea28"
+    },
+    {
+      "file": "assets/panel1.png",
+      "bytes": 178980,
+      "sha256": "0f08bbc9315c39ff9e3f47656f0841807fa29b8a174635d56d58ff309f4e1828"
+    },
+    {
+      "file": "assets/panel2.png",
+      "bytes": 207587,
+      "sha256": "30382335205d9fd07a1aa42e05910ec3e276af26c4f68bee302c3a0d7baa7557"
+    },
+    {
+      "file": "assets/panel3.png",
+      "bytes": 202598,
+      "sha256": "a465d7e570b887e6fa3866099407bf2e194331e80bdb23da066c7de505705e46"
+    },
+    {
+      "file": "assets/panel4.png",
+      "bytes": 211610,
+      "sha256": "daf910df918d65109354a8abd1a28c00d83a18e77f4c5a5667b7ff776c3c3f22"
+    },
+    {
+      "file": "assets/panel5.png",
+      "bytes": 204393,
+      "sha256": "693d986937c47c4ee9c3f59a1b7b861257dc92e3b491fd8d9d6b763d1be87178"
+    },
+    {
+      "file": "assets/vegetation-sheet.png",
+      "bytes": 1851538,
+      "sha256": "6b1b3c4c91ec9d63b58f7f0c2b1ba93886d405a9fc2b897a6a315695c3f8844e"
+    },
+    {
+      "file": "modules/camp.json",
+      "bytes": 74973,
+      "sha256": "5c89030789c353de630e8e95568b68b450daf744d382fa7a0b60bd7281996f06"
+    },
+    {
+      "file": "modules/narrow.json",
+      "bytes": 84545,
+      "sha256": "ba8f94a865c8966d0a4c04ff9c2528bbb111f648caf2b8ac2b8071e8f37c8b4f"
+    },
+    {
+      "file": "modules/creek-stones.json",
+      "bytes": 101926,
+      "sha256": "b87d9c43dc44254da6522688922cfd1e74ee0f063388028f81b862c40ecc86e3"
+    },
+    {
+      "file": "modules/creek-bank.json",
+      "bytes": 87659,
+      "sha256": "9da8460065e612ee478da687ae3965621bf976cd81dbe3740486d5eff86f831f"
+    },
+    {
+      "file": "modules/moss-cleft.json",
+      "bytes": 100442,
+      "sha256": "54e561d2ce191529858dcc0f1d7eb0b7884ccc7ab11a39d39d0ed2592090594a"
+    },
+    {
+      "file": "modules/beam-gap.json",
+      "bytes": 89359,
+      "sha256": "ff72ed600945e363c479a4cb444a16513d5b7c718871276a3da8c79f4a051ce3"
+    },
+    {
+      "file": "modules/broken-shelf.json",
+      "bytes": 89968,
+      "sha256": "e096b1eed4149349733804194f6709941068b5f8344adf9c6099fbaa0cda4b78"
+    },
+    {
+      "file": "modules/cargo.json",
+      "bytes": 96065,
+      "sha256": "c570601f0621905e4bd665cb95e68e3f79aabbcb61567db1a0d208d7952ecafc"
+    },
+    {
+      "file": "modules/fungal-balcony.json",
+      "bytes": 87670,
+      "sha256": "6ee418b83d577ad6193f97edfce8caa24ae8a09796443a3e299f4c0a09d45bf5"
+    },
+    {
+      "file": "modules/fungal-bowl.json",
+      "bytes": 98181,
+      "sha256": "cf9da0104b521513c8e872ae557aa2b4c55b1f48ebe773aba005c02d5dd3eed5"
+    },
+    {
+      "file": "modules/root-falls.json",
+      "bytes": 85248,
+      "sha256": "1841cfa5a5b8cc99cc139363fbc17c8b63353180bf266335104f6f15d4aabf7a"
+    },
+    {
+      "file": "modules/double-falls.json",
+      "bytes": 84699,
+      "sha256": "468437e4e535a4fdc8bd6ebbf1f7a9d1d288c20266634c21114524f150d45e62"
+    },
+    {
+      "file": "modules/mineral-bowl.json",
+      "bytes": 84554,
+      "sha256": "ac4a6b86bce796eebce3b7703f714ba57cb84e45be3efac71d4b969fd948a301"
+    },
+    {
+      "file": "modules/mineral-hall.json",
+      "bytes": 83920,
+      "sha256": "5a5c3da3c4ea241c355db05b572acda035b108a9d4efd103c1bdfec78e2ddbd0"
+    },
+    {
+      "file": "compatibility.json",
+      "bytes": 39144,
+      "sha256": "b4e79ac2e57f15bc22b93e72e4db299ca11bbd89f981aca4e017fa4217a69625"
+    },
+    {
+      "file": "materials.json",
+      "bytes": 785,
+      "sha256": "dcb300f3f36db1547427c7a9f5e412bfae4b9d117bf1f13962a56f015127a922"
+    },
+    {
+      "file": "boundaries.json",
+      "bytes": 2366,
+      "sha256": "c88bfaf3cc9da252c7aef2e2e334aa12617bad5375a95bed91d3d744d70c2d5d"
+    },
+    {
+      "file": "library.json",
+      "bytes": 7381,
+      "sha256": "5214e0a2df0b359160169975c93f268fa254c479f1836c3c82067929b4901ad6"
+    },
+    {
+      "file": "static-verification.json",
+      "bytes": 1015,
+      "sha256": "9fb7afe1b81692f702e48e81f1a48a6dde7b764b472b013547e254b16d9e1bd1"
+    }
+  ],
+  "exporterSources": [
+    {
+      "file": "export-library.cjs",
+      "sha256": "0ce9b64d4c6e82af5c824cb8561bfd3efd80fe57ea0f9a48f7893df4de6ed357"
+    },
+    {
+      "file": "verify-assembly.cjs",
+      "sha256": "94dad1747116a33464edd55166807065696c058a4027aebc96c18767b5ae427c"
+    }
+  ]
+}

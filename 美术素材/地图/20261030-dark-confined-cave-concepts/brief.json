@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-30",
+  "status": "two-concepts-produced-awaiting-user-review",
+  "purpose": "Review a predominantly dark, confined cave direction with occasional wider mineral pockets.",
+  "method": "Built-in image_gen; large composition and atmosphere exploration, not production tiles.",
+  "requestedSize": [1536, 864],
+  "nativeSize": [1672, 941],
+  "alpha": false,
+  "precision": "Illustrative proportions only; no exact collision or existing-map identity claim.",
+  "seams": "Not tileable. No DualGrid edge, slope or mining mask validation.",
+  "references": [
+    "../20261030-hero-led-cave-concepts/01-flat-cave.png",
+    "../20261029-wfc-cave-kit/sources/hero-scale-reference.png"
+  ],
+  "scenes": [
+    "Low winding passage with two explorers, close backwall, limited flashlight illumination and loose-rock warning.",
+    "A wider mineral pocket reached through a narrow throat, divided by heavy stone masses and with its far extent lost in darkness."
+  ],
+  "proposedRhythm": "About 65% confined passage, 25% medium pocket and 10% large cavity by route length; discussion only, not approved generation parameters.",
+  "preservation": "Original art, active whitebox/art-kit work, Game, dependencies and gameplay values remain unchanged.",
+  "review": {
+    "passage": "Low ceiling and nearby backwall establish confinement; cyan characters and local footing remain visible.",
+    "pocket": "Central ceiling lifts locally, mineral wall provides a stopping point, and a right-side rock mass hides the onward route.",
+    "limits": "Concepts retain some ambient visibility outside the beam and soft shading. Final darkness, occlusion and foreground masking require an actual camera review. AI-redrawn heroes are not exact Spine sprites; depicted headroom and slopes are not movement validation.",
+    "generationImplication": "Propose revising macro space frequency, local ceiling height, sightline length and background depth before choosing boundary tiles. No existing generator edited."
+  }
+}

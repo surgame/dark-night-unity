@@ -1,0 +1,1497 @@
+{
+  "date": "2026-11-01",
+  "scope": "Six visual methods, fixed camera, local movement, controls and state; no full-route, Unity or performance acceptance.",
+  "sources": {
+    "standalone": "b94f513e5cfbe5a8bcfd50a0e86f232d14d674f230b3a21a4c2a51514e0a6256",
+    "fragment": "b1d3dd6de87ad7bddaf97a2077afb4435e4796f2a2b2b5a005b02bfc798fcfdb",
+    "scripts": [
+      {
+        "file": "geometry.js",
+        "sha256": "fe3ec8e5d80c6e6999eb2dfc1c4a33fd4ac3c34bfca6532ac2b271b45c2118eb"
+      },
+      {
+        "file": "modules.js",
+        "sha256": "33d51461ca9d2954ed91e8043bf2d28c10fbe04043811297351173eec47008eb"
+      },
+      {
+        "file": "solver.js",
+        "sha256": "1753928cb499d4296fd6c1db5bd8097ac8d7ecc1a2f78dbfe78db57674d0ad48"
+      },
+      {
+        "file": "renderer.js",
+        "sha256": "b52b4bb42f6b4373bb4b14c6cc81c794c2118f650460e27713d5deaf3fe9a854"
+      },
+      {
+        "file": "app.js",
+        "sha256": "a734c3de83aefb15004a6cbe3424dd08056659898ad216efb2f3eda42bc9df2c"
+      }
+    ]
+  },
+  "methods": [
+    {
+      "ready": true,
+      "method": "dual",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 90,
+        "y": 40,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": true,
+      "reference": false,
+      "player": {
+        "x": 18,
+        "y": 28.479999849462857,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": {
+        "occupied": 12873,
+        "edgeCount": 526,
+        "usedConfigurations": 0
+      },
+      "blocks": [],
+      "bridges": 0,
+      "wfc": null
+    },
+    {
+      "ready": true,
+      "method": "expanded",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 90,
+        "y": 40,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": true,
+      "reference": false,
+      "player": {
+        "x": 18,
+        "y": 28.479999849462857,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": {
+        "occupied": 12873,
+        "edgeCount": 526,
+        "usedConfigurations": 47
+      },
+      "blocks": [],
+      "bridges": 0,
+      "wfc": null
+    },
+    {
+      "ready": true,
+      "method": "contour",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 90,
+        "y": 40,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": true,
+      "reference": false,
+      "player": {
+        "x": 18,
+        "y": 28.479999849462857,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [],
+      "bridges": 0,
+      "wfc": null
+    },
+    {
+      "ready": true,
+      "method": "blocks",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 90,
+        "y": 40,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": true,
+      "reference": false,
+      "player": {
+        "x": 18,
+        "y": 27.579977019101786,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 26
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 26,
+          "end": 50
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 50,
+          "end": 70
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 70,
+          "end": 90
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 90,
+          "end": 108
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 108,
+          "end": 132
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 132,
+          "end": 154
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 154,
+          "end": 172
+        }
+      ],
+      "bridges": 0,
+      "wfc": null
+    },
+    {
+      "ready": true,
+      "method": "bridges",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 90,
+        "y": 40,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": true,
+      "reference": false,
+      "player": {
+        "x": 18,
+        "y": 29.37997620832214,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 0,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    {
+      "ready": true,
+      "method": "wfc",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 90,
+        "y": 40,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": true,
+      "reference": false,
+      "player": {
+        "x": 18,
+        "y": 27.124985389778903,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": 7,
+          "variant": 1,
+          "left": 1,
+          "right": 0,
+          "start": 8,
+          "end": 26
+        },
+        {
+          "slot": 1,
+          "id": 21,
+          "variant": 0,
+          "left": 0,
+          "right": 0,
+          "start": 26,
+          "end": 50
+        },
+        {
+          "slot": 2,
+          "id": 47,
+          "variant": 2,
+          "left": 0,
+          "right": 1,
+          "start": 50,
+          "end": 70
+        },
+        {
+          "slot": 3,
+          "id": 72,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 70,
+          "end": 90
+        },
+        {
+          "slot": 4,
+          "id": 90,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 90,
+          "end": 108
+        },
+        {
+          "slot": 5,
+          "id": 110,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 108,
+          "end": 132
+        },
+        {
+          "slot": 6,
+          "id": 133,
+          "variant": 0,
+          "left": 2,
+          "right": 1,
+          "start": 132,
+          "end": 154
+        },
+        {
+          "slot": 7,
+          "id": 150,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 154,
+          "end": 172
+        }
+      ],
+      "bridges": 0,
+      "wfc": {
+        "observations": 8,
+        "propagations": 46,
+        "removed": 83,
+        "attempts": 1,
+        "library": 160
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1000,
+      "scroll": 1000,
+      "theme": "light"
+    },
+    {
+      "width": 736,
+      "scroll": 736,
+      "theme": "dark"
+    },
+    {
+      "width": 360,
+      "scroll": 360,
+      "theme": "light"
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "theme": "dark"
+    }
+  ],
+  "errors": [],
+  "initial": {
+    "ready": true,
+    "method": "bridges",
+    "seed": 271,
+    "focus": "elbow",
+    "camera": {
+      "x": 90,
+      "y": 40,
+      "scale": 18.99694683908046
+    },
+    "walk": false,
+    "seams": true,
+    "reference": false,
+    "player": {
+      "x": 18,
+      "y": 29.37997620832214,
+      "grounded": false
+    },
+    "insideRock": false,
+    "size": [
+      184,
+      86
+    ],
+    "grid": null,
+    "blocks": [
+      {
+        "slot": 0,
+        "id": -1,
+        "variant": 2,
+        "left": 1,
+        "right": 1,
+        "start": 8,
+        "end": 23
+      },
+      {
+        "slot": 1,
+        "id": -1,
+        "variant": 0,
+        "left": 0,
+        "right": 1,
+        "start": 29,
+        "end": 47
+      },
+      {
+        "slot": 2,
+        "id": -1,
+        "variant": 1,
+        "left": 1,
+        "right": 2,
+        "start": 53,
+        "end": 67
+      },
+      {
+        "slot": 3,
+        "id": -1,
+        "variant": 2,
+        "left": 0,
+        "right": 2,
+        "start": 73,
+        "end": 87
+      },
+      {
+        "slot": 4,
+        "id": -1,
+        "variant": 0,
+        "left": 0,
+        "right": 1,
+        "start": 93,
+        "end": 105
+      },
+      {
+        "slot": 5,
+        "id": -1,
+        "variant": 1,
+        "left": 1,
+        "right": 2,
+        "start": 111,
+        "end": 129
+      },
+      {
+        "slot": 6,
+        "id": -1,
+        "variant": 0,
+        "left": 2,
+        "right": 2,
+        "start": 135,
+        "end": 151
+      },
+      {
+        "slot": 7,
+        "id": -1,
+        "variant": 0,
+        "left": 1,
+        "right": 1,
+        "start": 157,
+        "end": 172
+      }
+    ],
+    "bridges": 7,
+    "wfc": null
+  },
+  "interactions": {
+    "beforePan": {
+      "ready": true,
+      "method": "bridges",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 90,
+        "y": 40,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 18,
+        "y": 29.37997620832214,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 0,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    "afterPan": {
+      "ready": true,
+      "method": "bridges",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 87.89439848735523,
+        "y": 39.210399432758216,
+        "scale": 18.99694683908046
+      },
+      "walk": false,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 18,
+        "y": 29.37997620832214,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 0,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    "afterZoom": {
+      "ready": true,
+      "method": "bridges",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 88.39262698200233,
+        "y": 39.38692023144763,
+        "scale": 24.88532503166474
+      },
+      "walk": false,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 18,
+        "y": 29.37997620832214,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 0,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    "start": {
+      "ready": true,
+      "method": "bridges",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 23.14235946164392,
+        "y": 24.420364989600905,
+        "scale": 22.036458333333332
+      },
+      "walk": true,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 18,
+        "y": 29.429999605132036,
+        "grounded": true
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 0,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    "moved": {
+      "ready": true,
+      "method": "bridges",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 30.605525178446666,
+        "y": 23.65642606351113,
+        "scale": 22.036458333333332
+      },
+      "walk": true,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 26.263333333333296,
+        "y": 28.489185090971986,
+        "grounded": true
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 0,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    "jumped": {
+      "ready": true,
+      "method": "bridges",
+      "seed": 271,
+      "focus": "elbow",
+      "camera": {
+        "x": 31.065145877213507,
+        "y": 22.97681046345073,
+        "scale": 22.036458333333332
+      },
+      "walk": true,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 26.263333333333296,
+        "y": 27.351962868749762,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 0,
+          "right": 1,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 0,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    "changed": {
+      "ready": true,
+      "method": "bridges",
+      "seed": 372,
+      "focus": "elbow",
+      "camera": {
+        "x": 31.26330885303581,
+        "y": 23.445597104511194,
+        "scale": 22.036458333333332
+      },
+      "walk": false,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 18,
+        "y": 27.124995813427933,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 0,
+          "start": 8,
+          "end": 23
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 29,
+          "end": 47
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 2,
+          "start": 53,
+          "end": 67
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 1,
+          "start": 73,
+          "end": 87
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 2,
+          "left": 0,
+          "right": 2,
+          "start": 93,
+          "end": 105
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 0,
+          "right": 1,
+          "start": 111,
+          "end": 129
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 1,
+          "left": 2,
+          "right": 2,
+          "start": 135,
+          "end": 151
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 1,
+          "left": 0,
+          "right": 1,
+          "start": 157,
+          "end": 172
+        }
+      ],
+      "bridges": 7,
+      "wfc": null
+    },
+    "restored": {
+      "ready": true,
+      "method": "wfc",
+      "seed": 372,
+      "focus": "elbow",
+      "camera": {
+        "x": 31.26330885303581,
+        "y": 23.445597104511194,
+        "scale": 22.036458333333332
+      },
+      "walk": false,
+      "seams": false,
+      "reference": true,
+      "player": {
+        "x": 18,
+        "y": 28.479981756666692,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": 9,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 26
+        },
+        {
+          "slot": 1,
+          "id": 35,
+          "variant": 2,
+          "left": 1,
+          "right": 2,
+          "start": 26,
+          "end": 50
+        },
+        {
+          "slot": 2,
+          "id": 62,
+          "variant": 2,
+          "left": 2,
+          "right": 2,
+          "start": 50,
+          "end": 70
+        },
+        {
+          "slot": 3,
+          "id": 78,
+          "variant": 0,
+          "left": 2,
+          "right": 1,
+          "start": 70,
+          "end": 90
+        },
+        {
+          "slot": 4,
+          "id": 89,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 90,
+          "end": 108
+        },
+        {
+          "slot": 5,
+          "id": 103,
+          "variant": 0,
+          "left": 1,
+          "right": 0,
+          "start": 108,
+          "end": 132
+        },
+        {
+          "slot": 6,
+          "id": 118,
+          "variant": 0,
+          "left": 0,
+          "right": 0,
+          "start": 132,
+          "end": 154
+        },
+        {
+          "slot": 7,
+          "id": 143,
+          "variant": 1,
+          "left": 0,
+          "right": 1,
+          "start": 154,
+          "end": 172
+        }
+      ],
+      "bridges": 0,
+      "wfc": {
+        "observations": 8,
+        "propagations": 46,
+        "removed": 83,
+        "attempts": 1,
+        "library": 160
+      }
+    }
+  },
+  "priorKeys": [
+    true,
+    true,
+    true
+  ],
+  "stateBytes": 244,
+  "onScreenHold": {
+    "start": {
+      "x": 18,
+      "y": 28.529999643358316,
+      "grounded": true
+    },
+    "end": {
+      "x": 23.45833333333331,
+      "y": 28.788361374993496,
+      "grounded": true
+    }
+  },
+  "inline": {
+    "width": 288,
+    "scroll": 288,
+    "state": {
+      "ready": true,
+      "method": "blocks",
+      "seed": 271,
+      "focus": "all",
+      "camera": {
+        "x": 92,
+        "y": 43,
+        "scale": 1.5157894736842106
+      },
+      "walk": false,
+      "seams": true,
+      "reference": false,
+      "player": {
+        "x": 18,
+        "y": 27.579977019101786,
+        "grounded": false
+      },
+      "insideRock": false,
+      "size": [
+        184,
+        86
+      ],
+      "grid": null,
+      "blocks": [
+        {
+          "slot": 0,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 8,
+          "end": 26
+        },
+        {
+          "slot": 1,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 26,
+          "end": 50
+        },
+        {
+          "slot": 2,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 50,
+          "end": 70
+        },
+        {
+          "slot": 3,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 70,
+          "end": 90
+        },
+        {
+          "slot": 4,
+          "id": -1,
+          "variant": 0,
+          "left": 1,
+          "right": 1,
+          "start": 90,
+          "end": 108
+        },
+        {
+          "slot": 5,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 108,
+          "end": 132
+        },
+        {
+          "slot": 6,
+          "id": -1,
+          "variant": 2,
+          "left": 1,
+          "right": 1,
+          "start": 132,
+          "end": 154
+        },
+        {
+          "slot": 7,
+          "id": -1,
+          "variant": 1,
+          "left": 1,
+          "right": 1,
+          "start": 154,
+          "end": 172
+        }
+      ],
+      "bridges": 0,
+      "wfc": null
+    }
+  },
+  "ok": true
+}

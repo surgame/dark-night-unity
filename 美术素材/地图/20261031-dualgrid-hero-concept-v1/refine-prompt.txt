@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Image 1 is the edit target, a DualGrid-friendly cave art concept. Image 2 is the original protagonist identity and line-style reference.
+
+Change ONE thing: simplify the foreground rock and distant background surface treatment substantially, so it matches the very simple flat hand-drawn character and is cheaper to build as small repeating tiles.
+
+Preserve the exact scene composition, terrain silhouettes, stairs and slopes, cave opening, water source and pool positions, mushrooms and grass placements, mineral patches, character pose, character size, pale cyan hood, face, collar, short limbs, and all scene proportions. Keep the warm brown ground versus cool dark slate background and small cyan/orange/green accents.
+
+Remove roughly three quarters of the tiny cracks, chips, mottled facets, granular textures and interior outlines. Most solid foreground should become calm, clean, opaque flat warm-brown shapes with at most one broad shadow tone and one restrained dark inset band. Suggest small repeatable local rock clusters sparsely with short broken ink strokes and occasional simple five-sided chips, leaving generous quiet fill between them; no giant individual boulders and no continuous outlined brick wall. Keep a clear thin ochre rim and dark edge so terrain thickness is still readable, but no perspective road top. The far cave wall should simplify into two quiet dark blue-grey silhouette layers without dense crags or fine cracks.
+
+The visual result should look like a deliberate charming 2D hand-inked sandbox game frame, with similarly simple drawing economy to the supplied hero. Broad matte colour areas, limited values, clear edges, slightly uneven dark ink linework. Do not add objects, change terrain geometry, redesign the character, create a tile sheet, or introduce a visible grid, labels, UI or text. Keep the same landscape output size and framing.

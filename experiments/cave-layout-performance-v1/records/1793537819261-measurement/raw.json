@@ -1,0 +1,2420 @@
+{
+  "date": "2026-11-01T12:56:59.726Z",
+  "identity": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "software": false,
+    "output": [
+      960,
+      600
+    ]
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+  "sizes": [
+    128
+  ],
+  "profiles": [
+    "standard",
+    "mixed"
+  ],
+  "rounds": 2,
+  "seed": 271,
+  "granularity": 0.09999999776482582,
+  "records": [
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "standard",
+      "round": 0,
+      "seed": 271,
+      "generation": 3.5,
+      "geometry": 5.300000000745058,
+      "chunking": 0,
+      "coldCPU": 8.800000000745058,
+      "upload": 0.19999999925494194,
+      "chunkDraw": [
+        0,
+        0,
+        0.09999999776482582,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0.10000000149011612,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 49604,
+        "chunkVertices": 49604,
+        "sourceBytes": 396832,
+        "chunkBytes": 396832,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 28,
+            "vertices": 20556,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13532,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 25946,
+            "batches": 18
+          },
+          {
+            "calls": 28,
+            "vertices": 20556,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13532,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 25946,
+            "batches": 18
+          }
+        ],
+        "instances": [
+          {
+            "calls": 28,
+            "vertices": 20556,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13532,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 25946,
+            "batches": 18
+          },
+          {
+            "calls": 28,
+            "vertices": 20556,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13532,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 25946,
+            "batches": 18
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "standard",
+      "round": 0,
+      "seed": 271,
+      "generation": 0.09999999776482582,
+      "geometry": 2,
+      "chunking": 2.800000000745058,
+      "coldCPU": 4.899999998509884,
+      "upload": 0.3999999985098839,
+      "chunkDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0.10000000149011612,
+        0,
+        0.09999999776482582,
+        0,
+        0.10000000149011612,
+        0
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 32,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20866,
+        "chunkVertices": 50534,
+        "sourceBytes": 167952,
+        "chunkBytes": 404272,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 26,
+            "vertices": 20252,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 13772,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26502,
+            "batches": 18
+          },
+          {
+            "calls": 26,
+            "vertices": 20252,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 13772,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26502,
+            "batches": 18
+          }
+        ],
+        "instances": [
+          {
+            "calls": 84,
+            "vertices": 17824,
+            "batches": 42
+          },
+          {
+            "calls": 66,
+            "vertices": 13032,
+            "batches": 33
+          },
+          {
+            "calls": 100,
+            "vertices": 20784,
+            "batches": 50
+          },
+          {
+            "calls": 84,
+            "vertices": 17824,
+            "batches": 42
+          },
+          {
+            "calls": 66,
+            "vertices": 13032,
+            "batches": 33
+          },
+          {
+            "calls": 100,
+            "vertices": 20784,
+            "batches": 50
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "standard",
+      "round": 0,
+      "seed": 271,
+      "generation": 0.10000000149011612,
+      "geometry": 1,
+      "chunking": 1,
+      "coldCPU": 2.100000001490116,
+      "upload": 0.5,
+      "chunkDraw": [
+        0,
+        0,
+        0.10000000149011612,
+        0,
+        0,
+        0.09999999776482582
+      ],
+      "instanceDraw": [
+        0.19999999925494194,
+        0,
+        0,
+        0.19999999925494194,
+        0.10000000149011612,
+        0
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 44,
+        "freeLibrary": 60,
+        "instances": 269,
+        "sourceVertices": 18052,
+        "chunkVertices": 45682,
+        "sourceBytes": 146568,
+        "chunkBytes": 365456,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 26,
+            "vertices": 18604,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 12392,
+            "batches": 10
+          },
+          {
+            "calls": 32,
+            "vertices": 21240,
+            "batches": 16
+          },
+          {
+            "calls": 26,
+            "vertices": 18604,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 12392,
+            "batches": 10
+          },
+          {
+            "calls": 32,
+            "vertices": 21240,
+            "batches": 16
+          }
+        ],
+        "instances": [
+          {
+            "calls": 134,
+            "vertices": 13086,
+            "batches": 67
+          },
+          {
+            "calls": 114,
+            "vertices": 10860,
+            "batches": 57
+          },
+          {
+            "calls": 156,
+            "vertices": 15060,
+            "batches": 78
+          },
+          {
+            "calls": 134,
+            "vertices": 13086,
+            "batches": 67
+          },
+          {
+            "calls": 114,
+            "vertices": 10860,
+            "batches": 57
+          },
+          {
+            "calls": 156,
+            "vertices": 15060,
+            "batches": 78
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "standard",
+      "round": 0,
+      "seed": 271,
+      "generation": 0.3999999985098839,
+      "geometry": 1.1000000014901161,
+      "chunking": 0.6999999992549419,
+      "coldCPU": 2.199999999254942,
+      "upload": 0.30000000074505806,
+      "chunkDraw": [
+        0.09999999776482582,
+        0,
+        0,
+        0.09999999776482582,
+        0,
+        0.10000000149011612
+      ],
+      "instanceDraw": [
+        0,
+        0,
+        0.10000000149011612,
+        0,
+        0,
+        0
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 31,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20452,
+        "chunkVertices": 50676,
+        "sourceBytes": 164640,
+        "chunkBytes": 405408,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 26,
+            "vertices": 20094,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 13794,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26420,
+            "batches": 18
+          },
+          {
+            "calls": 26,
+            "vertices": 20094,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 13794,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26420,
+            "batches": 18
+          }
+        ],
+        "instances": [
+          {
+            "calls": 84,
+            "vertices": 17644,
+            "batches": 42
+          },
+          {
+            "calls": 66,
+            "vertices": 13038,
+            "batches": 33
+          },
+          {
+            "calls": 100,
+            "vertices": 20734,
+            "batches": 50
+          },
+          {
+            "calls": 84,
+            "vertices": 17644,
+            "batches": 42
+          },
+          {
+            "calls": 66,
+            "vertices": 13038,
+            "batches": 33
+          },
+          {
+            "calls": 100,
+            "vertices": 20734,
+            "batches": 50
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 482,
+        "removed": 0,
+        "peakDomainValues": 310
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "standard",
+      "round": 1,
+      "seed": 372,
+      "generation": 0,
+      "geometry": 1.199999999254942,
+      "chunking": 0.5,
+      "coldCPU": 1.800000000745058,
+      "upload": 0.5,
+      "chunkDraw": [
+        0.10000000149011612,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0,
+        0,
+        0,
+        0.09999999776482582,
+        0
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 29,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 18888,
+        "chunkVertices": 52512,
+        "sourceBytes": 152128,
+        "chunkBytes": 420096,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 22,
+            "vertices": 12596,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11516,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 13954,
+            "batches": 9
+          },
+          {
+            "calls": 22,
+            "vertices": 12596,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11516,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 13954,
+            "batches": 9
+          }
+        ],
+        "instances": [
+          {
+            "calls": 50,
+            "vertices": 10332,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10390,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13562,
+            "batches": 33
+          },
+          {
+            "calls": 50,
+            "vertices": 10332,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10390,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13562,
+            "batches": 33
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": null
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "standard",
+      "round": 1,
+      "seed": 372,
+      "generation": 0,
+      "geometry": 0.8999999985098839,
+      "chunking": 0.8999999985098839,
+      "coldCPU": 1.7999999970197678,
+      "upload": 0.5,
+      "chunkDraw": [
+        0,
+        0,
+        0,
+        0.09999999776482582,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0,
+        0,
+        0,
+        0
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 41,
+        "freeLibrary": 60,
+        "instances": 275,
+        "sourceVertices": 16246,
+        "chunkVertices": 47798,
+        "sourceBytes": 132168,
+        "chunkBytes": 382384,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 18,
+            "vertices": 9092,
+            "batches": 9
+          },
+          {
+            "calls": 16,
+            "vertices": 10496,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 12734,
+            "batches": 9
+          },
+          {
+            "calls": 18,
+            "vertices": 9092,
+            "batches": 9
+          },
+          {
+            "calls": 16,
+            "vertices": 10496,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 12734,
+            "batches": 9
+          }
+        ],
+        "instances": [
+          {
+            "calls": 96,
+            "vertices": 8512,
+            "batches": 48
+          },
+          {
+            "calls": 90,
+            "vertices": 8808,
+            "batches": 45
+          },
+          {
+            "calls": 108,
+            "vertices": 10580,
+            "batches": 54
+          },
+          {
+            "calls": 96,
+            "vertices": 8512,
+            "batches": 48
+          },
+          {
+            "calls": 90,
+            "vertices": 8808,
+            "batches": 45
+          },
+          {
+            "calls": 108,
+            "vertices": 10580,
+            "batches": 54
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": null
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "standard",
+      "round": 1,
+      "seed": 372,
+      "generation": 0.19999999925494194,
+      "geometry": 1.1000000014901161,
+      "chunking": 0.5999999977648258,
+      "coldCPU": 1.8999999985098839,
+      "upload": 0.4000000022351742,
+      "chunkDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0,
+        0.09999999776482582,
+        0,
+        0,
+        0.10000000149011612
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 28,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 18306,
+        "chunkVertices": 52356,
+        "sourceBytes": 147472,
+        "chunkBytes": 418848,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 22,
+            "vertices": 12608,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11342,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 13742,
+            "batches": 9
+          },
+          {
+            "calls": 22,
+            "vertices": 12608,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11342,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 13742,
+            "batches": 9
+          }
+        ],
+        "instances": [
+          {
+            "calls": 50,
+            "vertices": 10290,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10178,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13350,
+            "batches": 33
+          },
+          {
+            "calls": 50,
+            "vertices": 10290,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10178,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13350,
+            "batches": 33
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": {
+        "observations": 85,
+        "propagations": 492,
+        "removed": 0,
+        "peakDomainValues": 298
+      }
+    },
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "standard",
+      "round": 1,
+      "seed": 372,
+      "generation": 2.2999999970197678,
+      "geometry": 1,
+      "chunking": 0,
+      "coldCPU": 3.2999999970197678,
+      "upload": 0.20000000298023224,
+      "chunkDraw": [
+        0.09999999776482582,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.09999999776482582
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 42,
+        "sourceVertices": 51456,
+        "chunkVertices": 51456,
+        "sourceBytes": 411648,
+        "chunkBytes": 411648,
+        "chunks": 42,
+        "fieldBytes": 248005
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 24,
+            "vertices": 12618,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12012,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14404,
+            "batches": 10
+          },
+          {
+            "calls": 24,
+            "vertices": 12618,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12012,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14404,
+            "batches": 10
+          }
+        ],
+        "instances": [
+          {
+            "calls": 24,
+            "vertices": 12618,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12012,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14404,
+            "batches": 10
+          },
+          {
+            "calls": 24,
+            "vertices": 12618,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12012,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14404,
+            "batches": 10
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": null
+    },
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "mixed",
+      "round": 0,
+      "seed": 271,
+      "generation": 2.599999997764826,
+      "geometry": 1.2000000029802322,
+      "chunking": 0,
+      "coldCPU": 3.800000000745058,
+      "upload": 0.10000000149011612,
+      "chunkDraw": [
+        0.09999999776482582,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 50922,
+        "chunkVertices": 50922,
+        "sourceBytes": 407376,
+        "chunkBytes": 407376,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 28,
+            "vertices": 21150,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13950,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26538,
+            "batches": 18
+          },
+          {
+            "calls": 28,
+            "vertices": 21150,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13950,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26538,
+            "batches": 18
+          }
+        ],
+        "instances": [
+          {
+            "calls": 28,
+            "vertices": 21150,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13950,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26538,
+            "batches": 18
+          },
+          {
+            "calls": 28,
+            "vertices": 21150,
+            "batches": 14
+          },
+          {
+            "calls": 20,
+            "vertices": 13950,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 26538,
+            "batches": 18
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "mixed",
+      "round": 0,
+      "seed": 271,
+      "generation": 0,
+      "geometry": 2.300000000745058,
+      "chunking": 1.300000000745058,
+      "coldCPU": 3.600000001490116,
+      "upload": 0.3999999985098839,
+      "chunkDraw": [
+        0,
+        0,
+        0,
+        0.10000000149011612,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0.10000000149011612,
+        0,
+        0,
+        0,
+        0
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 60,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 32684,
+        "chunkVertices": 52060,
+        "sourceBytes": 262496,
+        "chunkBytes": 416480,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 26,
+            "vertices": 20946,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 14196,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 27184,
+            "batches": 18
+          },
+          {
+            "calls": 26,
+            "vertices": 20946,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 14196,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 27184,
+            "batches": 18
+          }
+        ],
+        "instances": [
+          {
+            "calls": 86,
+            "vertices": 18374,
+            "batches": 43
+          },
+          {
+            "calls": 66,
+            "vertices": 13408,
+            "batches": 33
+          },
+          {
+            "calls": 102,
+            "vertices": 21270,
+            "batches": 51
+          },
+          {
+            "calls": 86,
+            "vertices": 18374,
+            "batches": 43
+          },
+          {
+            "calls": 66,
+            "vertices": 13408,
+            "batches": 33
+          },
+          {
+            "calls": 102,
+            "vertices": 21270,
+            "batches": 51
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "mixed",
+      "round": 0,
+      "seed": 271,
+      "generation": 0,
+      "geometry": 1,
+      "chunking": 0.3999999985098839,
+      "coldCPU": 1.3999999985098839,
+      "upload": 0.6999999992549419,
+      "chunkDraw": [
+        0.10000000149011612,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0.09999999776482582,
+        0,
+        0,
+        0.10000000149011612,
+        0,
+        0.09999999776482582
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 55,
+        "freeLibrary": 72,
+        "instances": 269,
+        "sourceVertices": 18566,
+        "chunkVertices": 46324,
+        "sourceBytes": 150680,
+        "chunkBytes": 370592,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 26,
+            "vertices": 18888,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 12566,
+            "batches": 10
+          },
+          {
+            "calls": 32,
+            "vertices": 21460,
+            "batches": 16
+          },
+          {
+            "calls": 26,
+            "vertices": 18888,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 12566,
+            "batches": 10
+          },
+          {
+            "calls": 32,
+            "vertices": 21460,
+            "batches": 16
+          }
+        ],
+        "instances": [
+          {
+            "calls": 136,
+            "vertices": 13286,
+            "batches": 68
+          },
+          {
+            "calls": 114,
+            "vertices": 11018,
+            "batches": 57
+          },
+          {
+            "calls": 160,
+            "vertices": 15232,
+            "batches": 80
+          },
+          {
+            "calls": 136,
+            "vertices": 13286,
+            "batches": 68
+          },
+          {
+            "calls": 114,
+            "vertices": 11018,
+            "batches": 57
+          },
+          {
+            "calls": 160,
+            "vertices": 15232,
+            "batches": 80
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "mixed",
+      "round": 0,
+      "seed": 271,
+      "generation": 0.6999999992549419,
+      "geometry": 2.399999998509884,
+      "chunking": 1,
+      "coldCPU": 4.099999997764826,
+      "upload": 0.4000000022351742,
+      "chunkDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0.09999999776482582,
+        0,
+        0.10000000149011612,
+        0,
+        0,
+        0.09999999776482582
+      ],
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 61,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 33520,
+        "chunkVertices": 52402,
+        "sourceBytes": 269184,
+        "chunkBytes": 419216,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 26,
+            "vertices": 20930,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 14348,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 27196,
+            "batches": 18
+          },
+          {
+            "calls": 26,
+            "vertices": 20930,
+            "batches": 13
+          },
+          {
+            "calls": 20,
+            "vertices": 14348,
+            "batches": 10
+          },
+          {
+            "calls": 36,
+            "vertices": 27196,
+            "batches": 18
+          }
+        ],
+        "instances": [
+          {
+            "calls": 88,
+            "vertices": 18342,
+            "batches": 44
+          },
+          {
+            "calls": 68,
+            "vertices": 13544,
+            "batches": 34
+          },
+          {
+            "calls": 104,
+            "vertices": 21328,
+            "batches": 52
+          },
+          {
+            "calls": 88,
+            "vertices": 18342,
+            "batches": 44
+          },
+          {
+            "calls": 68,
+            "vertices": 13544,
+            "batches": 34
+          },
+          {
+            "calls": 104,
+            "vertices": 21328,
+            "batches": 52
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 816,
+        "removed": 903,
+        "peakDomainValues": 1393
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "mixed",
+      "round": 1,
+      "seed": 372,
+      "generation": 0,
+      "geometry": 1.7999999970197678,
+      "chunking": 0.5,
+      "coldCPU": 2.2999999970197678,
+      "upload": 0.4000000022351742,
+      "chunkDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0.09999999776482582,
+        0,
+        0,
+        0,
+        0.10000000149011612
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 52,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 28986,
+        "chunkVertices": 53778,
+        "sourceBytes": 232912,
+        "chunkBytes": 430224,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 22,
+            "vertices": 12838,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11688,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 14294,
+            "batches": 9
+          },
+          {
+            "calls": 22,
+            "vertices": 12838,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11688,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 14294,
+            "batches": 9
+          }
+        ],
+        "instances": [
+          {
+            "calls": 50,
+            "vertices": 10510,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10562,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13892,
+            "batches": 33
+          },
+          {
+            "calls": 50,
+            "vertices": 10510,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10562,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13892,
+            "batches": 33
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": null
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "mixed",
+      "round": 1,
+      "seed": 372,
+      "generation": 0,
+      "geometry": 0.8999999985098839,
+      "chunking": 0.5,
+      "coldCPU": 1.3999999985098839,
+      "upload": 0.8000000007450581,
+      "chunkDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0.10000000149011612,
+        0,
+        0.09999999776482582,
+        0,
+        0.10000000149011612
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 53,
+        "freeLibrary": 72,
+        "instances": 275,
+        "sourceVertices": 16666,
+        "chunkVertices": 48310,
+        "sourceBytes": 135528,
+        "chunkBytes": 386480,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 18,
+            "vertices": 9148,
+            "batches": 9
+          },
+          {
+            "calls": 16,
+            "vertices": 10552,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 12836,
+            "batches": 9
+          },
+          {
+            "calls": 18,
+            "vertices": 9148,
+            "batches": 9
+          },
+          {
+            "calls": 16,
+            "vertices": 10552,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 12836,
+            "batches": 9
+          }
+        ],
+        "instances": [
+          {
+            "calls": 98,
+            "vertices": 8568,
+            "batches": 49
+          },
+          {
+            "calls": 94,
+            "vertices": 8824,
+            "batches": 47
+          },
+          {
+            "calls": 112,
+            "vertices": 10642,
+            "batches": 56
+          },
+          {
+            "calls": 98,
+            "vertices": 8568,
+            "batches": 49
+          },
+          {
+            "calls": 94,
+            "vertices": 8824,
+            "batches": 47
+          },
+          {
+            "calls": 112,
+            "vertices": 10642,
+            "batches": 56
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": null
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "mixed",
+      "round": 1,
+      "seed": 372,
+      "generation": 0.3999999985098839,
+      "geometry": 2.199999999254942,
+      "chunking": 0.5,
+      "coldCPU": 3.099999997764826,
+      "upload": 0.4000000022351742,
+      "chunkDraw": [
+        0.09999999776482582,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0,
+        0,
+        0.10000000149011612,
+        0,
+        0
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 67,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 35500,
+        "chunkVertices": 54244,
+        "sourceBytes": 285024,
+        "chunkBytes": 433952,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 22,
+            "vertices": 13078,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11664,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 14100,
+            "batches": 9
+          },
+          {
+            "calls": 22,
+            "vertices": 13078,
+            "batches": 11
+          },
+          {
+            "calls": 16,
+            "vertices": 11664,
+            "batches": 8
+          },
+          {
+            "calls": 18,
+            "vertices": 14100,
+            "batches": 9
+          }
+        ],
+        "instances": [
+          {
+            "calls": 50,
+            "vertices": 10734,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10484,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13698,
+            "batches": 33
+          },
+          {
+            "calls": 50,
+            "vertices": 10734,
+            "batches": 25
+          },
+          {
+            "calls": 50,
+            "vertices": 10484,
+            "batches": 25
+          },
+          {
+            "calls": 66,
+            "vertices": 13698,
+            "batches": 33
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": {
+        "observations": 85,
+        "propagations": 849,
+        "removed": 948,
+        "peakDomainValues": 1405
+      }
+    },
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "mixed",
+      "round": 1,
+      "seed": 372,
+      "generation": 2,
+      "geometry": 1.1000000014901161,
+      "chunking": 0,
+      "coldCPU": 3.100000001490116,
+      "upload": 0.09999999776482582,
+      "chunkDraw": [
+        0,
+        0,
+        0.10000000149011612,
+        0,
+        0,
+        0
+      ],
+      "instanceDraw": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 42,
+        "sourceVertices": 52416,
+        "chunkVertices": 52416,
+        "sourceBytes": 419328,
+        "chunkBytes": 419328,
+        "chunks": 42,
+        "fieldBytes": 248005
+      },
+      "drawCounts": {
+        "chunks": [
+          {
+            "calls": 24,
+            "vertices": 12898,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12094,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14636,
+            "batches": 10
+          },
+          {
+            "calls": 24,
+            "vertices": 12898,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12094,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14636,
+            "batches": 10
+          }
+        ],
+        "instances": [
+          {
+            "calls": 24,
+            "vertices": 12898,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12094,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14636,
+            "batches": 10
+          },
+          {
+            "calls": 24,
+            "vertices": 12898,
+            "batches": 12
+          },
+          {
+            "calls": 18,
+            "vertices": 12094,
+            "batches": 9
+          },
+          {
+            "calls": 20,
+            "vertices": 14636,
+            "batches": 10
+          }
+        ]
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 43,
+        "edges": 147,
+        "loops": 20
+      },
+      "wfc": null
+    }
+  ],
+  "summaries": [
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "standard",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 49604,
+        "chunkVertices": 49604,
+        "sourceBytes": 396832,
+        "chunkBytes": 396832,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 2.899999998509884,
+          "p95": 3.439999999850988,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 3.150000000372529,
+          "p95": 5.085000000707805,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 6.049999998882413,
+          "p95": 8.525000000558794,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.2000000011175871,
+          "p95": 0.20000000279396773,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.09999999776482582,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.09999999944120645,
+          "n": 12
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "standard",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 32,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20866,
+        "chunkVertices": 50534,
+        "sourceBytes": 167952,
+        "chunkBytes": 404272,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.04999999888241291,
+          "p95": 0.09499999787658453,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 1.599999999627471,
+          "p95": 1.959999999962747,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 1.650000000372529,
+          "p95": 2.685000000707805,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 3.349999999627471,
+          "p95": 4.744999998621642,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.44999999925494194,
+          "p95": 0.4949999999254942,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.04500000067055218,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 12
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "standard",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 44,
+        "freeLibrary": 60,
+        "instances": 269,
+        "sourceVertices": 18052,
+        "chunkVertices": 45682,
+        "sourceBytes": 146568,
+        "chunkBytes": 365456,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.05000000074505806,
+          "p95": 0.09500000141561031,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 0.9499999992549419,
+          "p95": 0.9949999999254941,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 0.9499999992549419,
+          "p95": 0.9949999999254941,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 1.949999999254942,
+          "p95": 2.085000001266599,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.5,
+          "p95": 0.5,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.09999999944120645,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.19999999925494194,
+          "n": 12
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "standard",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 31,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20452,
+        "chunkVertices": 50676,
+        "sourceBytes": 164640,
+        "chunkBytes": 405408,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 482,
+        "removed": 0,
+        "peakDomainValues": 310
+      },
+      "stats": {
+        "generation": {
+          "p50": 0.2999999988824129,
+          "p95": 0.38999999854713674,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 1.1000000014901161,
+          "p95": 1.1000000014901161,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 0.6499999985098839,
+          "p95": 0.6949999991804361,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 2.049999998882413,
+          "p95": 2.184999999217689,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.3500000014901161,
+          "p95": 0.3950000021606684,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.09999999944120645,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 12
+        }
+      }
+    },
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 50922,
+        "chunkVertices": 50922,
+        "sourceBytes": 407376,
+        "chunkBytes": 407376,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 2.299999998882413,
+          "p95": 2.5699999978765846,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 1.1500000022351742,
+          "p95": 1.1950000029057264,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 3.450000001117587,
+          "p95": 3.765000000782311,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.09999999962747097,
+          "p95": 0.1000000013038516,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.09999999944120645,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0,
+          "n": 12
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 60,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 32684,
+        "chunkVertices": 52060,
+        "sourceBytes": 262496,
+        "chunkBytes": 416480,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0,
+          "p95": 0,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 2.049999998882413,
+          "p95": 2.2750000005587934,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 0.900000000372529,
+          "p95": 1.2600000007078052,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 2.949999999254942,
+          "p95": 3.5350000012665985,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.40000000037252903,
+          "p95": 0.4000000020489097,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.04500000067055218,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 12
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 55,
+        "freeLibrary": 72,
+        "instances": 269,
+        "sourceVertices": 18566,
+        "chunkVertices": 46324,
+        "sourceBytes": 150680,
+        "chunkBytes": 370592,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0,
+          "p95": 0,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 0.9499999992549419,
+          "p95": 0.9949999999254941,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 0.44999999925494194,
+          "p95": 0.4949999999254942,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 1.3999999985098839,
+          "p95": 1.3999999985098839,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.75,
+          "p95": 0.7950000006705522,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.04500000067055218,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0.04999999888241291,
+          "p95": 0.10000000149011612,
+          "n": 12
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 2,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 61,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 33520,
+        "chunkVertices": 52402,
+        "sourceBytes": 269184,
+        "chunkBytes": 419216,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 816,
+        "removed": 903,
+        "peakDomainValues": 1393
+      },
+      "stats": {
+        "generation": {
+          "p50": 0.5499999988824129,
+          "p95": 0.684999999217689,
+          "n": 2
+        },
+        "geometry": {
+          "p50": 2.299999998882413,
+          "p95": 2.389999998547137,
+          "n": 2
+        },
+        "chunking": {
+          "p50": 0.75,
+          "p95": 0.975,
+          "n": 2
+        },
+        "coldCPU": {
+          "p50": 3.599999997764826,
+          "p95": 4.049999997764826,
+          "n": 2
+        },
+        "upload": {
+          "p50": 0.4000000022351742,
+          "p95": 0.4000000022351742,
+          "n": 2
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.04499999899417155,
+          "n": 12
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 12
+        }
+      }
+    }
+  ],
+  "cancelled": false,
+  "scope": "Cold CPU maps and fresh per-map template caches; static WebGL2 completion at fixed 256x160 camera. No Unity FPS.",
+  "ok": true,
+  "sourceHashes": [
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "plan.js",
+      "sha256": "18049c81f48e486ede4af06b2a5fe590b78b56d586b5c1192089afd16eb7f595"
+    },
+    {
+      "file": "solver.js",
+      "sha256": "600a5056fa68937b6d49f44807e02b98003bef39fde750da114f4220e3dbf956"
+    },
+    {
+      "file": "field.js",
+      "sha256": "6d53d9cc0bcde52b811cb805406e29834b67d1eacb2f82b347e9332db7f1ecdb"
+    },
+    {
+      "file": "mesh.js",
+      "sha256": "cdbf702e90c0be4df1cd3cab5db8cb5e521a11375a46df4e84a9c237be307d6f"
+    },
+    {
+      "file": "gpu.js",
+      "sha256": "971cb466e71837c84c2ad8308baba5b8ab185c744666078caccafae262f893e0"
+    },
+    {
+      "file": "benchmark.js",
+      "sha256": "f51249d8a91f8f2556078a9f9ce617977fcf3cfb2bd7bf9e509d7ffbb6fe85e2"
+    }
+  ],
+  "errors": []
+}

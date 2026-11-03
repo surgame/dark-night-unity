@@ -68,6 +68,7 @@ namespace DarkNights.Editor
             Add<EconomyBehaviour>(definition);
             Add<WaveBehaviour>(definition);
             Add<ProjectileBehaviour>(definition);
+            Add<PhysicsSessionBehaviour>(definition);
         }
 
         private static ObjectArchetype Archetype(string family, params Type[] capabilities)

@@ -1,0 +1,20 @@
+{
+  "createdAt": "2026-11-01T20:32:35.376Z",
+  "scope": "Compact natural mine design; suggested geometric route only, no actual traversal, timing or Unity validation.",
+  "inputs": {
+    "data.js": "0f856ee4828c1ccdd63da821eb58eb8da96c0aaa94ad13db2bcb3b8a3201694b",
+    "view.html": "2a5ac7d39e05b46492c0e0038c5661bab07b122b5af3219d6e5ac8b55e63b7cc",
+    "app.js": "0a35db6640e32e7beeb954d01d096c84df60fa07b72d93a2a1b034c39fded7d1",
+    "README.md": "edb038addbf17560f937f4b99f9dcda4abf971c1d8fce7d44a78cf7c0dba01fd"
+  },
+  "priorPreserved": {
+    "record": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-macroblock-design-v1\\records\\2026-11-01T19-32-56-128Z-depth-build.json",
+    "fragment": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-surface-depth.html",
+    "sha256": "aca5bcbb64173172855bf1d7d1628a75ee29cca57168bd61d6b40310f0b9bde5"
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/compact-natural-mine.html",
+    "bytes": 16564,
+    "sha256": "c003d2f430f1be0d1a51e095e877467c0866fbb7fc87428e24cdee6a3f14fe0b"
+  }
+}

@@ -1,0 +1,2098 @@
+{
+  "date": "2026-11-01T13:08:16.992Z",
+  "identity": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "software": false,
+    "output": [
+      960,
+      600
+    ]
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+  "sizes": [
+    128,
+    512,
+    2048
+  ],
+  "profiles": [
+    "standard",
+    "mixed"
+  ],
+  "rounds": 16,
+  "seed": 271,
+  "granularity": 0.09999999776482582,
+  "summaries": [
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 49604,
+        "chunkVertices": 49604,
+        "sourceBytes": 396832,
+        "chunkBytes": 396832,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 2.199999999254942,
+          "p95": 3.2000000001862645,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 1.349999999627471,
+          "p95": 2.4000000013038516,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 3.5,
+          "p95": 5.300000002607703,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.15000000037252903,
+          "p95": 0.20000000298023224,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.10000000149011612,
+          "p95": 0.20000000298023224,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        },
+        "chunkGroup": {
+          "p50": 0.5,
+          "p95": 0.984999999776482,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 32,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20866,
+        "chunkVertices": 50534,
+        "sourceBytes": 167952,
+        "chunkBytes": 404272,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0,
+          "p95": 0.12500000093132257,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 1.199999999254942,
+          "p95": 1.7000000001862645,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0.5,
+          "p95": 1.675000000745058,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 1.8999999985098839,
+          "p95": 3.2000000001862645,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.4000000022351742,
+          "p95": 0.525000000372529,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.10000000149011612,
+          "p95": 0.20000000018626451,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0.30000000074505806,
+          "p95": 0.42500000167638063,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 1.549999998882413,
+          "p95": 2.8699999986216413,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 5.5,
+          "p95": 10.38499999884516,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 44,
+        "freeLibrary": 60,
+        "instances": 269,
+        "sourceVertices": 18052,
+        "chunkVertices": 45682,
+        "sourceBytes": 146568,
+        "chunkBytes": 365456,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.04999999888241291,
+          "p95": 0.10000000149011612,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 1,
+          "p95": 1.2500000018626451,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0.5,
+          "p95": 1,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 1.5999999977648258,
+          "p95": 2.150000000372529,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.650000000372529,
+          "p95": 0.9249999988824129,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.10000000149011612,
+          "p95": 0.25,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0.5,
+          "p95": 0.8250000001862645,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 1.1000000014901161,
+          "p95": 1.8000000001862646,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 8.150000000372529,
+          "p95": 12.88499999884516,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 31,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20452,
+        "chunkVertices": 50676,
+        "sourceBytes": 164640,
+        "chunkBytes": 405408,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 482,
+        "removed": 0,
+        "peakDomainValues": 310
+      },
+      "stats": {
+        "generation": {
+          "p50": 0.30000000074505806,
+          "p95": 0.6000000014901161,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 1.199999999254942,
+          "p95": 1.9750000005587935,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0.5499999988824129,
+          "p95": 0.8250000001862645,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 2.150000000372529,
+          "p95": 3.074999999254942,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.4000000022351742,
+          "p95": 0.6250000009313226,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.10000000149011612,
+          "p95": 0.20000000298023224,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0.30000000074505806,
+          "p95": 0.45000000204890966,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 1.400000000372529,
+          "p95": 3.2850000005215403,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 5.650000000372529,
+          "p95": 9.269999997690318,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "contour",
+      "size": 512,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 142,
+        "sourceVertices": 204676,
+        "chunkVertices": 204676,
+        "sourceBytes": 1637408,
+        "chunkBytes": 1637408,
+        "chunks": 142,
+        "fieldBytes": 987525
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 14.600000001490116,
+          "p95": 14.800000000745058,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 7.650000000372529,
+          "p95": 8.325000000186265,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0.02500000037252903,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 22.400000002235174,
+          "p95": 23.02500000037253,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.8000000007450581,
+          "p95": 1.0499999998137355,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.8000000007450581,
+          "p95": 1.0499999998137355,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        },
+        "chunkGroup": {
+          "p50": 1.3999999985098839,
+          "p95": 3.969999999552964,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 512,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 42,
+        "freeLibrary": 48,
+        "instances": 512,
+        "sourceVertices": 27038,
+        "chunkVertices": 209088,
+        "sourceBytes": 220400,
+        "chunkBytes": 1672704,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.19999999925494194,
+          "p95": 0.2250000024214387,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 2.5,
+          "p95": 2.699999999254942,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 3.300000000745058,
+          "p95": 4.750000000931323,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 5.849999999627471,
+          "p95": 7.675000000745058,
+          "n": 16
+        },
+        "upload": {
+          "p50": 2.5,
+          "p95": 3.0999999986961484,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.7000000011175871,
+          "p95": 0.9749999986961484,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 1.800000000745058,
+          "p95": 2.374999998137355,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4.600000001490116,
+          "p95": 5.984999999776482,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 19.899999998509884,
+          "p95": 29.5,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 512,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 54,
+        "freeLibrary": 60,
+        "instances": 1124,
+        "sourceVertices": 23162,
+        "chunkVertices": 188710,
+        "sourceBytes": 194288,
+        "chunkBytes": 1509680,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.19999999925494194,
+          "p95": 0.3250000001862645,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 2.199999999254942,
+          "p95": 2.3250000001862645,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 3.299999998882413,
+          "p95": 4.125,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 5.699999999254942,
+          "p95": 6.7749999994412065,
+          "n": 16
+        },
+        "upload": {
+          "p50": 4.099999997764826,
+          "p95": 4.424999998882413,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.6000000014901161,
+          "p95": 0.724999999627471,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 3.400000000372529,
+          "p95": 3.7499999990686774,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.20000000018626451,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 3.700000001117587,
+          "p95": 4.899999998509884,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 28.850000001490116,
+          "p95": 40.54000000115484,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 512,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 41,
+        "freeLibrary": 48,
+        "instances": 512,
+        "sourceVertices": 26752,
+        "chunkVertices": 210560,
+        "sourceBytes": 218112,
+        "chunkBytes": 1684480,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": {
+        "observations": 359,
+        "propagations": 2089,
+        "removed": 0,
+        "peakDomainValues": 1230
+      },
+      "stats": {
+        "generation": {
+          "p50": 3.300000000745058,
+          "p95": 3.5499999998137355,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 2.599999997764826,
+          "p95": 2.8250000029802322,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 3.599999997764826,
+          "p95": 4.799999997019768,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 9.400000000372529,
+          "p95": 10.549999999813735,
+          "n": 16
+        },
+        "upload": {
+          "p50": 2.400000002235174,
+          "p95": 2.75,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.6000000014901161,
+          "p95": 0.8250000001862645,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 1.800000000745058,
+          "p95": 2.025000000372529,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4.5,
+          "p95": 5.700000002980232,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 20.749999998137355,
+          "p95": 30.354999998398124,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "contour",
+      "size": 2048,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 582,
+        "sourceVertices": 822756,
+        "chunkVertices": 822756,
+        "sourceBytes": 6582048,
+        "chunkBytes": 6582048,
+        "chunks": 582,
+        "fieldBytes": 3941125
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 60.09999999962747,
+          "p95": 61.90000000037253,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 31.949999999254942,
+          "p95": 33.09999999962747,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 92,
+          "p95": 94.45000000111759,
+          "n": 16
+        },
+        "upload": {
+          "p50": 3.199999999254942,
+          "p95": 4.8250000001862645,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 3.199999999254942,
+          "p95": 4.8250000001862645,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        },
+        "chunkGroup": {
+          "p50": 1.75,
+          "p95": 15.375000000931314,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 2048,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 44,
+        "freeLibrary": 48,
+        "instances": 2048,
+        "sourceVertices": 29130,
+        "chunkVertices": 840276,
+        "sourceBytes": 249424,
+        "chunkBytes": 6722208,
+        "chunks": 582,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.5,
+          "p95": 0.6250000009313226,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 3,
+          "p95": 3.1250000009313226,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 16.65000000037253,
+          "p95": 18.375000000931323,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 20.200000001117587,
+          "p95": 21.92500000167638,
+          "n": 16
+        },
+        "upload": {
+          "p50": 9.199999999254942,
+          "p95": 10.575000000186265,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 3,
+          "p95": 3.474999999627471,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 6.25,
+          "p95": 7.124999998137355,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.19999999925494194,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4.900000000372529,
+          "p95": 5.869999999180435,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 23.899999998509884,
+          "p95": 42.320000000111754,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 2048,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 56,
+        "freeLibrary": 60,
+        "instances": 4506,
+        "sourceVertices": 25068,
+        "chunkVertices": 759162,
+        "sourceBytes": 236592,
+        "chunkBytes": 6073296,
+        "chunks": 582,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.900000000372529,
+          "p95": 1.4749999986961484,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 2.699999999254942,
+          "p95": 3.324999999254942,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 16.600000001490116,
+          "p95": 19.300000000745058,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 20.65000000037253,
+          "p95": 22.850000001490116,
+          "n": 16
+        },
+        "upload": {
+          "p50": 15.249999998137355,
+          "p95": 19.075000000186265,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 2.749999998137355,
+          "p95": 3.400000000372529,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 12.400000000372529,
+          "p95": 15.125000001862645,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.19999999925494194,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.10000000149011612,
+          "p95": 0.30000000074505806,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4,
+          "p95": 4.899999998509884,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 30.699999999254942,
+          "p95": 70.82499999850988,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 2048,
+      "profile": "standard",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 45,
+        "freeLibrary": 48,
+        "instances": 2048,
+        "sourceVertices": 29416,
+        "chunkVertices": 844052,
+        "sourceBytes": 251712,
+        "chunkBytes": 6752416,
+        "chunks": 582,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": {
+        "observations": 1446,
+        "propagations": 8373,
+        "removed": 0,
+        "peakDomainValues": 4940
+      },
+      "stats": {
+        "generation": {
+          "p50": 11.150000000372529,
+          "p95": 11.899999999441206,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 3.099999999627471,
+          "p95": 4.04999999795109,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 16.650000002235174,
+          "p95": 18.975000000558794,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 30.59999999962747,
+          "p95": 33.600000001490116,
+          "n": 16
+        },
+        "upload": {
+          "p50": 9.25,
+          "p95": 10.875000000931323,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 2.850000001490116,
+          "p95": 4.025000000372529,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 6.449999999254942,
+          "p95": 7.149999998509884,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.19999999925494194,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 5.049999998882413,
+          "p95": 5.984999999776482,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 24.050000000745058,
+          "p95": 47.20000000242144,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "contour",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 50922,
+        "chunkVertices": 50922,
+        "sourceBytes": 407376,
+        "chunkBytes": 407376,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 3.699999999254942,
+          "p95": 3.800000000745058,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 1.8999999985098839,
+          "p95": 2.2500000009313226,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 5.600000001490116,
+          "p95": 5.900000002235174,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.19999999925494194,
+          "p95": 0.3250000001862645,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.19999999925494194,
+          "p95": 0.3250000001862645,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        },
+        "chunkGroup": {
+          "p50": 1.049999998882413,
+          "p95": 1.3850000020116562,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 60,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 32684,
+        "chunkVertices": 52060,
+        "sourceBytes": 262496,
+        "chunkBytes": 416480,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.09999999776482582,
+          "p95": 0.12500000093132257,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 3.049999998882413,
+          "p95": 3.3250000001862645,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0.8999999985098839,
+          "p95": 1,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 4,
+          "p95": 4.300000000745058,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.6999999992549419,
+          "p95": 0.8500000005587935,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.19999999925494194,
+          "p95": 0.22499999962747097,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0.599999999627471,
+          "p95": 0.7000000001862645,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 3.950000001117587,
+          "p95": 7.070000001043081,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 14.599999999627471,
+          "p95": 26.12000000085681,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 55,
+        "freeLibrary": 72,
+        "instances": 269,
+        "sourceVertices": 18566,
+        "chunkVertices": 46324,
+        "sourceBytes": 150680,
+        "chunkBytes": 370592,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.09999999776482582,
+          "p95": 0.12500000186264515,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 1.699999999254942,
+          "p95": 1.8999999985098839,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0.8000000007450581,
+          "p95": 0.9000000022351742,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 2.599999999627471,
+          "p95": 2.825000001117587,
+          "n": 16
+        },
+        "upload": {
+          "p50": 1.1000000014901161,
+          "p95": 1.199999999254942,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.19999999925494194,
+          "p95": 0.22499999962747097,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0.9000000022351742,
+          "p95": 1,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 2.900000000372529,
+          "p95": 4.78500000052154,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 22.449999999254942,
+          "p95": 36.124999999999986,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 128,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 61,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 33520,
+        "chunkVertices": 52402,
+        "sourceBytes": 269184,
+        "chunkBytes": 419216,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 128,
+        "pins": 37,
+        "edges": 141,
+        "loops": 14
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 816,
+        "removed": 903,
+        "peakDomainValues": 1393
+      },
+      "stats": {
+        "generation": {
+          "p50": 1.550000000745058,
+          "p95": 1.9500000020489097,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 3.300000000745058,
+          "p95": 3.600000001490116,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0.8000000007450581,
+          "p95": 1.125,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 5.600000001490116,
+          "p95": 6.3500000005587935,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.7999999988824129,
+          "p95": 0.9249999988824129,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.19999999925494194,
+          "p95": 0.2250000024214387,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0.6000000014901161,
+          "p95": 0.6999999992549419,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4.049999998882413,
+          "p95": 7.169999999366699,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 14.650000002235174,
+          "p95": 26.884999999590207,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "contour",
+      "size": 512,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 142,
+        "sourceVertices": 209456,
+        "chunkVertices": 209456,
+        "sourceBytes": 1675648,
+        "chunkBytes": 1675648,
+        "chunks": 142,
+        "fieldBytes": 987525
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 14.850000001490116,
+          "p95": 15.29999999795109,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 8.100000001490116,
+          "p95": 8.974999999627471,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0.024999999441206455,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 22.900000002235174,
+          "p95": 24.124999999068677,
+          "n": 16
+        },
+        "upload": {
+          "p50": 0.7000000029802322,
+          "p95": 0.9250000016763806,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.7000000029802322,
+          "p95": 0.9250000016763806,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        },
+        "chunkGroup": {
+          "p50": 1.3999999985098839,
+          "p95": 3.554999998211859,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 512,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 143,
+        "freeLibrary": 243,
+        "instances": 512,
+        "sourceVertices": 71470,
+        "chunkVertices": 214858,
+        "sourceBytes": 575856,
+        "chunkBytes": 1718864,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.19999999925494194,
+          "p95": 0.20000000298023224,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 6.349999999627471,
+          "p95": 6.675000000745058,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 3.549999998882413,
+          "p95": 4.450000001117587,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 10.199999999254942,
+          "p95": 11.125,
+          "n": 16
+        },
+        "upload": {
+          "p50": 2.450000001117587,
+          "p95": 2.7499999990686774,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.6000000014901161,
+          "p95": 0.7249999986961484,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 1.849999999627471,
+          "p95": 2.100000001490116,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4.599999999627471,
+          "p95": 6.100000000931322,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 21.09999999962747,
+          "p95": 31.039999997988343,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 512,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 66,
+        "freeLibrary": 72,
+        "instances": 1124,
+        "sourceVertices": 23778,
+        "chunkVertices": 190880,
+        "sourceBytes": 199216,
+        "chunkBytes": 1527040,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.25000000186264515,
+          "p95": 0.30000000074505806,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 2.299999998882413,
+          "p95": 2.600000001490116,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 4.000000001862645,
+          "p95": 4.474999998696148,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 6.550000000745058,
+          "p95": 7.325000001117587,
+          "n": 16
+        },
+        "upload": {
+          "p50": 3.650000000372529,
+          "p95": 3.8750000009313226,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.5,
+          "p95": 0.7249999986961484,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 3.099999999627471,
+          "p95": 3.2500000027939677,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.10000000149011612,
+          "p95": 0.19999999925494194,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 3.650000002235174,
+          "p95": 5.099999997764826,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 29.949999999254942,
+          "p95": 41.600000000931324,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 512,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 154,
+        "freeLibrary": 243,
+        "instances": 512,
+        "sourceVertices": 77704,
+        "chunkVertices": 218986,
+        "sourceBytes": 625728,
+        "chunkBytes": 1751888,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 512,
+        "pins": 153,
+        "edges": 612,
+        "loops": 101
+      },
+      "wfc": {
+        "observations": 359,
+        "propagations": 3676,
+        "removed": 4452,
+        "peakDomainValues": 6471
+      },
+      "stats": {
+        "generation": {
+          "p50": 6.25,
+          "p95": 6.725000001490116,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 6.800000000745058,
+          "p95": 7.574999999254942,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 4.100000001490116,
+          "p95": 4.8500000005587935,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 16.550000000745058,
+          "p95": 19.024999998509884,
+          "n": 16
+        },
+        "upload": {
+          "p50": 2.5,
+          "p95": 3.025000000372529,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 0.6999999992549419,
+          "p95": 0.8500000005587935,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 1.900000000372529,
+          "p95": 2.224999999627471,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.09999999776482582,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4.5,
+          "p95": 6.085000001266598,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 20.550000000745058,
+          "p95": 30.5,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "contour",
+      "size": 2048,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 582,
+        "sourceVertices": 842354,
+        "chunkVertices": 842354,
+        "sourceBytes": 6738832,
+        "chunkBytes": 6738832,
+        "chunks": 582,
+        "fieldBytes": 3941125
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 61.09999999962747,
+          "p95": 66.47500000149012,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 32.95000000111759,
+          "p95": 34.00000000093132,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 94.09999999962747,
+          "p95": 99.44999999925494,
+          "n": 16
+        },
+        "upload": {
+          "p50": 3.050000000745058,
+          "p95": 3.25,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 3.050000000745058,
+          "p95": 3.25,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 0,
+          "p95": 0,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        },
+        "chunkGroup": {
+          "p50": 1.699999999254942,
+          "p95": 16.549999999254936,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": null,
+          "p95": null,
+          "n": 0,
+          "alias": "chunks"
+        }
+      }
+    },
+    {
+      "method": "blocks",
+      "size": 2048,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 216,
+        "freeLibrary": 243,
+        "instances": 2048,
+        "sourceVertices": 107398,
+        "chunkVertices": 863416,
+        "sourceBytes": 875568,
+        "chunkBytes": 6907328,
+        "chunks": 582,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.5,
+          "p95": 0.6000000014901161,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 10.050000000745058,
+          "p95": 10.575000000186265,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 18.249999998137355,
+          "p95": 18.975000001490116,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 28.84999999962747,
+          "p95": 29.799999998882413,
+          "n": 16
+        },
+        "upload": {
+          "p50": 9.150000000372529,
+          "p95": 9.599999998696148,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 2.899999998509884,
+          "p95": 3.0999999986961484,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 6.349999999627471,
+          "p95": 6.550000000745058,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.19999999925494194,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.10000000149011612,
+          "p95": 0.19999999925494194,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 5.100000001490116,
+          "p95": 6.199999999254942,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 24.949999999254942,
+          "p95": 47.079999999143176,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "bridges",
+      "size": 2048,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 68,
+        "freeLibrary": 72,
+        "instances": 4506,
+        "sourceVertices": 25684,
+        "chunkVertices": 768598,
+        "sourceBytes": 241520,
+        "chunkBytes": 6148784,
+        "chunks": 582,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": null,
+      "stats": {
+        "generation": {
+          "p50": 0.75,
+          "p95": 1,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 2.699999999254942,
+          "p95": 2.9250000016763806,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 16.5,
+          "p95": 18.424999998882413,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 20.050000000745058,
+          "p95": 22.200000000186265,
+          "n": 16
+        },
+        "upload": {
+          "p50": 14.849999999627471,
+          "p95": 15.899999998509884,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 2.650000000372529,
+          "p95": 3.5,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 12.200000001117587,
+          "p95": 12.650000001303852,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.10000000149011612,
+          "p95": 0.30000000074505806,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 4.150000000372529,
+          "p95": 5,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 31.550000000745058,
+          "p95": 73.95499999988824,
+          "n": 64
+        }
+      }
+    },
+    {
+      "method": "wfc",
+      "size": 2048,
+      "profile": "mixed",
+      "samples": 16,
+      "resources": {
+        "presetUsed": 29,
+        "presetLibrary": 32,
+        "freeUsed": 218,
+        "freeLibrary": 243,
+        "instances": 2048,
+        "sourceVertices": 108024,
+        "chunkVertices": 876864,
+        "sourceBytes": 880576,
+        "chunkBytes": 7014912,
+        "chunks": 582,
+        "fieldBytes": 0
+      },
+      "plan": {
+        "nodes": 2048,
+        "pins": 602,
+        "edges": 2458,
+        "loops": 411
+      },
+      "wfc": {
+        "observations": 1446,
+        "propagations": 14725,
+        "removed": 17787,
+        "peakDomainValues": 25820
+      },
+      "stats": {
+        "generation": {
+          "p50": 18.15000000037253,
+          "p95": 22.299999999813735,
+          "n": 16
+        },
+        "geometry": {
+          "p50": 10.600000001490116,
+          "p95": 11.474999998696148,
+          "n": 16
+        },
+        "chunking": {
+          "p50": 18.200000001117587,
+          "p95": 19.024999999441206,
+          "n": 16
+        },
+        "coldCPU": {
+          "p50": 47.25,
+          "p95": 51.59999999962747,
+          "n": 16
+        },
+        "upload": {
+          "p50": 9.25,
+          "p95": 9.649999999441206,
+          "n": 16
+        },
+        "chunkUpload": {
+          "p50": 2.950000001117587,
+          "p95": 3.3500000005587935,
+          "n": 16
+        },
+        "instanceUpload": {
+          "p50": 6.349999999627471,
+          "p95": 6.599999998696148,
+          "n": 16
+        },
+        "chunkDraw": {
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "n": 96
+        },
+        "instanceDraw": {
+          "p50": 0.10000000149011612,
+          "p95": 0.19999999925494194,
+          "n": 96
+        },
+        "chunkGroup": {
+          "p50": 5.049999998882413,
+          "p95": 5.985000000335275,
+          "n": 64
+        },
+        "instanceGroup": {
+          "p50": 24.65000000037253,
+          "p95": 51.94000000022351,
+          "n": 64
+        }
+      }
+    }
+  ],
+  "cancelled": false,
+  "drawRepetitions": 64,
+  "scope": "Cold CPU maps and fresh per-map template caches; static WebGL2 completion at fixed 256x160 camera. Group times enclose 64 real draws with finish after every pass. No Unity FPS.",
+  "ok": true,
+  "sourceHashes": [
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "plan.js",
+      "sha256": "18049c81f48e486ede4af06b2a5fe590b78b56d586b5c1192089afd16eb7f595"
+    },
+    {
+      "file": "solver.js",
+      "sha256": "600a5056fa68937b6d49f44807e02b98003bef39fde750da114f4220e3dbf956"
+    },
+    {
+      "file": "field.js",
+      "sha256": "6d53d9cc0bcde52b811cb805406e29834b67d1eacb2f82b347e9332db7f1ecdb"
+    },
+    {
+      "file": "mesh.js",
+      "sha256": "cdbf702e90c0be4df1cd3cab5db8cb5e521a11375a46df4e84a9c237be307d6f"
+    },
+    {
+      "file": "gpu.js",
+      "sha256": "a3e848ec8beb4ba58c8d3243d8bb2ffc708ff2aef6355fabf275ae02e48f8492"
+    },
+    {
+      "file": "benchmark.js",
+      "sha256": "a4edb9deee31db54a035d750a40a6e1c5fffeefbf069450bab23afedc7553050"
+    }
+  ],
+  "errors": [],
+  "sourceRecord": "records/1793538496522-measurement/raw.json"
+}

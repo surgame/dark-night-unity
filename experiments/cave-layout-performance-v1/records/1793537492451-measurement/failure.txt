@@ -1,0 +1,7 @@
+page.evaluate: Error: WebGL reported an error during measured rendering.
+    at P.run (file:///D:/Developer/MiniGames/Dark%20Nights/unity-projects/experiments/cave-layout-performance-v1/index.html:721:39)
+    at HTMLDivElement.run [as _benchmark] (file:///D:/Developer/MiniGames/Dark%20Nights/unity-projects/experiments/cave-layout-performance-v1/index.html:857:28)
+    at eval (eval at evaluate (:311:30), <anonymous>:2:6)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at D:\Developer\MiniGames\Dark Nights\unity-projects\experiments\cave-layout-performance-v1\measure.cjs:20:27

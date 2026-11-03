@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-30",
+  "owner": "01a1891b-2542-7ea1-a69e-12cf28b0c785",
+  "purpose": "A browser-only playable WFC cave prototype using fixed illustrated macro modules, retaining the existing continuous-material candidate.",
+  "requestedSourceSize": [1536, 1536],
+  "layout": "Two columns by three rows. Six 768x512 side-view cave modules.",
+  "precision": "Deterministic layout guide defines portal classes A and B and collision envelopes. Generated illustration requires visual review; source bytes preserved.",
+  "rendering": "Rigid translated module illustrations. No looping rock fill or freely bent floor texture. Fixed portal overlays may hide seams and are listed separately.",
+  "generationMethod": "Built-in image_gen, guided by exact module layout and the user's cave reference. This is a large illustrated asset, not a low pixel count tile.",
+  "alpha": "Opaque panels; no alpha required. Guide is opaque.",
+  "scope": "One horizontal WFC strip, desktop and touch movement and jumping, camera follow, macro and rule views. Prototype physics only; no Unity integration or official gameplay values.",
+  "references": [
+    "sources/user-style-reference.png"
+  ],
+  "originalReferencePath": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-f2e14738-7196-4937-b767-6e31c6983b55.png"
+}

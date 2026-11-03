@@ -1,0 +1,83 @@
+<div id="mapmodule-lab-ui">
+  <style>__PRODUCT_CSS__</style>
+  <div class="viz-carousel" aria-label="地图试验场布局方案" data-previous-label="上一种布局" data-next-label="下一种布局">
+    <section data-variant="画面优先" aria-label="地图试验场画面优先布局">
+      <div class="mm-stage"><div class="mm-product" data-layout="play" aria-label="地图试验场画面优先"></div></div>
+    </section>
+    <section data-variant="联机排查" aria-label="地图试验场联机排查布局" hidden>
+      <div class="mm-stage"><div class="mm-product" data-layout="network" aria-label="地图试验场联机排查"></div></div>
+    </section>
+  </div>
+  <template data-mm-template>
+    <header class="mm-chrome"><div class="mm-brand"><h2>地图试验场</h2><span class="mm-small">MapModule</span></div><span class="mm-tag">原生运行界面 · 交互设计稿</span></header>
+    <div class="mm-toolbar">
+      <label>当前样例<select data-field="variant" aria-label="试跑样例"></select></label>
+      <label>本端身份<select data-field="role" aria-label="本端运行身份"><option value="host">本机房主</option><option value="client">加入房主</option></select></label>
+      <label data-address hidden>房主地址<input type="text" data-field="address" aria-label="房主地址" value="127.0.0.1"></label>
+      <span class="mm-space"></span><span class="mm-small" data-version>固定版本 · 入口草案</span>
+    </div>
+    <div class="mm-readiness" aria-label="真实准备回执位置">
+      <span>对象 · 待回执</span><span>前景 · 待回执</span><span>矿层 · 待回执</span><span>本端绘制 · 待回执</span>
+    </div>
+    <div class="mm-lab-main">
+      <main class="mm-lab-screen">
+        <div class="mm-canvas-toolbar">
+          <span data-scene-label>浅坳低口 · 入口＋第二片</span>
+          <div class="mm-segment" aria-label="运行观察范围">
+            <button type="button" class="cursor-interaction" data-scope="single" aria-pressed="false">主角近景</button>
+            <button type="button" class="cursor-interaction" data-scope="fragment" aria-pressed="true">片段</button>
+            <button type="button" class="cursor-interaction" data-scope="map" aria-pressed="false">整图</button>
+          </div>
+        </div>
+        <div class="mm-canvas" data-canvas><svg class="mm-scene" role="img" aria-label="扁平正侧视调试场景草图"></svg><span class="mm-overlay-note">本端画面 · 主角同比例 · 视野草图</span></div>
+        <div class="mm-display">
+          <label><input type="checkbox" data-toggle="bounds">模块边界</label>
+          <label><input type="checkbox" data-toggle="collision">形状叠层</label>
+          <label><input type="checkbox" data-toggle="ecology" checked>生态</label>
+          <span class="mm-space"></span><span class="mm-small">A / D 移动 · 空格跳跃</span>
+        </div>
+        <div class="mm-lab-controls">
+          <button type="button" class="cursor-interaction mm-primary" data-action="start">启动本机房主</button>
+          <button type="button" class="cursor-interaction" data-action="pause" disabled>暂停</button>
+          <button type="button" class="cursor-interaction" data-action="restart" disabled>重开本例</button>
+          <button type="button" class="cursor-interaction" data-action="leave" disabled>退出试跑</button>
+          <span class="mm-small" data-running-state>未运行</span>
+        </div>
+        <p class="mm-role-info" data-role-info>房主负责暂停与重开；运行后固定当前样例和制作版本。</p>
+      </main>
+      <aside class="mm-diagnostics">
+        <details data-diagnostic-fold><summary class="cursor-interaction">连接与版本诊断</summary>
+          <div class="mm-diagnostic-content">
+            <table class="mm-data" aria-label="本端与目标版本只读对照">
+              <thead><tr><th>检查项</th><th>本端／目标</th></tr></thead>
+              <tbody>
+                <tr><td>样例</td><td data-case-id>入口 · 浅坳低口</td></tr>
+                <tr><td>制作版本</td><td>待真实回执</td></tr>
+                <tr><td>地图身份</td><td>—</td></tr>
+                <tr><td>epoch / tick</td><td>— / —</td></tr>
+                <tr><td>对象状态</td><td>等待冻结投影</td></tr>
+                <tr><td>地图基线</td><td>等待前景与矿层</td></tr>
+                <tr><td>绘制确认</td><td>等待本端实际画面</td></tr>
+                <tr><td>会话控制</td><td data-permission>房主验证</td></tr>
+              </tbody>
+            </table>
+            <p class="mm-small">只显示本端回执。联机核对使用独立Host与Client进程。</p>
+          </div>
+        </details>
+      </aside>
+    </div>
+    <footer class="mm-result">
+      <p class="mm-notice" data-notice role="status" aria-live="polite">设计稿：试跑角色、版本锁定和权限操作可交互查看。</p>
+      <p class="mm-small">界面交互演示 · 未连接Unity，准备状态与联机数值均待接入</p>
+    </footer>
+  </template>
+  <script>
+  (() => {
+    const root=document.getElementById("mapmodule-lab-ui");
+    const mmSchemes=__SCHEMES__;
+    const mmHero=__HERO__;
+    __SCENE_JS__
+    __LAB_JS__
+  })();
+  </script>
+</div>

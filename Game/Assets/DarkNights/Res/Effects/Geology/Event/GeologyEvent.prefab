@@ -3713,6 +3713,75 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 0}
   _renderers: []
+  _allRenderers:
+  - {fileID: 7082953587216548748}
+  - {fileID: 8668353861737795619}
+  - {fileID: 4488976472484100643}
+  - {fileID: 6708957533777997336}
+  - {fileID: 7786919501057477823}
+  - {fileID: 6104823276769580047}
+  - {fileID: 6670881339447467178}
+  - {fileID: 4375440369157998512}
+  - {fileID: 3071260795260694870}
+  - {fileID: 9169496870389944352}
+  - {fileID: 8247773476571440110}
+  - {fileID: 6646702590477204843}
+  - {fileID: 4559045006784099205}
+  - {fileID: 7386686855347174039}
+  - {fileID: 5514045051685950297}
+  - {fileID: 2577708529411660219}
+  - {fileID: 2467507181865116792}
+  - {fileID: 1634097035753658006}
+  - {fileID: 3875054006426467311}
+  - {fileID: 4035713697861470202}
+  - {fileID: 2058025169735982781}
+  - {fileID: 229175519021085289}
+  - {fileID: 1554935200971642810}
+  - {fileID: 1660012463213198611}
+  - {fileID: 3303244138374311547}
+  - {fileID: 956821854469998832}
+  - {fileID: 5293788967872057559}
+  - {fileID: 5400857267277268888}
+  - {fileID: 2063831102172193162}
+  - {fileID: 4547833378373807988}
+  - {fileID: 5052866641885861144}
+  - {fileID: 4749297712963043138}
+  - {fileID: 5461999310577883632}
+  - {fileID: 6134547382543168512}
+  - {fileID: 6107439225725291328}
+  - {fileID: 6874802614560586588}
+  - {fileID: 332015574309916225}
+  - {fileID: 7747855032586126152}
+  - {fileID: 8398218193299258240}
+  - {fileID: 42329373583157970}
+  - {fileID: 4030382446613514988}
+  - {fileID: 8594518581454809131}
+  - {fileID: 7588926381127339324}
+  - {fileID: 3901903063744583571}
+  - {fileID: 488931068846973945}
+  - {fileID: 7735630501578953448}
+  - {fileID: 4082725432346545069}
+  - {fileID: 6535926878532180792}
+  - {fileID: 1591672262366760200}
+  - {fileID: 1309573161246127919}
+  - {fileID: 1680751083472672878}
+  - {fileID: 1307022219262231913}
+  - {fileID: 4961874024610693291}
+  - {fileID: 5963187664291898651}
+  - {fileID: 6724503955447371893}
+  - {fileID: 5499387653978488359}
+  - {fileID: 278011646870345008}
+  - {fileID: 7775101207307928557}
+  - {fileID: 3998338361462596737}
+  - {fileID: 1166102898122149793}
+  - {fileID: 6794912964057114351}
+  - {fileID: 4542191808062235741}
+  - {fileID: 2220896036627624375}
+  - {fileID: 1257301822167866206}
+  - {fileID: 4663827818785914815}
+  - {fileID: 3876673426784130592}
+  - {fileID: 7065430400167618773}
+  - {fileID: 6961236589541224084}
   _spriteRenderers:
   - {fileID: 7082953587216548748}
   - {fileID: 8668353861737795619}
@@ -3779,7 +3848,8 @@ MonoBehaviour:
   - {fileID: 2220896036627624375}
   - {fileID: 1257301822167866206}
   - {fileID: 4663827818785914815}
-  _meshRenderers: []
+  _meshRenderers:
+  - {fileID: 6961236589541224084}
   _healthBarWidth: 0.48
   _initializer: {fileID: 2455285210684993331}
   _rb: {fileID: 0}
@@ -6301,6 +6371,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8039802166163060872, guid: e4f04d0b3e2d0c3408fd92f72ef14554, type: 3}
   m_PrefabInstance: {fileID: 5195318457999369384}
   m_PrefabAsset: {fileID: 0}
+--- !u!199 &3876673426784130592 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 9067381494552408712, guid: e4f04d0b3e2d0c3408fd92f72ef14554, type: 3}
+  m_PrefabInstance: {fileID: 5195318457999369384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6730549347896544607 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1548900052813572599, guid: e4f04d0b3e2d0c3408fd92f72ef14554, type: 3}
@@ -6312,6 +6387,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20b0be4e5c8bfa41949b71cd196da10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.GeologyDebrisView
+--- !u!199 &7065430400167618773 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 3032058479271054461, guid: e4f04d0b3e2d0c3408fd92f72ef14554, type: 3}
+  m_PrefabInstance: {fileID: 5195318457999369384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6277852372897252705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6376,6 +6456,11 @@ PrefabInstance:
 --- !u!4 &5856800239464476887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 457363513565885878, guid: 76f701a3c2984204ea97c5adf69c3019, type: 3}
+  m_PrefabInstance: {fileID: 6277852372897252705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6961236589541224084 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4000373717424942069, guid: 76f701a3c2984204ea97c5adf69c3019, type: 3}
   m_PrefabInstance: {fileID: 6277852372897252705}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7949409537213786864 stripped

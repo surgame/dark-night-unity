@@ -23,7 +23,7 @@ namespace DarkNights.Editor
             else if (module == "ship") Ship(page);
             else if (module == "objects") Objects(page);
             else if (module == "map")
-                page.Note("地形、矿物、环境、巢穴和塌方统一在地图设计工作台制作与保存；此处不重复地图参数。");
+                page.Note("新版大块模块在“地图工坊 · MapModule”编辑并启动研究调试。旧版地图工作台独立保留，原正式地图仍使用旧引用，尚未切换。");
         }
 
         private static ObjectDefinition Session() =>
@@ -42,6 +42,8 @@ namespace DarkNights.Editor
             var active = SceneManager.GetActiveScene();
             bool level = active.IsValid() && active.isLoaded && active.GetRootGameObjects().Any(root =>
                 root.GetComponentInChildren<LevelLayoutAuthoring>(true) != null ||
+                root.GetComponentInChildren<Entry.MapModule.MapModuleEntry>(true) != null ||
+                root.GetComponentInChildren<Entry.Terrain.WhiteboxEntry>(true) != null ||
                 root.GetComponentInChildren<Entry.Terrain.GeologyLabEntry>(true) != null);
             page.Value("活动场景", string.IsNullOrEmpty(active.path) ? "尚未保存" : active.path);
             page.Value("Play入口", level ? "经Bootstrap服务加载当前关卡" :

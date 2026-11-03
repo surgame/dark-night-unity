@@ -36,6 +36,7 @@ namespace DarkNights.Runtime.Terrain
         private readonly bool expedition;
         private Task<PlayableTerrain> generation;
         private PlayableTerrain selected;
+        private Func<PlayableTerrain> preparedSource;
         private string selectedPresetId = "";
         private int selectionVersion;
         public bool Selecting => generation != null;
@@ -89,6 +90,11 @@ namespace DarkNights.Runtime.Terrain
         public async UniTask SelectNew(QuickTestPreset quickTest = null)
         {
             if (disposed || network.Hosting || network.Client.Replica.Current != null || generation != null) return;
+            if (preparedSource != null)
+            {
+                if (quickTest != null) throw new InvalidOperationException("固定模块版本不能使用旧快速局。");
+                selected = preparedSource(); selectedPresetId = ""; SelectionStatus = "MapModule · 已准备固定版本"; return;
+            }
             int version = selectionVersion;
             selected = null;
             SelectionStatus = (expedition ? "洞穴远征" : "灰松谷") + " · 正在生成地图…";
@@ -138,6 +144,12 @@ namespace DarkNights.Runtime.Terrain
         {
             if (selected == null) throw new InvalidOperationException("请先选择地图。");
             var result = new SessionTerrain(context, gameplay, selected, rules, definition); selected = null; return result;
+        }
+        public void InstallPrepared(Func<PlayableTerrain> factory)
+        {
+            if (disposed || !network.CanStartSession || preparedSource != null)
+                throw new InvalidOperationException("制作版本只能在连接前安装一次。");
+            preparedSource = factory ?? throw new ArgumentNullException(nameof(factory));
         }
         public void BeginConnection()
         {

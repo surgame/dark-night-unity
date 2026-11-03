@@ -6,6 +6,8 @@
     "DarkNights.Core",
     "DarkNights.Runtime",
     "DarkNights.View",
+    "spine-unity",
+    "spine-csharp",
     "DarkNights.Entry",
     "GameCore.Runtime",
     "GameCore.Editor",

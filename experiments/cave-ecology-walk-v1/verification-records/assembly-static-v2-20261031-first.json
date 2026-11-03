@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-31",
+  "buildId": null,
+  "scope": "Static authoring geometry only; no actor traversal, Unity, rendered art or multiplayer acceptance.",
+  "source": [
+    {
+      "file": "contours.js",
+      "sha256": "17556b2c1c8a49adc2a95a9f7329d69a1dc14ae55d4bab8cc65843324568e204"
+    },
+    {
+      "file": "module-rules.js",
+      "sha256": "88aa2f5355eee37617e3b92a81447da6d2b0bdc7d853d590b054d20cc4b234c7"
+    },
+    {
+      "file": "terrain-shapes.js",
+      "sha256": "774758c54e3601e01497eeaca98795cdd6686a0ef614ae76aae0995996951ef1"
+    },
+    {
+      "file": "world-data.js",
+      "sha256": "d1824b50eb3af847d8822a7eebbd660302e2067e2d51c4ac23638ca91c5e6bd4"
+    },
+    {
+      "file": "verify-assembly.cjs",
+      "sha256": "1c43d3b53a5b077a60ca64fbfbdca4dfbf47c360533d8e135d199c1feaeffc37"
+    }
+  ],
+  "seeds": 4,
+  "sourcesCovered": 14,
+  "missingSources": [],
+  "checks": [
+    {
+      "seed": 0,
+      "passed": true,
+      "rooms": 8,
+      "connections": 7,
+      "portColumnsPerSide": 65,
+      "water": 10,
+      "plants": 47,
+      "boundaries": 2,
+      "roadDepthLayers": 8,
+      "issues": []
+    },
+    {
+      "seed": 1,
+      "passed": true,
+      "rooms": 8,
+      "connections": 7,
+      "portColumnsPerSide": 65,
+      "water": 10,
+      "plants": 47,
+      "boundaries": 2,
+      "roadDepthLayers": 8,
+      "issues": []
+    },
+    {
+      "seed": 2,
+      "passed": true,
+      "rooms": 8,
+      "connections": 7,
+      "portColumnsPerSide": 65,
+      "water": 8,
+      "plants": 47,
+      "boundaries": 2,
+      "roadDepthLayers": 8,
+      "issues": []
+    },
+    {
+      "seed": 3,
+      "passed": true,
+      "rooms": 8,
+      "connections": 7,
+      "portColumnsPerSide": 65,
+      "water": 8,
+      "plants": 47,
+      "boundaries": 2,
+      "roadDepthLayers": 8,
+      "issues": []
+    }
+  ],
+  "passed": true
+}

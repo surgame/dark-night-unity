@@ -19,10 +19,12 @@ namespace DarkNights.View
         [SerializeField] private Transform lightFillAnchor;
         [SerializeField] private SpriteRenderer[] lightTargets = Array.Empty<SpriteRenderer>();
         public Transform LightFillAnchor => lightFillAnchor;
-        public SpriteRenderer[] LightTargets => lightTargets;
+        public Renderer[] LightTargets => spineAnimation != null ? skeletalLightTargets : lightTargets;
         [SerializeField] private Transform poseRoot;
         [SerializeField] private SpriteRenderer clothing;
         [SerializeField] private PoseClip[] clips = Array.Empty<PoseClip>();
+        [SerializeField] private SpineActorAnimation spineAnimation;
+        [SerializeField] private Renderer[] skeletalLightTargets = Array.Empty<Renderer>();
         [SerializeField] private Vector2 standingOffset;
         [SerializeField] private Vector2 deathOffset;
 
@@ -45,13 +47,25 @@ namespace DarkNights.View
         }
 
         public PoseClip[] Clips => (PoseClip[])clips.Clone();
+        public bool UsesSkeleton => spineAnimation != null;
+        public void ResetAnimation() => spineAnimation?.ResetPresentation();
 
-        public double PoseDuration(string pose) => RequiredClip(pose).Duration;
+        /// <summary>查询显式配置的可选姿态；旧单位未制作腾空片段时继续沿用其原有姿态集。</summary>
+        public bool HasPose(string pose)
+        {
+            if (spineAnimation != null) return spineAnimation.HasPose(pose);
+            foreach (PoseClip clip in clips) if (clip.Name == pose) return true;
+            return false;
+        }
 
-        public void SamplePose(string pose, double seconds)
+        public double PoseDuration(string pose) => spineAnimation != null ?
+            spineAnimation.Duration(pose) : RequiredClip(pose).Duration;
+
+        public void SamplePose(string pose, double seconds, double elapsed = 0)
         {
             handheld?.RestorePose();
-            RequiredClip(pose).Sample(gameObject, seconds);
+            if (spineAnimation != null) spineAnimation.Sample(pose, seconds, elapsed);
+            else RequiredClip(pose).Sample(gameObject, seconds);
         }
 
         public void SetStanding(float face)
@@ -70,13 +84,21 @@ namespace DarkNights.View
                 surface.a *= 0.55f;
                 shirt.a *= 0.55f;
             }
-            TintSurface(surface, clothing, shirt);
+            if (spineAnimation != null) spineAnimation.Tint(surface, Ambient);
+            else TintSurface(surface, clothing, shirt);
+        }
+
+        public override void TintSurface(Color tint)
+        {
+            if (spineAnimation != null) spineAnimation.Tint(tint, Ambient);
+            else base.TintSurface(tint);
         }
 
         public override void Preview(int identity, int variant)
         {
             handheld?.Hide();
-            RequiredClip("idle").Sample(gameObject, 0);
+            if (spineAnimation != null) spineAnimation.Preview();
+            else RequiredClip("idle").Sample(gameObject, 0);
             if (shadow != null) shadow.enabled = true;
             facing.localScale = Vector3.one;
             poseRoot.localPosition = standingOffset;
@@ -89,7 +111,7 @@ namespace DarkNights.View
             handheld?.Hide();
             UseRemnantSorting();
             if (shadow != null) shadow.enabled = false;
-            RequiredClip("die").Sample(gameObject, age);
+            if (spineAnimation == null) RequiredClip("die").Sample(gameObject, age);
             facing.localScale = new Vector3(cue.Face, 1, 1);
             poseRoot.localPosition = deathOffset;
             TintSurface(new Color(0.75f, 0.75f, 0.75f, Mathf.Clamp01(8 - (float)age)));

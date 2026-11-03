@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-01",
+  "models": [
+    {
+      "w": 64,
+      "h": 40,
+      "seed": 271,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    },
+    {
+      "w": 96,
+      "h": 60,
+      "seed": 902,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    },
+    {
+      "w": 320,
+      "h": 192,
+      "seed": 271,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    }
+  ],
+  "views": [],
+  "layouts": [],
+  "errors": [],
+  "scope": "Independent four-way WebGL2 prototype.",
+  "finiteCatalogueRejectsThreeWay": true,
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "passed": false,
+  "failure": "AssertionError [ERR_ASSERTION]: Terrain did not render.\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\verify.cjs:53:10"
+}

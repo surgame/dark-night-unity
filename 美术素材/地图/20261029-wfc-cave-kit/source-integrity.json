@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "file": "sources/rock.png",
+      "bytes": 2367014,
+      "sha256": "6d18a937e5931b000813b23e159213e5dcd777117eb0c5e6eb5da0844b71b049",
+      "matchesGeneratedSource": true
+    },
+    {
+      "file": "sources/floor.png",
+      "bytes": 1890924,
+      "sha256": "de8f3016ed507233e5b7187e78e049217d9bdba5193bb680a3eab27d2d23521c",
+      "matchesGeneratedSource": true
+    },
+    {
+      "file": "sources/ceiling.png",
+      "bytes": 1275853,
+      "sha256": "c1681fd779a1bebfb80d71a5a5c7428b94d130bff1edfcaef2c0a040b53608b1",
+      "matchesGeneratedSource": true
+    },
+    {
+      "file": "sources/backdrop.png",
+      "bytes": 2459021,
+      "sha256": "8582b9a9ff5539f80f34e5becbfd3402d88dbc8fd1209b9fda6681122509c653",
+      "matchesGeneratedSource": true
+    },
+    {
+      "file": "sources/ore.png",
+      "bytes": 829743,
+      "sha256": "e879d76c3897146e82b0738baa4fd2d6340c0e3909953e779eb132e4e8b9ee68",
+      "matchesGeneratedSource": true
+    },
+    {
+      "file": "sources/floor-wide-v2.png",
+      "bytes": 1917377,
+      "sha256": "eea2fd9b2c8cf47962b2125608d8b4aad9d13918e805df5b63693f0acd8c91d6",
+      "matchesGeneratedSource": true
+    }
+  ]
+}

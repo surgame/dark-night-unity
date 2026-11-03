@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-31",
+  "scope": "Browser artwork mask correction only",
+  "kit": {
+    "files": 165,
+    "bytes": 31750155
+  },
+  "revisions": {
+    "files": 20,
+    "bytes": 1666743
+  },
+  "review": {
+    "files": 38,
+    "bytes": 12091723
+  },
+  "foreground": {
+    "files": 6,
+    "bytes": 1218951
+  },
+  "preview": {
+    "bytes": 653392,
+    "sha256": "3a009860538c608781c5a08951425faed108c25a56d6db42116d74a120c41566"
+  },
+  "unityArtifactsCreated": false,
+  "sourceAndOutputHashesVerified": true
+}

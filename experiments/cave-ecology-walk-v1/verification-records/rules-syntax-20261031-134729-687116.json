@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-31",
+  "scope": "Pure module-rule and syntax verification; no Unity, browser, rendering or art acceptance.",
+  "source": [
+    {
+      "file": "module-rules.js",
+      "sha256": "6d6cbd018913e7b1d31d3c5b501b974b32058bd72ca609048c51689ef40df623"
+    },
+    {
+      "file": "verify-rules.cjs",
+      "sha256": "3eef09795fca29ab1c30c1099cbacdc06d0930d4ca6bd264f5c04f1a0349934e"
+    },
+    {
+      "file": "world-data.js",
+      "sha256": "7b1b4575dbbaa5e58fbe59e78bd3404f5d85436daf7de09722f9a2f28e4a12ba"
+    },
+    {
+      "file": "app.js",
+      "sha256": "4c5444de42e985f8a598dcb0108d902459e43adf908890ebaca42a416bf98e5f"
+    },
+    {
+      "file": "view.html",
+      "sha256": "cd393e107970158d36def2013c18918239c54d461e23e5e5c4de3b99e95f6e25"
+    },
+    {
+      "file": "assembly-inspector.js",
+      "sha256": "f0407ca7156c8ea20a583d40a22e92f640aba5948e821c6bcea58ce4572cb00b"
+    },
+    {
+      "file": "build.py",
+      "sha256": "dbbd5db64330ab9a00b15c6f7018063fa1eb527554f8ae1dcc456cf9e4d58cec"
+    }
+  ],
+  "syntax": {
+    "node": [
+      "module-rules.js",
+      "assembly-inspector.js",
+      "app.js"
+    ],
+    "pythonAst": [
+      "build.py"
+    ],
+    "passed": true
+  },
+  "rules": {
+    "libraryIdentity": "cb0b8ace34c76122271556eb1b4d95be12ed24ed04748c796c273b2192e582ae",
+    "sources": 14,
+    "seed": 271,
+    "route": [
+      "camp",
+      "narrow",
+      "wet",
+      "engineering",
+      "fungi",
+      "cargo",
+      "falls",
+      "mine"
+    ],
+    "locks": {
+      "3": "beam-gap"
+    },
+    "selected": [
+      "camp",
+      "narrow",
+      "moss-cleft",
+      "beam-gap",
+      "fungal-balcony",
+      "cargo",
+      "root-falls",
+      "mineral-bowl"
+    ],
+    "stats": {
+      "attempts": 1,
+      "observations": 3,
+      "propagations": 21,
+      "removed": 5
+    },
+    "checks": [
+      "sha256",
+      "source-retention",
+      "reproduction",
+      "propagation",
+      "full-profile-and-layer-matching",
+      "bounded-contradiction",
+      "unknown-lock",
+      "incompatible-socket",
+      "independent-streams"
+    ],
+    "passed": true
+  },
+  "executionEvidence": "Captured successful node verify-rules.cjs output in this task; app/build were syntax checked only. build.py has not been executed by this agent."
+}

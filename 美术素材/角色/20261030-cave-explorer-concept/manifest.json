@@ -1,0 +1,25 @@
+{
+  "createdDate": "2026-10-30",
+  "tool": "built-in image_gen.imagegen",
+  "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a18892-3bae-7d23-9b7d-5eb0633034da/call_U1BuB1AbEtNH7qulAAsvIKoj.png",
+  "output": "cave-explorer-01.png",
+  "width": 1536,
+  "height": 1024,
+  "bytes": 2778645,
+  "sha256": "5a94a03c965d0ca972c054b4e45774979777183d2d1bad025e380ba3baf97333",
+  "inputs": [
+    {
+      "path": "美术素材/地图/20261029-wfc-cave-kit/exports/maps/271-local.png",
+      "sha256": "46ad18aa1b86c779d45d1d4fe78e1d60ad00aba1e257087506642e8fb532c804"
+    },
+    {
+      "path": "美术素材/地图/20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    }
+  ],
+  "review": {
+    "visualInspection": "Completed: front, side and back; cave context panel; palette and silhouette coherent.",
+    "limitation": "Concept only. Small-scale panel is AI repainted, not an exact pixel composite or Unity capture. Production texture detail and rigging remain unverified.",
+    "unityImported": false
+  }
+}

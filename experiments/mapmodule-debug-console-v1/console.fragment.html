@@ -1,0 +1,127 @@
+<div id="mapmodule-runtime-debug">
+  <style>__STYLE__</style>
+  <div class="viz-carousel" aria-label="游戏内地图调试台布局" data-previous-label="上一种布局" data-next-label="下一种布局">
+    <section data-variant="随玩侧栏" aria-label="随玩侧栏布局">
+      <div class="dc-stage"><div class="dc-product" data-layout="side" aria-label="随玩侧栏调试台"></div></div>
+    </section>
+    <section data-variant="集中面板" aria-label="集中面板布局" hidden>
+      <div class="dc-stage"><div class="dc-product" data-layout="center" aria-label="集中面板调试台"></div></div>
+    </section>
+  </div>
+  <template data-template>
+    <header class="dc-chrome">
+      <div><strong>灰松谷 · 地图试验场</strong><span class="dc-subtle">MapModule / 入口研究</span></div>
+      <span class="dc-stamp">交互预演</span>
+    </header>
+    <div class="dc-observer">
+      <span data-case-title>浅坳低口 · 入口＋第二片</span>
+      <span class="dc-subtle" data-version>示例制作版本 v03</span>
+      <span class="dc-status" data-session>尚未开始预演</span>
+      <button type="button" class="cursor-interaction dc-emphasis" data-action="hub">F1 · 收起调试</button>
+    </div>
+    <div class="dc-workspace">
+      <main class="dc-game">
+        <div class="dc-camera-row">
+          <div class="dc-segment" aria-label="本端观察镜头">
+            <button type="button" class="cursor-interaction" data-camera="hero" aria-pressed="true">角色视野</button>
+            <button type="button" class="cursor-interaction" data-camera="fragment" aria-pressed="false">片段全貌</button>
+          </div>
+          <span class="dc-subtle" data-input-state>F1 已接管输入</span>
+        </div>
+        <div class="dc-view" data-view>
+          <svg class="dc-scene" role="img" aria-label="正侧视洞口地形与真实主角素材"></svg>
+          <div class="dc-points" aria-label="可点选的地形位置"></div>
+          <div class="dc-scene-caption">地形与碰撞叠层为示意</div>
+        </div>
+        <div class="dc-game-controls">
+          <div class="dc-row">
+            <button type="button" class="cursor-interaction" data-move="-1" aria-label="向左移动预演">← 向左</button>
+            <button type="button" class="cursor-interaction" data-move="1" aria-label="向右移动预演">向右 →</button>
+            <button type="button" class="cursor-interaction" data-action="jump">跳跃</button>
+            <span class="dc-subtle" data-position>角色位置参考</span>
+          </div>
+          <div class="dc-row">
+            <button type="button" class="cursor-interaction dc-emphasis" data-action="quick-start">开始试跑预演</button>
+            <button type="button" class="cursor-interaction" data-action="ecology">预演生态动态 · 5 秒</button>
+          </div>
+          <p class="dc-hint" data-hint>收起 F1 后可用 A / D、空格或按钮预演；正式接入复用现有主角控制。</p>
+        </div>
+      </main>
+      <aside class="dc-hub" aria-label="F1 调试中心地图试验场">
+        <header class="dc-hub-head">
+          <div><span class="dc-eyebrow">F1 调试中心</span><h3>地图试验场</h3></div>
+          <button type="button" class="cursor-interaction" data-action="close">收起</button>
+        </header>
+        <div class="dc-tabs" role="tablist" aria-label="地图试验场功能">
+          <button type="button" class="cursor-interaction" role="tab" data-tab="observe" aria-selected="true">观察</button>
+          <button type="button" class="cursor-interaction" role="tab" data-tab="issues" aria-selected="false">问题点</button>
+          <button type="button" class="cursor-interaction" role="tab" data-tab="network" aria-selected="false">联机</button>
+          <button type="button" class="cursor-interaction" role="tab" data-tab="run" aria-selected="false">试跑</button>
+        </div>
+        <section class="dc-page" data-page="observe" role="tabpanel">
+          <h4>本端显示</h4>
+          <div class="dc-switches">
+            <label><input type="checkbox" data-layer="bounds">模块边界</label>
+            <label><input type="checkbox" data-layer="shape">碰撞占位示意</label>
+            <label><input type="checkbox" data-layer="ports">连接接口</label>
+            <label><input type="checkbox" data-layer="ecology" checked>生态表现</label>
+          </div>
+          <button type="button" class="cursor-interaction dc-full" data-action="pick" aria-pressed="false">点选地形位置</button>
+          <div class="dc-selection">
+            <div class="dc-row"><h4>当前位置</h4><span class="dc-subtle" data-pick-label>未选中</span></div>
+            <p data-selection>打开点选后，选择画面上的位置标记。</p>
+          </div>
+          <label class="dc-field">问题类型<select data-field="issue"><option value="接缝">接缝</option><option value="碰撞">碰撞</option><option value="空间尺度">空间尺度</option><option value="生态动态">生态动态</option></select></label>
+          <button type="button" class="cursor-interaction dc-emphasis dc-full" data-action="record" disabled>记录此问题点</button>
+          <p class="dc-subtle">记录绑定所选样例与版本，供返回工坊定位。</p>
+        </section>
+        <section class="dc-page" data-page="issues" role="tabpanel" hidden>
+          <div class="dc-row"><h4>本轮问题记录</h4><span class="dc-subtle" data-issue-count>0 / 4</span></div>
+          <div class="dc-issue-list" data-issues></div>
+          <button type="button" class="cursor-interaction dc-full" data-action="report" disabled>查看记录摘要</button>
+          <div class="dc-report" data-report hidden></div>
+        </section>
+        <section class="dc-page" data-page="network" role="tabpanel" hidden>
+          <h4>本端收到的真实回执</h4>
+          <dl class="dc-facts">
+            <div><dt>当前身份</dt><dd data-role-text>房主预演</dd></div>
+            <div><dt>样例与版本</dt><dd data-net-case>—</dd></div>
+            <div><dt>服务端版本</dt><dd>待接入</dd></div>
+            <div><dt>对象投影</dt><dd>待接入</dd></div>
+            <div><dt>前景 / 矿层</dt><dd>待接入 / 待接入</dd></div>
+            <div><dt>本端绘制</dt><dd>待接入</dd></div>
+            <div><dt>epoch / tick</dt><dd>— / —</dd></div>
+          </dl>
+          <p class="dc-subtle">正式接入沿 FishNet / YYGC 回执显示，网络数值不由本预演生成。</p>
+        </section>
+        <section class="dc-page" data-page="run" role="tabpanel" hidden>
+          <label class="dc-field">研究主题<select aria-label="研究主题" data-field="study"><option value="entrance">入口片段</option><option value="fragment" disabled>其他片段 · 后续</option><option value="map" disabled>完整组装地图 · 后续</option></select></label>
+          <label class="dc-field">样例<select data-field="case" aria-label="选择入口样例"></select></label>
+          <label class="dc-field">身份预演<select data-field="role"><option value="host">本机房主</option><option value="client">普通客户端</option></select></label>
+          <div class="dc-version-lock"><strong data-bound-version>示例版本 v03</strong><span data-lock>开始后锁定样例与版本</span></div>
+          <div class="dc-run-actions">
+            <button type="button" class="cursor-interaction dc-emphasis" data-action="start">开始预演</button>
+            <button type="button" class="cursor-interaction" data-action="pause" disabled>暂停预演</button>
+            <button type="button" class="cursor-interaction" data-action="restart" disabled>重开本例</button>
+            <button type="button" class="cursor-interaction" data-action="leave" disabled>结束预演</button>
+          </div>
+          <p class="dc-subtle" data-permission>暂停与重开归房主；正式操作由服务端校验。</p>
+          <div class="dc-confirm" data-confirm hidden>
+            <p>重开同一制作版本，角色回到出生点；保留问题记录。</p>
+            <div class="dc-row"><button type="button" class="cursor-interaction dc-emphasis" data-action="confirm-restart">确认重开</button><button type="button" class="cursor-interaction" data-action="cancel-restart">取消</button></div>
+          </div>
+        </section>
+        <footer class="dc-hub-foot"><p data-notice role="status" aria-live="polite">选择观察层，或收起面板查看完整画面。</p></footer>
+      </aside>
+    </div>
+    <footer class="dc-footer"><span>原主角素材 · 正侧视白模</span><span>未连接 Unity / FishNet；记录仅在本预演中保留</span></footer>
+  </template>
+  <script>
+  (() => {
+    const root = document.getElementById("mapmodule-runtime-debug");
+    const schemes = __SCHEMES__;
+    const heroImage = __HERO__;
+    __LOGIC__
+  })();
+  </script>
+</div>

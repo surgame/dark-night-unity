@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-31",
+  "scope": "Independent static-terrain comparison; no game digging or Unity changes.",
+  "models": [
+    {
+      "form": 0,
+      "seed": 271,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "wholeStats": {
+        "observations": 19,
+        "propagations": 5590,
+        "removed": 142,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 19,
+        "propagations": 150,
+        "removed": 142,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 0,
+      "seed": 902,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "wholeStats": {
+        "observations": 20,
+        "propagations": 5596,
+        "removed": 140,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 20,
+        "propagations": 152,
+        "removed": 140,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 0,
+      "seed": 1643,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "wholeStats": {
+        "observations": 21,
+        "propagations": 5608,
+        "removed": 140,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 21,
+        "propagations": 156,
+        "removed": 140,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 1,
+      "seed": 271,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "wholeStats": {
+        "observations": 20,
+        "propagations": 5596,
+        "removed": 137,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 20,
+        "propagations": 152,
+        "removed": 137,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 1,
+      "seed": 902,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "wholeStats": {
+        "observations": 20,
+        "propagations": 5596,
+        "removed": 137,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 20,
+        "propagations": 152,
+        "removed": 137,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 1,
+      "seed": 1643,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "wholeStats": {
+        "observations": 21,
+        "propagations": 5608,
+        "removed": 137,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 21,
+        "propagations": 156,
+        "removed": 137,
+        "attempts": 1
+      }
+    }
+  ],
+  "views": [
+    {
+      "form": 0,
+      "mode": "base",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 0,
+      "mode": "whole",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 0,
+      "mode": "hybrid",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 1,
+      "mode": "base",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 1,
+      "mode": "whole",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 1,
+      "mode": "hybrid",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    }
+  ],
+  "errors": [],
+  "animation": {
+    "water": 419,
+    "mushroom": 113,
+    "deterministicAtSameTime": true
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-static-layers.html",
+    "sha256": "250f22e3f6826986562c267773a2a2cb6aab03083cf0352028113896ec0af0eb"
+  },
+  "passed": true
+}

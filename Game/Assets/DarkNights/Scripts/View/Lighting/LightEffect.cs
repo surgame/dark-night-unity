@@ -28,7 +28,7 @@ namespace DarkNights.View.Lighting
             localFill.Apply(value.FillRadius, value.FillIntensity, value.FillColor);
         }
 
-        public void Bind(UnityEngine.Object context, Transform mount, Transform fillAnchor, SpriteRenderer[] receivers)
+        public void Bind(UnityEngine.Object context, Transform mount, Transform fillAnchor, Renderer[] receivers)
         {
             ValidateStructure();
             if (profile == null || context == null) throw new InvalidOperationException("光效必须先应用配置，再绑定当前上下文。");

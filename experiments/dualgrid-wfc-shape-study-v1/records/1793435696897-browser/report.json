@@ -1,0 +1,803 @@
+{
+  "date": "2026-10-31",
+  "scope": "Browser shape study only; no Unity or actor traversal.",
+  "errors": [],
+  "cases": [
+    {
+      "scene": "basin",
+      "method": "dual",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "basin",
+        "method": "dual",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 58,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 492,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 56,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 188,
+        "propagations": 8368,
+        "removed": 1719,
+        "attempts": 1,
+        "elapsedMs": 10.800000000745058
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/basin",
+      "selected": null
+    },
+    {
+      "scene": "basin",
+      "method": "wfc",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "basin",
+        "method": "wfc",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 58,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 492,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 56,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 188,
+        "propagations": 8368,
+        "removed": 1719,
+        "attempts": 1,
+        "elapsedMs": 10.800000000745058
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/basin",
+      "selected": null
+    },
+    {
+      "scene": "basin",
+      "method": "hybrid",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "basin",
+        "method": "hybrid",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 58,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 492,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 56,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 188,
+        "propagations": 8368,
+        "removed": 1719,
+        "attempts": 1,
+        "elapsedMs": 10.800000000745058
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/basin",
+      "selected": null
+    },
+    {
+      "scene": "shoulder",
+      "method": "dual",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "shoulder",
+        "method": "dual",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 53,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 494,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 45,
+        "slopeTypes": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 162,
+        "propagations": 7927,
+        "removed": 1430,
+        "attempts": 1,
+        "elapsedMs": 12.099999999627471
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/shoulder",
+      "selected": null
+    },
+    {
+      "scene": "shoulder",
+      "method": "wfc",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "shoulder",
+        "method": "wfc",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 53,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 494,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 45,
+        "slopeTypes": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 162,
+        "propagations": 7927,
+        "removed": 1430,
+        "attempts": 1,
+        "elapsedMs": 12.099999999627471
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/shoulder",
+      "selected": null
+    },
+    {
+      "scene": "shoulder",
+      "method": "hybrid",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "shoulder",
+        "method": "hybrid",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 53,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 494,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 45,
+        "slopeTypes": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 162,
+        "propagations": 7927,
+        "removed": 1430,
+        "attempts": 1,
+        "elapsedMs": 12.099999999627471
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/shoulder",
+      "selected": null
+    },
+    {
+      "scene": "network",
+      "method": "dual",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "network",
+        "method": "dual",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 52,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 532,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 54,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 258,
+        "propagations": 9664,
+        "removed": 2888,
+        "attempts": 1,
+        "elapsedMs": 11.300000000745058
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/network",
+      "selected": null
+    },
+    {
+      "scene": "network",
+      "method": "wfc",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "network",
+        "method": "wfc",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 52,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 532,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 54,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 258,
+        "propagations": 9664,
+        "removed": 2888,
+        "attempts": 1,
+        "elapsedMs": 11.300000000745058
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/network",
+      "selected": null
+    },
+    {
+      "scene": "network",
+      "method": "hybrid",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "network",
+        "method": "hybrid",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 52,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 532,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 54,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 258,
+        "propagations": 9664,
+        "removed": 2888,
+        "attempts": 1,
+        "elapsedMs": 11.300000000745058
+      },
+      "sameOccupancy": true,
+      "geometryIdentity": "271/network",
+      "selected": null
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    }
+  ],
+  "failedGenerationRetainsScene": true,
+  "restored": {
+    "state": {
+      "version": 1,
+      "seed": 902,
+      "scene": "shoulder",
+      "method": "wfc",
+      "camera": "close",
+      "grid": true,
+      "overlay": true,
+      "atlas": true,
+      "dug": true,
+      "selected": null
+    },
+    "dual": {
+      "boundaryConfigurations": 12,
+      "positions": [
+        0.5
+      ],
+      "segments": 134,
+      "mismatches": 0,
+      "cornerConflicts": 0,
+      "nonManifold": 0,
+      "changed": 4
+    },
+    "wfc": {
+      "boundaryConfigurations": 62,
+      "positions": [
+        0.25,
+        0.5,
+        0.75
+      ],
+      "segments": 134,
+      "mismatches": 0,
+      "cornerConflicts": 0,
+      "nonManifold": 0,
+      "changed": 4
+    },
+    "hybrid": {
+      "boundaryConfigurations": 12,
+      "positions": [
+        0.5
+      ],
+      "segments": 506,
+      "mismatches": 0,
+      "cornerConflicts": 0,
+      "nonManifold": 0,
+      "changed": 2,
+      "slopeCells": 37,
+      "slopeTypes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "stats": {
+      "observations": 166,
+      "propagations": 7950,
+      "removed": 1413,
+      "attempts": 1,
+      "elapsedMs": 10.199999999254942
+    },
+    "sameOccupancy": true,
+    "geometryIdentity": "902/shoulder",
+    "selected": null
+  },
+  "fragment": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\dualgrid-wfc-shapes.html",
+    "sha256": "6eda7ac2636fb714cf1a8a929b9f0ee8adf58f61b5ffe0512227adb4a02c2f09"
+  },
+  "passed": true
+}

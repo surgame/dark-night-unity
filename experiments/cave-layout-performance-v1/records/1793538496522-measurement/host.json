@@ -1,0 +1,15 @@
+{
+  "cpu": "Intel(R) Core(TM) i5-14600KF",
+  "availablePhysicalGiBBeforeFinalMeasurement": 11.58,
+  "identity": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "software": false,
+    "output": [
+      960,
+      600
+    ]
+  },
+  "source": "Get-CimInstance and WebGL queries recorded in this task."
+}

@@ -1,0 +1,44 @@
+<div id="cave-macroblock-elevation">
+  <style>
+    #cave-macroblock-elevation {color:var(--foreground);display:grid;gap:calc(var(--font-size-base)*.8);min-width:0}
+    #cave-macroblock-elevation .heading {padding-right:90px}
+    #cave-macroblock-elevation .map {width:100%;min-width:0}
+    #cave-macroblock-elevation .map svg {display:block;width:100%}
+    #cave-macroblock-elevation .map text {fill:var(--foreground);font-size:12px;font-weight:400}
+    #cave-macroblock-elevation .rock {fill:var(--muted)}
+    #cave-macroblock-elevation .air {fill:var(--background)}
+    #cave-macroblock-elevation .edge {fill:none;stroke:var(--foreground);stroke-width:1.3;vector-effect:non-scaling-stroke}
+    #cave-macroblock-elevation .guide {fill:none;stroke:var(--border);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-macroblock-elevation .port {fill:none;stroke:var(--viz-series-1);stroke-width:2;vector-effect:non-scaling-stroke}
+    #cave-macroblock-elevation .focus {fill:var(--viz-series-1);fill-opacity:.1}
+    #cave-macroblock-elevation .ore {fill:var(--viz-series-2);fill-opacity:.22;stroke:var(--foreground);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-macroblock-elevation .zone {fill:var(--viz-series-2);fill-opacity:.1;stroke:var(--foreground);stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+    #cave-macroblock-elevation .details {display:grid;gap:calc(var(--font-size-base)*.3)}
+  </style>
+  <h3 class="heading">大块洞穴 · 高低错落</h3>
+  <div class="viz-controls">
+    <label class="form-label">视野
+      <select class="form-select" id="cbe-view">
+        <option value="middle">中段错层</option>
+        <option value="all">整图</option>
+        <option value="shallow">浅层坡段</option>
+        <option value="deep">深部岩台</option>
+        <option value="module">单块</option>
+      </select>
+    </label>
+    <label class="form-label">模块
+      <select class="form-select" id="cbe-module"></select>
+    </label>
+  </div>
+  <div class="viz-row">
+    <label class="form-check"><input class="form-check-input" id="cbe-elevation" type="checkbox" checked><span class="form-check-label">高低错落</span></label>
+    <label class="form-check"><input class="form-check-input" id="cbe-bounds" type="checkbox"><span class="form-check-label">模块边界／接口</span></label>
+    <label class="form-check"><input class="form-check-input" id="cbe-content" type="checkbox" checked><span class="form-check-label">内容插槽</span></label>
+  </div>
+  <div class="map" id="cbe-map"></div>
+  <div class="details" aria-live="polite">
+    <p id="cbe-selected"></p>
+    <p class="text-small" id="cbe-detail"></p>
+  </div>
+  <p class="text-small">同一视野切换高低变化；H＝角色碰撞高度。空间草图，实际坡形、跳跃及返程待白模校准。</p>
+</div>

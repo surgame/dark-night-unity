@@ -1,0 +1,42 @@
+<div id="cave-progression-maps">
+  <style>
+    #cave-progression-maps {color:var(--foreground);display:grid;gap:calc(var(--font-size-base)*.8);min-width:0}
+    #cave-progression-maps .heading {padding-right:90px}
+    #cave-progression-maps .map-panel {display:grid;gap:calc(var(--font-size-base)*.4);min-width:0}
+    #cave-progression-maps .map {min-width:0;width:100%}
+    #cave-progression-maps .map svg {display:block;width:100%}
+    #cave-progression-maps .map text {font-size:12px;font-weight:400;fill:var(--foreground)}
+    #cave-progression-maps .rock {fill:var(--muted)}
+    #cave-progression-maps .air {fill:var(--background)}
+    #cave-progression-maps .edge {fill:none;stroke:var(--foreground);stroke-opacity:.72;stroke-width:1.3;vector-effect:non-scaling-stroke}
+    #cave-progression-maps .group {fill:none;stroke:var(--border);stroke-width:1;stroke-dasharray:4 4;vector-effect:non-scaling-stroke}
+    #cave-progression-maps .ore {fill:var(--viz-series-2);fill-opacity:.25;stroke:var(--foreground);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-progression-maps .zone {fill:var(--viz-series-2);fill-opacity:.12;stroke:var(--foreground);stroke-width:1;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+    #cave-progression-maps .route {fill:none;stroke:var(--viz-series-1);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+    #cave-progression-maps .selected {fill:var(--viz-series-1);fill-opacity:.12}
+    #cave-progression-maps .landmark {fill:var(--background);stroke:var(--foreground);stroke-width:1}
+    #cave-progression-maps .stats {font-variant-numeric:tabular-nums}
+  </style>
+  <h3 class="heading">天然洞穴 · 分岔递进</h3>
+  <div class="viz-row">
+    <label class="form-check"><input class="form-check-input" id="cpm-route" type="checkbox"><span class="form-check-label">主干参考线</span></label>
+    <label class="form-check"><input class="form-check-input" id="cpm-groups" type="checkbox"><span class="form-check-label">大块分组</span></label>
+    <span class="text-small">整图采用相同角色高度比例</span>
+  </div>
+  <section class="map-panel" data-panel="advanced">
+    <h3>进阶 · 岩肩岔洞</h3>
+    <p class="text-small stats" id="cpm-advanced-stats"></p>
+    <label class="form-label">观察区域<select class="form-select" id="cpm-advanced-room"></select></label>
+    <div class="map" id="cpm-advanced-map"></div>
+    <p class="text-small" id="cpm-advanced-detail" aria-live="polite"></p>
+  </section>
+  <hr>
+  <section class="map-panel" data-panel="expert">
+    <h3>更进阶 · 叠层岔洞</h3>
+    <p class="text-small stats" id="cpm-expert-stats"></p>
+    <label class="form-label">观察区域<select class="form-select" id="cpm-expert-room"></select></label>
+    <div class="map" id="cpm-expert-map"></div>
+    <p class="text-small" id="cpm-expert-detail" aria-live="polite"></p>
+  </section>
+  <p class="text-small">菱形：矿脉插槽；虚线椭圆：巢位；虚线框：变化地形候选。正侧视空间草图，未验证人物通行或实际耗时。</p>
+</div>

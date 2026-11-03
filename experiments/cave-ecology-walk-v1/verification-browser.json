@@ -1,0 +1,226 @@
+{
+  "date": "2026-10-31",
+  "errors": [],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": [],
+      "canvas": [
+        736,
+        414
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": [],
+      "canvas": [
+        736,
+        414
+      ]
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": [],
+      "canvas": [
+        360,
+        288
+      ]
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": [],
+      "canvas": [
+        360,
+        288
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": [],
+      "canvas": [
+        320,
+        256
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": [],
+      "canvas": [
+        320,
+        256
+      ]
+    }
+  ],
+  "walks": [
+    {
+      "seed": 271,
+      "steps": 6404,
+      "completed": true,
+      "visited": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "flags": {
+        "miningCollected": true,
+        "bridgeBuilt": true,
+        "cargoDelivered": true,
+        "hasBeam": false,
+        "primaryCollected": true,
+        "primaryDelivered": true
+      },
+      "bridge": true,
+      "hero": {
+        "x": 156.23040000035553,
+        "y": 326.62304000003553,
+        "w": 24,
+        "h": 41,
+        "vx": 0,
+        "vy": 0,
+        "grounded": true,
+        "facing": -1,
+        "carry": null
+      },
+      "stateBytes": 5024,
+      "events": [
+        "supply",
+        "bridge",
+        "mining",
+        "chute",
+        "pickup",
+        "delivery"
+      ]
+    },
+    {
+      "seed": 902,
+      "steps": 6405,
+      "completed": true,
+      "visited": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "flags": {
+        "miningCollected": true,
+        "bridgeBuilt": true,
+        "cargoDelivered": true,
+        "hasBeam": false,
+        "primaryCollected": true,
+        "primaryDelivered": true
+      },
+      "bridge": true,
+      "hero": {
+        "x": 156.22666666702162,
+        "y": 326.6226666667022,
+        "w": 24,
+        "h": 41,
+        "vx": 0,
+        "vy": 0,
+        "grounded": true,
+        "facing": -1,
+        "carry": null
+      },
+      "stateBytes": 5007,
+      "events": [
+        "supply",
+        "bridge",
+        "mining",
+        "chute",
+        "pickup",
+        "delivery"
+      ]
+    },
+    {
+      "seed": 1643,
+      "steps": 6405,
+      "completed": true,
+      "visited": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "flags": {
+        "miningCollected": true,
+        "bridgeBuilt": true,
+        "cargoDelivered": true,
+        "hasBeam": false,
+        "primaryCollected": true,
+        "primaryDelivered": true
+      },
+      "bridge": true,
+      "hero": {
+        "x": 156.22666666702162,
+        "y": 326.6226666667022,
+        "w": 24,
+        "h": 41,
+        "vx": 0,
+        "vy": 0,
+        "grounded": true,
+        "facing": -1,
+        "carry": null
+      },
+      "stateBytes": 4959,
+      "events": [
+        "supply",
+        "bridge",
+        "mining",
+        "chute",
+        "pickup",
+        "delivery"
+      ]
+    }
+  ],
+  "motion": {
+    "changedPixelsOver420ms": 6367,
+    "frozenChangedPixels": 0
+  },
+  "interactions": {
+    "keyboard": {
+      "before": 95,
+      "after": 130.47040000000027,
+      "active": true
+    },
+    "oneClickReturn": true,
+    "pointer": true,
+    "regenerate": true,
+    "stateRestore": true
+  },
+  "inventory": {
+    "catalog": 14,
+    "rooms": 8,
+    "plants": 46,
+    "water": 5
+  },
+  "source": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/ecology-walk.html",
+    "sha256": "4ba04709ef56c53ecefd3e3102d13fc5218234459c79c36c4c098e858f6dfbe7"
+  },
+  "previousAttempts": []
+}

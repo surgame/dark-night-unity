@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-01",
+  "reason": "Freeze original single-cell timing source before batch-stress extension. Existing evidence and inline preview retained.",
+  "files": [
+    {
+      "path": "geometry.js",
+      "sha256": "d7b605c77f1cfdece1ba046dd50d1a5500e06a09c71ebf1a757fab5f790c291c",
+      "bytes": 4228
+    },
+    {
+      "path": "solver.js",
+      "sha256": "398841ea5202f64183d1765e43afa112480672375add28f09227a2607e61c5b2",
+      "bytes": 6238
+    },
+    {
+      "path": "meshes.js",
+      "sha256": "a79554d030009446ff93dd4e911ec7d65145634915c9674fbb25f7f82045c737",
+      "bytes": 4805
+    },
+    {
+      "path": "adapters.js",
+      "sha256": "427b70f24de5c4d47e70a4683e2aa8f7e1621a2d50eb2f3160477c72f064e256",
+      "bytes": 4996
+    },
+    {
+      "path": "gpu.js",
+      "sha256": "406f84a5473fdf96e04846078844c912f89ed27d80a261eb80077f7e745634fd",
+      "bytes": 8403
+    },
+    {
+      "path": "benchmark.js",
+      "sha256": "acb409ba4c7abd53f9fc75dfcc9f813428d6831c6dd5bb954c0735aa5765b183",
+      "bytes": 4700
+    },
+    {
+      "path": "app.js",
+      "sha256": "2a3a85e7ee0345c91e61beca34174b01ecddbddcd430607162765c2160507735",
+      "bytes": 15224
+    },
+    {
+      "path": "view.html",
+      "sha256": "1a9a8b1af0ec2ebf00b7496c29d6468be1ebe6234260ce52f50ca950e3192af7",
+      "bytes": 4403
+    },
+    {
+      "path": "build.py",
+      "sha256": "1609bf5e19d97ae349f968026b4c4a795319f57afe9e5280bbad425c6b85edb6",
+      "bytes": 2632
+    },
+    {
+      "path": "references.json",
+      "sha256": "87ca54ded99bca4cf35d66ad84c1ec7fb8e848b2b67d738109671b8c64c69a0e",
+      "bytes": 20315
+    },
+    {
+      "path": "verify.cjs",
+      "sha256": "757f3f22b93d0d233eb3381144995890ff33c47db31951c27b6da6b93fb102ad",
+      "bytes": 12971
+    }
+  ]
+}

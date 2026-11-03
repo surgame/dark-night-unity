@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-01",
+  "tool": "image_gen.imagegen",
+  "mode": "Built-in reference-guided generation, three distinct compositions",
+  "actualModelId": "Not exposed by tool",
+  "requestedSize": [
+    1536,
+    1024
+  ],
+  "transparentBackground": false,
+  "inputIdentityRecord": "source-identities.json",
+  "outputs": [
+    {
+      "file": "01-terracotta-strata.png",
+      "prompt": "prompt-01.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_EtGdR7IMpUphotzrjG7CkHUi.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2285651,
+      "sha256": "dc941ce1e70a8b7165350432c73bdd746285b296dcf813b01e97f72874d7dd0d",
+      "promptSha256": "0bea7a1df02fe961be8061c5b5122e4f28bbe7ed66da0218acdcab9c2576c48e",
+      "copiedWithoutResizing": true
+    },
+    {
+      "file": "02-sage-slate.png",
+      "prompt": "prompt-02.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_8RAaB82Ram8RgiTwtGWCg7zH.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2398499,
+      "sha256": "a070b49460e0cdc0606326b6c27128718ea6776d16f415c957cc77f2c43b9be9",
+      "promptSha256": "3b642d5deae1f9df33db147c19130470ff9dc93bbcbe2eea0428a5e5dcd02c3d",
+      "copiedWithoutResizing": true
+    },
+    {
+      "file": "03-moonwhite-salt.png",
+      "prompt": "prompt-03.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_mFjQ3eMp3TGpYJlG5oaVMFvl.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2340639,
+      "sha256": "7dfac848fb53aecf1f4f697973274c32061e455102fbdf0b201aadf8e422f956",
+      "promptSha256": "f02ac189239e23557b37f7393fa79e7c0a3cc38b437866b3c31fac3cf7d72169",
+      "copiedWithoutResizing": true
+    }
+  ],
+  "visualReview": {
+    "method": "Direct inspection of native generated tool outputs",
+    "character": [
+      "All three retain the broad cyan hood, tiny cyan body, beige face, short angled brows, V mouth and gray segmented collar.",
+      "The original character reference takes precedence over the prior scene character.",
+      "Figures remain AI reference redrawings, not pixel-exact insertion of the source sprite."
+    ],
+    "terrain": [
+      "Terracotta foreground has long sediment bands and red weathered rock faces.",
+      "Sage slate foreground uses large oblique plates, white seams and peripheral cascade.",
+      "Moon-white foreground uses pale lilac shaded mineral masses, pink crust and dark wine-red ecology.",
+      "All three retain supported irregular side-view terrain with exposed top planes and thick front faces."
+    ],
+    "limitations": [
+      "All are static concept illustrations; no looping animation, Spine rig or particle resources were produced.",
+      "Salt/chalk painting may also suggest frost or ice and requires material refinement if selected.",
+      "Texture complexity and character scale vary; production requires a unified palette and native camera check.",
+      "Illustrated mineral positions and ledge geometry are not collision, mining reach, tile seam or WFC verification."
+    ]
+  },
+  "preservation": {
+    "originalHeroFiles": 12,
+    "originalHeroAndSpineUnchanged": true,
+    "priorGeneratedScenesUnchanged": true,
+    "gameOrUnityChanges": false
+  }
+}

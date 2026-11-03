@@ -1,0 +1,30 @@
+{
+  "task": "01a1885a-d455-7a51-ad10-5e3b12d43271",
+  "date": "2026-10-29",
+  "status": "produced-and-browser-verified-awaiting-user-art-review",
+  "scope": "CL-01/08 independent WFC art kit and assembled-map visualization",
+  "reference": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-9fb75665-fc4c-4345-81c6-a787a2a90965.png",
+  "referenceNativeSize": [1672, 941],
+  "mapReferenceCells": [320, 192],
+  "artDirection": "Hand-inked grey-olive boulders, restrained moss, ochre walking surfaces, cool blue-green receding cavern walls; side-on view with visible shallow top faces.",
+  "production": "Built-in imagegen creates reusable native sources. A deterministic game-style canvas renderer composes the sources on socket-constrained geometry and exports actual RGBA modules. Geometry, sockets and image manifests remain reproducible.",
+  "plannedSources": [
+    {"id": "rock", "requestedSize": [1024, 1024], "alpha": false, "use": "Continuous foreground rock material", "precision": "Large-scale texture, geometry supplied separately"},
+    {"id": "floor", "requestedSize": [1536, 1024], "alpha": true, "use": "Horizontal walkable ledge with a visible top face and thick front face", "precision": "Runtime maps the shared profile; generated endpoints alone are not accepted as sockets"},
+    {"id": "ceiling", "requestedSize": [1536, 1024], "alpha": true, "use": "Hanging rock lip and downward roots", "precision": "Runtime maps the shared ceiling profile"},
+    {"id": "backdrop", "requestedSize": [1536, 1024], "alpha": false, "use": "Continuous cool receding cave background", "precision": "Decorative depth only, no collision"}
+  ],
+  "completed": {
+    "currentGeneratedSources": ["rock.png", "floor-wide-v2.png", "ceiling.png", "backdrop.png", "ore.png"],
+    "preservedSupersededSource": "floor.png",
+    "mapSeeds": [271, 902, 1643],
+    "mapPixels": [5120, 3072],
+    "mapTerrainCells": [320, 192],
+    "mapWfcModules": [80, 48],
+    "rgbaChunks": 180,
+    "geometryStates": 256,
+    "feedback": "Broader uneven visible walking plane and shared whole-outline rounded transitions; no forced interpolation through sharp original corners.",
+    "verification": "verification.json"
+  },
+  "boundaries": ["No Unity import", "No edits to the concurrent whitebox implementation", "No gameplay or collision acceptance", "No fine 16px tile claim", "No modification of reference or author assets", "Painted atlas is a phase-zero reference; reusable assembly requires the provided world-UV and shared-contour contract"]
+}

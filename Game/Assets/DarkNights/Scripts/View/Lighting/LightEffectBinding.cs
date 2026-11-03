@@ -12,7 +12,7 @@ namespace DarkNights.View.Lighting
         public LightEffect Effect => effect;
 
         public void Bind(LightProfileSnapshot profile, UnityEngine.Object context, Transform parent,
-            Transform occlusionAnchor, Transform fillAnchor, SpriteRenderer[] receivers)
+            Transform occlusionAnchor, Transform fillAnchor, Renderer[] receivers)
         {
             if (profile == null || context == null || parent == null)
                 throw new ArgumentException("光效挂载必须具有配置、上下文和明确挂点。");

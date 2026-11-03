@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-31",
+  "ok": true,
+  "scope": "Concept art and declared planning graph only",
+  "topology": {
+    "nodes": 8,
+    "edges": 7,
+    "connected": true,
+    "tree": true,
+    "mainRoute": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "06",
+      "07"
+    ],
+    "branches": [
+      [
+        "02",
+        "08"
+      ],
+      [
+        "04",
+        "05"
+      ]
+    ]
+  },
+  "visualReview": [
+    "Eight labels readable and matched to planned roles",
+    "One entrance and two blind branches",
+    "S-shaped descending foldback with solid rock between tiers",
+    "Upper right and lower right cavities end inside the canvas",
+    "Less exposed ore; wall mineral hatching explicitly for designers",
+    "Independent object-slot ring no longer shown as ore",
+    "Whole-mine art retains chunky warm rock and gray backwall"
+  ],
+  "limitations": [
+    "Actual native size differs from requested; no artificial upscale.",
+    "Generated terrain is not pixel-identical to the guide.",
+    "Planning arrows, mineral transparency and object-slot marks are author annotations.",
+    "No runtime map, character collision, actual material layers, WFC execution or Unity acceptance proven."
+  ],
+  "outputs": [
+    {
+      "file": "world-layout-draft.png",
+      "width": 1586,
+      "height": 992,
+      "sha256": "48936e82a5d57b46b722d59d7fbec5070aab54a905088ef349b88b5a68fb434f"
+    },
+    {
+      "file": "world-layout.png",
+      "width": 1586,
+      "height": 992,
+      "sha256": "1188d1bc922c64ea862a904dd40f6307ae430cad7f5f9d5eecd17c530a6f63db"
+    }
+  ],
+  "inventoryBeforeThisReview": {
+    "files": 11,
+    "bytes": 4479465
+  },
+  "unchanged": [
+    "Original style reference",
+    "Playable visualization",
+    "Game",
+    "YYGC",
+    "Dependencies",
+    "Player saves"
+  ],
+  "unityCommandsRun": false
+}

@@ -105,7 +105,7 @@ namespace DarkNights.Runtime.Save
                 Array(world["worksites"], SnapshotEntityJson.WorksiteSnapshot, 256),
                 Array(world["projectiles"], SnapshotEntityJson.ProjectileSnapshot, 1024),
                 SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities, TerrainSaveJson.Read(world["terrain"]), ExpeditionSaveJson.Read(world["expedition"]),
-                Array(world["mineral_deposits"], MineralSaveJson.Read, 128));
+                Array(world["mineral_deposits"], MineralSaveJson.Read, 128), PhysicsSaveJson.Read(world["physics"]));
             if (snapshot.MineralDeposits.Count != 0 || snapshot.Terrain != null && snapshot.Terrain.Minerals == null)
                 throw new FormatException("v19 存档必须使用矿层格子状态，不能包含矿床实体。");
             Validate(snapshot);
@@ -118,6 +118,21 @@ namespace DarkNights.Runtime.Save
             if (snapshot?.SchemaVersion != FormatVersion) throw new FormatException("不支持的存档版本。");
             string error = SnapshotValidator.Validate(snapshot, catalog, layout);
             if (error.Length != 0) throw new FormatException(error);
+            Physics.PhysicsSnapshotRules.Validate(snapshot.Physics, layout.Physics,
+                snapshot.Actors.Where(a => a.ManualControl && a.Hp > 0).Select(a => a.Id));
+            if (snapshot.Physics != null)
+            {
+                if (snapshot.Physics.WorldId != (snapshot.Terrain?.WorldId ?? "") ||
+                    snapshot.Physics.Bodies.Any(b => b.InputSequence != 0 || b.ControlLease != 0))
+                    throw new FormatException("物理保存含旧连接身份或错配地图。");
+                foreach (var b in snapshot.Physics.Bodies.Where(b => b.Id > 0))
+                {
+                    var a = snapshot.Actors.Single(actor => actor.Id == b.Id);
+                    if (b.X != (float)a.X || b.Height != a.Height || b.VelocityX != a.HorizontalSpeed ||
+                        b.VelocityY != a.VerticalSpeed || b.Grounded != (a.SupportPlatform >= 0))
+                        throw new FormatException("物理检查点与角色保存状态不一致。");
+                }
+            }
             foreach (var actor in snapshot.Actors)
                 foreach (string item in new[] { actor.Slot0, actor.Slot1, actor.Slot2, actor.Slot3 }.Where(value => value != ""))
                 {
@@ -158,6 +173,7 @@ namespace DarkNights.Runtime.Save
             JObject world = SnapshotDocumentJson.Write(snapshot);
             world["mode"] = snapshot.Mode.ToString();
             world["expedition"] = ExpeditionSaveJson.Write(snapshot.Expedition);
+            world["physics"] = PhysicsSaveJson.Write(snapshot.Physics);
             world["identities"] = new JArray(snapshot.Identities.Select(i => new JObject
             {
                 ["id"] = i.Id, ["definition_guid"] = i.DefinitionGuid, ["placement_key"] = i.PlacementKey

@@ -369,6 +369,9 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 2358959441088872081}
   _renderers: []
+  _allRenderers:
+  - {fileID: 5493876868158611121}
+  - {fileID: 4933814565100953469}
   _spriteRenderers:
   - {fileID: 5493876868158611121}
   - {fileID: 4933814565100953469}
@@ -398,8 +401,13 @@ MonoBehaviour:
     targets:
     - renderer: {fileID: 5493876868158611121}
       baseColor: {r: 1, g: 1, b: 1, a: 1}
+  expeditionUnit: {fileID: 0}
+  handheld: {fileID: 0}
   shadow: {fileID: 4933814565100953469}
   facing: {fileID: 569367259831741186}
+  lightAnchor: {fileID: 0}
+  lightFillAnchor: {fileID: 0}
+  lightTargets: []
   poseRoot: {fileID: 2315064199392176034}
   clothing: {fileID: 0}
   clips:
@@ -419,6 +427,8 @@ MonoBehaviour:
     Clip: {fileID: 7400000, guid: 3eef344dcf009a046b2affc3a1343bcb, type: 2}
     Duration: 0.8333333333333334
     Loop: 0
+  spineAnimation: {fileID: 0}
+  skeletalLightTargets: []
   standingOffset: {x: 0, y: 0.06}
   deathOffset: {x: 0, y: 0.06}
 --- !u!1 &7791435411739290837

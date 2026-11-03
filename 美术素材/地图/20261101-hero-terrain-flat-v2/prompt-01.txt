@@ -1,0 +1,15 @@
+Use case: precise-object-edit.
+Asset type: ONE strictly flat 2D side-scrolling game art concept, 1536x1024.
+
+INPUT ROLES: Image 1 is the previous TERRACOTTA MATERIAL reference to correct. Its slightly visible floor top surfaces were rejected by the user. Image 2 is the AUTHORITATIVE NEW PLANAR SHAPE GUIDE: gray is solid rock, dark is cave air. Use its continuous side-on silhouette, with no extrusion. Images 3 and 4 are the actual original cyan protagonist and its head component; these take precedence over the character in image 1.
+
+MAIN CORRECTION: Rebuild the entire image as a FLAT 2D SIDE ELEVATION / GEOLOGICAL CUT-SECTION. View straight perpendicular to the gameplay plane, never downward. The walking surface is ONE outline separating air above from solid below. The player's feet rest directly on that outline. There is ZERO visible ground top surface, ZERO path width into the screen, no front/back pair of floor edges, no converging path, no stage-like platform, no bevel, no extruded sides. Rock under the outline is the flat illustrated geological section, not a 3D cliff viewed from above. Follow image 2 and simplify shape deviations as needed.
+
+STYLE AND MATERIAL: Retain rust red, dusty brick, muted salmon, cream sediment bands and subdued teal plants from image 1. Red sediment strata are flat painted markings within the rock shape. Use broad simple filled color regions and a few irregular hand-inked cracks, with much less surface noise. No perspective facets, 3D lighting or diagonal top-plane highlight strip. A thin 2-3 pixel contour accent is acceptable; a broad bright walking ribbon is not. Keep the same hand-drawn game identity.
+
+CHARACTER: One full original-looking cyan hero at x about 470, feet at the guide floor contour near y624. About 145 pixels tall. Oversized broad round cyan hood, tiny cyan torso and short limbs, warm beige face, slanted eyebrows, upright eyes, wide angular V mouth and gray segmented collar, as in images 3/4. Flat original sprite-like coloring and imperfect black line. No new astronaut design, U smile, visor, backpack, headlamp, gloves or boots.
+
+SCENE CONTENT: One quiet dark petrol-blue flat backwall with at most two subdued planar cave silhouettes, not realistic atmospheric depth. Sparse teal grass and tiny coral fungi attached precisely to the contour, not placed in rows receding behind it. At the right wall place a modest turquoise ore patch as a FLAT embedded mineral drawing. Keep the main cavity readable. No waterfall in this dry zone.
+
+OUTPUT: One uninterrupted full-bleed illustrated scene, no text, labels, grid, panels, arrows, UI, watermark or border.
+ABSOLUTELY AVOID: visible horizontal top planes, looking down on a floor, diagonal ground ribbons, pseudo-isometric perspective, 2.5D, extruded ledges, stone paving surfaces receding into the distance, cast shadows implying depth, realistic volumetric boulders, floating platforms or blocky stairs.

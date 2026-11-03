@@ -38,6 +38,19 @@ namespace DarkNights.Runtime.Network
                 (world.Geology.Length == 0 || !string.IsNullOrEmpty(world.MineralWorldId)));
             foreach (var geology in world.Geology) geology.Freeze();
             Require(world.Actors.All(a => a != null) && world.Buildings.All(b => b != null) && world.Worksites.All(w => w != null) && world.MineralDeposits.All(value => value != null));
+            var physics = world.Physics?.Freeze();
+            Physics.PhysicsSnapshotRules.Validate(physics, layout.Physics,
+                world.Actors.Where(a => a.ManualControl && a.Hp > 0).Select(a => a.Id));
+            if (physics != null)
+            {
+                Require(physics.WorldId == world.MineralWorldId && physics.MapEpoch == world.MineralMapEpoch);
+                foreach (var body in physics.Bodies.Where(b => b.Id > 0))
+                {
+                    var actor = world.Actors.Single(a => a.Id == body.Id);
+                    Require(body.X == actor.X && body.Height == actor.Height && body.VelocityY == actor.VerticalSpeed &&
+                        body.ControlLease == actor.ControlLease && body.Grounded == (actor.SupportPlatform >= 0));
+                }
+            }
             Require(world.Identities != null && world.Identities.Length == world.Actors.Length + world.Buildings.Length + world.Worksites.Length + world.MineralDeposits.Length);
             Require(world.MineralWorldId != null && (world.MineralWorldId.Length == 0 ? world.MineralMapEpoch == 0 &&
                 world.MineralDeposits.Length == 0 :
@@ -84,8 +97,9 @@ namespace DarkNights.Runtime.Network
                 double maximumHeight = crew?.Boarded == true || crew?.Role == 4
                     ? Math.Max(catalog.Balance.HeroControl?.MaximumHeight ?? 0, Core.Save.JourneyValidator.MaximumCrewHeight(expedition?.Journey))
                     : Core.Save.JourneyValidator.MaximumGroundHeight(expedition?.Journey, catalog.Balance.HeroControl?.MaximumHeight ?? 0);
+                if (layout.Physics != null && layout.RandomTerrain) maximumHeight = Core.Config.Terrain.PlayableTerrain.OriginY + 8 - 44;
                 bool validActor = Finite(a.Height) && a.Height >= (layout.RandomTerrain ? Core.Config.Terrain.PlayableTerrain.MinimumHeight : 0) && a.Height <= maximumHeight &&
-                    Finite(a.VerticalSpeed) && Math.Abs(a.VerticalSpeed) <= 1000 && a.SupportPlatform >= -1 &&
+                    Finite(a.VerticalSpeed) && Math.Abs(a.VerticalSpeed) <= (layout.Physics == null ? 1000 : 64000) && a.SupportPlatform >= -1 &&
                     a.SelectedItem >= 0 && a.SelectedItem <= 3 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&
                     Finite(a.JetpackFuel) && a.JetpackFuel >= 0 && a.JetpackFuel <= (catalog.Balance.HeroControl?.FuelSeconds ?? 0) &&

@@ -1,0 +1,335 @@
+{
+  "date": "2026-11-01",
+  "scope": "Independent render strategy comparison; shape equality, bounded invalidation, browser timings and Unity frozen input.",
+  "views": [
+    {
+      "mode": "baked",
+      "hash": "78f40104",
+      "stats": {
+        "draws": 4,
+        "vertices": 24,
+        "textureBytes": 62914560,
+        "bufferBytes": 5760
+      },
+      "last": {
+        "geometryMs": 0.5,
+        "uploadMs": 1.3000000044703484,
+        "uploadBytes": 1048672,
+        "chunks": 1,
+        "bufferBytes": 5760,
+        "changed": 5
+      }
+    },
+    {
+      "mode": "strip",
+      "hash": "78f40104",
+      "stats": {
+        "draws": 10,
+        "vertices": 3252,
+        "textureBytes": 18432,
+        "bufferBytes": 420288
+      },
+      "last": {
+        "geometryMs": 0.10000000149011612,
+        "uploadMs": 0,
+        "uploadBytes": 14736,
+        "chunks": 1,
+        "bufferBytes": 420288,
+        "changed": 5
+      }
+    },
+    {
+      "mode": "atlas",
+      "hash": "78f40104",
+      "stats": {
+        "draws": 4,
+        "vertices": 18024,
+        "textureBytes": 331776,
+        "bufferBytes": 5157216
+      },
+      "last": {
+        "geometryMs": 0.09999999403953552,
+        "uploadMs": 0.10000000149011612,
+        "uploadBytes": 68064,
+        "chunks": 1,
+        "bufferBytes": 5157216,
+        "changed": 5
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    }
+  ],
+  "errors": [],
+  "geometry": {
+    "unchangedChunks": 58,
+    "changedChunks": 2,
+    "farTextureCoordinatesStable": true,
+    "shapeHash": "496ca970"
+  },
+  "unityInput": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-render-bench-20261101\\input-960x640.json",
+    "bytes": 21885963,
+    "sha256": "809b5051de2940de730aa262fc1029d77181d0f41a0c43f0d2303e4544a89954",
+    "frames": 30
+  },
+  "measurement": {
+    "date": "2026-11-01",
+    "scope": "WebGL1 offscreen 960x640; readPixels completion includes CPU submission, GPU/driver wait and readback; not FPS.",
+    "map": [
+      320,
+      192
+    ],
+    "view": [
+      48,
+      32
+    ],
+    "pixelDensity": 16,
+    "rounds": 3,
+    "warmupFrames": 5,
+    "sampledFrames": 15,
+    "rows": [
+      {
+        "mode": "baked",
+        "initial": {
+          "median": 157.89999999850988,
+          "p95": 160.20000000298023,
+          "max": 160.20000000298023,
+          "count": 3
+        },
+        "static": {
+          "median": 0.7999999970197678,
+          "p95": 0.8999999985098839,
+          "max": 1,
+          "count": 45
+        },
+        "enqueue": {
+          "median": 0,
+          "p95": 0.10000000149011612,
+          "max": 0.10000000149011612,
+          "count": 45
+        },
+        "single": {
+          "median": 3.5999999940395355,
+          "p95": 5.899999998509884,
+          "max": 7.899999998509884,
+          "count": 48
+        },
+        "blast": {
+          "median": 3.600000001490116,
+          "p95": 6.700000002980232,
+          "max": 8.299999997019768,
+          "count": 36
+        },
+        "singleUpload": {
+          "median": 1048672,
+          "p95": 2097344,
+          "max": 2097344,
+          "count": 48
+        },
+        "blastUpload": {
+          "median": 1048672,
+          "p95": 2097344,
+          "max": 2097344,
+          "count": 36
+        },
+        "singleChunks": {
+          "median": 1,
+          "p95": 2,
+          "max": 2,
+          "count": 48
+        },
+        "blastChunks": {
+          "median": 1,
+          "p95": 2,
+          "max": 2,
+          "count": 36
+        },
+        "singleHash": "7578858c",
+        "blastHash": "cf01289",
+        "resources": {
+          "draws": 4,
+          "vertices": 24,
+          "textureBytes": 62914560,
+          "bufferBytes": 5760
+        },
+        "renderer": "WebKit WebGL",
+        "initGeometryMs": 55.400000020861626
+      },
+      {
+        "mode": "strip",
+        "initial": {
+          "median": 2.7999999970197678,
+          "p95": 2.899999998509884,
+          "max": 2.899999998509884,
+          "count": 3
+        },
+        "static": {
+          "median": 0.5999999940395355,
+          "p95": 0.6999999955296516,
+          "max": 0.7000000029802322,
+          "count": 45
+        },
+        "enqueue": {
+          "median": 0,
+          "p95": 0.10000000149011612,
+          "max": 0.10000000149011612,
+          "count": 45
+        },
+        "single": {
+          "median": 0.6999999955296516,
+          "p95": 0.8999999985098839,
+          "max": 1,
+          "count": 48
+        },
+        "blast": {
+          "median": 0.7000000029802322,
+          "p95": 1,
+          "max": 1.0999999940395355,
+          "count": 36
+        },
+        "singleUpload": {
+          "median": 13776,
+          "p95": 27120,
+          "max": 27120,
+          "count": 48
+        },
+        "blastUpload": {
+          "median": 17232,
+          "p95": 35184,
+          "max": 35184,
+          "count": 36
+        },
+        "singleChunks": {
+          "median": 1,
+          "p95": 2,
+          "max": 2,
+          "count": 48
+        },
+        "blastChunks": {
+          "median": 1,
+          "p95": 2,
+          "max": 2,
+          "count": 36
+        },
+        "singleHash": "7578858c",
+        "blastHash": "cf01289",
+        "resources": {
+          "draws": 11,
+          "vertices": 3690,
+          "textureBytes": 18432,
+          "bufferBytes": 427296
+        },
+        "renderer": "WebKit WebGL",
+        "initGeometryMs": 1.8999999985098839
+      },
+      {
+        "mode": "atlas",
+        "initial": {
+          "median": 11.599999994039536,
+          "p95": 13.900000005960464,
+          "max": 13.900000005960464,
+          "count": 3
+        },
+        "static": {
+          "median": 0.6999999955296516,
+          "p95": 0.8000000044703484,
+          "max": 0.8999999985098839,
+          "count": 45
+        },
+        "enqueue": {
+          "median": 0,
+          "p95": 0.10000000149011612,
+          "max": 0.10000000149011612,
+          "count": 45
+        },
+        "single": {
+          "median": 0.9000000059604645,
+          "p95": 1.2999999970197678,
+          "max": 1.3999999985098839,
+          "count": 48
+        },
+        "blast": {
+          "median": 0.9000000059604645,
+          "p95": 1.2000000029802322,
+          "max": 1.2999999970197678,
+          "count": 36
+        },
+        "singleUpload": {
+          "median": 68352,
+          "p95": 141216,
+          "max": 141216,
+          "count": 48
+        },
+        "blastUpload": {
+          "median": 70848,
+          "p95": 140256,
+          "max": 140256,
+          "count": 36
+        },
+        "singleChunks": {
+          "median": 1,
+          "p95": 2,
+          "max": 2,
+          "count": 48
+        },
+        "blastChunks": {
+          "median": 1,
+          "p95": 2,
+          "max": 2,
+          "count": 36
+        },
+        "singleHash": "7578858c",
+        "blastHash": "cf01289",
+        "resources": {
+          "draws": 4,
+          "vertices": 17574,
+          "textureBytes": 331776,
+          "bufferBytes": 5150016
+        },
+        "renderer": "WebKit WebGL",
+        "initGeometryMs": 9.200000002980232
+      }
+    ],
+    "sourceLabel": "本机 Chromium 离屏实测（3 轮）；含 GPU／驱动等待与读回，不是 Unity 帧率。无光照、碰撞、生态或联网。"
+  },
+  "fragment": {
+    "sha256": "b274bf66e472b40760f9d26fce248cf573d4267fd5f32c720eff2d1e8a8a5c4c"
+  },
+  "passed": true
+}

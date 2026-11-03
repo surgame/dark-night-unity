@@ -1,0 +1,253 @@
+{
+  "date": "2026-11-01",
+  "scope": "Stratified cave appearance, focused views, local input and state isolation; no Unity or full-route acceptance.",
+  "layouts": [
+    {
+      "width": 1000,
+      "scroll": 1000,
+      "theme": "light"
+    },
+    {
+      "width": 736,
+      "scroll": 736,
+      "theme": "dark"
+    },
+    {
+      "width": 360,
+      "scroll": 360,
+      "theme": "light"
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "theme": "dark"
+    }
+  ],
+  "focus": [
+    {
+      "id": "terrace",
+      "camera": {
+        "x": 65,
+        "y": 35,
+        "scale": 24.791210937499997
+      }
+    },
+    {
+      "id": "hall",
+      "camera": {
+        "x": 104,
+        "y": 37,
+        "scale": 16.822607421875
+      }
+    },
+    {
+      "id": "elbow",
+      "camera": {
+        "x": 139,
+        "y": 53,
+        "scale": 25.676611328125
+      }
+    },
+    {
+      "id": "fissure",
+      "camera": {
+        "x": 51,
+        "y": 63,
+        "scale": 18.593408203125
+      }
+    },
+    {
+      "id": "cleft",
+      "camera": {
+        "x": 162,
+        "y": 90,
+        "scale": 19.478808593750003
+      }
+    }
+  ],
+  "errors": [],
+  "sources": {
+    "standalone": "bc91c337f659db1e1998c36c02f48f371ab2cb37a0196996def12044d79599b3",
+    "fragment": "087ba4a200eb04ea161f50f7ef744e7e3254cacd84f7e4132cca9a9351cf21ff",
+    "layout": "3aa51f5c7c9354e03740ff53cd2908cf34b205356b5160150adf7def42517ab3"
+  },
+  "initial": {
+    "ready": true,
+    "mode": "overview",
+    "site": "entry",
+    "visited": [],
+    "player": {
+      "x": 26,
+      "y": 32.47997558593756,
+      "grounded": false
+    },
+    "camera": {
+      "x": 112,
+      "y": 62,
+      "scale": 4.125
+    },
+    "dug": 0,
+    "revision": 0,
+    "size": [
+      224,
+      124
+    ],
+    "insideRock": false
+  },
+  "interactions": {
+    "start": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 26,
+        "y": 32.52999983045796,
+        "grounded": true
+      },
+      "camera": {
+        "x": 31,
+        "y": 27.52999983045796,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        224,
+        124
+      ],
+      "insideRock": false
+    },
+    "moved": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 34.8133333333333,
+        "y": 32.52999983045796,
+        "grounded": true
+      },
+      "camera": {
+        "x": 39.8133333333333,
+        "y": 27.52999983045796,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        224,
+        124
+      ],
+      "insideRock": false
+    },
+    "jumped": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 35.385347222222194,
+        "y": 31.51062483045796,
+        "grounded": false
+      },
+      "camera": {
+        "x": 40.385347222222194,
+        "y": 26.51062483045796,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        224,
+        124
+      ],
+      "insideRock": false
+    },
+    "dug": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 35.51909722222219,
+        "y": 32.70851559109164,
+        "grounded": true
+      },
+      "camera": {
+        "x": 40.51909722222219,
+        "y": 27.70851559109164,
+        "scale": 17.7080078125
+      },
+      "dug": 4,
+      "revision": 1,
+      "size": [
+        224,
+        124
+      ],
+      "insideRock": false
+    },
+    "restored": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 35.51909722222219,
+        "y": 32.70851559109164,
+        "grounded": true
+      },
+      "camera": {
+        "x": 40.51909722222219,
+        "y": 27.70851559109164,
+        "scale": 17.7080078125
+      },
+      "dug": 4,
+      "revision": 0,
+      "size": [
+        224,
+        124
+      ],
+      "insideRock": false
+    },
+    "stateIsolation": true
+  },
+  "inline": {
+    "width": 288,
+    "scroll": 288,
+    "state": {
+      "ready": true,
+      "mode": "inspect",
+      "site": "elbow",
+      "visited": [],
+      "player": {
+        "x": 26,
+        "y": 32.47997558593756,
+        "grounded": false
+      },
+      "camera": {
+        "x": 139,
+        "y": 53,
+        "scale": 7.879245283018867
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        224,
+        124
+      ],
+      "insideRock": false
+    }
+  },
+  "ok": true
+}

@@ -1,0 +1,4 @@
+{
+  "message": "A nearby buried mineral cell must be blocked by foreground.",
+  "stack": "AssertionError [ERR_ASSERTION]: A nearby buried mineral cell must be blocked by foreground.\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\check-layers.cjs:43:3"
+}

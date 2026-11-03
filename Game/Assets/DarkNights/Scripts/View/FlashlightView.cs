@@ -28,13 +28,13 @@ namespace DarkNights.View
         public Vector3 EmitterPosition => emitter != null ? emitter.position :
             throw new InvalidOperationException("手电缺少显式灯口绑定。");
 
-        public void BindLight(LightProfileSnapshot profile, UnityEngine.Object context, Transform mount, Transform fillAnchor, SpriteRenderer[] receivers)
+        public void BindLight(LightProfileSnapshot profile, UnityEngine.Object context, Transform mount, Transform fillAnchor, Renderer[] receivers)
         {
             BaseLightProfile = profile;
             if (debugOwner != null && debugProfile != null) profile = debugProfile;
             if (ReferenceEquals(applied, profile) && boundContext == context && light.Effect != null) return;
             if (emitter == null || body == null) throw new InvalidOperationException("手电必须绑定灯口与道具外观。");
-            var all = new SpriteRenderer[receivers.Length + 1];
+            var all = new Renderer[receivers.Length + 1];
             Array.Copy(receivers, all, receivers.Length); all[receivers.Length] = body;
             light.Bind(profile, context, emitter, mount, fillAnchor, all);
             applied = profile; boundContext = context;

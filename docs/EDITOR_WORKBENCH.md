@@ -2,9 +2,27 @@
 
 本页集中原生编辑器入口、草稿／保存、独立预览和只读运行诊断。日常打开 `Dark Nights → 工作台`；地图权威规则、工具能力、照明及执行批次分别查专项合同。本页不以历史测试计数声明当前画面通过。
 
+新版MapModule使用独立“地图工坊”，与旧MapWorkbench仅共享主工作台导航和必要基础服务，不共享作者草稿、空间生成器或保存管线。现行首片操作见[地图工坊](#mapmodule-workbench)；完整方向及后续切片见[MapModule方案](MAP_MODULE_WORKFLOW.md)和[MM计划](ROADMAP.md#cl-mapmodule-plan)，实现／编译及运行待验状态归DEVELOPMENT。旧地图工作台资料继续保留，正式默认地图尚未切换。
+
 CL-00后独立洞穴工作台默认关闭喷气，沿用真实基础跳跃；原喷气勾选仅供显式历史预览，不能据此签署正式矿洞通行。正式商店及Debug Hub添加均关闭喷气，定义、原GUID和作者资源保留。
 
+<a id="cooperative-physics"></a>
+
+## 合作物理候选
+
+从`Dark Nights/工作台 → 角色与装备 → 合作物理候选与诊断`打开独立窗口，再选择“打开物理研究场景”。场景为`Res/Scenes/Workbenches/Physics/CooperativePhysicsStudy.unity`，原模块研究场景及其作者轮廓／Bake保持。Play仍经Bootstrap；MapModuleEntry.PhysicsProfile显式选择动态候选，原入口未绑定时继续格运动。正式关卡可由PhysicsSceneAuthoring显式冻结同一Profile，纳入握手与v29保存；候选尚不取代默认正式手感。
+
+原生资源位于`Res/Objects/CooperativePhysics`，含独立Profile、Box／Rope Prefab、材质及新制32×32不透明箱子贴图。箱子显示32×32逻辑像素、100 PPU、脚底pivot、Point采样、关闭mipmap和压缩；无共边／半透明拼接要求，使用确定性像素绘制，不缩小大图、不覆盖作者源。Prefab只带显示组件，Rigidbody2D／Collider／Joint仅由会话后端从规则和权威地形派生。
+
+Scene的PhysicsPropPlacement是初始箱子位置／尺寸唯一来源，负ID稳定保存；可在Scene看见并移动／缩放实例，初始旋转／Z和脚底pivot必须合法。Profile保留质量、马达、绳索规则及显示Prefab引用，不另存位置表。候选提供两只箱子，新建研究角色配正式矿镐。A/D、空格、Shift沿原输入；接触推箱，E连接最近角色或箱子，已有连接时E解除。初始绳长由服务器按实际端点距离加8逻辑像素确定，受Profile上限限制。可在箱上向下挖地、连接下落队友；这些是待验操作，不是已经签署的运行结果。
+
+研究入口默认Host、端口27779。独立Client可在其场景配置StartAsHost=false、ServerAddress／ServerPort，或使用`--dn-role client --dn-address <Host地址> --dn-port 27779`；可选`--dn-physics-study`选择同一研究Scene。Player须在获准构建中包含该Scene，本轮不生成Player或自动改构建设置。不能用两个Editor并行写Local缓存，也不借连接成功宣称物理同步通过。
+
+运行Host时在本窗口“开始录制／停止录制／导出当前记录”。最多600个物理步或16次地形版本变化后自动停止，保留起始v29冻结世界、配置／移动指纹、逐步运动输入、接触／支撑及变更后地图；每步接触最多256条，截断显式标记。失败保留本步输入及有界异常文本。导出在`artifacts/physics-traces/`创建唯一JSON，不覆盖玩家槽位、不订阅日志。窗口保留最近已观察到的退休会话记录以便导出；关闭窗口或域重载不等于已写盘。资料不包含原生热启动缓存，不自动执行确定性重演。
+
 ## 导航与作者编辑
+
+主角骨骼资源通过工作台“角色与装备 → 主角骨骼与动画”定位SkeletonData、HeroRig及AnimationSelection。已选主角使用官方Spine运行时；骨骼、图集与混合配置可在原生Inspector查看，实际动作选择仍归AnimationSelection和既有展示状态。原生迁移入口`HeroSpineAssetSetup.Migrate`仅处理已选旧Hero绑定，拒绝Play／编译／脏场景，并保留迁移前资产副本；不在浏览工作台时自动执行。新增作者动作先补来源和选择，不直接覆盖现有图集或重新烘焙旧帧。
 
 主工作台按业务组织为“游戏／设置／开发”。默认打开关卡装配页；常用内容直接显示，各模块复杂功能、作者源文件和低频操作统一放入默认折叠的“扩展”，首次展开才创建Inspector或辅助目录。
 
@@ -12,7 +30,7 @@ CL-00后独立洞穴工作台默认关闭喷气，沿用真实基础跳跃；原
 | --- | --- | --- |
 | 游戏／关卡 | Bootstrap、正式内容场景、正式地图引用、活动场景及Play来源说明 | 正式会话与地形来源定位、完整场景／实验／样例目录、balance.json与pinewatch.json、主菜单和暂停／帮助／结果界面；场景和原生编辑器继续拥有作者修改 |
 | 游戏／飞船 | 正式船体、补给商店、交货终端、航程开关和超时摘要 | 正式会话参数、原星球／泊位／过场草稿、游戏HUD／背包／飞船服务界面作者源；直接会话参数与地图草稿的应用范围分别说明 |
-| 游戏／地图 | 唯一地图设计工作台入口 | 原地形业务／耐久窗口；不在主工作台复制地图生成、环境或装饰参数 |
+| 游戏／地图 | 地图工坊 · MapModule；旧版地图工作台／参考 | 原地形业务／耐久窗口；新版使用独立作者资源，不在主工作台复制地图参数 |
 | 游戏／角色与装备 | 主角、手电、矿镐、手枪、炸药的原生工坊入口 | 完整对象工坊、资源注册Viewer、采集校验及矿床来源；喷气背包暂退，不列常用快捷项，原资产保留 |
 | 设置／键位 | 默认Gameplay.inputactions及其原生编辑入口 | 默认动作和绑定数量摘要；玩家本机改键仍在游戏设置，沿原YY输入服务持久化 |
 | 设置／图形 | Linear、当前质量档及渲染管线摘要，原生Quality／Graphics设置 | 已加载正式内容场景的显式光照引用、原光照调参台；不为查看摘要加载场景，不新建玩家图形设置 |
@@ -90,6 +108,8 @@ Bootstrap默认内容场景仍由`GameSessionStartupModule`和`RandomLevelEntry.
 <a id="矿洞地图工作台现行入口"></a>
 
 ## 地图设计工作台现行入口
+
+旧工作台四区布局、状态所有者、过程查看、保存域与新版承接关系见[实现与保全索引](archive/MAP_WORKBENCH_REFERENCE_20261103.md)。本轮增加参考索引和定向源码快照，原实现与资源未因MapModule方案被删除或覆盖。
 
 入口：`Dark Nights → 工作台 → 地图 → 地图设计工作台`，英文名为`Map Design Workbench`。2026-10-28按确认原型改为四区：最左配置选择库、独立制作模块、主画布与八步过程、当前模块基本／高级配置。模块按地图配方、空间生成、地图内容、地图表现、文件输出分组；取消三Tab和笼统扩展总菜单，实验在导航底部明确单列。窗口类型仍为`MapWorkbenchWindow`，保留原GUID与作者草稿；实施和验收见[执行状态](DEVELOPMENT.md#stage-cl)。
 
@@ -253,6 +273,35 @@ Workshop及Definition Inspector中的“移动（MovementConfig）”配置始�
 
 本会话随后新增[五种矿脉／伴巢候选](TERRAIN_GENERATION.md#cl01-mining-archetypes)的同尺度总览与单方案放大。完整剖面可比较实际矿格轮廓与侧巢关系，开挖顺序显示已采掘格的静态挖空、未揭露矿体遮挡、预设侧壁打通与后续储量；切换特色矿脉／伴巢开关分别核对恢复边界。各方案同一露头、同一铁金预算，不能把格数或100%带巢的比较样例当正式经济／分布；示意矿纹与原生生物素材分别标识，仍不执行运行结算或AI。
 
+<a id="mapmodule-workbench"></a>
+
+## 地图工坊 · MapModule
+
+统一导航：左侧为“地图 → 地图中的模块 → 模块内交互物”，直接选择地图，不再展示“当前研究中的样例”。顶部保留显式“打开作者场景”、保存／检查／制作／启动，右上角显示当前地图。列表可搜索；初始化及定位源Scene收进左侧“制作与来源”。内部仍保留Scene／StudyId／CaseId／Bake身份，同一作者Scene可有多个直接列出的地图布局。
+
+M17：进入工作台的“游戏／地图 → 地图工坊 · MapModule”，在左侧“地图”选择“M17 · 悬索裂谷”，工坊显示其地形及吊绳，Unity仍保持原活动场景／作者Hierarchy／Selection。未加载的地图使用只读原生预览，只有点击“打开作者场景”或“启动调试”才切换Unity，并沿原生保存提示处理草稿。原生来源为`Res/Scenes/Workbenches/MapModule/MapModuleRopeRiftStudy.unity`，作者资源在`Res/Terrain/MapModule/M17/`。
+
+M17采用单片4×3U白模，包含左岸、裂谷、右岸、上方奖励岩台和谷底回坡；岩台尚无奖励矿物，返程桥未装配。人物复用既有物理研究Profile的规则和同一Spine Rig；8节吊绳顶端固定、绳身动态。默认E抓／放附近绳，W／S或上下方向键沿绳攀爬，A／D助摆，Space跳离；手柄Climb使用左摇杆纵轴，可在原按键设置重绑。抓点沿绳移动，总绳长不变，离绳保留物理速度；空绳无自动回岸。攀爬暂沿用现有腾空表现，未新增专用攀爬动画。
+
+从左侧“模块内交互物”或画布点击吊绳，右侧显示锚点、绳长及操作摘要；浏览只读预览时位置及写入按钮禁用。显式打开作者场景后，可修改原生锚点位置或进入Inspector修改长度／分节／攀爬／助摆参数。画布绘制同一作者来源的初始绳形及绳节，不模拟运动；原生LineRenderer与Gizmo继续用于Scene定位，运行刚体／关节仅由会话后端创建。环境锚点是世界固定安装，不因挖掉周边岩石自动断开。准备制作版本时同时核对绳配置及来源摘要。当前代码已编译、原生引用及来源／Bake已核对，跨谷手感、坡道通行、多人及恢复仍待实机验收，详见DEVELOPMENT。
+
+入口：`Dark Nights → 工作台 → 游戏／地图 → 地图工坊 · MapModule → 打开地图工坊`。原生UITK窗口以画布为中心；滚轮缩放、中键平移、点击轮廓范围或左侧列表选择模块。当前研究为“缓入浅厅 · 继续深入”，由地表缓入与浅厅续入两块4×3U模块组成，每片12.8×9.6世界单位；1U暂用20×20格／3.2×3.2世界单位，每格16逻辑像素／0.16世界单位。当前占格用于人物／洞穴实体比例重设计，全局尺寸标准仍待讨论。颜色为无纹理白模，不是最终自然轮廓或美术验收。
+
+当前按实际空间尺寸调整比例：人物高约0.48、碰撞高0.44；洞口代表点净高约4个人高、连接约5.7个人高、浅厅约8.3个人高，山体覆岩与模块间距同步展开，详见[尺寸合同](MAP_MODULE_WORKFLOW.md#作者与制作版本)。研究镜头已撤回误调的1.5，恢复2.8；编辑态相机半高2.2、位置(3,0.4,-10)。默认出生锚点为(1.92,0,0)，两模块分别位于(0,-5.76,0)与(12.8,-5.76,0)，不以Transform缩放放大模块。地图工坊画布仍可独立平移／缩放。
+
+1. **打开研究场景**：打开已保存的`MapModuleEntranceStudy.unity`。初始化首个样例仅用于目标空目录，不覆盖已有Scene／Prefab／制作版本。
+2. **摆放与连接**：右侧“格点位置”修改Scene中的模块实例变换，支持Undo；连接与出生锚点在原生Scene Inspector编辑。内部轮廓不在Scene实例创建覆盖。
+3. **编辑模块Prefab**：进入原生Prefab模式，在Inspector编辑实体顶点／端口，或在Scene视图拖动格点手柄；按“根据当前轮廓生成新预览”，保存Prefab并退出。预览网格新增版本，旧资源保留。
+4. **保存作者场景**：Prefab拥有内部轮廓，Scene拥有实例布局、显式连接和出生锚点。工坊不维护第二份JSON草稿，打开／预览不启动网络。
+5. **检查／准备制作版本**：检查精确格形、正面积重叠、水平端口开口与完整共边带、局部出生支撑／净空，并只读检查Bootstrap启动依赖、网络Prefab登记和研究Rig完整绑定。缺失服务／输入／镜头／主角引用直接报告；无法落入现有整格／12坡形时报告格坐标，不自动修补、加过渡或用阶梯近似。当前不是整图人物可达性检查。
+6. **启动调试**：已保存Scene、退出Prefab模式且Editor空闲后，点击右上角按钮。按钮复检并准备当前版本，选中样例先经Bootstrap完成共用表现与会话装配，再等AppStartup Ready启动既有FishNet本机Host、YYGC Stateful、正式角色运动与输入。研究Scene不另装AppStartup或NetworkManager。来源改变后旧Bake不能用于启动；当前不提供独立F1地图调试台。
+
+`Res/Terrain/MapModule/Modules/`为原生模块及派生预览，`Bakes/`保存来源摘要命名的冻结初始版本；不覆盖旧Bake。`HeroRig.prefab`仅复用主角外观／对象装配，**不得含ObjectDefinitionLoader**；Loader及ScenePlacement显式放在研究Scene的出生实例。输入绑定该Scene镜头，不引用旧白模Scene对象。所有新.meta由Unity生成，旧资源GUID保持。
+
+研究布局带独立版本身份，使用`persistentDataPath/MapModuleResearch/<版本摘要>`隔离目录；服务端拒绝此布局的保存及读档，重开沿现有内存初始快照。未切换正式地图、正式存档或旧工作台应用来源。独立Client、更多样例／生态、整图和正式替换按后续切片推进。
+
+首片待验操作：修改顶点、Undo、保存Prefab并重开；改变模块位置／连接后观察版本失效及错边拒绝；从按钮启动后检查实际运动、同版地形Ready、停止Play及再次启动。独立Host＋Client、晚加入、断线和发布另列，不以原生窗口能打开或编译通过替代。
+
 ## 场景目录
 
 路径相对 `Game/Assets`。正式Bootstrap装配地面玩法，快速测试不新增场景；原场景名称中的Expedition不代表旧太空流程已开放。
@@ -261,6 +310,8 @@ Workshop及Definition Inspector中的“移动（MovementConfig）”配置始�
 | --- | --- |
 | 正式入口／快速测试菜单 | `Scenes/Bootstrap.unity` |
 | 正式地面内容 | `DarkNights/Res/Scenes/Expedition/Expedition.unity` |
+| 新版模块入口研究 | `DarkNights/Res/Scenes/Workbenches/MapModule/MapModuleEntranceStudy.unity` |
+| 干净角色白模起点 | `DarkNights/Res/Scenes/Workbenches/Terrain/CaveWhitebox.unity` |
 | 地形预览 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` |
 | 编辑参考与同源Play预览 | `DarkNights/Res/Scenes/References/Terrain/ReferenceChamber.unity` |
 | 静态营地专项回归 | `DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity` |
@@ -277,6 +328,35 @@ Workshop及Definition Inspector中的“移动（MovementConfig）”配置始�
 | 第三方Console演示 | `Plugins/EdgarDev/Smart Console/Demo/Demo.unity` |
 
 当前Build Settings及GamePlayerBuild显式列表保留Bootstrap、StaticCampRegression、RandomCampRegression和Expedition；日常入口只有Bootstrap。GameScenePaths／RandomLevelEntry管理正式路径，TerrainScenePaths管理参考／预览／探针／退役路径。营地回归和退役资产不因目录整理被移动或恢复为产品入口。
+
+### 从空白模重新搭建地图
+
+`CaveWhitebox.unity`为新地图的独立作者场景。通过`Dark Nights → 工作台 → 游戏／关卡 → 扩展 → 场景、实验与参考 → 日常开发 → 干净矿洞白模`打开，也可在工作台搜索“白模”或直接双击场景资产。打开动作保留原生未保存场景提示，不生成或覆盖已有布局。
+
+场景使用XY平面的二维正侧视镜头，初始位置为(6,1,-10)、正交半高1.8，运行时只在平地范围内横向跟随主角。`00_Setup`含Camera及AudioListener；`01_Terrain`是一段24 Unity单位宽、顶面Y=0的平地与表面线；`03_Gameplay`含主角原生实例及本地会话接线，`02_Background`和`04_Ecology`仍为空。平地bounds、主角ScenePlacement及相机直接在原生场景编辑并用Ctrl+S保存；平地首片要求从X=0开始且顶面Y=0，不包含坡形或洞穴碰撞。
+
+主角外观来自用户指定的`美术素材/角色/主角/主角.spine`及原10张PNG，Unity导入目录为`Res/Objects/Hero/`。`Export`保留原生骨架JSON／图集，`AnimationFrames`和`AnimationClips`是Spine原生导出的站立／行走及腾空姿态；来源、重建和缺图边界见该目录README及SourceManifest。现有Worker仅提供业务能力和场景实例底座，其原Prefab／Definition不改，实例外观已替换为这套主角。显示沿用48逻辑像素比例，不改变16×44身体参照。
+
+打开场景后按Play，经原Bootstrap服务直接初始化本地白模，不经过主菜单或加载旧地图。点击Game视图获得焦点后，沿正式绑定默认A／D移动、空格跳跃、Shift疾跑、Esc暂停／继续；停止Play恢复作者位置。运动仍走ActorBehaviour／MovementBehaviour与唯一ActorState，初版平地由该能力的既有平台后端承托，不另加Unity物理角色控制器。此入口不装配网络、玩家文件存档、采集或事件；编译与实际Play核对状态只见DEVELOPMENT。
+
+2026-11-03用户已明确弃用旧版地图设计，后续制作转向[洞段拼装地图方案](ROADMAP.md#cl-cave-assembly-plan)。旧地图／候选原位保留；新版统一研究入口、场景与正式引用切换尚未实施，以上现有白模仍按原方式打开。本次方向变更不代表已有场景加入Player构建列表或正式新局已换用新版。
+
+### M01入口白模形态
+
+工作台搜索“M01”可打开四个独立入口场景，目录仍归`游戏／关卡 → 扩展 → 场景、实验与参考 → 入口白模`：
+
+| 形态 | 场景 | 用途 |
+| --- | --- | --- |
+| 低檐缓坡 | `Workbenches/Terrain/CaveEntranceGentle.unity` | 下凹缓坡、低檐与回升台 |
+| 岩肩错台 | `Workbenches/Terrain/CaveEntranceShelf.unity` | 平直岩肩与短斜坡交替 |
+| 宽口拱厅 | `Workbenches/Terrain/CaveEntranceVault.unity` | 宽口、高拱与下凹洞厅 |
+| 斜裂窄入口 | `Workbenches/Terrain/CaveEntranceFissure.unity` | 倾斜洞颈、较低顶板与短停留台 |
+
+路径均以`Assets/DarkNights/Res/Scenes/`为前缀。原平地场景保留。每图只有指定主角、会话接线和地形模块，尚未放矿物、物品、机关、生态或过渡块。编辑态镜头看整块，Play入口仍经Bootstrap；入口图运行镜头半高2.2，按主角X及高度跟随。实际编译、画面及Play状态归DEVELOPMENT。
+
+模块Prefab、三份共用白模材质及派生Mesh位于`Workbenches/Terrain/EntranceWhiteboxAssets/`。需要调整时打开相应Prefab，在WhiteboxTerrainAuthoring中修改Floor／Ceiling点列，再通过工作台“重建选中入口白模”显式重建并保存Prefab；不直接修改派生Mesh，不在场景实例覆盖轮廓后改共享网格。轮廓按16逻辑像素格及现有全坡／半坡表达，无法匹配的输入明确报错。原生显示与运行地形同源，但尚不代表人物通行、坡面往返或玩法已验。
+
+宽洞有色候选通过同一目录的“宽洞风格”分组打开：CaveVaultStrata为暖棕层岩、CaveVaultMoss为青绿岩拱、CaveVaultBlue为冷蓝裂岩、CaveVaultOchre为赤赭断层，搜索M01亦可找到。它们使用独立Prefab及同密度的透明地形前景／完整后壁PNG，仍只放指定主角与地形。SVG源及重建关系见[素材说明](../美术素材/地图/20261102-vault-blockout-svg/README.md)。修改形状必须同步对应SVG裁切、PNG和ArtworkFingerprint；工作台拒绝只改格形状却保留旧图层。原四种灰色白模、原平地和正式地图不被覆盖。
 
 <a id="cl02-map-design-point"></a>
 

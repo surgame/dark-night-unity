@@ -20,7 +20,7 @@ namespace DarkNights.Editor.Lighting
         private GameObject root, tool;
         private Transform facing, pivot, emitter, mount, fillAnchor;
         private SpriteRenderer arm;
-        private SpriteRenderer[] receivers;
+        private Renderer[] receivers;
         private Vector3 toolScale;
         public LightEffect Effect => binding.Effect;
 
@@ -56,7 +56,7 @@ namespace DarkNights.Editor.Lighting
                 tool = CopyTree(source, mount); tool.name = "光照调参 · 被动手电"; toolScale = tool.transform.localScale;
                 emitter = Copy<Transform>(flashlight.Emitter);
                 var body = Copy<SpriteRenderer>(new SerializedObject(flashlight).FindProperty("body").objectReferenceValue);
-                receivers = actor.LightTargets.Select(Copy<SpriteRenderer>).Concat(new[] { body }).ToArray();
+                receivers = actor.LightTargets.Select(Copy<Renderer>).Concat(new Renderer[] { body }).ToArray();
             }
             catch { Dispose(); throw; }
         }

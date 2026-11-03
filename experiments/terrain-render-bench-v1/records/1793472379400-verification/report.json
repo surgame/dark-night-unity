@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-01",
+  "scope": "Independent render strategy comparison; shape equality, bounded invalidation, browser timings and Unity frozen input.",
+  "views": [],
+  "layouts": [],
+  "errors": [],
+  "passed": false,
+  "failure": "TypeError: Cannot read properties of null (reading 'chunks')\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\verify.cjs:25:27"
+}

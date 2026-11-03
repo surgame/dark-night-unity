@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-30",
+  "purpose": "Retain the user's preferred original painted character, adapt its construction to a side-view Spine cutout workflow.",
+  "input": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-9aa8e039-2c44-447a-b0e7-69e8407edfaa.png",
+  "inputNativeSize": [1536, 1024],
+  "inputRole": "User-selected character identity, proportions, palette and painted texture reference.",
+  "requestedOutputSize": [1536, 1024],
+  "output": "painted-spine-study-02.png",
+  "transparency": false,
+  "seams": "No tile seams. Future layered artwork must complete hidden joint overlaps.",
+  "precision": "Pose and silhouette design only; illustrations are not exact shared-part reconstruction.",
+  "method": "Built-in imagegen for large concept illustration; no raster manipulation or animation claims.",
+  "scope": "One painted side setup and action reference sheet. No production parts, Spine rig, 3D model or Unity changes."
+}

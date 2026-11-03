@@ -1,0 +1,46 @@
+{
+  "buildId": "f04f68487ce5af902661679f2d1a522897a23092b18788db1949235c7e36ee2c",
+  "checks": [
+    {
+      "seed": 0,
+      "passed": true,
+      "summary": {
+        "rooms": 8,
+        "connections": 7,
+        "portColumnsPerSide": 65,
+        "water": 10,
+        "plants": 47,
+        "boundaries": 2,
+        "roadDepthLayers": 8
+      }
+    },
+    {
+      "seed": 1,
+      "passed": true,
+      "summary": {
+        "rooms": 8,
+        "connections": 7,
+        "portColumnsPerSide": 65,
+        "water": 8,
+        "plants": 47,
+        "boundaries": 2,
+        "roadDepthLayers": 8
+      }
+    },
+    {
+      "seed": 2,
+      "passed": true,
+      "summary": {
+        "rooms": 8,
+        "connections": 7,
+        "portColumnsPerSide": 65,
+        "water": 8,
+        "plants": 47,
+        "boundaries": 2,
+        "roadDepthLayers": 8
+      }
+    }
+  ],
+  "missingSources": [],
+  "scope": "Shapes, signatures, attachment, water slope and initial event relations; not traversal or visual acceptance."
+}

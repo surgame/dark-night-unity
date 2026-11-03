@@ -52,6 +52,7 @@ namespace DarkNights.Runtime.Objects
                 ground.ManualControl = true;
                 ground.Height = height; ground.VerticalSpeed = 0; ground.SupportPlatform = 0;
                 ground.Boarded = false;
+                PhysicsStudyEquipment.Prepare(world, ground);
                 return resident;
             }
             var actor = world.Lifecycle.SpawnActor("worker", ship.X + ShipGeometry.RampToe - 32);
@@ -78,6 +79,15 @@ namespace DarkNights.Runtime.Objects
         /// <summary>从左侧内部列依次读取自然地面；不改格子、不补路、不换种子，找不到则明确拒绝开局。</summary>
         internal static void FindNaturalSpawn(ObjectSession world, out float x, out float height)
         {
+            if (world.Layout.MapModuleStudy)
+            {
+                x = world.Layout.SpawnX;
+                if (TerrainBodyCollision.Ground(world.Terrain.Map, x, world.Layout.MapModuleSpawnHeight + 16,
+                    world.Layout.MapModuleSpawnHeight - 16, HeroControlDefinition.BodyHalfWidth,
+                    HeroControlDefinition.BodyHeight, out height) &&
+                    Math.Abs(height - world.Layout.MapModuleSpawnHeight) < .001f) return;
+                throw new InvalidOperationException("模块研究出生锚点缺少同版真实支撑或身体净空。");
+            }
             for (int column = 2; column < TerrainGenerationSettings.Width - 2; column++)
             {
                 x = column * PlayableTerrain.CellPixels;

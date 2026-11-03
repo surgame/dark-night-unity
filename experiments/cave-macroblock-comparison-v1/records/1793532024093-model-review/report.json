@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-01",
+  "scope": "Finite model and interface checks for this independent whitebox only.",
+  "sources": [
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/player.js",
+      "sha256": "d5eef5d5ee71e9e8221bc6b3752449429ac5c008e3b20c5d1a4eda55fe43f2f7"
+    },
+    {
+      "file": "geometry.js",
+      "sha256": "fe3ec8e5d80c6e6999eb2dfc1c4a33fd4ac3c34bfca6532ac2b271b45c2118eb"
+    },
+    {
+      "file": "modules.js",
+      "sha256": "4ce250bc6f32a7be701b7fa6208e79b9de49538446b7c8908a0112998e027c89"
+    },
+    {
+      "file": "solver.js",
+      "sha256": "1753928cb499d4296fd6c1db5bd8097ac8d7ecc1a2f78dbfe78db57674d0ad48"
+    }
+  ],
+  "seeds": [],
+  "catalogPairs": 8192,
+  "minimumClearance": 3.4993037466058823,
+  "ok": false,
+  "failure": "Error: Invalid module envelope\n    at check (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-macroblock-comparison-v1\\verify.cjs:13:34)\n    at Object.<anonymous> (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-macroblock-comparison-v1\\verify.cjs:38:7)\n    at Module._compile (node:internal/modules/cjs/loader:1934:14)\n    at Object..js (node:internal/modules/cjs/loader:2074:10)\n    at Module.load (node:internal/modules/cjs/loader:1656:32)\n    at Module._load (node:internal/modules/cjs/loader:1448:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+}

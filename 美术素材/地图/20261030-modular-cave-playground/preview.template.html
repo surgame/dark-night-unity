@@ -1,0 +1,48 @@
+<div id="macro-cave-playable">
+  <div class="viz-controls">
+    <button class="btn btn-primary" type="button" id="mc-play">开始漫游</button>
+    <button class="btn" type="button" id="mc-seed">换一张地图</button>
+    <label class="form-label">视图
+      <select class="form-select" id="mc-view">
+        <option value="walk">角色漫游</option>
+        <option value="atlas">模块素材</option>
+        <option value="solve">WFC 过程</option>
+      </select>
+    </label>
+  </div>
+  <div class="viz-controls">
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="mc-bounds"><span class="form-check-label">模块边界与碰撞</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="mc-light" checked><span class="form-check-label">手电</span></label>
+    <label class="form-label">图层
+      <select class="form-select" id="mc-layer">
+        <option value="all">正常合成</option>
+        <option value="background">仅稳定后壁</option>
+        <option value="mineral">仅矿层（制作调试）</option>
+        <option value="foreground">仅前景岩体</option>
+      </select>
+    </label>
+  </div>
+  <label class="form-label" id="mc-trace-label" hidden>求解事件 <span id="mc-trace-value" class="tabular-nums"></span>
+    <input class="form-range" type="range" id="mc-trace" min="0" max="1" value="0">
+  </label>
+  <canvas id="mc-scene" role="img" aria-label="固定美术模块随机洞道，角色可左右移动和跳跃">可移动角色的洞穴模块预览。</canvas>
+  <div class="viz-row">
+    <button class="btn" type="button" id="mc-left" aria-label="向左移动">← 左移</button>
+    <button class="btn" type="button" id="mc-right" aria-label="向右移动">右移 →</button>
+    <button class="btn" type="button" id="mc-jump">跳跃</button>
+    <button class="btn" type="button" id="mc-mine">采掘</button>
+  </div>
+  <div id="mc-status" class="text-small tabular-nums" aria-live="polite"></div>
+  <div class="text-small text-muted">A / D 移动 · 空格跳跃 · J 或采掘按钮挖近处 · 点击画面瞄准采掘</div>
+</div>
+<style>
+#macro-cave-playable{display:grid;gap:calc(var(--font-size-base)*.65);color:var(--foreground)}
+#macro-cave-playable #mc-scene{display:block;width:100%;aspect-ratio:16/10;touch-action:pan-y}
+#macro-cave-playable #mc-status{min-height:calc(var(--font-size-base)*1.5)}
+#macro-cave-playable #mc-trace-label{display:grid;gap:calc(var(--font-size-base)*.25)}
+#macro-cave-playable [hidden]{display:none!important}
+</style>
+<script>
+/*__DATA__*/
+/*__CODE__*/
+</script>

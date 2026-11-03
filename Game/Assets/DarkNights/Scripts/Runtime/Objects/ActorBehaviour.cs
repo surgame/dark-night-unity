@@ -67,6 +67,12 @@ namespace DarkNights.Runtime.Objects
         internal void Tick(double delta)
         {
             if (Hp <= 0) return;
+            BeginMotion(delta);
+            FinishMotion(delta);
+        }
+
+        internal void BeginMotion(double delta)
+        {
             ActorState state = Edit();
             state.ActionTime += delta;
             state.AttackClock = Math.Max(0, state.AttackClock - delta);
@@ -76,7 +82,11 @@ namespace DarkNights.Runtime.Objects
             bool manual = hero?.PrepareInput() == true;
             if (!manual) automatic.Tick(delta);
             movement.Tick(delta);
-            if (manual) hero.AfterMovement(delta);
+        }
+
+        internal void FinishMotion(double delta)
+        {
+            if (hero != null && Read().ManualControl) hero.AfterMovement(delta);
         }
     }
 }

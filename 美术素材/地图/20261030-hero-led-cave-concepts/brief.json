@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-30",
+  "module": "CL-01/08",
+  "purpose": "Redesign cave art around the original flat cyan Spine hero. Two environment mood concepts.",
+  "tool": "built-in image_gen.imagegen",
+  "requestedCanvas": [1536, 864],
+  "inputs": [
+    {"path": "美术素材/角色/主角/images/head.png", "nativeSize": [229, 185], "role": "Read-only original outline and color inspection"},
+    {"path": "美术素材/角色/主角/images/body.png", "nativeSize": [66, 62], "role": "Read-only original flat color inspection"},
+    {"path": "美术素材/地图/20261029-wfc-cave-kit/sources/hero-scale-reference.png", "nativeSize": [282, 309], "role": "Generation reference 1: assembled original hero identity"},
+    {"path": "美术素材/地图/20261029-wfc-cave-kit/exports/maps/271-local.png", "nativeSize": [1536, 864], "role": "Generation reference 2: loose side-view cave composition, not texture style"}
+  ],
+  "artContract": {
+    "purpose": "Large opaque concept illustrations only",
+    "seams": "No seamless tile or WFC socket claim",
+    "transparency": false,
+    "shapePrecision": "Broad readable slopes, platform tops and foreground rock masses. No exact geometry or collision claim.",
+    "hero": "Preserve oversized round cyan hood, cream face, small stick-like limbs and simple ink features. AI depiction is not a byte-exact sprite composite.",
+    "style": "Clean broad flat fills, slightly irregular dark contours, sparse grouped cracks, two or three value levels, receding background silhouettes",
+    "rationale": "Large scene style exploration benefits from built-in image generation; this does not produce low-resolution pixel tiles.",
+    "preservation": "Original Spine, original PNGs, other chat candidates and Game remain unchanged."
+  }
+}

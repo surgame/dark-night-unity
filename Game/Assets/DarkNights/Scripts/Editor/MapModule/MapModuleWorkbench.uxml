@@ -1,0 +1,51 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="MapModuleWorkbench.uss" />
+    <ui:VisualElement class="workbench">
+        <ui:VisualElement class="header">
+            <ui:Label text="地图工坊" class="title" />
+            <ui:Label text="MapModule · 原生模块拼装" class="subtitle" />
+            <ui:Label name="context" class="context" />
+        </ui:VisualElement>
+        <ui:VisualElement class="toolbar">
+            <ui:Button name="open-author" text="打开作者场景" />
+            <ui:Button name="save" text="保存作者场景" />
+            <ui:Button name="check" text="检查" />
+            <ui:Button name="prepare" text="准备制作版本" />
+            <ui:Label name="version" class="version" />
+            <ui:Button name="run" text="▶ 启动调试" class="primary" />
+        </ui:VisualElement>
+        <ui:VisualElement class="body">
+            <ui:ScrollView class="library">
+                <ui:Label text="地图" class="section" />
+                <ui:TextField name="study-filter" label="搜索" tooltip="按地图名称搜索" />
+                <ui:VisualElement name="studies" />
+                <ui:Label text="地图中的模块" class="section" />
+                <ui:VisualElement name="modules" />
+                <ui:VisualElement name="objects-section">
+                    <ui:Label text="模块内交互物" class="section" />
+                    <ui:VisualElement name="objects" />
+                </ui:VisualElement>
+                <ui:Foldout text="制作与来源" value="false" class="source-tools">
+                    <ui:Label text="Scene负责摆放与连接。&#10;Prefab负责内部轮廓。&#10;制作版本是冻结派生资源。" class="hint" />
+                    <ui:Button name="locate-study" text="定位地图源场景" />
+                    <ui:Button name="initialize" text="在空目录初始化首个研究" />
+                </ui:Foldout>
+            </ui:ScrollView>
+            <ui:VisualElement class="center">
+                <ui:VisualElement class="canvas-toolbar">
+                    <ui:Label text="作者画布" />
+                    <ui:VisualElement class="spacer" />
+                    <ui:Toggle name="bounds" label="模块范围" value="true" />
+                    <ui:Toggle name="ports" label="端口" value="true" />
+                    <ui:Button name="fit" text="适应画布" />
+                </ui:VisualElement>
+                <ui:VisualElement name="canvas" class="canvas" />
+                <ui:Label text="滚轮缩放 · 中键平移 · 点击模块或吊绳选择；1格=0.16世界单位。" class="canvas-help" />
+            </ui:VisualElement>
+            <ui:ScrollView class="inspector">
+                <ui:VisualElement name="details" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:Label name="status" class="status" />
+    </ui:VisualElement>
+</ui:UXML>

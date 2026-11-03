@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-01",
+  "scope": "Two static side-view environment concept illustrations for arrival on a planet and underground mining.",
+  "owner": "Current map-art continuation chat / Local",
+  "modules": ["CL-01", "CL-08"],
+  "method": "Built-in image_gen.imagegen; one generation per distinct composition.",
+  "methodReason": "Large painted scene and style exploration. These are not exact tile masks or runtime terrain.",
+  "requestedCanvas": [1536, 1024],
+  "nativeDimensions": "Read actual generated PNG dimensions after generation; preserve original bytes without resizing.",
+  "reference": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-63535362-3cb6-4084-9f8a-63ca59b10dda.png",
+  "referenceRole": "Approved hand-drawn art style, terrain treatment, depth hierarchy, palette and cyan hero design; composition may change.",
+  "transparency": "Opaque complete landscape images.",
+  "seams": "Not tileable; no claim of shared-edge accuracy or WFC compatibility.",
+  "shapeAccuracy": "Readable natural supported terrain and walk surfaces. No collision or reachability certification.",
+  "outputs": [
+    {"file": "01-planet-mine-entrance.png", "prompt": "prompt-01.txt", "intent": "Surface arrival and a visible path descending into the underground entrance."},
+    {"file": "02-deep-mining-ecology.png", "prompt": "prompt-02.txt", "intent": "Deep cave mining with partly exposed embedded ore, two explorers and restrained ecological variety."}
+  ],
+  "animationBoundary": "Water, plants, light and mining debris are static motion design references here. A production version must separate them for animation and effects.",
+  "implementationBoundary": "No Game, YYGC, gameplay, ship reactivation, Unity import or runtime changes."
+}

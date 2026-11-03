@@ -1,0 +1,76 @@
+<div id="mapmodule-workbench-ui">
+  <style>__PRODUCT_CSS__</style>
+  <div class="viz-carousel" aria-label="地图工坊布局方案" data-previous-label="上一种布局" data-next-label="下一种布局">
+    <section data-variant="画布优先" aria-label="地图工坊画布优先布局">
+      <div class="mm-stage"><div class="mm-product" data-layout="canvas" aria-label="地图工坊画布优先"></div></div>
+    </section>
+    <section data-variant="样例优先" aria-label="地图工坊样例优先布局" hidden>
+      <div class="mm-stage"><div class="mm-product" data-layout="study" aria-label="地图工坊样例优先"></div></div>
+    </section>
+  </div>
+  <template data-mm-template>
+    <header class="mm-chrome">
+      <div class="mm-brand"><h2>地图工坊</h2><span class="mm-small">MapModule</span></div><span class="mm-tag">全新制作流程 · 交互设计稿</span>
+    </header>
+    <nav class="mm-tasks" aria-label="制作任务">
+      <button type="button" class="cursor-interaction" data-task="module" aria-pressed="false">模块</button>
+      <button type="button" class="cursor-interaction" data-task="assembly" aria-pressed="true">拼装</button>
+      <button type="button" class="cursor-interaction" data-task="run" aria-pressed="false">试跑</button>
+    </nav>
+    <div class="mm-toolbar">
+      <label>研究主题<select data-field="theme" aria-label="研究主题"><option value="entrance">入口片段研究</option><option value="fragment">其他片段 · 空白主题</option><option value="map">完整地图 · 空白主题</option></select></label>
+      <label>样例<select data-field="variant" aria-label="地形样例"></select></label>
+      <span class="mm-space"></span>
+      <button type="button" class="cursor-interaction" data-action="save">保存源</button>
+      <button type="button" class="cursor-interaction" data-action="check">检查接口</button>
+      <button type="button" class="cursor-interaction" data-action="bake">烘焙版本</button>
+      <button type="button" class="cursor-interaction mm-primary" data-action="run">交给试验场</button>
+    </div>
+    <div class="mm-main">
+      <aside class="mm-library">
+        <details data-fold="library" open><summary class="cursor-interaction" data-library-title>入口模块库</summary><div class="mm-library-body" data-library></div></details>
+      </aside>
+      <main class="mm-workarea">
+        <div class="mm-canvas-toolbar">
+          <span data-scene-label>入口片段 · 浅坳低口</span>
+          <div class="mm-segment" aria-label="观察范围">
+            <button type="button" class="cursor-interaction" data-scope="single" aria-pressed="false">单片</button>
+            <button type="button" class="cursor-interaction" data-scope="fragment" aria-pressed="true">片段</button>
+            <button type="button" class="cursor-interaction" data-scope="map" aria-pressed="false">整图</button>
+          </div>
+        </div>
+        <div class="mm-canvas" data-canvas><svg class="mm-scene" role="img" aria-label="当前原生作者场景布局草图"></svg><span class="mm-overlay-note">作者场景 · 正侧视草案</span></div>
+        <div class="mm-display">
+          <label><input type="checkbox" data-toggle="ecology" checked>生态</label>
+          <label><input type="checkbox" data-toggle="bounds" checked>模块边界</label>
+          <label><input type="checkbox" data-toggle="collision">形状叠层</label>
+          <button type="button" class="cursor-interaction" data-action="camera">主角近景</button>
+        </div>
+        <p class="mm-caption">同镜头比较 · 2×1占格与 H≈0.48 主角沿用尺寸草案</p>
+      </main>
+      <aside class="mm-inspector">
+        <details data-fold="inspector" open><summary class="cursor-interaction">当前样例属性</summary>
+          <div class="mm-properties">
+            <div><h3 data-selection-name>入口 · 浅坳低口</h3><dl><dt>作者来源</dt><dd>原生Scene</dd><dt>入口占格</dt><dd>2×1</dd><dt>后段占格</dt><dd>2×1</dd><dt>正式尺寸</dt><dd>待评审</dd></dl></div>
+            <label class="mm-field">第二片变体<select data-field="second" aria-label="第二片变体"></select><span class="mm-small">按接口选择，保留内部起伏。</span></label>
+            <div><dl><dt>连接口</dt><dd data-port>低位口</dd><dt>检查</dt><dd data-check-state>未检查</dd><dt>试跑版本</dt><dd data-bake-state>未准备</dd></dl><p class="mm-small">形状与原生烘焙待接入。</p></div>
+          </div>
+        </details>
+      </aside>
+    </div>
+    <footer class="mm-result">
+      <div class="mm-status"><strong data-source-state>作者源已保存</strong><span class="mm-small">保存源 → 检查 → 烘焙 → 固定版本试跑</span></div>
+      <p class="mm-notice" data-notice role="status" aria-live="polite">设计稿：可切换样例、尝试错配第二片，查看检查与试跑状态。</p>
+      <p class="mm-small">界面交互演示 · 保存、烘焙与启动均不操作Unity或项目文件</p>
+    </footer>
+  </template>
+  <script>
+  (() => {
+    const root=document.getElementById("mapmodule-workbench-ui");
+    const mmSchemes=__SCHEMES__;
+    const mmHero=__HERO__;
+    __SCENE_JS__
+    __WORKBENCH_JS__
+  })();
+  </script>
+</div>

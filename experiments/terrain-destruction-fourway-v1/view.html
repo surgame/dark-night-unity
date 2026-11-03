@@ -1,0 +1,54 @@
+<div id="terrain-fourway">
+  <div class="tf-title"><h3>同一座洞穴，四种破坏更新</h3></div>
+  <div class="viz-controls" aria-label="地形方案">
+    <button class="btn btn-primary" type="button" data-method="dual" aria-pressed="true">Dual Grid</button>
+    <button class="btn" type="button" data-method="whole" aria-pressed="false">WFC</button>
+    <button class="btn" type="button" data-method="hybrid" aria-pressed="false">混合 WFC</button>
+    <button class="btn" type="button" data-method="edge" aria-pressed="false">边缘变形网格</button>
+  </div>
+  <div class="viz-controls">
+    <label class="form-label">逻辑地图
+      <select class="form-select" id="tf-size"><option value="96">96×60 格</option><option value="320">320×192 格</option></select>
+    </label>
+    <label class="form-label">视图
+      <select class="form-select" id="tf-zoom"><option value="1">全图</option><option value="2">放大 2 倍</option><option value="4">放大 4 倍</option></select>
+    </label>
+    <button class="btn" type="button" id="tf-reset">恢复地形</button>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="tf-debug"><span class="form-check-label">规则／更新范围</span></label>
+  </div>
+  <div id="tf-description" class="text-small"></div>
+  <div class="tf-map">
+    <canvas id="tf-gpu" role="img" aria-label="四种方案共享的洞穴地形；点按岩壁移除一格，按住拖动连续破坏"></canvas>
+    <canvas id="tf-overlay" class="cursor-interaction" role="img" aria-label="自由敲碎岩壁；右键拖动平移，触屏双指平移"></canvas>
+  </div>
+  <div class="viz-row text-small"><span>左键敲碎／拖动连挖 · 右键／双指平移</span><span id="tf-count" class="tabular-nums"></span></div>
+  <div id="tf-hit" class="text-small" role="status" aria-live="polite">四方案联动破坏</div>
+  <div class="viz-controls">
+    <button class="btn btn-primary" type="button" id="tf-bench">运行统一基准</button>
+    <span id="tf-progress" class="text-small" role="status" aria-live="polite"></span>
+  </div>
+  <div id="tf-bench-meta" class="text-small"></div>
+  <div class="table-responsive">
+    <table class="table table-sm tabular-nums" aria-label="四方案本机性能评估，单位毫秒">
+      <thead><tr><th>方案</th><th class="text-end">初建</th><th class="text-end">静态完成</th><th class="text-end">选块／求解</th><th class="text-end">重建</th><th class="text-end">上传</th><th class="text-end">破坏完成 P50／P95</th></tr></thead>
+      <tbody id="tf-results"></tbody>
+    </table>
+  </div>
+  <div id="tf-resource" class="text-small"></div>
+  <details><summary>计时范围与失败处理</summary><div class="tf-notes text-small">
+    <p>共同空实输入、有效破坏序列、960×600 输出；散点与连续开挖各 3 轮，每轮预热 8 次、记录 32 次；轮换方案顺序。</p>
+    <p>所有数值单位 ms。初建包含选块／求解、网格及上传，不含共同图集和着色器准备；静态完成与破坏完成均等待 GPU 同步读回，不等于纯 GPU 时间或正式游戏 FPS。低于时钟粒度的阶段只显示上限。基准关闭端口纹理细节，保留相同轮廓与基础材质。</p>
+    <p>WFC 首试 9×9 格，失败扩为 17×17，再扩全图；最多 80 次回溯／180000 次传播，仍失败时明确回退为普通岩面。混合方案使用相同规则与回退；两者均不能声称永不失败。</p>
+    <p>边缘方案按 8×8 格缓存网格、合并内部整行、重建受影响分段；Dual Grid／WFC 按同样区块合批。不同装配方式的结果不代表算法的普遍上限。没有碰撞、照明、联网、Spine 或正式美术验收。</p>
+  </div></details>
+  <div id="tf-error" class="text-destructive" role="alert" hidden></div>
+</div>
+<style>
+#terrain-fourway{display:grid;gap:calc(var(--font-size-base)*.6);color:var(--foreground)}
+#terrain-fourway .tf-title{padding-inline-end:95px}
+#terrain-fourway .tf-map{position:relative;width:100%;aspect-ratio:8/5;touch-action:none}
+#terrain-fourway .tf-map canvas{display:block;width:100%;height:100%;position:absolute;inset:0}
+#terrain-fourway .tf-notes{display:grid;gap:calc(var(--font-size-base)*.5);padding-block:calc(var(--font-size-base)*.5)}
+#terrain-fourway [hidden]{display:none}
+#terrain-fourway summary{cursor:default}
+</style>

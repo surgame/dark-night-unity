@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-01",
+  "scope": "Independent render strategy comparison; shape equality, bounded invalidation, browser timings and Unity frozen input.",
+  "views": [
+    {
+      "mode": "baked",
+      "hash": "78f40104",
+      "stats": {
+        "draws": 4,
+        "vertices": 24,
+        "textureBytes": 62914560,
+        "bufferBytes": 5760
+      },
+      "last": {
+        "geometryMs": 0.3999999985098839,
+        "uploadMs": 1.5,
+        "uploadBytes": 1048672,
+        "chunks": 1,
+        "bufferBytes": 5760,
+        "changed": 5
+      },
+      "farChanges": 0
+    },
+    {
+      "mode": "strip",
+      "hash": "78f40104",
+      "stats": {
+        "draws": 10,
+        "vertices": 3252,
+        "textureBytes": 18432,
+        "bufferBytes": 420288
+      },
+      "last": {
+        "geometryMs": 0.09999999403953552,
+        "uploadMs": 0.10000000149011612,
+        "uploadBytes": 14736,
+        "chunks": 1,
+        "bufferBytes": 420288,
+        "changed": 5
+      },
+      "farChanges": 0
+    },
+    {
+      "mode": "atlas",
+      "hash": "78f40104",
+      "stats": {
+        "draws": 4,
+        "vertices": 18024,
+        "textureBytes": 331776,
+        "bufferBytes": 5157216
+      },
+      "last": {
+        "geometryMs": 0.10000000149011612,
+        "uploadMs": 0.10000000149011612,
+        "uploadBytes": 68064,
+        "chunks": 1,
+        "bufferBytes": 5157216,
+        "changed": 5
+      },
+      "farChanges": 0
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    }
+  ],
+  "errors": [],
+  "sourcesSwitch": true,
+  "geometry": {
+    "unchangedChunks": 58,
+    "changedChunks": 2,
+    "farTextureCoordinatesStable": true,
+    "shapeHash": "496ca970"
+  },
+  "fragment": {
+    "sha256": "eedf84c54c44750568b19a76b47a9a897e89e62b96cb89cd5708424f20d57d71"
+  },
+  "passed": true
+}

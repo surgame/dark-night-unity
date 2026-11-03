@@ -27,6 +27,7 @@ namespace DarkNights.Entry
         private SessionEntityViews entities;
         private HeroHudBehaviour hud;
         private HeroMiningPointer mining;
+        private Core.Physics.PhysicsWorldDefinition physicsRules;
         private bool preferHero = true, campControlEnabled, replayOnly, attempted;
         private int epoch, actorId, lease, pendingItem = -1;
         private long connection, selectionRequest, claimRequest;
@@ -53,8 +54,10 @@ namespace DarkNights.Entry
         }
 
         public void Initialize(SessionNetwork session, CampInput campInput, GameInputActions actions,
-            PinewatchStage scene, HeroHudBehaviour panel, SessionEntityViews visuals, Core.Config.GameCatalog catalog)
+            PinewatchStage scene, HeroHudBehaviour panel, SessionEntityViews visuals, Core.Config.GameCatalog catalog,
+            Core.Physics.PhysicsWorldDefinition physics = null)
         {
+            physicsRules = physics;
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
             entities = visuals;
             mining = new HeroMiningPointer(session, scene, panel, catalog);
@@ -116,6 +119,8 @@ namespace DarkNights.Entry
             SampleModeToggle();
             if (!input.HeroMode || Current == null) { mining.Hide(); return; }
             var controls = input.ReadHero();
+            if (controls.InteractPressed && network.Client.Replica.Current.World.Physics != null)
+                HeroPhysicsLink.Send(network, Current, physicsRules).Forget();
 #if UNITY_EDITOR
             if (controls.Allowed && controls.JumpPressed && !network.Client.Replica.Current.Paused && DarkNights.Runtime.Terrain.TerrainMotionTrace.Recording)
             {
@@ -217,7 +222,7 @@ namespace DarkNights.Entry
             {
                 await network.Client.SendInput(actorId, lease, packet.Direction, packet.JumpHeld, packet.UseHeld,
                     packet.JumpPressed, packet.DropPressed, packet.Aim, packet.SelectionRevision,
-                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld, packet.Mining, packet.LightAim);
+                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld, packet.Mining, packet.LightAim, packet.Climb);
             }
             catch (Exception error) { notice = error.Message; }
         }

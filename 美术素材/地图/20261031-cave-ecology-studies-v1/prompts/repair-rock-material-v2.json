@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-31",
+  "tool": "built-in image_gen.imagegen",
+  "modelIdentity": "not exposed by tool",
+  "use": "Opaque rock material for derived cave interfaces, broken banks, and attached shelves; independent geometry owns silhouette and collision.",
+  "requestedSize": [1536, 1024],
+  "transparent_background": false,
+  "reference": "../../20261030-modular-cave-playground/exports-v3/foreground/module-1.png",
+  "output": "../sources/rock-material-v2.png",
+  "sharedEdgeRequirement": "The generated plate is not assumed periodic. The renderer uses mirrored addressing in world coordinates at a fixed 768 logical-unit width; geometry and multilayer sockets are validated separately.",
+  "reason": "A large hand-drawn material source matches the approved broad rock facets; deterministic geometry remains responsible for exact ports and terrain changes.",
+  "prompt": "Use case: stylized-concept. Asset type: a production-source opaque rock material plate for the same hand-drawn 2D side-view cave game as the supplied reference image. The reference is STYLE ONLY: preserve its large substantial angular warm gray-brown rock masses, broken confident near-black ink cracks, broad restrained flat facets, matte dusty surfaces, and sparse small chipped details. Create ONE full-frame 1536x1024 landscape plate consisting entirely of continuous solid bedrock, with no cavity, no corridor, no background wall, no earth rim, no objects and no border. Rocks are large irregular interlocking masses roughly 120-240 image pixels wide, varied but coherent; do not reduce them into small pebbles or a noisy wallpaper. Keep modest color variation among warm neutral brown and muted taupe facets, with dark charcoal cracks. Neutral even ambient light suitable for reuse on any wall or floor, no spotlight, no vignette, no shine, no realistic surface noise, no bevel rendering or 3D perspective. The rock drawing must remain readable at the actual small game camera scale. Design all outer edges to continue into compatible stone, with even texture density at the edge; do not draw a framing line. Fully opaque, no transparency. No characters, water, vegetation, mushrooms, ore, crystals, gold, text, grid, labels, drop shadow, UI or watermark. This is a reusable material source to be clipped by separate deterministic authored geometry; do not draw terrain silhouettes."
+}

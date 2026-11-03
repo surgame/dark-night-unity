@@ -1,0 +1,5 @@
+{
+  "stage": "reconstruction-check",
+  "error": "Sharp source-composite raw image differs; direct extracted chunk raw pixels checked separately",
+  "firstChunkIdentical": true
+}

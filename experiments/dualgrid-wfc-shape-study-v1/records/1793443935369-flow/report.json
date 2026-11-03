@@ -1,0 +1,729 @@
+{
+  "date": "2026-10-31",
+  "scope": "Continuous map explanation only; no Unity.",
+  "models": [
+    {
+      "seed": 271,
+      "history": 188,
+      "finalIdentity": true,
+      "macroPorts": true
+    },
+    {
+      "seed": 902,
+      "history": 178,
+      "finalIdentity": true,
+      "macroPorts": true
+    },
+    {
+      "seed": 1643,
+      "history": 179,
+      "finalIdentity": true,
+      "macroPorts": true
+    }
+  ],
+  "views": [
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 0,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 1,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 2,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 3,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 4,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 5,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 0,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 1,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 2,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 3,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 4,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 5,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 0,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 1,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 2,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 3,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 4,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 5,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 0,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 1,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 2,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 3,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 4,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 5,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 0,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 1,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 2,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 3,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 4,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 5,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 0,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 1,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 2,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 3,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 4,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 5,
+      "camera": {
+        "scale": 6.166666666666667,
+        "ox": 12,
+        "oy": 18.666666666666657,
+        "w": 320,
+        "h": 260
+      },
+      "anchors": [
+        86,
+        197,
+        271
+      ]
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    }
+  ],
+  "errors": [],
+  "stateBridge": {
+    "mockSurvivedGlobals": false
+  },
+  "animation": {
+    "fixedCamera": true,
+    "continuousPosition": true,
+    "autoplayCompletes": true,
+    "pauseStops": true,
+    "reducedMotion": true
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/dualgrid-wfc-continuous.html",
+    "sha256": "824690469f8012fd19370a87b0f8dabbd30b8bfe744878582bd1539e16f480dc",
+    "wrapperSHA256": "e7291dab005f1cfcededf5308f20d2b1a831c971ddc8e97de30744466196ae09"
+  },
+  "passed": true
+}

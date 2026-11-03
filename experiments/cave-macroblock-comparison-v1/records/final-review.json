@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-01",
+  "build": "records/2026-11-01T11-29-39-891Z-build.json",
+  "model": "records/1793532096784-model-review/report.json",
+  "browser": "records/1793532580228-browser-review/report.json",
+  "currentSourcesAndOutputsMatched": true,
+  "preserved": [
+    {
+      "directory": "dualgrid-cave-exploration-v1",
+      "sources": 8,
+      "standalone": true,
+      "inline": true
+    },
+    {
+      "directory": "dualgrid-abandoned-mine-v1",
+      "sources": 12,
+      "standalone": true,
+      "inline": true
+    },
+    {
+      "directory": "dualgrid-stratified-cave-v1",
+      "sources": 11,
+      "standalone": true,
+      "inline": true
+    }
+  ],
+  "verificationScripts": [
+    {
+      "file": "verify.cjs",
+      "sha256": "9b731ee8cd9b22434d54c45e4a2c690d8bc0351a5e61d41f6ae6a69451696a88"
+    },
+    {
+      "file": "inspect.cjs",
+      "sha256": "6d2e04d40ed6c4c39536f00a12bd057e3d44f819dacc75c3cec2c90ae7e0bce2"
+    }
+  ],
+  "inventory": {
+    "files": 57,
+    "bytes": 1984629
+  },
+  "limits": "Fixed main-corridor visual comparison and local inputs only. No arbitrary 2D WFC, full route, production assets or Unity performance acceptance."
+}

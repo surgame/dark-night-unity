@@ -1,0 +1,15 @@
+Use case: precise-object-edit.
+Asset type: ONE strictly flat 2D side-scrolling game scene, 1536x1024.
+
+INPUT ROLES: Image 1 is the previous SAGE SLATE material reference to correct. The visible floor top and subtle downward camera angle must be removed. Image 2 is the AUTHORITATIVE FLAT SHAPE GUIDE, gray solid versus dark empty cave; use the planar silhouette with no extrusion. Images 3 and 4 are the original cyan protagonist and its head; faithfully retain that actual design.
+
+MAIN CORRECTION: A STRICTLY PLANAR 2D SIDE ELEVATION. Camera straight normal to the gameplay plane, no view from above. The floor is a SINGLE contour separating air from rock. Both feet touch that contour. No top faces of floors or platforms, no walkable ribbon extending backward, no pair of front/back floor edges, no bevels, no camera tilt or perspective. Solid below the silhouette is a painted flat mineral cross-section, not a 3D front cliff with an upper surface. Match the logic and approximate contour of image 2.
+
+SLATE MATERIAL: Retain muted sage, celadon, deep pine green, pale seams and copper-orange ore. Use oblique 2D cracks and large flat slate-shaped color areas INSIDE the rock mask. These diagonals express material grain, not extruded plates or shaded facets. Simple matte hand-painted fills, few imperfect dark contour lines, restrained two-tone shading, no noisy realistic texture. No yellow rim, no broad floor highlight, no flagstone walking top surface.
+
+CHARACTER: One original cyan hero near x470 with feet exactly on the guide boundary near y624, about 145 pixels tall, same scale as the other versions. Very large rounded cyan hood, beige face with short angled eyebrows, upright eyes and broad angular V mouth, gray segmented collar, tiny cyan torso and limbs. Source-like flat fill and pen contour. No astronaut redesign, curved U smile, helmet glass, boots, gloves, headlamp or backpack.
+
+BACKGROUND AND ECOLOGY: Low-contrast flat dark blue-green backwall and two quiet planar cave silhouettes. Small ivory mushrooms, roots and restrained olive ferns are separate-looking cutout shapes anchored to the exposed silhouette. A narrow cyan waterfall can descend flat against the FAR LEFT backwall and end in a very shallow horizontal blue water line in a small side recess. No oval pool, elliptical water top, receding basin, broad stream surface or physical depth. Small copper-orange ore marks are embedded as flat drawings in the right rock. Keep the central room clear.
+
+OUTPUT: One uninterrupted full-bleed game environment, no text, title, labels, panels, arrows, grid, HUD, border or watermark.
+ABSOLUTELY AVOID: ground top planes, view from above, perspective paving, diagonal walking ribbons, beveled or extruded terrain, isometric/2.5D rendering, volumetric rock lighting, elliptical water surfaces, cast shadows implying a platform stage, floating islands or square stair grids.

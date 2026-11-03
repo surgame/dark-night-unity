@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-31",
+  "ok": true,
+  "scope": "Planning graph declaration, visual concept review and file identity only",
+  "graphs": [
+    {
+      "key": "a",
+      "nodes": 18,
+      "edges": 17,
+      "forks": 7,
+      "terminals": 11,
+      "connectedTree": true
+    },
+    {
+      "key": "b",
+      "nodes": 14,
+      "edges": 13,
+      "forks": 3,
+      "terminals": 10,
+      "connectedTree": true
+    },
+    {
+      "key": "c",
+      "nodes": 17,
+      "edges": 16,
+      "forks": 3,
+      "terminals": 8,
+      "connectedTree": true
+    }
+  ],
+  "visualReview": {
+    "a": [
+      "Layered trunk and secondary branches are apparent",
+      "Near ore, thin-shell ore, high branch and event candidates differ in role",
+      "Terrain stays dense and endpoints are enclosed"
+    ],
+    "b": [
+      "Three distinct hall groups with local short branches",
+      "Different working shelves and wall faces within each group",
+      "Lower nest approach is connected via a descending path; local inspection saved"
+    ],
+    "c": [
+      "Diagonal ridges and fissures distinguish the geology",
+      "Branches use height and wall clues",
+      "The drawn layout omits a lowest-left branch from the guide"
+    ]
+  },
+  "limitations": [
+    "Generated artwork does not preserve the guides pixel for pixel or every minor branch.",
+    "Node counts describe the authored graph, not visually measured room counts.",
+    "No collision, character clearance, tool reach, rewards or event probabilities validated.",
+    "Ore hatching and event labels are designer annotations.",
+    "All three are static concept illustrations; no Unity or gameplay acceptance claimed."
+  ],
+  "localDetail": {
+    "file": "review-b-lower-detail.png",
+    "sha256": "6b47e6dfe2e1f918cecf4d3b5e4fbaa08b9e541462a8d13cf2f840958d5db1d5"
+  },
+  "inventoryBeforeThisReview": {
+    "files": 19,
+    "bytes": 7221954
+  },
+  "unchanged": [
+    "Previous world-layout design",
+    "Original style reference",
+    "Playable visualization",
+    "Game",
+    "YYGC",
+    "Dependencies",
+    "Player saves"
+  ],
+  "unityCommandsRun": false
+}

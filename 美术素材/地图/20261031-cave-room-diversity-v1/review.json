@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-31",
+  "ok": true,
+  "scope": "Visual art review, source identity and declared layout references only",
+  "visualReview": [
+    "Giant bell chamber remains a continuous open volume with small characters at the bottom",
+    "Broad low chamber differs from the tall bell and tall vertical rift",
+    "Central cavity has attached terraces and overhangs",
+    "Bowl has a concave floor and broken angular rock accumulation",
+    "Low cleft, thin fissure and small terminal nook remain narrow/small",
+    "Eight room-type labels are present; ore is subordinate to spatial form"
+  ],
+  "declaredLayout": {
+    "rooms": 8,
+    "connections": 8,
+    "scaleMarkers": [
+      {
+        "x": 430,
+        "footY": 486,
+        "height": 18
+      },
+      {
+        "x": 458,
+        "footY": 489,
+        "height": 18
+      }
+    ]
+  },
+  "limitations": [
+    "Native image dimensions differ from the requested size; no upscaling.",
+    "Generated edges are not pixel-identical to the guide.",
+    "Proposed clearance contrast is a visual target, not gameplay dimensions.",
+    "Steep passages, ledges, reachability, return paths and tool ranges have not been validated.",
+    "Actual foreground/background/mineral layers, multi-cell module occupancy and WFC generation are not implemented by this image."
+  ],
+  "preservation": {
+    "previousThreeImagesHashMatch": true,
+    "originalSourceCopyMatches": true,
+    "gameplayAssetsChanged": false,
+    "playablePreviewChanged": false,
+    "unityCommandsRun": false
+  },
+  "inventoryBeforeThisReview": {
+    "files": 9,
+    "bytes": 2370378
+  }
+}

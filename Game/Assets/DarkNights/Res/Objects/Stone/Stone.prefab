@@ -286,12 +286,19 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 0}
   _renderers: []
+  _allRenderers:
+  - {fileID: 6708129153292692708}
+  - {fileID: 5791727561513271531}
+  - {fileID: 4292024400971413527}
+  - {fileID: 4953966795587828856}
+  - {fileID: 8279105011952784458}
   _spriteRenderers:
   - {fileID: 6708129153292692708}
   - {fileID: 5791727561513271531}
   - {fileID: 4292024400971413527}
   - {fileID: 4953966795587828856}
-  _meshRenderers: []
+  _meshRenderers:
+  - {fileID: 8279105011952784458}
   _healthBarWidth: 0.32
   _initializer: {fileID: 1233074295222751879}
   _rb: {fileID: 0}

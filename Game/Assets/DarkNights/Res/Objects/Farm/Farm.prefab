@@ -217,6 +217,8 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 0}
   _renderers: []
+  _allRenderers:
+  - {fileID: 3805223731761488625}
   _spriteRenderers:
   - {fileID: 3805223731761488625}
   _meshRenderers: []
@@ -245,6 +247,8 @@ MonoBehaviour:
     targets:
     - renderer: {fileID: 3805223731761488625}
       baseColor: {r: 1, g: 1, b: 1, a: 1}
+  ship: {fileID: 0}
+  expeditionVariants: []
   complete: {fileID: 3805223731761488625}
   foundation: {fileID: 0}
   rubble: {fileID: 0}

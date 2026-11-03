@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-31",
+  "demoFiles": 19,
+  "artFiles": 9,
+  "bytes": 6776756,
+  "unityIntermediateFilesCreated": 0,
+  "deletedFiles": 0,
+  "formalGameSourcesChanged": false,
+  "sourceHashReadback": true,
+  "staticEcologyConceptsConsumed": false,
+  "validation": {
+    "physicsSeeds": 3,
+    "staticAdditionalSeeds": 15,
+    "ceilingProbes": 3,
+    "browserLayouts": 6,
+    "runtimeErrors": 0
+  },
+  "shutdownPreservation": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\shutdown-preservation-20261031-ecology\\preservation.json",
+  "fragmentSha256": "4ba04709ef56c53ecefd3e3102d13fc5218234459c79c36c4c098e858f6dfbe7"
+}

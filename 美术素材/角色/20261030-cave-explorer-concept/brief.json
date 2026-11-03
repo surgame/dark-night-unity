@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-30",
+  "module": "CL-08",
+  "purpose": "Character style concept for the new painted WFC cave. User then requested simpler 2D designs suited to T-pose and Spine cutout animation. Visual review only.",
+  "mode": "built-in image_gen",
+  "requestedCanvas": [1536, 1024],
+  "nativeDimensions": "Record actual tool output after generation; requested size is not a guarantee.",
+  "referenceImages": [
+    {
+      "path": "美术素材/地图/20261029-wfc-cave-kit/exports/maps/271-local.png",
+      "role": "Cave palette, linework, environment and small character scale reference",
+      "nativeSize": [1536, 864]
+    },
+    {
+      "path": "美术素材/地图/20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "role": "Original character identity reference: round cyan hood, simple warm face",
+      "nativeSize": [282, 309]
+    }
+  ],
+  "artContract": {
+    "output": "Original painted concept plus two simpler 2D front T-pose / side setup design sheets. Not separated animation parts.",
+    "transparency": false,
+    "seamRequirements": "None; standalone concept illustration.",
+    "shapePrecision": "Original concept has three views. Follow-up designs use front T-pose and side setup with visible limb divisions. No collision, exact turnaround registration or rigging claims.",
+    "style": "Follow-up A: simple teal hooded explorer. Follow-up B: human miner with soft cap, ochre shirt and teal trousers. Limited shading, simple contours and no dangling accessories.",
+    "rationale": "Large source illustration for style exploration; built-in image generation is suitable. No low-resolution tiles are being produced.",
+    "constraints": "No jetpack, no built-in headlamp, no new gameplay claims. Preserve original artist files. Actual Spine parts would require joint overlap completion and dedicated side-view drawing; do not treat the composite design sheet as a ready-to-import rig."
+  }
+}

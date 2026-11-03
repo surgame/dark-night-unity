@@ -1,0 +1,109 @@
+string heroRoot = "Assets/DarkNights/Res/Objects/Hero";
+string rigPath = "Assets/DarkNights/Res/Terrain/MapModule/HeroRig.prefab";
+var manifest = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(heroRoot + "/SelectedFramesManifest.json"));
+var selection = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(heroRoot + "/AnimationSelection.json"));
+if ((string)selection["move"] != "ai_mie_run5_ok" || (string)selection["jumpBase"] != "ai_jump2_ok" ||
+    !Newtonsoft.Json.Linq.JToken.DeepEquals(selection, manifest["selection"]))
+    throw new System.InvalidOperationException("Recorded animation selection and generated frames differ.");
+if (UnityEditor.EditorApplication.isCompiling || UnityEditor.EditorApplication.isUpdating)
+    throw new System.InvalidOperationException("Wait for the current import/compile barrier.");
+UnityEditor.AssetDatabase.ImportAsset(heroRoot + "/SelectedFrames", UnityEditor.ImportAssetOptions.ImportRecursive |
+    UnityEditor.ImportAssetOptions.ForceSynchronousImport);
+UnityEditor.AssetDatabase.ImportAsset(heroRoot + "/AnimationSelection.json");
+UnityEditor.AssetDatabase.ImportAsset(heroRoot + "/SelectedFramesManifest.json");
+UnityEditor.AssetDatabase.StartAssetEditing();
+try
+{
+    foreach (var pose in manifest["poses"])
+        foreach (var frame in pose["frames"])
+        {
+            string path = heroRoot + "/" + (string)frame["file"];
+            var importer = UnityEditor.AssetImporter.GetAtPath(path) as UnityEditor.TextureImporter;
+            if (importer == null) throw new System.InvalidOperationException("Missing imported frame: " + path);
+            importer.textureType = UnityEditor.TextureImporterType.Sprite;
+            importer.spriteImportMode = UnityEditor.SpriteImportMode.Single;
+            importer.spritePixelsPerUnit = (float)manifest["pixelsPerUnit"];
+            var settings = new UnityEditor.TextureImporterSettings();
+            importer.ReadTextureSettings(settings);
+            settings.spriteAlignment = (int)UnityEngine.SpriteAlignment.Custom;
+            settings.spritePivot = new UnityEngine.Vector2((float)frame["pivot"][0], (float)frame["pivot"][1]);
+            importer.SetTextureSettings(settings);
+            importer.filterMode = UnityEngine.FilterMode.Point;
+            importer.wrapMode = UnityEngine.TextureWrapMode.Clamp;
+            importer.textureCompression = UnityEditor.TextureImporterCompression.Uncompressed;
+            importer.npotScale = UnityEditor.TextureImporterNPOTScale.None;
+            importer.mipmapEnabled = false;
+            importer.alphaIsTransparency = true;
+            importer.sRGBTexture = true;
+            UnityEditor.AssetDatabase.WriteImportSettingsIfDirty(path);
+            UnityEditor.AssetDatabase.ImportAsset(path);
+        }
+}
+finally { UnityEditor.AssetDatabase.StopAssetEditing(); }
+var clips = new System.Collections.Generic.Dictionary<string, DarkNights.View.PoseClip>();
+foreach (var pose in manifest["poses"])
+{
+    string name = (string)pose["pose"];
+    string[] names = name == "jump_move" ? new[] { "jump", "jump_move" } : new[] { name };
+    var frames = pose["frames"].Select(f => UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Sprite>(
+        heroRoot + "/" + (string)f["file"])).ToArray();
+    if (frames.Length == 0 || frames.Any(f => f == null))
+        throw new System.InvalidOperationException("Required sprites are not ready: " + name);
+    foreach (string key in names)
+    {
+        string path = heroRoot + "/AnimationClips/Hero-" + key.Replace('_', '-') + ".anim";
+        var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.AnimationClip>(path);
+        bool created = clip == null;
+        if (created) clip = new UnityEngine.AnimationClip { name = "Hero-" + key };
+        else UnityEditor.Undo.RecordObject(clip, "Bind recorded Hero animation");
+        foreach (var old in UnityEditor.AnimationUtility.GetObjectReferenceCurveBindings(clip))
+            UnityEditor.AnimationUtility.SetObjectReferenceCurve(clip, old, null);
+        clip.legacy = false;
+        clip.frameRate = (float)selection["framesPerSecond"];
+        bool loop = key == "idle" || key == "move";
+        float duration = (float)pose["duration"];
+        var keys = frames.Select((sprite, i) => new UnityEditor.ObjectReferenceKeyframe
+            { time = i / clip.frameRate, value = sprite }).ToList();
+        keys.Add(new UnityEditor.ObjectReferenceKeyframe { time = duration, value = loop ? frames[0] : frames.Last() });
+        UnityEditor.AnimationUtility.SetObjectReferenceCurve(clip, UnityEditor.EditorCurveBinding.PPtrCurve(
+            "ArtOffset/Facing/Origin/Author Hero", typeof(UnityEngine.SpriteRenderer), "m_Sprite"), keys.ToArray());
+        var settings = UnityEditor.AnimationUtility.GetAnimationClipSettings(clip);
+        settings.loopTime = loop;
+        settings.stopTime = duration;
+        UnityEditor.AnimationUtility.SetAnimationClipSettings(clip, settings);
+        if (created) UnityEditor.AssetDatabase.CreateAsset(clip, path);
+        UnityEditor.EditorUtility.SetDirty(clip);
+        UnityEditor.AssetDatabase.SaveAssetIfDirty(clip);
+        clips.Add(key, new DarkNights.View.PoseClip { Name = key, Clip = clip, Duration = duration, Loop = loop });
+    }
+}
+void Bind(DarkNights.View.ActorView view)
+{
+    var data = new UnityEditor.SerializedObject(view);
+    var poses = data.FindProperty("clips");
+    poses.arraySize = clips.Count;
+    int index = 0;
+    foreach (var clip in clips.Values)
+    {
+        var item = poses.GetArrayElementAtIndex(index++);
+        item.FindPropertyRelative("Name").stringValue = clip.Name;
+        item.FindPropertyRelative("Clip").objectReferenceValue = clip.Clip;
+        item.FindPropertyRelative("Duration").doubleValue = clip.Duration;
+        item.FindPropertyRelative("Loop").boolValue = clip.Loop;
+    }
+    data.ApplyModifiedPropertiesWithoutUndo();
+}
+var rig = UnityEditor.PrefabUtility.LoadPrefabContents(rigPath);
+try
+{
+    Bind(rig.GetComponent<DarkNights.View.ActorView>());
+    UnityEditor.PrefabUtility.SaveAsPrefabAsset(rig, rigPath);
+}
+finally { UnityEditor.PrefabUtility.UnloadPrefabContents(rig); }
+foreach (var live in UnityEngine.Object.FindObjectsByType<DarkNights.View.ActorView>(
+    UnityEngine.FindObjectsInactive.Include, UnityEngine.FindObjectsSortMode.None))
+    if (UnityEditor.EditorApplication.isPlaying && live.Owner != null &&
+        live.Owner.GetBehaviour<DarkNights.View.ActorPresentationBehaviour>()?.Current?.ManualControl == true)
+        Bind(live);
+return new { rigPath, clips = clips.Values.Select(c => new { c.Name, c.Duration, c.Loop }).ToArray(),
+    frames = manifest["poses"].Sum(p => p["frames"].Count()), playing = UnityEditor.EditorApplication.isPlaying };

@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-01",
+  "output": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\terrain-performance.html",
+  "bytes": 80714,
+  "sha256": "eedf84c54c44750568b19a76b47a9a897e89e62b96cb89cd5708424f20d57d71",
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\view.html",
+      "sha256": "f9392b35f470c30734f29858e614c238b8eabb939cbde0b3a78a7eb93fd3a343"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\model.js",
+      "sha256": "60ae520dbe1d69093f2b8d880c70b6c6b6290a0a0b6ce9743a5b726e235bdef5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\textures.js",
+      "sha256": "ad4faacff638168ee0db44649f7ff8ce7c330a6aebe9d2dabce74ca2fd1a985c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\webgl.js",
+      "sha256": "4e641118a7f70dae6e329dcf5648f428c7c49e92d50134c917f0539fe4591b2d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\benchmark.js",
+      "sha256": "a0ee2d42bad57fc3f91d56fdfc092f0e1010c42bcc0e1561d33a0b8ee7a33d1b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\app.js",
+      "sha256": "3889308db2c0a47795d70a8b81f364fd9778fe037834ccf6e40b2939e171b6da"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-flat-cave-kit\\sources\\rock.png",
+      "sha256": "ceddaeddb1156b018bfa7f869f2e0063eaa706a297457297ae2753d9eef7b1ed"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-flat-cave-kit\\sources\\floor-shelf.png",
+      "sha256": "3eb74c3297d8cbc768ec6bbcd65bb5b85ce12bf358a66363e829d2b3031281fb"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-flat-cave-kit\\sources\\ceiling-edge.png",
+      "sha256": "3882b0fafc6c2b53a588bf389546208820c8e6b6af154a5ef986d95b739df48d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\build.py",
+      "sha256": "a1f1156246802ffe6e235ab55e1a6b53473f7ea76540fd62876ece9e2ccac96f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\measured-browser.json",
+      "sha256": "2f07456d2bc0875ef0e95ea976bd843ca4dffe8bcf5691933a7a18c834eabdf3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-render-bench-v1\\measured-unity.json",
+      "sha256": "d8b2610bd67c50e70a6243211df48caba3c8bdfbb2b0784b51d15fb06bcc86bf"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\PerformanceStudy\\TerrainRenderBench.cs",
+      "sha256": "c08a90e708dc8f9c6e4c9e093fd7af6e3f149158a023e7f668048a6ec84017b5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\PerformanceStudy\\TerrainRenderBenchInput.cs",
+      "sha256": "3ba5b78e96b2fecea3fe072e64ff0b417d1252a0601a36b1dc060a3f60327d3a"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\PerformanceStudy\\TerrainRenderBenchSurface.cs",
+      "sha256": "cdf9980fecb310fde9cce340c6db80c15b43da1ede4cfe2c58067664e9ee57cd"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\PerformanceStudy\\TerrainRenderBench.shader",
+      "sha256": "cef1ae26c550442cf9de78fe0a1a0fa4049f89c0d6d6518cee67e5892d99a4a0"
+    }
+  ],
+  "textureContract": {
+    "rock": [
+      64,
+      64
+    ],
+    "strips": [
+      64,
+      4
+    ],
+    "atlas": [
+      288,
+      288
+    ],
+    "bakedChunk": [
+      512,
+      512
+    ],
+    "pixelsPerCell": 16,
+    "purpose": "Deterministic cropped/resized prototype textures, not final production tiles."
+  }
+}

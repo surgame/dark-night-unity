@@ -1,0 +1,185 @@
+{
+  "format": "ecology-module-candidate-library-v2",
+  "status": "Reviewable production candidate; no Unity registration or approval.",
+  "buildId": "f04f68487ce5af902661679f2d1a522897a23092b18788db1949235c7e36ee2c",
+  "libraryIdentity": "a18daa3d5ae2039754789243ff32b96e756175ee9bf84c9f71f4a7a98a19f33b",
+  "ruleVersion": "ecology-module-rules-v2",
+  "shapeVersion": "ecology-author-shapes-v2",
+  "sources": [
+    {
+      "name": "hero",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+      "exportedPath": "assets/hero.png",
+      "bytes": 36504
+    },
+    {
+      "name": "back",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\sources\\backwall-clean.png",
+      "sha256": "350fbbd30d656fe10c4a5c64e41e67448f4e6a99c1260ac541b650eb9b128827",
+      "exportedPath": "assets/back.png",
+      "bytes": 1770912
+    },
+    {
+      "name": "rockMaterial",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\rock-material-v2.png",
+      "sha256": "19183e896ed5a0642fb133333894100425693d5a038548066a7ddef4f22cc371",
+      "exportedPath": "assets/rockMaterial.png",
+      "bytes": 1530659
+    },
+    {
+      "name": "bridgeDesign",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\bridge-authored-v2.png",
+      "sha256": "d08626d839ab4d60ba6fa3efabec7ce51688db8def25f0441886bdded927a790",
+      "exportedPath": "assets/bridgeDesign.png",
+      "bytes": 1556905
+    },
+    {
+      "name": "panel0",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-1.png",
+      "sha256": "ee9d8fbd166cebcbc152e62507a886a669527fd9a1fe832398354b42d158ea28",
+      "exportedPath": "assets/panel0.png",
+      "bytes": 213783
+    },
+    {
+      "name": "panel1",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-2.png",
+      "sha256": "0f08bbc9315c39ff9e3f47656f0841807fa29b8a174635d56d58ff309f4e1828",
+      "exportedPath": "assets/panel1.png",
+      "bytes": 178980
+    },
+    {
+      "name": "panel2",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-3.png",
+      "sha256": "30382335205d9fd07a1aa42e05910ec3e276af26c4f68bee302c3a0d7baa7557",
+      "exportedPath": "assets/panel2.png",
+      "bytes": 207587
+    },
+    {
+      "name": "panel3",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-4.png",
+      "sha256": "a465d7e570b887e6fa3866099407bf2e194331e80bdb23da066c7de505705e46",
+      "exportedPath": "assets/panel3.png",
+      "bytes": 202598
+    },
+    {
+      "name": "panel4",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-5.png",
+      "sha256": "daf910df918d65109354a8abd1a28c00d83a18e77f4c5a5667b7ff776c3c3f22",
+      "exportedPath": "assets/panel4.png",
+      "bytes": 211610
+    },
+    {
+      "name": "panel5",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-6.png",
+      "sha256": "693d986937c47c4ee9c3f59a1b7b861257dc92e3b491fd8d9d6b763d1be87178",
+      "exportedPath": "assets/panel5.png",
+      "bytes": 204393
+    },
+    {
+      "name": "vegetation-sheet",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\vegetation-sheet.png",
+      "sha256": "6b1b3c4c91ec9d63b58f7f0c2b1ba93886d405a9fc2b897a6a315695c3f8844e",
+      "exportedPath": "assets/vegetation-sheet.png",
+      "bytes": 1851538
+    }
+  ],
+  "modules": [
+    {
+      "sourceId": "camp",
+      "file": "modules/camp.json",
+      "slot": "camp",
+      "identity": "a832f3cf965bcc3002acadd82b0e979a97d15905feae022208a8801f37cc7ede"
+    },
+    {
+      "sourceId": "narrow",
+      "file": "modules/narrow.json",
+      "slot": "narrow",
+      "identity": "1f2204789326436e0e9d32565be86bc0c786b0868a224e4e47da36a5f3745c7c"
+    },
+    {
+      "sourceId": "creek-stones",
+      "file": "modules/creek-stones.json",
+      "slot": "wet",
+      "identity": "e78254de0a6c9e330b5b0bba3be30f9b4d1c9445d1525f40fbab1477088507c3"
+    },
+    {
+      "sourceId": "creek-bank",
+      "file": "modules/creek-bank.json",
+      "slot": "wet",
+      "identity": "b29ad0422292697b3635af26e255edb437566afdbe6450958cfd8d59c3514e20"
+    },
+    {
+      "sourceId": "moss-cleft",
+      "file": "modules/moss-cleft.json",
+      "slot": "wet",
+      "identity": "a6b6aef7b5ed049a18adfcf1a4c86d1d108ae750aa50b5affd60c49a96771363"
+    },
+    {
+      "sourceId": "beam-gap",
+      "file": "modules/beam-gap.json",
+      "slot": "engineering",
+      "identity": "62e7dbe17f3bf334c31696acdf4d364844260498290511d2659f81f48fccf191"
+    },
+    {
+      "sourceId": "broken-shelf",
+      "file": "modules/broken-shelf.json",
+      "slot": "engineering",
+      "identity": "8f345e8c9adaaab08bcd2b2a108f9e4714bf4597eb98c04ce573d95033a0c867"
+    },
+    {
+      "sourceId": "cargo",
+      "file": "modules/cargo.json",
+      "slot": "cargo",
+      "identity": "74a0c80e1382516afde08af46f1dc01d51e56bf4c010a5405c86e60a99e3f50d"
+    },
+    {
+      "sourceId": "fungal-balcony",
+      "file": "modules/fungal-balcony.json",
+      "slot": "fungi",
+      "identity": "bd6b66e3ad9528ab32585f5e0e3648f87af579ee235e4057c87bb3da1cd57c2d"
+    },
+    {
+      "sourceId": "fungal-bowl",
+      "file": "modules/fungal-bowl.json",
+      "slot": "fungi",
+      "identity": "2f0543cf13b9b4cad966510407d95a3dd1b52fb830ca5e6c4fff8384e9e91017"
+    },
+    {
+      "sourceId": "root-falls",
+      "file": "modules/root-falls.json",
+      "slot": "falls",
+      "identity": "656aa0ad2a04880e7c3b9b71ffa878dcdc62318b7ce430d5fda84f24956bd895"
+    },
+    {
+      "sourceId": "double-falls",
+      "file": "modules/double-falls.json",
+      "slot": "falls",
+      "identity": "107787db710956baedda80f61b85b103e347b73d8dd034162ac41dd8aa88ecda"
+    },
+    {
+      "sourceId": "mineral-bowl",
+      "file": "modules/mineral-bowl.json",
+      "slot": "mine",
+      "identity": "24c2a32b166096e07339cb36c4579e2a652e757025749131ed32f199f51aad47"
+    },
+    {
+      "sourceId": "mineral-hall",
+      "file": "modules/mineral-hall.json",
+      "slot": "mine",
+      "identity": "454706b7e0b9b1c229f7ec844fd6ae0b1338dadd6890d01b88a1416b070d3c46"
+    }
+  ],
+  "sourceCount": 14,
+  "authoringSearch": {
+    "maxSeeds": 128,
+    "seedsUsed": 3
+  },
+  "scope": {
+    "actorsTested": false,
+    "renderedSeamsAccepted": false,
+    "spineProjectCreated": false,
+    "unityImported": false
+  },
+  "rebuild": "Build the current fragment, then run node export-library.cjs --manifest <current manifest> --out-dir <new output directory>."
+}

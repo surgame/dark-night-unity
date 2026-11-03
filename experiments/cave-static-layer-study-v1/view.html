@@ -1,0 +1,24 @@
+<div id="static-cave-study">
+  <div class="sc-heading"><h3>固定洞形：结构与生态怎样组合</h3></div>
+  <div class="viz-controls" aria-label="地图实现方式">
+    <button type="button" class="btn" data-mode="base" aria-pressed="false">仅 Dual Grid</button>
+    <button type="button" class="btn" data-mode="whole" aria-pressed="false">整块候选 WFC</button>
+    <button type="button" class="btn" data-mode="hybrid" aria-pressed="true">分层组合</button>
+  </div>
+  <div class="viz-controls">
+    <button type="button" class="btn btn-primary" id="sc-shuffle">重排生态</button>
+    <button type="button" class="btn" id="sc-form">切换作者洞形</button>
+    <button type="button" class="btn" id="sc-conflict" aria-pressed="false">试一次规则冲突</button>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="sc-layers"><span class="form-check-label">显示编码分层</span></label>
+  </div>
+  <div id="sc-status" class="text-small" role="status" aria-live="polite"></div>
+  <canvas id="sc-canvas" role="img" aria-label="相同固定地形与有限生态库，比较整块候选和分层编码；不包含开挖。"></canvas>
+  <div id="sc-detail" class="text-small" aria-live="polite"></div>
+  <div id="sc-error" class="text-small text-destructive" role="alert" hidden></div>
+</div>
+<style>
+#static-cave-study{display:grid;gap:calc(var(--font-size-base)*.6);color:var(--foreground)}
+#static-cave-study .sc-heading{padding-inline-end:95px}
+#static-cave-study canvas{display:block;width:100%;height:auto;aspect-ratio:8/5;min-height:260px;touch-action:pan-y}
+#static-cave-study [hidden]{display:none}
+</style>

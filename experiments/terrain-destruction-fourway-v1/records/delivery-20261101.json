@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-01",
+  "scope": "Independent four-way mouse destruction study; no Unity or old experiment writes.",
+  "output": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\terrain-fourway.html",
+  "bytes": 124077,
+  "sha256": "539e497b9150e082b655ea33556167bf5126f3ccf248642742c78ff9c45d6324",
+  "verification": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\records\\1793477315922-verification\\report.json",
+  "benchmarkDirectory": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\records\\1793476898944-verification",
+  "measuredSamples": 1536,
+  "filesBeforeReceipt": 70,
+  "bytesBeforeReceipt": 12527170,
+  "retainedPreliminaryReference": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\reference.json",
+  "notValidated": [
+    "Unity performance",
+    "real collision and lighting",
+    "production art seams",
+    "networking",
+    "Spine"
+  ]
+}

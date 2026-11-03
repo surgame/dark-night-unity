@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-31",
+  "origin": "User attachment supplied while correcting the bridge demo",
+  "sourceAttachment": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-209aca91-0b09-439f-acd4-f096b5028bbf.png",
+  "workspaceSource": "sources/bridge-authored-v2.png",
+  "sha256": "d08626d839ab4d60ba6fa3efabec7ce51688db8def25f0441886bdded927a790",
+  "nativeSize": [1536,1024],
+  "copiedWithoutImageChanges": true,
+  "alpha": {
+    "zeroPixels": 603067,
+    "alpha1to20Pixels": 44673,
+    "alpha21to254Pixels": 925124,
+    "alpha255Pixels": 0,
+    "policy": "Original alpha bytes retained; no matte removal, recoloring or image regeneration."
+  },
+  "use": "Both engineering variants use this complete authored illustration as their shared rock and terrace core. Their independent bridge and optional crumble plate are separate objects.",
+  "display": {
+    "moduleSize": [623,414],
+    "coreOffset": [64,0],
+    "coreSize": [495,330],
+    "uniformScale": 0.322265625,
+    "interfaceCollars": "Additional 64-unit collars outside the original illustration; only 8-unit edge blending and deep-bedrock bottom blending."
+  },
+  "geometry": {
+    "input": "../../../experiments/cave-ecology-walk-v1/authored-profile-input.json",
+    "generator": "../../../experiments/cave-ecology-walk-v1/trace-authored.py",
+    "floor": "Explicit foot path along the drawn soil tops; foreground rubble is not converted into walking steps.",
+    "ceiling": "Alpha-traced from this exact source.",
+    "internalTerrain": "Original terraces retained; no generic U-shaped cut or procedurally painted road replaces the core."
+  }
+}

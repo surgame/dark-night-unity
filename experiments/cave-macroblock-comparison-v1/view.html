@@ -1,0 +1,61 @@
+<div id="macro-cave-compare">
+  <style>
+    #macro-cave-compare{--mc-rock:color-mix(in srgb,var(--foreground) 19%,var(--background));--mc-edge:color-mix(in srgb,var(--foreground) 65%,var(--background));--mc-faint:color-mix(in srgb,var(--foreground) 12%,var(--background));display:flex;flex-direction:column;gap:calc(var(--font-size-base)*.7);color:var(--foreground)}
+    #macro-cave-compare .mc-title{padding-inline-end:90px}
+    #macro-cave-compare .mc-methods{display:flex;flex-wrap:wrap;gap:6px}
+    #macro-cave-compare .mc-stage{position:relative;aspect-ratio:1.8;min-height:320px;width:100%;overflow:hidden}
+    #macro-cave-compare[data-focus="all"][data-walk="false"] .mc-stage{aspect-ratio:2.1;min-height:180px}
+    #macro-cave-compare canvas{display:block}
+    #macro-cave-compare #mc-scene{width:100%;height:100%;touch-action:none}
+    #macro-cave-compare .mc-readout{position:absolute;left:10px;top:10px;pointer-events:none;background:var(--background);padding:3px 6px}
+    #macro-cave-compare .mc-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px}
+    #macro-cave-compare .mc-row label{min-width:0}
+    #macro-cave-compare .mc-field{display:flex;align-items:center;gap:7px;max-width:100%}
+    #macro-cave-compare .mc-field select{max-width:100%}
+    #macro-cave-compare .mc-detail{min-height:2.8em}
+    #macro-cave-compare .mc-touch{display:none;gap:8px}
+    #macro-cave-compare #mc-library{width:100%;margin-top:8px}
+    #macro-cave-compare details summary{width:max-content}
+    @media(max-width:520px){#macro-cave-compare .mc-row{align-items:flex-start}#macro-cave-compare .mc-field{flex-wrap:wrap}}
+    @media(pointer:coarse),(max-width:600px){#macro-cave-compare[data-walk="true"] .mc-touch{display:flex}}
+  </style>
+  <div class="mc-title">洞穴轮廓 · 六种构造</div>
+  <div class="mc-methods" aria-label="地形构造方式">
+    <button class="btn" type="button" data-method="dual" aria-pressed="false">16型圆角</button>
+    <button class="btn" type="button" data-method="expanded" aria-pressed="false">256多值</button>
+    <button class="btn" type="button" data-method="contour" aria-pressed="false">连续轮廓</button>
+    <button class="btn" type="button" data-method="blocks" aria-pressed="false">大块直拼</button>
+    <button class="btn" type="button" data-method="bridges" aria-pressed="true">大块＋过渡</button>
+    <button class="btn" type="button" data-method="wfc" aria-pressed="false">大块WFC</button>
+  </div>
+  <div class="mc-row">
+    <label class="mc-field">视图
+      <select class="form-select" id="mc-focus">
+        <option value="all">全图</option><option value="entry">入口与长岩台</option>
+        <option value="hall">洞厅近看</option><option value="elbow" selected>岩肩与压顶</option>
+        <option value="basin">下凹洞厅</option><option value="seam">接口近看</option>
+      </select>
+    </label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="mc-seams" checked><span class="form-check-label">格网／模块</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="mc-reference"><span class="form-check-label">叠加16型</span></label>
+  </div>
+  <div class="mc-stage">
+    <canvas id="mc-scene" aria-label="同一洞穴骨架上切换六种地形构造。轮廓、模块分界和角色比例同时显示。">洞穴地形对比</canvas>
+    <span class="mc-readout text-small" id="mc-caption"></span>
+  </div>
+  <div class="mc-row">
+    <button class="btn" type="button" id="mc-walk" aria-pressed="false">试走</button>
+    <button class="btn" type="button" id="mc-entry">返回入口</button>
+    <button class="btn" type="button" id="mc-next">换一组</button>
+    <span class="text-small text-muted tabular-nums" id="mc-seed"></span>
+  </div>
+  <div class="mc-touch">
+    <button class="btn" type="button" data-hold="left" aria-label="向左移动">←</button>
+    <button class="btn" type="button" data-hold="right" aria-label="向右移动">→</button>
+    <button class="btn" type="button" id="mc-jump">跳跃</button>
+  </div>
+  <div class="mc-detail text-small" id="mc-detail" role="status" aria-live="polite"></div>
+  <div class="text-small text-muted">左右／A D 移动 · 空格跳跃 · 拖动观察／滚轮缩放 · 固定地形，无采掘</div>
+  <details id="mc-library-open"><summary>查看完整大块</summary><canvas id="mc-library" aria-label="入口、岩台、洞厅、弯折、压顶、凹厅、断层和盲端八类完整模块"></canvas></details>
+  <div id="mc-error" class="text-small text-destructive" role="alert" hidden></div>
+</div>

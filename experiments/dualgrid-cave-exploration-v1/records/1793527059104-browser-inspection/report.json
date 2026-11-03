@@ -1,0 +1,210 @@
+{
+  "date": "2026-11-01",
+  "scope": "Bounded browser artwork/interaction inspection; no Unity, performance or full route acceptance.",
+  "layouts": [
+    {
+      "width": 1000,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "width": 1000,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "source": {
+    "standalone": "ae5a9a6167fba54d6ac790e433d4bdae0ffe381224927b96a341d3f3aa29ac1a",
+    "fragment": "5eb07fa645f1c75ca10d0d7fa18eda6bd4d7061165b0d0b7d09c487d283fdc1f"
+  },
+  "initial": {
+    "ready": true,
+    "mode": "overview",
+    "site": "entry",
+    "visited": [],
+    "player": {
+      "x": 20,
+      "y": 25.479991995192133,
+      "grounded": false
+    },
+    "camera": {
+      "x": 124,
+      "y": 70,
+      "scale": 3.725806451612903
+    },
+    "dug": 0,
+    "revision": 0,
+    "size": [
+      248,
+      140
+    ],
+    "insideRock": false
+  },
+  "geometry": {
+    "templates": 16,
+    "samples": 3112,
+    "mismatches": []
+  },
+  "interactions": {
+    "start": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 20,
+        "y": 25.529999709357714,
+        "grounded": true
+      },
+      "camera": {
+        "x": 26.88049412673027,
+        "y": 20.529999709357714,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "moved": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.323333333333284,
+        "y": 29.591612071689482,
+        "grounded": true
+      },
+      "camera": {
+        "x": 36.32333333333328,
+        "y": 24.591612071689482,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "jumped": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.33312499999995,
+        "y": 28.45438984946726,
+        "grounded": false
+      },
+      "camera": {
+        "x": 36.33312499999995,
+        "y": 23.45438984946726,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "dug": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.33312499999995,
+        "y": 29.595496281216384,
+        "grounded": true
+      },
+      "camera": {
+        "x": 36.33312499999995,
+        "y": 24.595496281216384,
+        "scale": 17.7080078125
+      },
+      "dug": 3,
+      "revision": 1,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "restored": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.33312499999995,
+        "y": 29.595496281216384,
+        "grounded": false
+      },
+      "camera": {
+        "x": 36.33312499999995,
+        "y": 24.595496281216384,
+        "scale": 17.7080078125
+      },
+      "dug": 3,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    }
+  },
+  "inline": {
+    "ready": true,
+    "mode": "inspect",
+    "site": "hall",
+    "visited": [],
+    "player": {
+      "x": 20,
+      "y": 25.479991995192133,
+      "grounded": false
+    },
+    "camera": {
+      "x": 144,
+      "y": 57,
+      "scale": 4.347169811320755
+    },
+    "dug": 0,
+    "revision": 0,
+    "size": [
+      248,
+      140
+    ],
+    "insideRock": false
+  },
+  "ok": true
+}

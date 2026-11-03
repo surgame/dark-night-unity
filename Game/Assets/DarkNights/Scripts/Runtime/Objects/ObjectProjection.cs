@@ -41,7 +41,7 @@ namespace DarkNights.Runtime.Objects
             return new WorldViewData(summary, actors, buildings, sites, shots, identities, ExpeditionMapping.Capture(session),
                 Array.Empty<MineralDepositViewData>(),
                 session.Terrain?.Map?.World.WorldId.ToString().Replace("-", "") ?? "", session.Terrain?.Map?.World.Epoch ?? 0,
-                session.TerrainGameplay?.CaptureView(), session.Geology.CaptureView());
+                session.TerrainGameplay?.CaptureView(), session.Geology.CaptureView(), session.Physics?.Capture());
         }
 
         internal static ActorViewData CaptureActor(ObjectSession session, ActorBehaviour actor)

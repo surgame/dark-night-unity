@@ -3,6 +3,8 @@
   "rootNamespace": "DarkNights.View",
   "references": [
     "DarkNights.Core",
+    "spine-unity",
+    "spine-csharp",
     "GameCore.Runtime",
     "Unity.ugui",
     "Unity.InputSystem",

@@ -1,0 +1,353 @@
+{
+  "date": "2026-10-31",
+  "scope": "Algorithm steps and independent browser only.",
+  "models": [
+    {
+      "seed": 271,
+      "observation": 3,
+      "candidates": 4,
+      "propagationChanges": 5,
+      "macroObservations": 6,
+      "outputSHA256": "5bc1526b092b6295f0c5e13f77707c4d08f7085ba8d161ad9b978e2a0fffb067",
+      "changes": {
+        "dual": 4,
+        "wfc": 4,
+        "hybrid": 2
+      }
+    },
+    {
+      "seed": 902,
+      "observation": 2,
+      "candidates": 4,
+      "propagationChanges": 5,
+      "macroObservations": 6,
+      "outputSHA256": "d4555a9c7eb4a877084df26c296fad47b4b2ae48bb00092656e376ef590cbaf3",
+      "changes": {
+        "dual": 4,
+        "wfc": 4,
+        "hybrid": 3
+      }
+    },
+    {
+      "seed": 1643,
+      "observation": 1,
+      "candidates": 2,
+      "propagationChanges": 3,
+      "macroObservations": 6,
+      "outputSHA256": "6c2643dfc6d75a605bfb1b2fc9706615bb19f546c13330bb48f71ac226155c7d",
+      "changes": {
+        "dual": 4,
+        "wfc": 4,
+        "hybrid": 2
+      }
+    }
+  ],
+  "views": [
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 0,
+      "stage": "空实格输入"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 1,
+      "stage": "准备16型"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 2,
+      "stage": "四角直接查表"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 3,
+      "stage": "共享边拼接"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 4,
+      "stage": "完成白模"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 5,
+      "stage": "开挖后更新"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 0,
+      "stage": "空实与幅值约束"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 1,
+      "stage": "建立候选域"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 2,
+      "stage": "最小熵选择"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 3,
+      "stage": "向邻格传播"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 4,
+      "stage": "冻结完整结果"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "wfc",
+      "step": 5,
+      "stage": "开挖后更新"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 0,
+      "stage": "划分宏观槽位"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 1,
+      "stage": "准备大段配置"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 2,
+      "stage": "大段WFC选形"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 3,
+      "stage": "冻结后投影小格"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 4,
+      "stage": "完成组合白模"
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "hybrid",
+      "step": 5,
+      "stage": "开挖后更新"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 0,
+      "stage": "空实格输入"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 1,
+      "stage": "准备16型"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 2,
+      "stage": "四角直接查表"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 3,
+      "stage": "共享边拼接"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 4,
+      "stage": "完成白模"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "dual",
+      "step": 5,
+      "stage": "开挖后更新"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 0,
+      "stage": "空实与幅值约束"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 1,
+      "stage": "建立候选域"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 2,
+      "stage": "最小熵选择"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 3,
+      "stage": "向邻格传播"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 4,
+      "stage": "冻结完整结果"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "wfc",
+      "step": 5,
+      "stage": "开挖后更新"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 0,
+      "stage": "划分宏观槽位"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 1,
+      "stage": "准备大段配置"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 2,
+      "stage": "大段WFC选形"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 3,
+      "stage": "冻结后投影小格"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 4,
+      "stage": "完成组合白模"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "method": "hybrid",
+      "step": 5,
+      "stage": "开挖后更新"
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    }
+  ],
+  "errors": [
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function",
+    "this.atlas is not a function"
+  ],
+  "passed": false,
+  "failure": "AssertionError [ERR_ASSERTION]: this.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\nthis.atlas is not a function\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\steps-verify.cjs:92:12"
+}

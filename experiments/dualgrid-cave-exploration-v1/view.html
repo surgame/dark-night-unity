@@ -1,0 +1,58 @@
+<div id="dg-cave-whitebox">
+  <style>
+    #dg-cave-whitebox{font-family:"Trebuchet MS","Microsoft YaHei",sans-serif;color:var(--foreground);--cw-air:var(--background);--cw-rock:color-mix(in srgb,var(--foreground) 17%,var(--background));--cw-edge:color-mix(in srgb,var(--foreground) 62%,var(--background));--cw-quiet:color-mix(in srgb,var(--foreground) 6%,var(--background));--cw-ink:var(--foreground);--cw-soft:var(--muted-foreground);--cw-inverse:var(--background);display:flex;flex-direction:column;gap:12px}
+    #dg-cave-whitebox *{box-sizing:border-box}
+    #dg-cave-whitebox .cw-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    #dg-cave-whitebox h2{font-size:inherit;font-weight:500;margin:0}
+    #dg-cave-whitebox .cw-subtle{color:var(--muted-foreground)}
+    #dg-cave-whitebox .cw-toolbar{display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap}
+    #dg-cave-whitebox .cw-modes{display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:100%}
+    #dg-cave-whitebox .cw-check{display:flex;align-items:center;gap:5px;white-space:nowrap}
+    #dg-cave-whitebox .cw-stage{position:relative;width:100%;aspect-ratio:1.68;min-height:270px;overflow:hidden;background:var(--cw-air)}
+    #dg-cave-whitebox[data-mode="walk"] .cw-stage{min-height:360px}
+    #dg-cave-whitebox canvas.cw-scene{display:block;width:100%;height:100%;touch-action:none;outline-offset:-3px}
+    #dg-cave-whitebox .cw-readout{position:absolute;left:12px;top:12px;display:flex;gap:8px;align-items:center;pointer-events:none}
+    #dg-cave-whitebox .cw-readout span{background:var(--background);color:var(--foreground);padding:4px 7px}
+    #dg-cave-whitebox .cw-status{display:flex;gap:8px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    #dg-cave-whitebox .cw-location{display:flex;align-items:center;gap:8px;min-width:0}
+    #dg-cave-whitebox .cw-detail{color:var(--muted-foreground);min-height:1.4em}
+    #dg-cave-whitebox .cw-help{color:var(--muted-foreground)}
+    #dg-cave-whitebox .cw-touch{display:none;gap:8px;justify-content:space-between}
+    #dg-cave-whitebox .cw-touch-group{display:flex;gap:8px}
+    #dg-cave-whitebox .cw-touch button{touch-action:none;user-select:none;min-width:48px;min-height:44px}
+    #dg-cave-whitebox details{margin-top:2px}
+    #dg-cave-whitebox summary{width:max-content}
+    #dg-cave-whitebox .cw-atlas{width:100%;max-width:520px;display:block;margin-top:8px}
+    #dg-cave-whitebox .cw-atlas-label{color:var(--muted-foreground);margin-top:5px}
+    #dg-cave-whitebox select{max-width:100%}
+    #dg-cave-whitebox button,#dg-cave-whitebox select,#dg-cave-whitebox input{font:inherit}
+    @media(max-width:520px){#dg-cave-whitebox .cw-heading .cw-subtle{display:none}#dg-cave-whitebox .cw-detail{min-height:2.8em}#dg-cave-whitebox .cw-location{flex-wrap:wrap}#dg-cave-whitebox .cw-help{font-size:12px}}
+    @media(pointer:coarse),(max-width:600px){#dg-cave-whitebox[data-mode="walk"] .cw-touch{display:flex}}
+  </style>
+  <div class="cw-heading"><h2>地下探索 · 圆角白模</h2><span class="cw-subtle">固定洞形 / Dual Grid 16型</span></div>
+  <div class="cw-toolbar">
+    <div class="cw-modes" aria-label="观察模式">
+      <button type="button" class="btn" id="cw-overview" aria-pressed="true">全图</button>
+      <button type="button" class="btn" id="cw-walk" aria-pressed="false">试走</button>
+      <button type="button" class="btn" id="cw-entry">返回入口</button>
+      <button type="button" class="btn" id="cw-reset">还原洞穴</button>
+    </div>
+    <label class="cw-check"><input type="checkbox" id="cw-grid">格网</label>
+    <label class="cw-check"><input type="checkbox" id="cw-labels" checked>点位</label>
+  </div>
+  <div class="cw-stage">
+    <canvas class="cw-scene" id="cw-scene" aria-label="可平移缩放的地下洞穴。可切换试走，用左右方向键移动、空格跳跃，鼠标点按附近岩壁进行采掘。">地下洞穴白模</canvas>
+    <div class="cw-readout"><span id="cw-view">全图观察</span><span id="cw-counter">发现 0 / 8</span></div>
+  </div>
+  <div class="cw-touch">
+    <div class="cw-touch-group"><button type="button" class="btn" data-hold="left" aria-label="向左移动">←</button><button type="button" class="btn" data-hold="right" aria-label="向右移动">→</button></div>
+    <div class="cw-touch-group"><button type="button" class="btn" id="cw-touch-jump">跳跃</button><button type="button" class="btn" id="cw-touch-mine">敲击</button></div>
+  </div>
+  <div class="cw-status">
+    <label class="cw-location">点位 <select class="form-select" id="cw-site" aria-label="聚焦洞穴设计点"></select></label>
+    <span class="cw-subtle" id="cw-feedback" role="status" aria-live="polite">正侧视 · 无顶面</span>
+  </div>
+  <div class="cw-detail" id="cw-detail"></div>
+  <div class="cw-help">A / D 或 ← / → 移动 · 空格跳跃 · 试走时点按附近岩壁采掘 · 右键拖动 / 滚轮缩放</div>
+  <details id="cw-atlas-open"><summary>16种圆角格型</summary><canvas class="cw-atlas" id="cw-atlas" aria-label="四角二值组合对应的16种实际圆弧格型"></canvas><div class="cw-atlas-label">位序 NW / NE / SE / SW · 对角实心分开 · 固定中点共边</div></details>
+</div>

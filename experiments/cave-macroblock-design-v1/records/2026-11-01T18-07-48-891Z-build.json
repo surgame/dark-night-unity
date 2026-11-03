@@ -1,0 +1,15 @@
+{
+  "createdAt": "2026-11-01T18:07:48.891Z",
+  "scope": "Design proposal and schematic only; no physics, solver, Unity, gameplay or performance verification.",
+  "inputs": {
+    "catalog.js": "dbddab3634db724313868b4bc0934bce5e466c7d604a4c24cc658500efd0742f",
+    "view.html": "c0f4e87eca6a93ba7fe1802612557c9388190a158ca0a75816bfd2a0fab26104",
+    "app.js": "9652f3c1853a0f153d89954975a2f0995853c04f833aa2037f4031e665ecd034",
+    "README.md": "ef211ee5cb9e191ca6390f68aa35038033baf2747dbe7a36e8096cc465ca24d5"
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-macroblock-design.html",
+    "bytes": 19981,
+    "sha256": "591b9c4da14639167f9ab1287db70fb3e2d2c8edc8f8d0b0ef9e5586ee5f1d2b"
+  }
+}

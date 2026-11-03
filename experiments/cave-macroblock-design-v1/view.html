@@ -1,0 +1,44 @@
+<div id="cave-macroblock-design">
+  <style>
+    #cave-macroblock-design {color:var(--foreground);display:grid;gap:calc(var(--font-size-base)*.8);min-width:0}
+    #cave-macroblock-design [hidden] {display:none!important}
+    #cave-macroblock-design .design-heading {padding-right:90px}
+    #cave-macroblock-design .design-map {width:100%;min-width:0}
+    #cave-macroblock-design .design-map svg {display:block;width:100%}
+    #cave-macroblock-design .design-map text {fill:var(--foreground);font-size:12px;font-weight:400}
+    #cave-macroblock-design .design-map .rock {fill:var(--muted)}
+    #cave-macroblock-design .design-map .air {fill:var(--background)}
+    #cave-macroblock-design .design-map .edge {fill:none;stroke:var(--foreground);stroke-width:1.4;vector-effect:non-scaling-stroke}
+    #cave-macroblock-design .design-map .guide {fill:none;stroke:var(--border);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-macroblock-design .design-map .focus {fill:var(--viz-series-1);fill-opacity:.10}
+    #cave-macroblock-design .design-map .port {fill:none;stroke:var(--viz-series-1);stroke-width:2;vector-effect:non-scaling-stroke}
+    #cave-macroblock-design .design-map .ore {fill:var(--viz-series-2);fill-opacity:.25;stroke:var(--foreground);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-macroblock-design .design-map .zone {fill:var(--viz-series-2);fill-opacity:.1;stroke:var(--foreground);stroke-dasharray:4 3;stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-macroblock-design .design-map .water {fill:var(--viz-series-3);fill-opacity:.22;stroke:var(--foreground);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-macroblock-design .selected-detail {display:grid;gap:calc(var(--font-size-base)*.3)}
+  </style>
+  <h3 class="design-heading">大块洞穴 · 设计方案</h3>
+  <div class="viz-controls">
+    <label class="form-label">视图
+      <select class="form-select" id="cbd-view">
+        <option value="assembly">首张组合示意</option>
+        <option value="module">单块空间设计</option>
+        <option value="port">接口与过渡</option>
+      </select>
+    </label>
+    <label class="form-label">模块
+      <select class="form-select" id="cbd-module"></select>
+    </label>
+  </div>
+  <div class="viz-row">
+    <label class="form-check"><input class="form-check-input" id="cbd-bounds" type="checkbox" checked><span class="form-check-label">作者包络／接口</span></label>
+    <label class="form-check"><input class="form-check-input" id="cbd-content" type="checkbox" checked><span class="form-check-label">内容插槽</span></label>
+  </div>
+  <div class="design-map" id="cbd-map"></div>
+  <div class="selected-detail" aria-live="polite">
+    <p id="cbd-selected"></p>
+    <p class="text-small" id="cbd-purpose"></p>
+    <p class="text-small" id="cbd-slots"></p>
+  </div>
+  <p class="text-small" id="cbd-caption"></p>
+</div>

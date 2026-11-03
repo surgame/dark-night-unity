@@ -132,7 +132,12 @@ namespace DarkNights.View
             }
             night = Mathf.MoveTowards(night, target, Time.unscaledDeltaTime * 0.16f);
             visualTime += Time.unscaledDeltaTime;
-            Render();
+        }
+
+        // 主角控制器在较早的LateUpdate提交本帧显示位置，再统一更新镜头与背景。
+        private void LateUpdate()
+        {
+            if (cameraInitialized) Render();
         }
 
         /// <summary>

@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/EsotericSoftware/spine-runtimes",
+  "commit": "175a1e05073a406f305bde2621c065b8c2256c42",
+  "archiveSha256": "6d13b14bc801a22c9ab161b522f30ba3b4ca6d713a953c400d0bd1c1c7ffd730",
+  "packages": [
+    "spine-csharp/src",
+    "spine-unity/Assets/Spine"
+  ],
+  "localRoot": ".deps/spine-runtimes-175a1e0"
+}

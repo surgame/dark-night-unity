@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-30",
+  "tool": "built-in image_gen.imagegen",
+  "outputs": [
+    {
+      "file": "hooded-explorer-a-draft.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18892-3bae-7d23-9b7d-5eb0633034da\\call_BLDsKnvrKs69qVRseifRaf1x.png",
+      "status": "Superseded intermediate; glow retained as failure evidence.",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1322433,
+      "sha256": "4b7a974877f3d71fc34ca15399c4b44b3f509e8f6bbccffd53edee18567fa483"
+    },
+    {
+      "file": "soft-cap-miner-b.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18892-3bae-7d23-9b7d-5eb0633034da\\call_9FCeEvG3RlBBkPeN6jb2n0sY.png",
+      "status": "Design candidate B; front T-pose and side setup.",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1309250,
+      "sha256": "3a8e000fecc493b08430a4322f842334e2c9b9d2950ee04918d16686e779b181"
+    },
+    {
+      "file": "hooded-explorer-a.png",
+      "source": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a18892-3bae-7d23-9b7d-5eb0633034da\\call_W2hD26BmZqLaGpOPHQlPLhng.png",
+      "status": "Design candidate A; front T-pose and side setup.",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1330549,
+      "sha256": "ef322646d1f92641221514b4162953baf0f5111c2ece9527c116addb079d9105"
+    }
+  ],
+  "review": "Visually inspected both final designs. Reduced detail and clear limb silhouettes. Some soft tonal variation remains; these are design boards, not pixel-flat production parts. No Spine rig or animation verification performed."
+}

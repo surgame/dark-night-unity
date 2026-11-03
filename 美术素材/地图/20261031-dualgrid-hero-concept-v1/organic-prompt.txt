@@ -1,0 +1,18 @@
+Use case: precise-object-edit.
+Asset type: One landscape 1536x1024 cave-game art-direction concept.
+Image 1 is the exact style reference AND edit target, selected by the user. The user likes THIS textured, inked rock version. Preserve its warm brown and cool charcoal-slate interlocking small rock groups, visible dark hand-drawn cracks, restrained facets, thin ochre surface rims, muted green moss, orange mushrooms, turquoise water and subdued blue-grey cave background. Do not replace it with a smooth blank brown soil style.
+
+Primary edit: Extend this art direction into a noticeably more NATURAL, NON-RECTANGULAR cave terrain layout. Change the terrain silhouettes substantially while keeping the same character and drawing style. The current large horizontal rectangle, vertical ninety-degree drops, right-angle stair-step banks and squared U-shaped pool are the elements to redesign. Merely rounding the corners of those same boxes is insufficient.
+
+Terrain layout:
+- Retain a short stable resting ledge under the cyan protagonist, at the same approximate left-middle position, so both feet remain visibly supported.
+- Approach it with an uneven shallow descending rock slope. Beyond it, continue through an unequal sequence of a short 1:2 slope, an oblique broken rock shoulder and a low rounded-but-faceted stone tongue beside the wet area. No long straight platform ending in a vertical rectangular face.
+- Form the pool as an asymmetric shallow natural hollow, with slanted chipped banks, an irregular rock-lined bottom and short exposed stones at its margins. The water surface remains physically level. Avoid a flat-bottomed rectangular tank or a neat squared trench.
+- The opposite bank rises through a supported diagonal rock buttress and a broad sloping shoulder merging into the side wall. Preserve a small mushroom resting shelf near the upper-right, but merge it naturally into the slope instead of making a staircase of rectangles.
+- Vary the ceiling into an asymmetric high arch, a shallow diagonal roof run and a small hanging rock shoulder at the waterfall source. Keep substantial continuous bedrock at the frame edges. No floating islands or unsupported rock slabs.
+
+Keep the form language suitable for a DualGrid side-view game: connected solid terrain, straight local segments joined into organic larger shapes, 45-degree and shallow 1:2 slopes, clipped convex shoulders, concave transitions and small natural chips. Curvature should emerge at the macro scale from a modest repeatable edge vocabulary. Do not draw a square grid, a checkerboard or individually outlined tile boxes.
+
+Strict invariants: ONE protagonist only. Preserve the recognisable exact pale-cyan large round hood, beige face, little black features and smile, grey collar, tiny cyan body, short limbs, original pose and approximate screen size. Keep the waterfall and small pool, distinct grass/mushroom accents and two modest mineral patches as separately legible design elements; move them only enough to attach convincingly to the revised terrain. Preserve rich but controlled hand-drawn rock texture. The hero remains the strongest readable light accent.
+
+Framing: A cohesive orthographic 2D SIDE-VIEW gameplay-like composition with visible foreground thickness and a dark quiet cavity behind the hero. Do not add receding perspective road tops, isometric depth, cinematic spotlights, glow clouds, photorealistic rock, new buildings, bridges or characters. No labels, UI, text, arrows, tile atlas, montage, border or watermark. This is a static shape and style concept, not a claim of validated tile seams or animation.

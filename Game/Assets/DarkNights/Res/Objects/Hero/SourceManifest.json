@@ -1,0 +1,730 @@
+{
+  "authorProject": "美术素材/角色/主角/主角.spine",
+  "authorFiles": [
+    {
+      "file": "美术素材/角色/主角/images/body.png",
+      "sha256": "72614ea9d309b30f78fd2287173c107b16bafc9e0bb0c21462460f667eb1d3f2"
+    },
+    {
+      "file": "美术素材/角色/主角/images/eyes.png",
+      "sha256": "db05e3890f9b9b8be6aef8f919b70b8ceff3f6b51f9035064c4dbfe07b287b8f"
+    },
+    {
+      "file": "美术素材/角色/主角/images/eyesbow.png",
+      "sha256": "91d811a751cfcd657e28bbadfae12e92e47bb45e74ddaf6833e27c60ec804891"
+    },
+    {
+      "file": "美术素材/角色/主角/images/face.png",
+      "sha256": "5a2d35972589730c7a118c4a3c25a4e65eba71388e772100bb6e3425fdfc6858"
+    },
+    {
+      "file": "美术素材/角色/主角/images/head.png",
+      "sha256": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b"
+    },
+    {
+      "file": "美术素材/角色/主角/images/left-hand.png",
+      "sha256": "c204c0f191089ee233937c8ebdc0b4107861a4e5aefb414c7938e26e7e03bd02"
+    },
+    {
+      "file": "美术素材/角色/主角/images/left-leg.png",
+      "sha256": "cb58f6141c1c10dfb15367676e77b5a24fdb1ffcbe0f69ec79824a42009e410d"
+    },
+    {
+      "file": "美术素材/角色/主角/images/mouse.png",
+      "sha256": "9ad5db654897ec9e5eae506ced79ce369fe44db2285699a787144e83b6a7b10f"
+    },
+    {
+      "file": "美术素材/角色/主角/images/right-hand.png",
+      "sha256": "3ecb5584447d8451083824ea2a3dbcac80fbcef55c869168130deb1c99d5935a"
+    },
+    {
+      "file": "美术素材/角色/主角/images/right-leg.png",
+      "sha256": "541398e47e83bb80d17e69a2b88d54e20c050e71697ed1396e01268dfc2537af"
+    },
+    {
+      "file": "美术素材/角色/主角/主角-腾空腿部.spine",
+      "sha256": "58e8bbc7669eb9b1845e559fc380149f7fd6e2b4e1780d2bf6e3f68863237263"
+    },
+    {
+      "file": "美术素材/角色/主角/主角.spine",
+      "sha256": "472a0e00cdd95bdaf01c55e5125f3e5c9f8b4a61766ac71a5035f211bd9b7989"
+    }
+  ],
+  "spineVersion": "4.3.26 Professional",
+  "nativeJsonSha256": "c5b9cce8e6a25975a432b5f590617d063e250c7aae7e1c369ae01a08c3ed7592",
+  "nativeAtlasSha256": "28153813d3d5737f7d57a538516381a5e2e8dc6e1631e40c780d9ca4b996fff8",
+  "nativeTextureSha256": "dcd499160d63e3d129f6119161ab129a4df82d8a9f6348fc8ea3d90fae22234e",
+  "framesPerSecond": 12,
+  "displayHeightLogicPixels": 48,
+  "pixelsPerUnit": 2083.3333333333335,
+  "rendering": "Native Spine PNG export; lossless IDAT recompression; Unity sprite animation.",
+  "airPose": "Frame 3 of ai_jump2_ok, held in air. World motion belongs to the existing ActorState.",
+  "exportSettings": {
+    "idle": {
+      "class": "export-png",
+      "exportType": "animation",
+      "skeletonType": "single",
+      "skeleton": "主角",
+      "animationType": "single",
+      "animation": "ai_idel1_ok",
+      "skinType": "current",
+      "renderImages": true,
+      "fps": 12,
+      "includeLastFrame": false
+    },
+    "walk": {
+      "class": "export-png",
+      "exportType": "animation",
+      "skeletonType": "single",
+      "skeleton": "主角",
+      "animationType": "single",
+      "animation": "ai_walk",
+      "skinType": "current",
+      "renderImages": true,
+      "fps": 12,
+      "includeLastFrame": false
+    },
+    "jump": {
+      "class": "export-png",
+      "exportType": "animation",
+      "skeletonType": "single",
+      "skeleton": "主角",
+      "animationType": "single",
+      "animation": "ai_jump2_ok",
+      "skinType": "current",
+      "renderImages": true,
+      "fps": 12,
+      "includeLastFrame": false
+    }
+  },
+  "frames": [
+    {
+      "file": "AnimationFrames/idle/idle-000.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_00.png",
+      "nativeSha256": "7a3630ca9fd432bda9c4576f872a991bab855292a20e7c4b21edf527ee150bb7",
+      "sha256": "614bbf93d337dbc9fbf752bda620294109a20ff3031464b2321d8e4fa9e4184c",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-001.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_01.png",
+      "nativeSha256": "0249322cd394178e10092453be582dd230685d6622fb2e61ca16701d1a3eeb26",
+      "sha256": "26d33d2fc6cce7c2c29f0e0297fa1d763c68a253d15f787750beda45c612aa0b",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-002.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_02.png",
+      "nativeSha256": "314d0005ece00b316474ce35be0548394a4bf146737f743683ab5c56613c6203",
+      "sha256": "3a026fb44e388056b437566009ff257a3f5d348ef17556d22d1fafa1545829a5",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-003.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_03.png",
+      "nativeSha256": "07ab42e7b6b4d5c7ca48c27e471c78232d44200fba9750f04db9e83dc265c3f8",
+      "sha256": "8ad30989f9064aed789b3d0f4d5f6b2933815bd73e3e64937862bca56e574743",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-004.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_04.png",
+      "nativeSha256": "2f804d1e0e1cfe50a528ef0ac98281649754ea48c62a9012ec70e5b30eb82365",
+      "sha256": "51f34d7b0a3019bc90465ef30e33ac580d65eddb0501188965654f0066ecf1a0",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-005.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_05.png",
+      "nativeSha256": "8e3c6270e2f60bb772ae24da192faddfb274041a2124fd2627ae00b2d1e6fd42",
+      "sha256": "a5bc648d2cdb63cdfe4a687f0e09676f8e1cdafdde8682ae48b9ec10f24f7843",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-006.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_06.png",
+      "nativeSha256": "6daaf918c75c365fd1f02ce03922a2bd87bd1072f183e381d136f53476da453a",
+      "sha256": "a36fcdc76baae7d269fbeddefeca1251499f8d6cd18588bb77387366d5fc02fb",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-007.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_07.png",
+      "nativeSha256": "588875ad5a7b46898c0eb8788752a89f069cc796daefbe87462bd7db48d48618",
+      "sha256": "3ed81576e599e79e0192abdde175c78c3c3d116177c082c0409575f9fcd66d18",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-008.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_08.png",
+      "nativeSha256": "6dc270fc560325887cfea92939bef13d2cb4cb0865c2e3736a57eb83451f5df7",
+      "sha256": "84112eab44652388b1bf786896b021def20b030abf617a2c2ab2dfaba1bc7c2e",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-009.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_09.png",
+      "nativeSha256": "52cb31fc11a4323006b4f9d27db50303221187fe1ff82e1833f65947b58f7d89",
+      "sha256": "7662402e5839d7e0869e4712261d9ed78d8a97a29562272d5b5cc754d691e232",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-010.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_10.png",
+      "nativeSha256": "2cfed1d6efc9b62e5d81d96dc07c7b6bad4ac002ad7cef4e39384f14a54b82d0",
+      "sha256": "f35560c625ff3ecf69890ee382c3d51f1301d6c7b4d2c505c5d1aec82c294794",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-011.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_11.png",
+      "nativeSha256": "6506bceda028e541e77a2847b8795ba54dc0859edbcea0a337325d5cdf493bc2",
+      "sha256": "dfc804df7acd69bee60235d9d9252eb770b83135ad500b571a0eb3d43d60b422",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-012.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_12.png",
+      "nativeSha256": "93626dc229b297dea0ebc125d811d6c4b658ea18161e7bcafda878af614a5bef",
+      "sha256": "3c06ddbc84878c750bbc99c7fa2cc09f8dd2f3047d67d1ef524abb8274a013e9",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-013.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_13.png",
+      "nativeSha256": "13d87b5bfeb587a33d951c97a9701982af7f60cb489f9a819ccbaf20669eaec1",
+      "sha256": "68864a76fa16b3748c25b3898d308fe16af7f41cf1395c0ee48056b611d98cba",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-014.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_14.png",
+      "nativeSha256": "78662ba46d449c1a51efed1cac626eb765eb5f3cd0686134c211a5609f23ebdd",
+      "sha256": "3408c56a8b4b138dd82e26976ad718a3514a0a5d713fa13d57e98de4b8280bdd",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-015.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_15.png",
+      "nativeSha256": "744983185da8afb88af2a4b7fe8be8d14b5b9b19447a7a846a5880c81668dc10",
+      "sha256": "6636d7c980fc8418456c6ebf9372f3097aa2ab15143eccc942fd794fe9e6d27d",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-016.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_16.png",
+      "nativeSha256": "414e9699e23ca35ebb806e90ff2665391e5bbb2ea63c473b5a7c2630acc44f82",
+      "sha256": "00680dc13dd4788c8435b3f01c5de6818748efb83eb53c98cbd2b6e631eb9da9",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-017.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_17.png",
+      "nativeSha256": "5303dfe8b2015381dda32a99ad833d611846afa7a6a1ada2a764a543e62a281c",
+      "sha256": "62b66e4833b370585053bf246caaa96b97e707c885014acbfb777638ed026359",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-018.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_18.png",
+      "nativeSha256": "558b599f171280c5462918d00499a4ae60cd82e3441796495a3ac32e94ff2b26",
+      "sha256": "f4e1f1f7ece9c0acb2172c9bf6098c5eace8c56d36a470783dc5d0c8178a8c83",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-019.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_19.png",
+      "nativeSha256": "b370a57c2aaae5727a9d578915e3fb81b37436dda5f83ba695fa3e3a6799ead1",
+      "sha256": "1693a859fec2e71794f71d9908ffe270acc2013882b7490ac191b1048f10d227",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-020.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_20.png",
+      "nativeSha256": "6b8bd5c46566839a88dd1480722d5db4af818e2c271745bafe9edcc3701fe53f",
+      "sha256": "45ac6ffe79187fccd57198e0ad63002109764fa2c244465b8d1d3bf93036914f",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-021.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_21.png",
+      "nativeSha256": "560d2d94049bdf1059e115fbe1b192b9b4537c01d021c6f19a9c527f017d7f5a",
+      "sha256": "e44553dedeba24efb1d9923992b65b502ff95c0d3c6a831a34fedea4410ac713",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-022.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_22.png",
+      "nativeSha256": "2e5aa7892fcf0c3677fd7ccf6af10714a9030a3540b126f8e84e25aa7adbdc4a",
+      "sha256": "7c76372d7f0f38a940aba0cda0e74457aafbbc21d781d170f1b335364c66cbaa",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-023.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_23.png",
+      "nativeSha256": "d62350b2456d46da11f95e198973224c61b3b8671364348efa93a4f4c85bcda2",
+      "sha256": "9d3d18c0280dedb23973330f922fa1e95456be754a95bd1a1ec69e307c405e4b",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-024.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_24.png",
+      "nativeSha256": "61e8e9d177b2db3beb3f7ba01bb915939f7b24aeebbe96e0ea276f87f986702f",
+      "sha256": "bce4eb78e13594b9110a0bf48097460aa0d7a45080feec30c3493c41401a1951",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-025.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_25.png",
+      "nativeSha256": "97a37eeb82c184c7465177ab4ce62cf1afba11d2665eecee1ad4f8ed74af2467",
+      "sha256": "fa0916947c841414bd2d8f482c8f0c47e48d9ca926508a17ea754923cb1987cf",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-026.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_26.png",
+      "nativeSha256": "0d78280e01c65bab0627341ed921435a5bef8a61436ea487c5747e34fbd4d44e",
+      "sha256": "7bce4f83b63807ff3349f328c30f7e207fdedf1b26da91b5d394f4b567ef5bba",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-027.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_27.png",
+      "nativeSha256": "156ee1f4328294f35adfa67303b6be9160c257de2f8a817e38770ae838f90adf",
+      "sha256": "54fe1daa843734954ec4472b8f7e212026a9d66343535623e105a706103335d0",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-028.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_28.png",
+      "nativeSha256": "5705ae624f06b9920ceea6b3cb1eb75ec8b9c7d4c9aca45d94d534597d1b3980",
+      "sha256": "01c4898f1ab249441d9842114f9259c839dc08df80d0e0e32c29ca9a8c2516c0",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-029.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_29.png",
+      "nativeSha256": "46fb3dfe0ca5cfc91a536ae52a4e2609fa844527e68e790da032a3876a36a615",
+      "sha256": "4f739ad06210203e2dde278338b61658ddfcc23c24b36f239f95819609d3bbc1",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-030.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_30.png",
+      "nativeSha256": "0846035716e4fa9865ce9cf0d70fb1b2c27e11315732ef638ab6eebb0201a482",
+      "sha256": "5048a30014b56b488dbca85e6c90cf69fea2322e8e28a2e4477c77c7044e5cde",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-031.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_31.png",
+      "nativeSha256": "3ffbe3dedd967c377ec50e98eb474d7a382883680ef729783e1acbfed7f51421",
+      "sha256": "3d50b4c080a08b0fd0044bc8054a42ac71e5af789f7234ab06d8b87991d64d1f",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-032.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_32.png",
+      "nativeSha256": "eca1f2dae76e9551f3efb2ec834ff8f66945adf65d6a6630146c20f3d678f73b",
+      "sha256": "e443edc3b7abff137991da2ad7bcc5b62abf0be1a3ac7b4441d4b98bb482967a",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-033.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_33.png",
+      "nativeSha256": "91683449fe7b98dfcd3ea3b65e2d74bbba24e265b7e6155f503bdaaa5e757822",
+      "sha256": "57f4f977f87afc2c7a36f272d68102de9b02d37494255af60044bd78e30cddc0",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-034.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_34.png",
+      "nativeSha256": "456d0c3ed3f209db61bbcdabcfbeefa3c35100f604a6da5fa6afd659ad8b7e88",
+      "sha256": "9e8a7e89b2a247bdc8f2c6b2ef0387eca017ae36e4d42b4bb4affd19294fda17",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-035.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_35.png",
+      "nativeSha256": "fc02aa5b2879e2cfc922d333c264de5fd5b82d09044bcab1f8ba7ed5165c7ab1",
+      "sha256": "9f04b943a0c3b54cb788af7b45321a02d59269082015899aba88c1e42bd8de05",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-036.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_36.png",
+      "nativeSha256": "9e1e6dadd5480b104ab28568c38a418ea60c029767e090cea747e075c293f461",
+      "sha256": "30bf04e3f90ffebd572b72972fc06ea55c87c0fe353618aa14270e4af7cb804c",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-037.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_37.png",
+      "nativeSha256": "bcae843467d45c08e331b0ce36cffccc18b999b378c4be86458bb4b13413eee0",
+      "sha256": "05273faca8791600ae6f367488a5812bcc16f6216fe6a0389ec49de4aab799d8",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-038.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_38.png",
+      "nativeSha256": "0677fae67260b2c5bf661dcbb006c60348fea0e7c6a2d72eb4b81439a7992f89",
+      "sha256": "d2aec195759689b44c5ae84951ba9a71d94f11219ebfbdc9bca110f1cf3fb184",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-039.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_39.png",
+      "nativeSha256": "08f8cd1de2fcc447f53526b47f9ecd5af9060016409f6a0c843e47b5716fa56d",
+      "sha256": "9f53daf87398574f6959240f7460305e365553a19df6c4749b55940ffdc0656b",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-040.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_40.png",
+      "nativeSha256": "7584f94490312f8445ae775151c606485271340aa0c6d900ef0b23a6827147fd",
+      "sha256": "194f8bf685dcf3f1900379e7a84a4399445a1945101a4f427efbbc82c79d791a",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-041.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_41.png",
+      "nativeSha256": "081fc55aa5c9198afdc861835ae23b40cf70a22ca4928eef0faf3ad9df691506",
+      "sha256": "405e5dba406701a2f8951668201ede72b7d40e8a1c40bd55ba98757231b62542",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-042.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_42.png",
+      "nativeSha256": "5061ed9dc6938aadead59cd4252875cfaabac611e4cd6ae00d081920f83723f9",
+      "sha256": "bc1443d84765759befd5512f3fbdcac85da1df2bc1635761143c7108f2a1d1f1",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-043.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_43.png",
+      "nativeSha256": "defe54149a465ed348031f319140faa07dd05765bb566c96ab5f9d36dac143c7",
+      "sha256": "404075449ac326bbf6be078b0aa5f0ba48152233579b36ed0168a6bfdf453f32",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-044.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_44.png",
+      "nativeSha256": "691550fd4a69b7ba6254b46194c9095d7d65d2b6668af482a08164442f7b3494",
+      "sha256": "209ae16e90ee2c4949ac862b4875cdde8415fa5f6fbcb5f16b6114a4e2092426",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/idle/idle-045.png",
+      "animation": "ai_idel1_ok",
+      "nativeSource": "hero-idle-png_45.png",
+      "nativeSha256": "156abcfb4ba3ec1129fc94f47a5c958d1b8a8736c767e834d3a13b3d46415dcd",
+      "sha256": "ce20440f363b6eb59509574376a4d4adce675472d0a573cb0916e3d51910b031",
+      "pivot": [
+        0.5,
+        0.00398406374501992
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-000.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_00.png",
+      "nativeSha256": "2ab79772dac73edeb8dde48e5ffa59e64e56925aba68a101742e8430abfbe621",
+      "sha256": "45047b84a8d799ee2c4e7a84b91aba086bf9fcd6a4c7cd4f4362ff58de18f24d",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-001.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_01.png",
+      "nativeSha256": "8ebae914b62cff935137e7447b612972ba21eb16926eb506b5d83a77262ede17",
+      "sha256": "25e42ec83e9ac1f1b52efeca883972a58d0e5ea4bee28ab424f3b9dd671fc6ba",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-002.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_02.png",
+      "nativeSha256": "f04f3c517e9a367e007e4a134abf642db6247ea5ac022e58cfea1bc8a757291e",
+      "sha256": "86344aaf7a95ed68c5e3d3b0899b8ba631a6c085e748874548b0b9c6feaf361d",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-003.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_03.png",
+      "nativeSha256": "a8acce3efb51919823b3e54e8ff5c63a577e518c7432a39d09b32a50b58d4493",
+      "sha256": "9db0864ba90d5ae9cad9e445ce9d73f59094a7095b78e8481e3c6c59446b2aa2",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-004.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_04.png",
+      "nativeSha256": "6e8052f897d1baa6b1de0261b514f080937c4a6631b8e1a2cbb483c7b7fefb0e",
+      "sha256": "a96b2087d4b8ce59fdac357722eb7bc8320021d9988e7f2c6d143203d6855395",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-005.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_05.png",
+      "nativeSha256": "c454a3c4b8c7a81e2c6d4670b7ab1d7899f15a8cfd964e62bdde536aae9c3434",
+      "sha256": "83a2e19845034c0e74971daf9c560729a097c9ce13e7f7ff4412cfcff232f507",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-006.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_06.png",
+      "nativeSha256": "dce010f0c0fd2a879e4892232f40c4a9b813d91e94af0d6f240dccfb137bfab3",
+      "sha256": "4de5205dba5cd9b3f054d372e963742002f27fe53c2152b2ea34848eb8195c8d",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-007.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_07.png",
+      "nativeSha256": "0792fd317016b464eb6ce52615f4a565e35a2a4b659f5a79a3a3ba2997b6ad37",
+      "sha256": "2b13289c29ad42d8acb6c1ca9ee1432a2f426fca0f9a9661329951e92fa6c61d",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-008.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_08.png",
+      "nativeSha256": "2c32f759f6cec686109e2c5350b3d78c7094f22e8f1343217a9bdc36e1e1bbdd",
+      "sha256": "c269afe5bf5acd9df5d66cbffa695a284773f41311e59396b02f383fb903f461",
+      "pivot": [
+        0.5,
+        0.004
+      ]
+    },
+    {
+      "file": "AnimationFrames/walk/walk-009.png",
+      "animation": "ai_walk",
+      "nativeSource": "hero-walk-png_09.png",
+      "nativeSha256": "3eb0992be98a76044540891cdd8390f0fa41b82373bdbb07480485e27c2a83ca",
+      "sha256": "e7f7feb84abb2bad1f6ff453fb5728202d6a7239cfcaefdaf7ade5543a61fbdf",
+      "pivot": [
+        0.5,
+        0.008
+      ]
+    },
+    {
+      "file": "AnimationFrames/air/air-000.png",
+      "animation": "ai_jump2_ok",
+      "nativeSource": "hero-jump-png_03.png",
+      "nativeSha256": "ff088726d1ffa931ef9d9750e219a3424fa5198c1f9551ec26fe5657c06586f3",
+      "sha256": "582beb12ee49a9ec2cdc54d2f55dba1e3e0f4e024e535f7a3ab01b8519073ee5",
+      "pivot": [
+        0.5,
+        0.17981072555205047
+      ]
+    }
+  ],
+  "limits": "Original source has 15 missing attachments. No replacement art was generated."
+}

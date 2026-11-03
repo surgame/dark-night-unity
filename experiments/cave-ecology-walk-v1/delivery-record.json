@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-31",
+  "currentFragmentSha256": "4ba04709ef56c53ecefd3e3102d13fc5218234459c79c36c4c098e858f6dfbe7",
+  "standalone": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\index.html",
+    "sha256": "b3c8065db19d0dd7fa025556986bcc42371d441f6079cce51fe7a84bacc7ccb3"
+  },
+  "preservedInitialScreenshots": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\ecology-review",
+  "corrections": [
+    {
+      "issue": "Lowroof left entry did not fit an empty-handed actor",
+      "evidence": "verification-engine-first.json; verification-engine.json.previousAttempts",
+      "resolution": "Ceiling underside uses the lower entrance floor and explicit 46-unit clearance."
+    },
+    {
+      "issue": "Automatic return route sent cargo back through the wrong chute",
+      "evidence": "verification-engine.json.previousAttempts",
+      "resolution": "Return controller uses only chutes whose destination is to the left."
+    },
+    {
+      "issue": "Host state echo repeatedly installed the world and reset camera / play",
+      "evidence": "first-start.png and first-r2/r5/r6.png; independent review in this chat. Old source was not separately frozen.",
+      "resolution": "Normalize absent event ID and ignore own saved state writer."
+    },
+    {
+      "issue": "Connection strips left blank vertical margins",
+      "evidence": "second-r5.png and earlier room screenshots",
+      "resolution": "Extend independently textured rock above and below the corridor."
+    },
+    {
+      "issue": "Some stream surfaces were hidden by native foreground rocks",
+      "evidence": "second-r5.png",
+      "resolution": "Use an independently animated visible shallow channel with an irregular near bank."
+    },
+    {
+      "issue": "Simplified rock roof did not block jumps",
+      "evidence": "Independent code review in this chat",
+      "resolution": "Use native roof contours and test flat, sloped and offset rock teeth."
+    }
+  ],
+  "limits": [
+    "Art and gameplay candidate awaiting user review",
+    "No Spine project",
+    "No Unity runtime, Player, multiplayer or save acceptance"
+  ],
+  "latestFollowup": {
+    "date": "2026-10-31",
+    "changes": [
+      "One-click return from local or overview camera to the actual hero.",
+      "Visited rooms derive from actor position rather than the camera."
+    ],
+    "evidence": "verification-browser.json",
+    "oneClickReturnPassed": true,
+    "currentGoalExcludesShutdown": true
+  }
+}

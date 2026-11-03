@@ -1,0 +1,220 @@
+{
+  "date": "2026-11-01",
+  "scope": "WebGL1 offscreen 960x560; readPixels completion includes CPU submission, GPU/driver wait and readback; not FPS.",
+  "map": [
+    320,
+    192
+  ],
+  "view": [
+    48,
+    28
+  ],
+  "pixelDensity": 16,
+  "rounds": 3,
+  "warmupFrames": 5,
+  "sampledFrames": 15,
+  "rows": [
+    {
+      "mode": "baked",
+      "initial": {
+        "median": 157.20000000298023,
+        "p95": 166,
+        "max": 166,
+        "count": 3
+      },
+      "static": {
+        "median": 0.7000000029802322,
+        "p95": 0.8000000044703484,
+        "max": 1.1000000014901161,
+        "count": 45
+      },
+      "enqueue": {
+        "median": 0,
+        "p95": 0.09999999403953552,
+        "max": 0.10000000149011612,
+        "count": 45
+      },
+      "single": {
+        "median": 3.4000000059604645,
+        "p95": 5.5999999940395355,
+        "max": 6.699999995529652,
+        "count": 48
+      },
+      "blast": {
+        "median": 3.399999998509884,
+        "p95": 7,
+        "max": 7,
+        "count": 36
+      },
+      "singleUpload": {
+        "median": 1048672,
+        "p95": 2097344,
+        "max": 2097344,
+        "count": 48
+      },
+      "blastUpload": {
+        "median": 1048672,
+        "p95": 2097344,
+        "max": 2097344,
+        "count": 36
+      },
+      "singleChunks": {
+        "median": 1,
+        "p95": 2,
+        "max": 2,
+        "count": 48
+      },
+      "blastChunks": {
+        "median": 1,
+        "p95": 2,
+        "max": 2,
+        "count": 36
+      },
+      "singleHash": "7578858c",
+      "blastHash": "cf01289",
+      "resources": {
+        "draws": 4,
+        "vertices": 24,
+        "textureBytes": 62914560,
+        "bufferBytes": 5760
+      },
+      "renderer": "WebKit WebGL",
+      "initGeometryMs": 55.19999999552965
+    },
+    {
+      "mode": "strip",
+      "initial": {
+        "median": 2.5,
+        "p95": 2.7999999970197678,
+        "max": 2.7999999970197678,
+        "count": 3
+      },
+      "static": {
+        "median": 0.5,
+        "p95": 0.6000000014901161,
+        "max": 0.8000000044703484,
+        "count": 45
+      },
+      "enqueue": {
+        "median": 0,
+        "p95": 0.10000000149011612,
+        "max": 0.10000000149011612,
+        "count": 45
+      },
+      "single": {
+        "median": 0.6000000014901161,
+        "p95": 0.8999999985098839,
+        "max": 1.1000000014901161,
+        "count": 48
+      },
+      "blast": {
+        "median": 0.6000000014901161,
+        "p95": 0.8999999985098839,
+        "max": 1.0999999940395355,
+        "count": 36
+      },
+      "singleUpload": {
+        "median": 13776,
+        "p95": 27120,
+        "max": 27120,
+        "count": 48
+      },
+      "blastUpload": {
+        "median": 17232,
+        "p95": 35184,
+        "max": 35184,
+        "count": 36
+      },
+      "singleChunks": {
+        "median": 1,
+        "p95": 2,
+        "max": 2,
+        "count": 48
+      },
+      "blastChunks": {
+        "median": 1,
+        "p95": 2,
+        "max": 2,
+        "count": 36
+      },
+      "singleHash": "7578858c",
+      "blastHash": "cf01289",
+      "resources": {
+        "draws": 11,
+        "vertices": 3690,
+        "textureBytes": 18432,
+        "bufferBytes": 427296
+      },
+      "renderer": "WebKit WebGL",
+      "initGeometryMs": 1.8999999910593033
+    },
+    {
+      "mode": "atlas",
+      "initial": {
+        "median": 10.800000004470348,
+        "p95": 16.299999997019768,
+        "max": 16.299999997019768,
+        "count": 3
+      },
+      "static": {
+        "median": 0.5999999940395355,
+        "p95": 0.6000000014901161,
+        "max": 0.7999999970197678,
+        "count": 45
+      },
+      "enqueue": {
+        "median": 0,
+        "p95": 0.10000000149011612,
+        "max": 0.10000000149011612,
+        "count": 45
+      },
+      "single": {
+        "median": 0.8000000044703484,
+        "p95": 1.1000000014901161,
+        "max": 1.1999999955296516,
+        "count": 48
+      },
+      "blast": {
+        "median": 0.8000000044703484,
+        "p95": 1.2000000029802322,
+        "max": 1.2000000029802322,
+        "count": 36
+      },
+      "singleUpload": {
+        "median": 68352,
+        "p95": 141216,
+        "max": 141216,
+        "count": 48
+      },
+      "blastUpload": {
+        "median": 70848,
+        "p95": 140256,
+        "max": 140256,
+        "count": 36
+      },
+      "singleChunks": {
+        "median": 1,
+        "p95": 2,
+        "max": 2,
+        "count": 48
+      },
+      "blastChunks": {
+        "median": 1,
+        "p95": 2,
+        "max": 2,
+        "count": 36
+      },
+      "singleHash": "7578858c",
+      "blastHash": "cf01289",
+      "resources": {
+        "draws": 4,
+        "vertices": 17574,
+        "textureBytes": 331776,
+        "bufferBytes": 5150016
+      },
+      "renderer": "WebKit WebGL",
+      "initGeometryMs": 7.999999985098839
+    }
+  ],
+  "sourceLabel": "本机 Chromium 离屏实测（3 轮）；含 GPU／驱动等待与读回，不是 Unity 帧率。无光照、碰撞、生态或联网。"
+}

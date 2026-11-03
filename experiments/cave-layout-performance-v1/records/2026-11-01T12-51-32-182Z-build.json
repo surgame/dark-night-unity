@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-01",
+  "scope": "Independent WebGL2 benchmark; no Unity or production changes.",
+  "sources": [
+    {
+      "file": "plan.js",
+      "sha256": "18049c81f48e486ede4af06b2a5fe590b78b56d586b5c1192089afd16eb7f595"
+    },
+    {
+      "file": "solver.js",
+      "sha256": "600a5056fa68937b6d49f44807e02b98003bef39fde750da114f4220e3dbf956"
+    },
+    {
+      "file": "field.js",
+      "sha256": "6d53d9cc0bcde52b811cb805406e29834b67d1eacb2f82b347e9332db7f1ecdb"
+    },
+    {
+      "file": "mesh.js",
+      "sha256": "cdbf702e90c0be4df1cd3cab5db8cb5e521a11375a46df4e84a9c237be307d6f"
+    },
+    {
+      "file": "gpu.js",
+      "sha256": "8c21caaf7f16c661a710f1c36abf96d7982a6cb13bda0369eb011b1cd8231974"
+    },
+    {
+      "file": "benchmark.js",
+      "sha256": "2a221fbdc483873c50eb17891821ed31b6310aa3beb293710585830f67e295e9"
+    },
+    {
+      "file": "app.js",
+      "sha256": "2f79141470730661973a286dbeac4e416651c71321149b1111e7400445aa639f"
+    },
+    {
+      "file": "view.html",
+      "sha256": "125ce8bc84d9db458d842732c9b10624f57b00bac9544fd423abc6d287281245"
+    },
+    {
+      "file": "build.cjs",
+      "sha256": "39d610f98d8de64cd3575330f4767dadc9482b5ec8dbcee9a0e198a5ec877c59"
+    }
+  ],
+  "imports": [
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    }
+  ],
+  "standalone": {
+    "file": "index.html",
+    "bytes": 49170,
+    "sha256": "47609efb0733a8d73b4db52d4e6b88ed4cffe9ef4b8261818154154b3d73136d"
+  },
+  "fragment": {
+    "file": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\cave-layout-performance.html",
+    "bytes": 47684,
+    "sha256": "673faf5a19121c6c9f992d34c52ce68dced0c4a87bcb165e0436aea757455f5c"
+  }
+}

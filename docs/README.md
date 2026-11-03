@@ -12,8 +12,10 @@
 | 审阅固定船舱、交货出售及星图导航方案 | [飞船远征与星图导航策划草案](SHIP_EXPEDITION_DESIGN.md)，含全员抵达时间、动态距离、危险mock和后续规则；已激活普通交货首片，实现及验证边界见执行台账 |
 | 开展飞船远征与星图开发 | [开发执行方案](SHIP_EXPEDITION_IMPLEMENTATION.md)，含现有源码复用、YYGC状态／命令／事务、联机／存档、切片依赖及授权后的验收门槛 |
 | 修改状态、对象装配或程序集 | [技术架构](ARCHITECTURE.md) |
-| 评审地图工作台整体重做 | [地图工作台模块重构](ROADMAP.md#cl-map-workbench-redesign)、[本轮状态](DEVELOPMENT.md#cl-map-workbench-redesign-status)；四区模块界面已按2026-10-28确认方案进入工程，操作见EDITOR_WORKBENCH；编译与待验状态分列于台账 |
+| 将设计／visualize开发成新版MapModule模块 | 直接引用[MapModule模块开发工作流](MAP_MODULE_WORKFLOW.md)并附设计，按设计提取、原生制作、玩法接入、工坊启动、编译及获批验收连续执行；[地图工坊操作](EDITOR_WORKBENCH.md#mapmodule-workbench)、[MM执行切片](ROADMAP.md#cl-mapmodule-plan)按需进入，实际状态见DEVELOPMENT |
+| 查阅旧版地图工作台实现与退役边界 | [实现与保全索引](archive/MAP_WORKBENCH_REFERENCE_20261103.md)、[旧工作台模块重构来源](ROADMAP.md#cl-map-workbench-redesign)、[原实现状态](DEVELOPMENT.md#cl-map-workbench-redesign-status)；旧四区界面和代码尚未完成退役，不作为MapModule作者来源，现有操作见EDITOR_WORKBENCH |
 | 地图生成与基本／高级工作台重构 | [F01～21、影响矩阵及GF-01～05方案](ROADMAP.md#cl-map-generation-flow-refactor)、[实际状态与无船衔接](DEVELOPMENT.md#stage-cl)；2026-10-28用户已确认实施，原型或编译不替代完整验收 |
+| 调试合作物理候选、箱子与绳索 | [物理研究工作台](EDITOR_WORKBENCH.md#cooperative-physics)、[后端架构](ARCHITECTURE.md#physics-backend-evolution)、[PH切片](ROADMAP.md#cl-physics-evolution)；实际实现、编译及运行边界见DEVELOPMENT |
 | 修改权限、同步、Ready或恢复 | [联机合同](MULTIPLAYER.md)、[存档合同](SAVE_FORMAT.md) |
 | 修改地图、碰撞、矿层或采集 | [地图与地形](TERRAIN_GENERATION.md)、[工具能力](TOOL_DEFINITION_HARVESTING.md) |
 | 配置固定／随机／种子池并保存地图 | [统一种子策略](TERRAIN_GENERATION.md#统一种子策略与预制地图输出)、[生成与历史身份边界](TERRAIN_GENERATION.md#制作配置生成与历史身份边界)、[工作台操作](EDITOR_WORKBENCH.md#cl01-tuner-uitk-design)；旧H5底图输入已退场，游戏继续加载预制结果 |
@@ -27,6 +29,17 @@
 | 操作编辑器、场景、预览或诊断工具 | [编辑工作台](EDITOR_WORKBENCH.md) |
 | 查正式地图与场景装配、配置生效来源及工作台缺口 | [现行业务模块与接入边界](EDITOR_WORKBENCH.md#workbench-integration-audit)、[实施范围](ROADMAP.md#workbench-integration-candidates)；编译与实际待验见DEVELOPMENT |
 | 测试、构建、内存保护及薄worktree验收 | [Unity CLI流程](UNITY_CLI_WORKFLOW.md) |
+
+## 可直接引用的执行入口
+
+| 要交办的工作 | 文档及职责 |
+| --- | --- |
+| 把设计图／visualize落为MapModule原生样例 | [MAP_MODULE_WORKFLOW](MAP_MODULE_WORKFLOW.md)：统一开发流程、源码定位及交付要求，不依赖旧聊天 |
+| 准备Unity／YYGC锁定依赖 | [DEPENDENCIES](DEPENDENCIES.md)：现行锁与准备方法；框架修改授权仍查AGENTS |
+| 执行Unity批次、编译及已授权验收 | [UNITY_CLI_WORKFLOW](UNITY_CLI_WORKFLOW.md)：单Editor、有限批次、内存门控及证据 |
+| 工作区归属、薄worktree及产物保全 | [WORKSPACE](WORKSPACE.md)：目录归属与保全；Unity移交细步见上项 |
+
+[AGENTS](../AGENTS.md)负责授权及长期硬约束；[YYGC_CHANGES](YYGC_CHANGES.md)是具体修改账本，不是新一轮框架修改许可或通用开发流程。专题已有承接入口时按需引用，不在AGENTS重复展开操作步骤。
 
 ## 长期合同
 

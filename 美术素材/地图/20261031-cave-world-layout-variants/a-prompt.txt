@@ -1,0 +1,16 @@
+VARIANT A — LAYERED BRANCHING ROOTS.
+Exact title: “方案 A · 层叠枝状”
+
+Design a winding descending trunk roughly through upper-left, middle and lower-center, with distinct left/right branch clusters on multiple elevations. Follow the guide's 18-node tree. There must be SECONDARY forks within the upper-right, middle-left, middle-right and lower-right branches, not just two shallow side exits off a single road. Keep the paths uneven and asymmetric, as a geological branching system, not a neat staircase or subway.
+
+Eight exact content labels and approximate guide locations:
+“浅层试采” at the short left pocket around (135,420).
+“高位露头” at the far upper pocket around (1050,230).
+“薄壳厚矿” at a separate upper-middle side nook around (920,360), showing a small surface clue and a hatched ore volume behind rock.
+“分层岔口” at the middle trunk fork around (585,535).
+“高差支洞” at the lower-left blind pocket around (220,775), natural ledges, no preplaced ladder.
+“塌方候选” near the far middle-right branch around (1370,440), just a subtle fractured ceiling candidate annotation.
+“矿巢候选” in the separate lower-right pocket around (1410,850), mark a candidate without adding a monster.
+“远端厚矿” at the lowest right-side branch around (1230,995).
+
+Additional unlabeled terminal niches give different possible mining faces and places to turn back. Enlarge a few junctions modestly for orientation, but keep tunnels dominant. Vary dead-end silhouettes: narrow tilted wall pocket, low horizontal mineral shelf, offset working recess. Keep many rock masses between layers. The visual should communicate successive decisions about which branch to explore rather than simply following a long route to a single prize.

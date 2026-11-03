@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-01",
+  "scope": "Browser whitebox only; no Unity or production changes.",
+  "standalone": {
+    "file": "index.html",
+    "bytes": 38458,
+    "sha256": "2a95f66dbc64b424dcc33f5d046737fe6cd4c6266c7bc5b895456e2866076f67"
+  },
+  "fragment": {
+    "file": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\dualgrid-cave-exploration.html",
+    "bytes": 37393,
+    "sha256": "bb41dcebd4bb5684a29d38a3d85c71303ecf9aa0272ac59b80ef583160f208a7"
+  },
+  "sources": [
+    {
+      "file": "view.html",
+      "sha256": "3eb046833867c6350194c1d0b662ac5137ac6dadd8c1c7cde86e7101d0c92b98"
+    },
+    {
+      "file": "dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "layout.js",
+      "sha256": "02ac6304041120083085d0c541224a612e5ec2910dfc4c8433f55b73e93d3735"
+    },
+    {
+      "file": "player.js",
+      "sha256": "d5eef5d5ee71e9e8221bc6b3752449429ac5c008e3b20c5d1a4eda55fe43f2f7"
+    },
+    {
+      "file": "renderer.js",
+      "sha256": "866b08beb78e7291b421b42eab9bc688aa8566ae470430a60e1c35bf2f368e2d"
+    },
+    {
+      "file": "state.js",
+      "sha256": "e0e76c474c249918b8815e18ae36199ce375a606cdf8c417c66aef8bde8e3660"
+    },
+    {
+      "file": "app.js",
+      "sha256": "cd327cbf56000b95a2fc2309a67992d5813547079d6c222d4ea3aa0f0af82848"
+    },
+    {
+      "file": "build.cjs",
+      "sha256": "e3407e28199d14e6682f1c2224b92efefe1ec3e26670478f5102e48fdbec7a92"
+    }
+  ]
+}

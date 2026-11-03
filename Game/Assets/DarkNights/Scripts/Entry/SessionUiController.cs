@@ -60,7 +60,7 @@ namespace DarkNights.Entry
             button.onClick.Invoke();
         }
 
-        public async UniTask Initialize(SessionNetwork session, GameCatalog rules, PinewatchStage stage, SessionEntityViews entities, bool expedition = false)
+        public async UniTask Initialize(SessionNetwork session, GameCatalog rules, PinewatchStage stage, SessionEntityViews entities, bool expedition = false, Core.Physics.PhysicsWorldDefinition physics = null)
         {
             network = session;
             this.entities = entities;
@@ -99,7 +99,7 @@ namespace DarkNights.Entry
             hud.Configure(catalog, expedition);
             if (expedition) hud.MoveSessionControls(View("PauseMenu"));
             hero = gameObject.AddComponent<HeroPlayerController>();
-            hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities, catalog);
+            hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities, catalog, physics);
             if (expedition)
             {
                 trade = gameObject.AddComponent<ShipTradeHud>();
@@ -244,7 +244,7 @@ namespace DarkNights.Entry
                 else if (action == "Save") await network.Client.Send(SessionOperation.Save, value: saveSlot);
                 else if (action == "Load") await network.Client.Send(SessionOperation.BeginLoad, value: saveSlot);
             }
-            catch (Exception error) { main?.ReportFailure(error); Failed(error); }
+            catch (Exception error) { Debug.LogException(error); main?.ReportFailure(error); Failed(error); }
         }
 
         private void Switch(string value)
@@ -282,7 +282,7 @@ namespace DarkNights.Entry
         private void Failed(Exception error)
         {
             continuePending = false;
-            Debug.LogException(error);
+            // SessionNetwork记录完整异常，MainMenuCoordinator负责显示；这里仅撤销续档意图。
         }
 
         private T Behaviour<T>(string key) where T : MenuBehaviour => panels[key].GetAllBehaviors().OfType<T>().Single();

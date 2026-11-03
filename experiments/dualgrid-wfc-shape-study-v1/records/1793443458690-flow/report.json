@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-31",
+  "scope": "Continuous map explanation only; no Unity.",
+  "models": [
+    {
+      "seed": 271,
+      "history": 188,
+      "finalIdentity": true,
+      "macroPorts": true
+    },
+    {
+      "seed": 902,
+      "history": 178,
+      "finalIdentity": true,
+      "macroPorts": true
+    },
+    {
+      "seed": 1643,
+      "history": 179,
+      "finalIdentity": true,
+      "macroPorts": true
+    }
+  ],
+  "views": [
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 0,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 1,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 2,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 3,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 4,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "light",
+      "method": "dual",
+      "step": 5,
+      "camera": {
+        "scale": 14.071428571428571,
+        "ox": 30.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      },
+      "anchors": [
+        199.14285714285714,
+        452.4285714285714,
+        621.2857142857142
+      ]
+    }
+  ],
+  "layouts": [],
+  "errors": [
+    "this[method] is not a function",
+    "this[method] is not a function"
+  ],
+  "passed": false,
+  "failure": "frame.waitForFunction: Timeout 30000ms exceeded.\n    at settle (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\flow-verify.cjs:48:30)\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\flow-verify.cjs:58:77"
+}

@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-01",
+  "modules": ["CL-01", "CL-08"],
+  "owner": "Current map-art continuation chat / Local",
+  "purpose": "Three distinct underground mining environment concepts with new terrain palettes and material shapes, keeping the original protagonist's identity.",
+  "method": "Built-in image_gen.imagegen, one distinct concept per call.",
+  "methodReason": "Large painted environment exploration with character references; not low-resolution tile or collision-mask production.",
+  "requestedCanvas": [1536, 1024],
+  "nativeDimensions": "Record actual PNG size after generation; no resizing.",
+  "transparency": "Opaque complete landscapes.",
+  "commonEdges": "No shared-edge or tileability claim.",
+  "shapeAccuracy": "Natural supported side-view terrain and visible surface thickness; not exact authority/collision geometry.",
+  "inspectedOriginalParts": [
+    "../../角色/主角/images/head.png",
+    "../../角色/主角/images/body.png"
+  ],
+  "generationInputs": [
+    {"path": "../20261029-wfc-cave-kit/sources/hero-scale-reference.png", "role": "Authoritative original character silhouette, proportions, colors and face."},
+    {"path": "../../角色/主角/images/head.png", "role": "Original hand-drawn cyan head and gray segmented collar component."},
+    {"path": "../20261101-planet-to-mine-concepts/user-style-reference.png", "role": "Environment drawing style and depth hierarchy only; do not inherit its ochre/gray palette or boulder pattern."}
+  ],
+  "outputs": [
+    {"file": "01-terracotta-strata.png", "prompt": "prompt-01.txt", "direction": "Terracotta and dusty cream sedimentary rock with broad horizontal strata."},
+    {"file": "02-sage-slate.png", "prompt": "prompt-02.txt", "direction": "Muted sage and deep pine slate with oblique split plates."},
+    {"file": "03-moonwhite-salt.png", "prompt": "prompt-03.txt", "direction": "Moon-white salt rock with dusty lilac cavities and rounded eroded masses."}
+  ],
+  "characterInvariants": [
+    "Oversized cyan rounded hood and very small cyan torso and limbs.",
+    "Warm beige face opening, short angled eyebrows, upright dark eyes and a broad angular V mouth.",
+    "Original gray segmented neck rim, imperfect black contours, flat colors.",
+    "No visor glass, helmet redesign, backpack, headlamp, gloves or boots."
+  ],
+  "animationBoundary": "Static visual targets. Plants, waterfall/water and transient effects require independent production layers.",
+  "productionBoundary": "No Game, Spine source, YYGC, gameplay, tile atlas, WFC or Unity changes."
+}

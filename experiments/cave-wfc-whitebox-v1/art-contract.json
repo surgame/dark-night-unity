@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "status": "prototype; not production art approval",
+  "coordinateSystem": {
+    "x": "right",
+    "y": "down",
+    "corners": ["top-left", "top-right", "bottom-right", "bottom-left"],
+    "maskWeights": [1, 2, 4, 8],
+    "solid": "positive",
+    "air": "negative"
+  },
+  "catalog": {
+    "topologies": 16,
+    "scalarValues": [-3, -1, 1, 3],
+    "configurations": 256,
+    "edgeCrossings": [0.25, 0.5, 0.75],
+    "edgeReading": {
+      "N": ["top-left", "top-right"],
+      "E": ["top-right", "bottom-right"],
+      "S": ["bottom-left", "bottom-right"],
+      "W": ["top-left", "bottom-left"]
+    },
+    "matching": "The complete ordered pair of scalar indices must match, including magnitude."
+  },
+  "suggestedTemplate": {
+    "canvasPixels": [512, 512],
+    "lockedResolution": false,
+    "worldSize": "not chosen",
+    "transparentAir": true,
+    "projectionBackOffsetCells": [0.34, -0.3],
+    "edgeBandPixels": "not chosen; all compatible variants must share the same band",
+    "preserve": ["silhouette", "crossing position", "edge color", "alpha coverage", "surface thickness"],
+    "gravityAndLighting": "Do not rotate directional moss, roots, or baked lighting indiscriminately."
+  },
+  "artApproachStillToChoose": [
+    "Parameterized contour/edge strips with shared large rock fill",
+    "Explicit prepainted variants for supported edge profiles and slopes"
+  ],
+  "notGuaranteed": [
+    "Sixteen fixed images cover every scalar configuration",
+    "C1 tangent continuity at every join",
+    "Arbitrary shallow slopes",
+    "Unity collision or actor traversal",
+    "Infinite chunk streaming or runtime destruction"
+  ]
+}

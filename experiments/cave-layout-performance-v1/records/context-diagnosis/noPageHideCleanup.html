@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>洞网性能 · 预设房间与随机连接</title><style>
+:root{color-scheme:light dark;--background:light-dark(#f4f4f0,#181b1e);--foreground:light-dark(#252b2f,#e0e4e6);--muted-foreground:light-dark(#5b6368,#aab3b9);--font-size-base:14px;--border:light-dark(#bbc0c3,#4b5258);--ring:light-dark(#3c505c,#adc3ce)}
+body{margin:0;padding:28px 24px;background:var(--background);color:var(--foreground);font:14px/1.5 "Trebuchet MS","Microsoft YaHei",sans-serif}
+main{max-width:1180px;margin:auto}.btn,.form-select{color:var(--foreground);background:var(--background);border:1px solid color-mix(in srgb,var(--foreground) 22%,var(--background));border-radius:6px;padding:7px 11px;font:inherit}
+.btn{cursor:pointer}.btn[aria-pressed=true]{background:var(--foreground);color:var(--background)}.form-select{padding:5px 8px}
+input{accent-color:var(--foreground)}summary{cursor:pointer}@media(max-width:600px){body{padding:16px 12px}.btn{min-height:40px}}
+ .table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--border)}.table .text-end{text-align:right}.table-responsive{overflow-x:auto}.text-small{font-size:12px}.text-muted{color:var(--muted-foreground)}.table caption{text-align:left;padding:8px 0}.form-check{display:inline-flex;gap:5px}</style></head><body><main><div id="cave-layout-performance">
+  <style>
+    #cave-layout-performance{--cp-rock:color-mix(in srgb,var(--foreground) 22%,var(--background));--cp-edge:color-mix(in srgb,var(--foreground) 72%,var(--background));display:flex;flex-direction:column;gap:calc(var(--font-size-base)*.7);color:var(--foreground);overflow-wrap:anywhere}
+    #cave-layout-performance .cp-heading{padding-inline-end:90px}
+    #cave-layout-performance .cp-row{display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap}
+    #cave-layout-performance .cp-field{display:flex;gap:6px;align-items:center;min-width:0;max-width:100%}
+    #cave-layout-performance .cp-field select{max-width:100%}
+    #cave-layout-performance .cp-stage{position:relative;width:100%;aspect-ratio:1.6}
+    #cave-layout-performance .cp-stage canvas{position:absolute;width:100%;height:100%;display:block}
+    #cave-layout-performance #cp-overlay{pointer-events:none}
+    #cave-layout-performance .cp-caption{position:absolute;left:8px;top:8px;background:var(--background);padding:3px 6px;pointer-events:none}
+    #cave-layout-performance .cp-table{min-width:0;max-width:100%}
+    #cave-layout-performance .cp-table table{min-width:720px}
+    #cave-layout-performance .cp-table th:first-child,#cave-layout-performance .cp-table td:first-child{white-space:nowrap}
+    #cave-layout-performance .cp-meta{min-height:1.4em}
+    #cave-layout-performance progress{width:100%}
+  </style>
+  <div class="cp-heading">洞网性能 · 预设房间与随机连接</div>
+  <div class="cp-row">
+    <label class="cp-field">端口<select class="form-select" id="cp-profile"><option value="mixed">混合宽度</option><option value="standard">标准宽度</option></select></label>
+    <label class="cp-field">位置<select class="form-select" id="cp-size"><option value="128">128</option><option value="512" selected>512</option><option value="2048">2048</option></select></label>
+    <label class="cp-field">轮次<select class="form-select" id="cp-rounds"><option value="8">8</option><option value="16" selected>16</option><option value="32">32</option></select></label>
+  </div>
+  <div class="cp-row" aria-label="预览地形方式">
+    <button type="button" class="btn" data-method="contour" aria-pressed="false">连续轮廓</button>
+    <button type="button" class="btn" data-method="blocks" aria-pressed="false">大块直拼</button>
+    <button type="button" class="btn" data-method="bridges" aria-pressed="true">大块＋过渡</button>
+    <button type="button" class="btn" data-method="wfc" aria-pressed="false">大块WFC</button>
+  </div>
+  <div class="cp-row">
+    <label class="cp-field">预览<select class="form-select" id="cp-view"><option value="local" selected>固定房间近看</option><option value="all">完整洞网</option></select></label>
+    <label class="cp-field">绘制<select class="form-select" id="cp-policy"><option value="chunks">统一分块</option><option value="instances">模板实例复用</option></select></label>
+    <button type="button" class="btn" id="cp-seed">换种子</button>
+  </div>
+  <div class="cp-stage">
+    <canvas id="cp-scene" aria-label="当前随机洞网的实际WebGL2网格，方框标出保持原样的预设房间"></canvas>
+    <canvas id="cp-overlay" aria-hidden="true"></canvas><span id="cp-caption" class="cp-caption text-small"></span>
+  </div>
+  <div id="cp-plan" class="text-small cp-meta"></div>
+  <div class="cp-row">
+    <button type="button" class="btn btn-primary" id="cp-run">测当前规模</button>
+    <button type="button" class="btn" id="cp-all">测三档规模</button>
+    <button type="button" class="btn" id="cp-cancel" hidden>停止</button>
+    <button type="button" class="btn" id="cp-export">导出报告</button>
+  </div>
+  <progress id="cp-progress" max="1" value="0" hidden aria-label="基准测试进度"></progress>
+  <div class="text-small" id="cp-status" role="status" aria-live="polite"></div>
+  <div class="text-small text-muted" id="cp-hardware"></div>
+  <div class="text-small" id="cp-source"></div>
+  <div class="cp-table table-responsive">
+    <table class="table table-sm tabular-nums">
+      <caption>时间：CPU阶段P50；完成时间P50／P95（毫秒）</caption>
+      <thead><tr><th>方案</th><th class="text-end">生成</th><th class="text-end">几何</th><th class="text-end">分块</th><th class="text-end">冷CPU合计</th><th class="text-end">上传完成</th><th class="text-end">分块绘制</th><th class="text-end">实例绘制</th></tr></thead>
+      <tbody id="cp-times"></tbody>
+    </table>
+  </div>
+  <div class="cp-table table-responsive">
+    <table class="table table-sm tabular-nums">
+      <caption>资源：代表图种子；形状配置不等于手绘tile</caption>
+      <thead><tr><th>方案</th><th class="text-end">预设房型<br>用／库</th><th class="text-end">额外形状<br>用／库</th><th class="text-end">地图实例</th><th class="text-end">缓冲顶点<br>分块／源库</th><th class="text-end">有效载荷MiB<br>分块／复用</th></tr></thead>
+      <tbody id="cp-resources"></tbody>
+    </table>
+  </div>
+  <div class="text-small text-muted">960×600输出 · 256×160固定相机 · 绘制含GPU同步 · 无贴图／物理／照明／联网 · 浏览器结果不等同Unity帧率</div>
+  <div class="text-small text-muted">每轮新种子、新几何缓存；复用指同图模块实例。连续轮廓不另建terrain tile库，仍需材质与预设内容。</div>
+  <div class="text-small text-destructive" id="cp-error" role="alert" hidden></div>
+</div>
+
+<script>
+(function (root) {
+  "use strict";
+  const C = root.CaveWhitebox = {};
+  const P = [
+    [], [[[0,0],[.5,0],[0,.5]]], [[[.5,0],[1,0],[1,.5]]],
+    [[[0,0],[1,0],[1,.5],[0,.5]]], [[[1,.5],[1,1],[.5,1]]],
+    [[[0,0],[.5,0],[0,.5]],[[1,.5],[1,1],[.5,1]]],
+    [[[.5,0],[1,0],[1,1],[.5,1]]],
+    [[[0,0],[1,0],[1,1],[.5,1],[0,.5]]],
+    [[[0,.5],[.5,1],[0,1]]], [[[0,0],[.5,0],[.5,1],[0,1]]],
+    [[[.5,0],[1,0],[1,.5]],[[0,.5],[.5,1],[0,1]]],
+    [[[0,0],[1,0],[1,.5],[.5,1],[0,1]]],
+    [[[0,.5],[1,.5],[1,1],[0,1]]],
+    [[[0,0],[.5,0],[1,.5],[1,1],[0,1]]],
+    [[[0,.5],[.5,0],[1,0],[1,1],[0,1]]],
+    [[[0,0],[1,0],[1,1],[0,1]]]
+  ];
+  const side = (a,b) => a[0] === b[0] && (a[0] === 0 || a[0] === 1) ||
+    a[1] === b[1] && (a[1] === 0 || a[1] === 1);
+  C.clamp = (x,a,b) => Math.min(b,Math.max(a,x));
+  C.mix = (a,b,t) => a+(b-a)*t;
+  C.templates = P.map((polygons,mask) => {
+    const boundaries = [];
+    for (const p of polygons) for (let i=0;i<p.length;i++) {
+      const a=p[i],b=p[(i+1)%p.length];
+      if (side(a,b)) continue;
+      const edge={a,b};
+      if (a[0] !== b[0] && a[1] !== b[1]) {
+        edge.center=[a[0] === .5 ? b[0] : a[0],a[1] === .5 ? b[1] : a[1]];
+        edge.start=Math.atan2(a[1]-edge.center[1],a[0]-edge.center[0]);
+        edge.end=Math.atan2(b[1]-edge.center[1],b[0]-edge.center[0]);
+        let delta=edge.end-edge.start;
+        while (delta > Math.PI) delta-=Math.PI*2;
+        while (delta < -Math.PI) delta+=Math.PI*2;
+        edge.negative=delta < 0;
+      }
+      boundaries.push(edge);
+    }
+    return {mask,polygons,boundaries};
+  });
+  function segment(ctx,a,b,size) {
+    if (side(a,b) || a[0] === b[0] || a[1] === b[1]) {
+      ctx.lineTo(b[0]*size,b[1]*size);
+      return;
+    }
+    const cx=a[0] === .5 ? b[0] : a[0],cy=a[1] === .5 ? b[1] : a[1];
+    const start=Math.atan2(a[1]-cy,a[0]-cx),end=Math.atan2(b[1]-cy,b[0]-cx);
+    let delta=end-start;
+    while (delta > Math.PI) delta-=2*Math.PI;
+    while (delta < -Math.PI) delta+=2*Math.PI;
+    ctx.arc(cx*size,cy*size,.5*size,start,end,delta<0);
+  }
+  C.paintTile = function (ctx,mask,size,palette) {
+    const t=C.templates[mask];
+    ctx.beginPath();
+    for (const polygon of t.polygons) {
+      ctx.moveTo(polygon[0][0]*size,polygon[0][1]*size);
+      for (let i=0;i<polygon.length;i++) segment(ctx,polygon[i],polygon[(i+1)%polygon.length],size);
+      ctx.closePath();
+    }
+    ctx.fillStyle=palette.rock;ctx.fill();
+    ctx.beginPath();
+    for (const e of t.boundaries) {
+      ctx.moveTo(e.a[0]*size,e.a[1]*size);
+      if (e.center) ctx.arc(e.center[0]*size,e.center[1]*size,size*.5,e.start,e.end,e.negative);
+      else ctx.lineTo(e.b[0]*size,e.b[1]*size);
+    }
+    ctx.strokeStyle=palette.edge;ctx.lineWidth=size*.065;
+    ctx.lineCap="round";ctx.lineJoin="round";ctx.stroke();
+  };
+  // The analytic circle tests match the rendered quarter-circle boundaries.
+  C.inside = function (mask,x,y) {
+    const circle=(cx,cy)=>(x-cx)**2+(y-cy)**2 <= .25;
+    switch (mask) {
+      case 0:return false; case 15:return true;
+      case 1:return circle(0,0); case 2:return circle(1,0);
+      case 4:return circle(1,1); case 8:return circle(0,1);
+      case 14:return !circle(0,0); case 13:return !circle(1,0);
+      case 11:return !circle(1,1); case 7:return !circle(0,1);
+      case 3:return y<=.5; case 12:return y>=.5;
+      case 6:return x>=.5; case 9:return x<=.5;
+      case 5:return circle(0,0)||circle(1,1);
+      case 10:return circle(1,0)||circle(0,1);
+      default:return false;
+    }
+  };
+  C.maskAt = function (w,x,y) {
+    const i=y*(w.width+1)+x,d=w.data,n=w.width+1;
+    return d[i]|d[i+1]<<1|d[i+n+1]<<2|d[i+n]<<3;
+  };
+  C.solid = function (w,x,y) {
+    const ix=Math.floor(x),iy=Math.floor(y);
+    if (ix<0 || iy<0 || ix>=w.width || iy>=w.height) return true;
+    return C.inside(C.maskAt(w,ix,iy),x-ix,y-iy);
+  };
+  C.floorAt = function (w,x,from,max=16) {
+    let previous=from;
+    for (let y=from+.1;y<=from+max;y+=.1) {
+      if (C.solid(w,x,y)) {
+        let lo=previous,hi=y;
+        for (let j=0;j<12;j++) { const mid=(lo+hi)/2; if (C.solid(w,x,mid)) hi=mid; else lo=mid; }
+        return lo;
+      }
+      previous=y;
+    }
+    return null;
+  };
+  C.dig = function (world,x,y,radius=1.25) {
+    const changed=[],dirty=new Set(),n=world.width+1;
+    for (let iy=Math.floor(y-radius);iy<=Math.ceil(y+radius);iy++)
+      for (let ix=Math.floor(x-radius);ix<=Math.ceil(x+radius);ix++) {
+        if (ix<2 || iy<2 || ix>world.width-2 || iy>world.height-2) continue;
+        const index=iy*n+ix;
+        if ((ix-x)**2+(iy-y)**2>radius**2 || !world.data[index]) continue;
+        world.data[index]=0;changed.push(index);world.cuts.add(index);
+        for (const dx of [-1,0]) for (const dy of [-1,0])
+          if (ix+dx>=0 && iy+dy>=0 && ix+dx<world.width && iy+dy<world.height)
+            dirty.add((iy+dy)*world.width+ix+dx);
+      }
+    if (changed.length) world.revision++;
+    return {changed,dirty:[...dirty]};
+  };
+})(globalThis);
+
+</script>
+<script>
+(function(root) {
+  "use strict";
+  const P=root.CavePerf={cell:32,step:2,chunk:64,
+    methods:["contour","blocks","bridges","wfc"],
+    names:{contour:"连续轮廓",blocks:"大块直拼",bridges:"大块＋过渡",wfc:"大块WFC"},
+    directions:[[0,-1],[1,0],[0,1],[-1,0]]};
+  P.hash=function(v) {v=Math.imul(v^(v>>>16),0x7FEB352D);v=Math.imul(v^(v>>>15),0x846CA68B);return (v^(v>>>16))>>>0;};
+  P.random=function(seed) {let s=seed>>>0;return ()=>{s=P.hash(s+0x9E3779B9);return s/4294967296;};};
+  P.key=(mask,code,variant)=>"m:"+mask+":"+code+":"+variant;
+  P.port=(code,d)=>(code>>d)&1;
+  P.width=state=>state?4.5:3;
+  P.catalog=[];
+  for(let mask=0;mask<16;mask++) for(let code=0;code<16;code++) {
+    if(code&~mask) continue;
+    for(let variant=0;variant<3;variant++)
+      P.catalog.push({id:P.catalog.length,mask,code,variant,weight:[1.2,1,.8][variant]});
+  }
+  P.definition=function(mask,style,profile) {
+    const code=profile==="standard"?mask:(P.hash(mask*313+style*7159)&mask);
+    return {mask,code,variant:style,pin:true,key:"p:"+mask+":"+style+":"+profile,size:32};
+  };
+  P.makePlan=function(count=128,seed=271,profile="mixed") {
+    const dimensions=count<=128?[16,12]:count<=512?[32,24]:[64,48];
+    const [columns,rows]=dimensions,rng=P.random(seed),lookup=new Int32Array(columns*rows).fill(-1);
+    const nodes=[],stack=[];
+    function add(x,y,parent) {
+      const node={id:nodes.length,x,y,mask:0,neighbors:[-1,-1,-1,-1],pin:false};
+      lookup[y*columns+x]=node.id;nodes.push(node);stack.push(node.id);
+      if(parent) connect(parent,node);
+      return node;
+    }
+    function connect(a,b) {
+      const dx=b.x-a.x,dy=b.y-a.y;
+      const d=dx===1?1:dx===-1?3:dy===1?2:0;
+      a.mask|=1<<d;b.mask|=1<<((d+2)%4);
+      a.neighbors[d]=b.id;b.neighbors[(d+2)%4]=a.id;
+    }
+    add(1,1,null);
+    while(nodes.length<count) {
+      const node=nodes[stack[stack.length-1]],available=[];
+      for(let d=0;d<4;d++) {
+        const x=node.x+P.directions[d][0],y=node.y+P.directions[d][1];
+        if(x>=0&&y>=0&&x<columns&&y<rows&&lookup[y*columns+x]<0) available.push([x,y]);
+      }
+      if(!available.length) {stack.pop();continue;}
+      const point=available[Math.floor(rng()*available.length)];add(...point,node);
+    }
+    for(const node of nodes) for(const d of [1,2]) {
+      const x=node.x+P.directions[d][0],y=node.y+P.directions[d][1];
+      if(x>=columns||y>=rows) continue;
+      const other=lookup[y*columns+x];
+      if(other>=0&&node.neighbors[d]<0&&rng()<.24) connect(node,nodes[other]);
+    }
+    for(const node of nodes) if((node.x+node.y)%2===0&&rng()<.6) {
+      node.pin=true;node.definition=P.definition(node.mask,Math.floor(rng()*2),profile);
+    }
+    const edges=[];
+    for(const node of nodes) for(const d of [1,2]) if(node.neighbors[d]>=0)
+      edges.push({a:node.id,b:node.neighbors[d],direction:d});
+    const pinTypes=new Set(nodes.filter(n=>n.pin).map(n=>n.definition.key));
+    const pinned=nodes.filter(n=>n.pin).sort((a,b)=>
+      Math.hypot(a.x-columns/2,a.y-rows/2)-Math.hypot(b.x-columns/2,b.y-rows/2))[0]||nodes[0];
+    return {count,seed,profile,columns,rows,nodes,edges,lookup,pinTypes:pinTypes.size,
+      pins:nodes.filter(n=>n.pin).length,loops:edges.length-count+1,
+      focus:{x:pinned.x*32+16,y:pinned.y*32+16},width:columns*32,height:rows*32};
+  };
+  P.fixedCodes=function(plan) {
+    const codes=plan.nodes.map(n=>n.pin?n.definition.code:n.mask);
+    for(const edge of plan.edges) {
+      const a=plan.nodes[edge.a],b=plan.nodes[edge.b],d=edge.direction,o=(d+2)%4;
+      const value=a.pin?P.port(a.definition.code,d):b.pin?P.port(b.definition.code,o):1;
+      codes[a.id]=(codes[a.id]&~(1<<d))|(value<<d);
+      codes[b.id]=(codes[b.id]&~(1<<o))|(value<<o);
+    }
+    return codes;
+  };
+  P.select=function(plan,method) {
+    const started=performance.now(),rng=P.random(plan.seed^0xB113A),codes=P.fixedCodes(plan);
+    const solution=method==="wfc"?P.solve(plan):null;
+    const choices=plan.nodes.map(node=>{
+      if(node.pin) return {...node.definition,node:node.id,x:node.x*32,y:node.y*32};
+      const chosen=solution?P.catalog[solution.ids[node.id]]:{
+        mask:node.mask,code:method==="bridges"?node.mask:codes[node.id],
+        variant:Math.floor(rng()*3)};
+      const size=method==="bridges"?24:32,pad=(32-size)/2;
+      return {...chosen,size,pin:false,node:node.id,x:node.x*32+pad,y:node.y*32+pad,
+        key:(size===24?"c:":"")+P.key(chosen.mask,chosen.code,chosen.variant)};
+    });
+    const connectors=[];
+    if(method==="bridges") for(const edge of plan.edges) {
+      const a=choices[edge.a],b=choices[edge.b],d=edge.direction,o=(d+2)%4;
+      const length=32-(a.size+b.size)/2;if(!length) continue;
+      const from=P.port(a.code,d),to=P.port(b.code,o),variant=Math.floor(rng()*3);
+      connectors.push({kind:"bridge",length,from,to,variant,vertical:d===2,
+        x:plan.nodes[edge.a].x*32+16+(d===1?a.size/2:0),
+        y:plan.nodes[edge.a].y*32+16+(d===2?a.size/2:0),
+        key:"b:"+length+":"+from+":"+to+":"+variant+":"+d});
+    }
+    return {plan,method,choices,connectors,solution,genMs:performance.now()-started};
+  };
+})(globalThis);
+
+</script>
+<script>
+(function(P) {
+  "use strict";
+  function entropy(ids) {
+    let sum=0,log=0;
+    for(const id of ids) {const w=P.catalog[id].weight;sum+=w;log+=w*Math.log(w);}
+    return Math.log(sum)-log/sum;
+  }
+  P.solve=function(plan) {
+    const rng=P.random(plan.seed^0x7C11),versions=new Uint32Array(plan.count),heap=[];
+    const stats={observations:0,propagations:0,removed:0,peakDomainValues:0};
+    const domains=plan.nodes.map(node=>{
+      const ids=P.catalog.filter(c=>c.mask===node.mask&&
+        (plan.profile!=="standard"||c.code===node.mask)&&
+        (!node.pin||(c.code===node.definition.code&&c.variant===node.definition.variant))).map(c=>c.id);
+      stats.peakDomainValues+=ids.length;return ids;
+    });
+    function push(i) {
+      versions[i]++;if(domains[i].length<2) return;
+      const entry={i,version:versions[i],value:entropy(domains[i])+i*1e-10};
+      let at=heap.length;heap.push(entry);
+      while(at) {const parent=(at-1)>>1;if(heap[parent].value<=entry.value) break;
+        heap[at]=heap[parent];at=parent;heap[at]=entry;}
+    }
+    function pop() {
+      while(heap.length) {
+        const first=heap[0],last=heap.pop();
+        if(heap.length) {
+          let at=0;heap[0]=last;
+          while(true) {
+            let child=at*2+1;if(child>=heap.length) break;
+            if(child+1<heap.length&&heap[child+1].value<heap[child].value) child++;
+            if(heap[at].value<=heap[child].value) break;
+            [heap[at],heap[child]]=[heap[child],heap[at]];at=child;
+          }
+        }
+        if(first.version===versions[first.i]&&domains[first.i].length>1) return first.i;
+      }
+      return -1;
+    }
+    function propagate(queue) {
+      let cursor=0;
+      while(cursor<queue.length) {
+        const index=queue[cursor++],node=plan.nodes[index];
+        for(let d=0;d<4;d++) {
+          const at=node.neighbors[d];if(at<0) continue;
+          let ports=0;for(const id of domains[index]) ports|=1<<P.port(P.catalog[id].code,d);
+          const next=domains[at].filter(id=>ports&(1<<P.port(P.catalog[id].code,(d+2)%4)));
+          stats.propagations++;
+          if(!next.length) throw Error("预设端口冲突，未安装回退地图。");
+          if(next.length!==domains[at].length) {
+            stats.removed+=domains[at].length-next.length;domains[at]=next;push(at);queue.push(at);
+          }
+        }
+      }
+    }
+    domains.forEach((_,i)=>push(i));propagate(plan.nodes.map(n=>n.id));
+    while(true) {
+      const best=pop();if(best<0) break;
+      const options=domains[best];let roll=rng()*options.reduce((s,id)=>s+P.catalog[id].weight,0);
+      let chosen=options[options.length-1];
+      for(const id of options) {roll-=P.catalog[id].weight;if(roll<=0) {chosen=id;break;}}
+      domains[best]=[chosen];versions[best]++;stats.observations++;propagate([best]);
+    }
+    const ids=domains.map(d=>d[0]);
+    for(const edge of plan.edges) {
+      const a=P.catalog[ids[edge.a]],b=P.catalog[ids[edge.b]];
+      if(P.port(a.code,edge.direction)!==P.port(b.code,(edge.direction+2)%4))
+        throw Error("WFC结果端口不一致。");
+    }
+    return {ids,stats};
+  };
+})(globalThis.CavePerf);
+
+</script>
+<script>
+(function(P) {
+  "use strict";
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  function roundedBox(x,y,rx,ry,r) {
+    const qx=Math.abs(x)-rx+r,qy=Math.abs(y)-ry+r;
+    return r-Math.hypot(Math.max(qx,0),Math.max(qy,0))-Math.min(Math.max(qx,qy),0);
+  }
+  P.moduleField=function(def,x,y,noise=0) {
+    const size=def.size,c=size/2,variant=def.variant;
+    const rx=size*(def.pin?.34:.25)+(def.pin?0:noise*1.7);
+    const ry=size*(def.pin?.22:.20)+(variant-1)*.9+(def.pin?0:noise*.8);
+    let value=roundedBox(x-c,y-c,rx,ry,variant===0?1.8:variant===1?3.8:2.7);
+    for(let d=0;d<4;d++) {
+      if(!(def.mask&(1<<d))) continue;
+      const along=d===0?c-y:d===1?x-c:d===2?y-c:c-x;
+      if(along<0) continue;
+      const t=clamp(along/c,0,1),bend=(variant-1)*1.5*Math.sin(Math.PI*t)**2;
+      const sideways=d%2?y-c:x-c;
+      const width=P.width(P.port(def.code,d))*(1+.10*Math.sin(Math.PI*t)**2);
+      const corridor=Math.min(width-Math.abs(sideways-bend),along+1);
+      value=Math.max(value,corridor);
+    }
+    return value;
+  };
+  P.makeField=function(generated) {
+    const plan=generated.plan,w=plan.columns*16+1,h=plan.rows*16+1;
+    let data=new Float32Array(w*h).fill(-50);
+    const frozen=new Uint8Array(w*h);
+    for(const choice of generated.choices) {
+      const node=plan.nodes[choice.node],noise=(P.hash(plan.seed^node.id*1777)/4294967296-.5)*2;
+      for(let y=0;y<=16;y++) for(let x=0;x<=16;x++) {
+        const at=(node.y*16+y)*w+node.x*16+x;
+        const v=P.moduleField(choice,x*2,y*2,choice.pin?0:noise);
+        if(choice.pin) {data[at]=v;frozen[at]=1;}
+        else if(!frozen[at]&&v>data[at]) data[at]=v;
+      }
+    }
+    let next=new Float32Array(data.length);
+    for(let pass=0;pass<2;pass++) {
+      next.set(data);
+      for(let y=1;y<h-1;y++) for(let x=1;x<w-1;x++) {
+        const i=y*w+x;if(frozen[i]) continue;
+        next[i]=data[i]*.5+(data[i-1]+data[i+1]+data[i-w]+data[i+w])*.125;
+      }
+      [data,next]=[next,data];
+    }
+    return {data,frozen,width:w,height:h};
+  };
+  P.generate=function(plan,method) {
+    const started=performance.now(),g=P.select(plan,method);
+    if(method==="contour") g.field=P.makeField(g);
+    g.genMs=performance.now()-started;return g;
+  };
+})(globalThis.CavePerf);
+
+</script>
+<script>
+(function(P,C) {
+  "use strict";
+  function vertex(p,values) {
+    if(p[0]!==.5&&p[1]!==.5) return p;
+    let a,b;
+    if(p[1]===0) {a=0;b=1;} else if(p[0]===1) {a=1;b=2;}
+    else if(p[1]===1) {a=3;b=2;} else {a=0;b=3;}
+    const t=values[a]/(values[a]-values[b]);
+    return p[1]===0||p[1]===1?[t,p[1]]:[p[0],t];
+  }
+  const side=(a,b)=>a[0]===b[0]&&(a[0]===0||a[0]===1)||
+    a[1]===b[1]&&(a[1]===0||a[1]===1);
+  P.meshRegion=function(data,stride,x0,y0,nx,ny,step,ox=0,oy=0) {
+    const triangles=[],lines=[];
+    function sample(x,y) {const i=(y+y0)*stride+x+x0;return [data[i],data[i+1],data[i+stride+1],data[i+stride]];}
+    const mask=values=>values.reduce((bits,v,i)=>bits|(v>0?1<<i:0),0);
+    const add=(target,p,x,y)=>target.push(ox+(x+p[0])*step,oy+(y+p[1])*step);
+    for(let y=0;y<ny;y++) for(let x=0;x<nx;x++) {
+      const values=sample(x,y),bits=mask(values);if(!bits) continue;
+      if(bits===15) {
+        let run=1;while(x+run<nx&&mask(sample(x+run,y))===15) run++;
+        triangles.push(ox+x*step,oy+y*step,ox+(x+run)*step,oy+y*step,
+          ox+(x+run)*step,oy+(y+1)*step,ox+x*step,oy+y*step,
+          ox+(x+run)*step,oy+(y+1)*step,ox+x*step,oy+(y+1)*step);
+        x+=run-1;continue;
+      }
+      for(const original of C.templates[bits].polygons) {
+        const points=original.map(p=>vertex(p,values));
+        for(let i=1;i<points.length-1;i++) {
+          add(triangles,points[0],x,y);add(triangles,points[i],x,y);add(triangles,points[i+1],x,y);
+        }
+        for(let i=0;i<points.length;i++) if(!side(original[i],original[(i+1)%points.length])) {
+          add(lines,points[i],x,y);add(lines,points[(i+1)%points.length],x,y);
+        }
+      }
+    }
+    return {triangles:new Float32Array(triangles),lines:new Float32Array(lines),
+      bounds:{x0:ox,y0:oy,x1:ox+nx*step,y1:oy+ny*step}};
+  };
+  P.moduleMesh=function(def) {
+    const n=def.size/2,stride=n+1,field=new Float32Array(stride*stride);
+    for(let y=0;y<=n;y++) for(let x=0;x<=n;x++)
+      field[y*stride+x]=P.moduleField(def,x*2,y*2);
+    return P.meshRegion(field,stride,0,0,n,n,2);
+  };
+  P.bridgeMesh=function(def) {
+    const triangles=[],lines=[],count=Math.max(2,Math.ceil(def.length/2));
+    const point=(x,y)=>def.vertical?[y,x]:[x,y];
+    const from=P.width(def.from),to=P.width(def.to);
+    function half(t) {
+      const u=t*t*t*(10-15*t+6*t*t);
+      return from+(to-from)*u+(def.variant-1)*.35*Math.sin(Math.PI*t)**2;
+    }
+    function add(target,p) {target.push(...point(...p));}
+    for(let i=0;i<count;i++) {
+      const a=i/count,b=(i+1)/count,pa=[def.length*a,-half(a)],qa=[def.length*a,half(a)];
+      const pb=[def.length*b,-half(b)],qb=[def.length*b,half(b)];
+      for(const p of [pa,pb,qb,pa,qb,qa]) add(triangles,p);
+      for(const p of [pa,pb,qa,qb]) add(lines,p);
+    }
+    const r=Math.max(from,to)+.35;
+    return {triangles:new Float32Array(triangles),lines:new Float32Array(lines),
+      bounds:def.vertical?{x0:-r,y0:0,x1:r,y1:def.length}:{x0:0,y0:-r,x1:def.length,y1:r}};
+  };
+  P.prepare=function(g) {
+    const started=performance.now(),sources=new Map(),instances=[];
+    if(g.field) {
+      const f=g.field;
+      for(let y=0;y<f.height-1;y+=32) for(let x=0;x<f.width-1;x+=32) {
+        const mesh=P.meshRegion(f.data,f.width,x,y,Math.min(32,f.width-1-x),
+          Math.min(32,f.height-1-y),2,x*2,y*2);
+        if(!mesh.triangles.length) continue;
+        const key="u:"+x+":"+y;sources.set(key,mesh);instances.push({key,x:0,y:0});
+      }
+    } else for(const def of g.choices.concat(g.connectors)) {
+      if(!sources.has(def.key)) sources.set(def.key,def.kind==="bridge"?P.bridgeMesh(def):P.moduleMesh(def));
+      instances.push({key:def.key,x:def.x,y:def.y});
+    }
+    return {g,sources,instances,geometryMs:performance.now()-started,chunks:null};
+  };
+  P.bake=function(prepared) {
+    const started=performance.now(),{g,sources,instances}=prepared,groups=new Map();
+    if(g.field) prepared.chunks=[...sources.values()];
+    else {
+      for(const instance of instances) {
+        const source=sources.get(instance.key),b=source.bounds;
+        const cx=(b.x0+b.x1)/2+instance.x,cy=(b.y0+b.y1)/2+instance.y;
+        const key=Math.floor(cx/P.chunk)+":"+Math.floor(cy/P.chunk);
+        if(!groups.has(key)) groups.set(key,{triangles:[],lines:[],
+          bounds:{x0:Infinity,y0:Infinity,x1:-Infinity,y1:-Infinity}});
+        const chunk=groups.get(key);
+        for(const field of ["triangles","lines"]) {
+          const vertices=source[field],out=chunk[field];
+          for(let i=0;i<vertices.length;i+=2) out.push(vertices[i]+instance.x,vertices[i+1]+instance.y);
+        }
+        chunk.bounds.x0=Math.min(chunk.bounds.x0,b.x0+instance.x);
+        chunk.bounds.y0=Math.min(chunk.bounds.y0,b.y0+instance.y);
+        chunk.bounds.x1=Math.max(chunk.bounds.x1,b.x1+instance.x);
+        chunk.bounds.y1=Math.max(chunk.bounds.y1,b.y1+instance.y);
+      }
+      prepared.chunks=[...groups.values()].map(c=>({...c,
+        triangles:new Float32Array(c.triangles),lines:new Float32Array(c.lines)}));
+    }
+    prepared.chunkMs=performance.now()-started;return prepared;
+  };
+  P.resources=function(p) {
+    const source=[...p.sources.values()],bytes=m=>m.triangles.byteLength+m.lines.byteLength;
+    const sourceBytes=source.reduce((s,m)=>s+bytes(m),0),chunkBytes=p.chunks.reduce((s,m)=>s+bytes(m),0);
+    const freeKeys=[...p.sources.keys()].filter(k=>!k.startsWith("p:")&&!k.startsWith("u:"));
+    const profile=p.g.plan.profile,method=p.g.method;
+    return {presetUsed:p.g.plan.pinTypes,presetLibrary:32,freeUsed:freeKeys.length,
+      freeLibrary:method==="contour"?0:method==="bridges"?(profile==="standard"?60:72):
+        profile==="standard"?48:243,
+      instances:p.instances.length,sourceVertices:sourceBytes/8,chunkVertices:chunkBytes/8,
+      sourceBytes:sourceBytes+(p.g.field?0:p.instances.length*8),chunkBytes,
+      chunks:p.chunks.length,fieldBytes:p.g.field?
+        p.g.field.data.byteLength+p.g.field.frozen.byteLength:0};
+  };
+})(globalThis.CavePerf,globalThis.CaveWhitebox);
+
+</script>
+<script>
+(function(P) {
+  "use strict";
+  P.createGPU=function(canvas) {
+    canvas.width=960;canvas.height=600;
+    const gl=canvas.getContext("webgl2",{alpha:false,antialias:false,preserveDrawingBuffer:true});
+    if(!gl) throw Error("此浏览器未提供WebGL2，未伪造绘制结果。");
+    function shader(type,text) {
+      const s=gl.createShader(type);gl.shaderSource(s,text);gl.compileShader(s);
+      if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw Error(gl.getShaderInfoLog(s));return s;
+    }
+    const vs=shader(gl.VERTEX_SHADER,`#version 300 es
+      layout(location=0) in vec2 position;layout(location=1) in vec2 offset;
+      uniform vec2 camera;uniform vec2 span;
+      void main(){vec2 p=(position+offset-camera)*2.0/span;gl_Position=vec4(p.x,-p.y,0,1);}`);
+    const fs=shader(gl.FRAGMENT_SHADER,`#version 300 es
+      precision mediump float;uniform vec3 color;out vec4 result;
+      void main(){result=vec4(color,1);}`);
+    const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
+    if(!gl.getProgramParameter(program,gl.LINK_STATUS)) throw Error(gl.getProgramInfoLog(program));
+    gl.deleteShader(vs);gl.deleteShader(fs);
+    const uniforms={camera:gl.getUniformLocation(program,"camera"),
+      span:gl.getUniformLocation(program,"span"),color:gl.getUniformLocation(program,"color")};
+    let palette={rock:[.6,.6,.6],air:[.95,.95,.95],edge:[.2,.2,.2]};
+    const debug=gl.getExtension("WEBGL_debug_renderer_info");
+    const renderer=debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER);
+    const identity={renderer,vendor:debug?gl.getParameter(debug.UNMASKED_VENDOR_WEBGL):gl.getParameter(gl.VENDOR),
+      version:gl.getParameter(gl.VERSION),software:/swiftshader|llvmpipe|software/i.test(renderer),
+      output:[960,600]};
+    function buffer(data,owned) {
+      const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);
+      owned.push({buffer:b,bytes:data.byteLength});return b;
+    }
+    function upload(mesh,owned) {
+      return {triangles:buffer(mesh.triangles,owned),lines:buffer(mesh.lines,owned),
+        triangleCount:mesh.triangles.length/2,lineCount:mesh.lines.length/2,bounds:mesh.bounds};
+    }
+    function build(prepared) {
+      const started=performance.now(),owned=[];
+      const chunks=prepared.chunks.map(m=>upload(m,owned));
+      let batches=chunks;
+      if(prepared.g.method!=="contour") {
+        const sources=new Map([...prepared.sources].map(([key,m])=>[key,upload(m,owned)])),groups=new Map();
+        for(const item of prepared.instances) {
+          const source=sources.get(item.key),b=source.bounds;
+          const cx=(b.x0+b.x1)/2+item.x,cy=(b.y0+b.y1)/2+item.y;
+          const key=item.key+":"+Math.floor(cx/64)+":"+Math.floor(cy/64);
+          if(!groups.has(key)) groups.set(key,{source,positions:[],
+            bounds:{x0:Infinity,y0:Infinity,x1:-Infinity,y1:-Infinity}});
+          const group=groups.get(key);group.positions.push(item.x,item.y);
+          for(const axis of ["x","y"]) {
+            group.bounds[axis+"0"]=Math.min(group.bounds[axis+"0"],b[axis+"0"]+item[axis]);
+            group.bounds[axis+"1"]=Math.max(group.bounds[axis+"1"],b[axis+"1"]+item[axis]);
+          }
+        }
+        batches=[...groups.values()].map(g=>({...g.source,bounds:g.bounds,
+          offsetBuffer:buffer(new Float32Array(g.positions),owned),instances:g.positions.length/2}));
+      }
+      gl.finish();
+      return {chunks,batches,uploadMs:performance.now()-started,
+        uploadBytes:owned.reduce((s,b)=>s+b.bytes,0),
+        dispose:()=>owned.forEach(b=>gl.deleteBuffer(b.buffer))};
+    }
+    function render(scene,policy,camera) {
+      gl.viewport(0,0,960,600);gl.disable(gl.DEPTH_TEST);gl.disable(gl.BLEND);
+      gl.clearColor(...palette.rock,1);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);
+      gl.uniform2f(uniforms.camera,camera.x,camera.y);gl.uniform2f(uniforms.span,camera.width,camera.height);
+      const visible=(policy==="instances"?scene.batches:scene.chunks).filter(m=>
+        m.bounds.x1>=camera.x-camera.width/2&&m.bounds.x0<=camera.x+camera.width/2&&
+        m.bounds.y1>=camera.y-camera.height/2&&m.bounds.y0<=camera.y+camera.height/2);
+      let calls=0,vertices=0;
+      for(const [field,count,primitive,color] of [
+        ["triangles","triangleCount",gl.TRIANGLES,palette.air],["lines","lineCount",gl.LINES,palette.edge]]) {
+        gl.uniform3fv(uniforms.color,color);
+        for(const mesh of visible) {
+          if(!mesh[count]) continue;
+          gl.bindBuffer(gl.ARRAY_BUFFER,mesh[field]);gl.enableVertexAttribArray(0);
+          gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);
+          if(mesh.offsetBuffer) {
+            gl.bindBuffer(gl.ARRAY_BUFFER,mesh.offsetBuffer);gl.enableVertexAttribArray(1);
+            gl.vertexAttribPointer(1,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(1,1);
+            gl.drawArraysInstanced(primitive,0,mesh[count],mesh.instances);vertices+=mesh[count]*mesh.instances;
+          } else {
+            gl.disableVertexAttribArray(1);gl.vertexAttrib2f(1,0,0);gl.vertexAttribDivisor(1,0);
+            gl.drawArrays(primitive,0,mesh[count]);vertices+=mesh[count];
+          }
+          calls++;
+        }
+      }
+      return {calls,vertices,batches:visible.length};
+    }
+    return {identity,build,render,finish:()=>gl.finish(),error:()=>gl.getError(),
+      colors:p=>{palette=p;},read:()=>{
+        const bytes=new Uint8Array(960*600*4);gl.readPixels(0,0,960,600,gl.RGBA,gl.UNSIGNED_BYTE,bytes);return bytes;
+      },dispose:()=>gl.deleteProgram(program)};
+  };
+})(globalThis.CavePerf);
+
+</script>
+<script>
+(function(P) {
+  "use strict";
+  const quantile=(values,t)=>{
+    const sorted=values.slice().sort((a,b)=>a-b),at=(sorted.length-1)*t,i=Math.floor(at);
+    return sorted[i]+(sorted[Math.min(i+1,sorted.length-1)]-sorted[i])*(at-i);
+  };
+  P.summarize=function(records) {
+    const fields=["generation","geometry","chunking","coldCPU","upload","chunkDraw","instanceDraw"];
+    const first=records[0],result={method:first.method,size:first.size,profile:first.profile,
+      samples:records.length,resources:first.resources,plan:first.plan,wfc:first.wfc,stats:{}};
+    for(const field of fields) {
+      const values=records.flatMap(r=>Array.isArray(r[field])?r[field]:[r[field]]);
+      result.stats[field]={p50:quantile(values,.5),p95:quantile(values,.95),n:values.length};
+    }
+    return result;
+  };
+  P.camera=function(plan,index=0) {
+    const node=plan.nodes[Math.floor(plan.count*[.28,.63,.82][index%3])];
+    return {x:node.x*32+16,y:node.y*32+16,width:256,height:160};
+  };
+  P.granularity=function() {
+    let previous=performance.now(),minimum=Infinity;
+    for(let i=0;i<20000;i++) {const now=performance.now();if(now>previous) minimum=Math.min(minimum,now-previous);previous=now;}
+    return Number.isFinite(minimum)?minimum:.1;
+  };
+  P.run=async function(gpu,options={}) {
+    const sizes=options.sizes||[128,512,2048],profiles=options.profiles||["standard","mixed"];
+    const rounds=options.rounds||16,seed=options.seed||271,records=[];
+    const report={date:new Date().toISOString(),identity:gpu.identity,userAgent:navigator.userAgent,
+      sizes,profiles,rounds,seed,granularity:P.granularity(),records,summaries:[],cancelled:false,
+      scope:"Cold CPU maps and fresh per-map template caches; static WebGL2 completion at fixed 256x160 camera. No Unity FPS."};
+    const pause=()=>new Promise(resolve=>setTimeout(resolve,0));
+    let finished=0;const total=sizes.length*profiles.length*rounds*4;
+    for(const profile of profiles) for(const size of sizes) {
+      // Warm shaders and the four paths before collecting this workload.
+      const warmPlan=P.makePlan(size,seed-1,profile);
+      for(const method of P.methods) {
+        const p=P.bake(P.prepare(P.generate(warmPlan,method))),scene=gpu.build(p);
+        try {gpu.render(scene,"chunks",P.camera(warmPlan));gpu.render(scene,"instances",P.camera(warmPlan));gpu.finish();}
+        finally {scene.dispose();}
+      }
+      for(let round=0;round<rounds;round++) {
+        if(options.cancelled?.()) {report.cancelled=true;return report;}
+        const plan=P.makePlan(size,seed+round*101,profile);
+        const order=P.methods.slice(round%4).concat(P.methods.slice(0,round%4));
+        for(const method of order) {
+          if(options.cancelled?.()) {report.cancelled=true;return report;}
+          const started=performance.now(),g=P.generate(plan,method),prepared=P.prepare(g);
+          P.bake(prepared);const coldCPU=performance.now()-started,resources=P.resources(prepared);
+          const scene=gpu.build(prepared),chunkDraw=[],instanceDraw=[],drawCounts={chunks:[],instances:[]};
+          try {
+            for(let sample=0;sample<6;sample++) {
+              const camera=P.camera(plan,sample),policies=sample%2?["instances","chunks"]:["chunks","instances"];
+              for(const policy of policies) {
+                gpu.finish();const begin=performance.now();
+                const counts=gpu.render(scene,policy,camera);gpu.finish();
+                (policy==="chunks"?chunkDraw:instanceDraw).push(performance.now()-begin);
+                drawCounts[policy].push(counts);
+              }
+            }
+            if(gpu.error()!==0) throw Error("WebGL reported an error during measured rendering.");
+            records.push({method,size,profile,round,seed:plan.seed,
+              generation:g.genMs,geometry:prepared.geometryMs,chunking:prepared.chunkMs,coldCPU,
+              upload:scene.uploadMs,chunkDraw,instanceDraw,resources,drawCounts,
+              plan:{nodes:plan.count,pins:plan.pins,edges:plan.edges.length,loops:plan.loops},
+              wfc:g.solution?.stats||null});
+          } finally {scene.dispose();}
+          finished++;options.progress?.({finished,total,profile,size,round,method});
+          await pause();
+        }
+      }
+      for(const method of P.methods)
+        report.summaries.push(P.summarize(records.filter(r=>r.profile===profile&&r.size===size&&r.method===method)));
+    }
+    report.ok=true;return report;
+  };
+})(globalThis.CavePerf);
+
+</script>
+<script>
+globalThis.CavePerf.reference=null;
+</script>
+<script>
+(function(P) {
+  "use strict";
+  const root=document.getElementById("cave-layout-performance");if(!root) return;
+  const $=id=>root.querySelector("#cp-"+id),kind="cave-layout-perf-v1",storage="dark-nights-cave-layout-performance-v1";
+  let state={method:"bridges",profile:"mixed",size:512,rounds:16,seed:271,view:"local",policy:"chunks"};
+  let gpu,scene=null,prepared=null,plan=null,report=P.reference||null,job=null,disposed=false,lastWritten="";
+  const pending=[],on=(target,type,handler,options)=>{
+    target.addEventListener(type,handler,options);pending.push(()=>target.removeEventListener(type,handler,options));};
+  function compatible(value) {const data=value?.privateContent||value;return data?.kind===kind?data:null;}
+  function sanitize(data) {
+    return {method:P.methods.includes(data.method)?data.method:"bridges",
+      profile:data.profile==="standard"?"standard":"mixed",size:[128,512,2048].includes(data.size)?data.size:512,
+      rounds:[8,16,32].includes(data.rounds)?data.rounds:16,seed:Number.isInteger(data.seed)&&data.seed>0?data.seed:271,
+      view:data.view==="all"?"all":"local",policy:data.policy==="instances"?"instances":"chunks"};
+  }
+  let loaded=compatible(window.openai?.widgetState);
+  if(!loaded) try {loaded=compatible(JSON.parse(localStorage.getItem(storage)));}catch{}
+  if(loaded) state=sanitize(loaded);
+  function color(token) {
+    const span=document.createElement("span");span.style.color="var("+token+")";root.append(span);
+    const style=getComputedStyle(span).color;span.remove();
+    const c=document.createElement("canvas");c.width=c.height=1;const ctx=c.getContext("2d");
+    ctx.fillStyle=style;ctx.fillRect(0,0,1,1);return [...ctx.getImageData(0,0,1,1).data].slice(0,3).map(v=>v/255);
+  }
+  function colors() {if(gpu) gpu.colors({air:color("--background"),rock:color("--cp-rock"),edge:color("--cp-edge")});}
+  function camera() {
+    if(state.view==="local") return {...plan.focus,width:256,height:160};
+    const width=Math.max(plan.width+32,(plan.height+32)*1.6);
+    return {x:plan.width/2,y:plan.height/2,width,height:width/1.6};
+  }
+  function overlay(cam) {
+    const canvas=$("overlay"),box=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
+    canvas.width=box.width*dpr;canvas.height=box.height*dpr;
+    const ctx=canvas.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,box.width,box.height);ctx.strokeStyle="rgb("+color("--foreground").map(v=>v*255).join(",")+")";
+    ctx.fillStyle=ctx.strokeStyle;ctx.lineWidth=1;ctx.setLineDash([3,4]);
+    ctx.font='12px "Microsoft YaHei",sans-serif';ctx.textAlign="left";
+    for(const node of plan.nodes) if(node.pin) {
+      const x=((node.x*32-cam.x)/cam.width+.5)*box.width;
+      const y=((node.y*32-cam.y)/cam.height+.5)*box.height,size=32/cam.width*box.width;
+      if(x+size<0||y+size<0||x>box.width||y>box.height) continue;
+      ctx.strokeRect(x+2,y+2,size-4,size-4);
+      if(state.view==="local"&&box.width>480) ctx.fillText("预设",x+5,y+15);
+    }
+  }
+  function draw() {
+    if(!gpu||!scene||job?.running) return;
+    const cam=camera();gpu.render(scene,state.policy,cam);gpu.finish();overlay(cam);
+  }
+  function preview() {
+    if(job?.running) return;
+    scene?.dispose();plan=P.makePlan(state.size,state.seed,state.profile);
+    prepared=P.bake(P.prepare(P.generate(plan,state.method)));scene=gpu.build(prepared);
+    $("plan").textContent=plan.count+"位置 · "+plan.pins+"锁定房间 · "+plan.edges.length+"连接 · "+
+      plan.loops+"回路 · 种子"+state.seed;
+    $("caption").textContent=P.names[state.method]+" · "+(state.view==="local"?"固定相机近看":"全图");
+    draw();
+  }
+  function currentRows() {
+    if(!report||report.seed!==state.seed) return [];
+    return report.summaries.filter(r=>r.size===state.size&&r.profile===state.profile);
+  }
+  function fmt(value) {
+    const threshold=report?.granularity||.1;
+    return value<threshold?"<"+threshold.toFixed(2):value.toFixed(value<10?2:1);
+  }
+  const pair=s=>fmt(s.p50)+" / "+fmt(s.p95);
+  function tables() {
+    const rows=currentRows(),timing=[],resources=[];
+    for(const method of P.methods) {
+      const row=rows.find(r=>r.method===method),name=P.names[method];
+      if(!row) {
+        timing.push("<tr><td>"+name+"</td><td colspan=\"7\">尚未测量当前输入</td></tr>");
+        resources.push("<tr><td>"+name+"</td><td colspan=\"5\">尚未测量当前输入</td></tr>");continue;
+      }
+      const s=row.stats,r=row.resources;
+      timing.push("<tr><td>"+name+"</td>"+["generation","geometry","chunking"].map(k=>
+        '<td class="text-end">'+fmt(s[k].p50)+"</td>").join("")+
+        ["coldCPU","upload","chunkDraw","instanceDraw"].map(k=>
+          '<td class="text-end">'+pair(s[k])+"</td>").join("")+"</tr>");
+      resources.push("<tr><td>"+name+"</td>"+[
+        r.presetUsed+" / "+r.presetLibrary,r.freeUsed+" / "+r.freeLibrary,r.instances,
+        r.chunkVertices.toLocaleString()+" / "+r.sourceVertices.toLocaleString(),
+        (r.chunkBytes/1048576).toFixed(2)+" / "+(r.sourceBytes/1048576).toFixed(2)
+      ].map(v=>'<td class="text-end">'+v+"</td>").join("")+"</tr>");
+    }
+    $("times").innerHTML=timing.join("");$("resources").innerHTML=resources.join("");
+    $("source").textContent=rows.length?(report===P.reference?"已测参考":"本页实测")+" · "+
+      report.rounds+"轮独立地图 · "+report.date+" · 每方案"+rows[0].stats.chunkDraw.n+"次绘制样本":
+      "选择测量按钮生成当前输入的结果。";
+  }
+  function update() {
+    for(const key of ["profile","size","rounds","view","policy"]) $(key).value=String(state[key]);
+    root.querySelectorAll("[data-method]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.method===state.method)));
+    $("hardware").textContent=gpu?"当前GPU："+gpu.identity.renderer:"";
+    if(report===P.reference&&report) $("hardware").textContent+="；参考GPU："+report.identity.renderer;
+    tables();
+  }
+  function save() {
+    const data={kind,...state};lastWritten=JSON.stringify(data);
+    try{localStorage.setItem(storage,lastWritten);}catch{}
+    window.openai?.setWidgetState?.({modelContent:{view:"cave-layout-performance",...state,
+      benchmark:report?{rounds:report.rounds,renderer:report.identity.renderer,reference:report===P.reference}:null},
+      privateContent:data})?.catch(()=>{});
+  }
+  function fail(e) {$("error").hidden=false;$("error").textContent=String(e.message||e);}
+  async function run(options={}) {
+    if(job?.running) throw Error("已有基准运行，不重复启动。");
+    job={running:true,cancelled:false,finished:0,total:0};
+    $("progress").hidden=false;$("cancel").hidden=false;$("error").hidden=true;
+    root.querySelectorAll("button:not(#cp-cancel),select").forEach(e=>e.disabled=true);
+    let stamp=0;
+    try {
+      const result=await P.run(gpu,{sizes:options.sizes||[state.size],
+        profiles:options.profiles||[state.profile],rounds:options.rounds||state.rounds,seed:state.seed,
+        cancelled:()=>job.cancelled||disposed,progress:p=>{
+          Object.assign(job,p);
+          if(performance.now()-stamp>200||p.finished===p.total) {
+            stamp=performance.now();$("progress").max=p.total;$("progress").value=p.finished;
+            $("status").textContent="测量 "+p.finished+" / "+p.total+" · "+p.size+"位置 · "+P.names[p.method];
+          }
+        }});
+      if(result.ok) {report=result;$("status").textContent="完成 · "+result.records.length+"个独立地图管线。";}
+      else $("status").textContent="已停止，保留上一完整结果。";
+      return result;
+    } catch(e) {fail(e);throw e;}
+    finally {
+      job.running=false;$("progress").hidden=true;$("cancel").hidden=true;
+      root.querySelectorAll("button,select").forEach(e=>e.disabled=false);update();draw();save();
+    }
+  }
+  try {gpu=P.createGPU($("scene"));colors();preview();update();}
+  catch(e) {fail(e);}
+  root.querySelectorAll("[data-method]").forEach(b=>on(b,"click",()=>{
+    state.method=b.dataset.method;try{preview();update();save();}catch(e){fail(e);}
+  }));
+  for(const key of ["profile","size","rounds","view","policy"]) on($(key),"change",()=>{
+    state=sanitize({...state,[key]:["size","rounds"].includes(key)?Number($(key).value):$(key).value});
+    try {if(["profile","size"].includes(key)) preview();else draw();update();save();}catch(e){fail(e);}
+  });
+  on($("seed"),"click",()=>{state.seed+=101;try{preview();update();save();}catch(e){fail(e);}});
+  on($("run"),"click",()=>run().catch(()=>{}));
+  on($("all"),"click",()=>run({sizes:[128,512,2048]}).catch(()=>{}));
+  on($("cancel"),"click",()=>{if(job) job.cancelled=true;});
+  on($("export"),"click",()=>{
+    if(!report) return;
+    const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:"application/json"}));
+    const a=document.createElement("a");a.href=url;a.download="cave-layout-performance.json";a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  const resize=new ResizeObserver(draw);resize.observe($("scene"));
+  const media=matchMedia("(prefers-color-scheme: dark)");
+  on(media,"change",()=>{colors();draw();});
+  const observer=new MutationObserver(()=>{colors();draw();});
+  observer.observe(document.documentElement,{attributes:true,attributeFilter:["class","style","data-theme"]});
+  on(window,"openai:set_globals",event=>{
+    const data=compatible(event.detail?.globals?.widgetState);
+    if(data&&JSON.stringify(data)!==lastWritten&&!job?.running) {state=sanitize(data);preview();update();}
+  });
+  root._benchmark=run;
+  root._inspect=()=>({ready:!!gpu,choices:{...state},plan:plan?{nodes:plan.count,pins:plan.pins,
+    loops:plan.loops,edges:plan.edges.length}:null,resources:prepared?P.resources(prepared):null,
+    gpu:gpu?.identity,job:job?{running:job.running,finished:job.finished,total:job.total}:null,
+    resultRows:currentRows().length,error:$("error").hidden?null:$("error").textContent});
+  on(window,"pagehide",()=>{disposed=true;if(job) job.cancelled=true;
+    resize.disconnect();observer.disconnect();pending.forEach(fn=>fn());});
+})(globalThis.CavePerf);
+
+</script>
+</main></body></html>

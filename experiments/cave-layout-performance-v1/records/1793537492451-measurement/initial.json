@@ -1,0 +1,44 @@
+{
+  "ready": true,
+  "choices": {
+    "method": "bridges",
+    "profile": "mixed",
+    "size": 512,
+    "rounds": 16,
+    "seed": 271,
+    "view": "local",
+    "policy": "chunks"
+  },
+  "plan": {
+    "nodes": 512,
+    "pins": 153,
+    "loops": 101,
+    "edges": 612
+  },
+  "resources": {
+    "presetUsed": 25,
+    "presetLibrary": 32,
+    "freeUsed": 66,
+    "freeLibrary": 72,
+    "instances": 1124,
+    "sourceVertices": 23778,
+    "chunkVertices": 190880,
+    "sourceBytes": 199216,
+    "chunkBytes": 1527040,
+    "chunks": 142,
+    "fieldBytes": 0
+  },
+  "gpu": {
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "vendor": "Google Inc. (Google)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "software": true,
+    "output": [
+      960,
+      600
+    ]
+  },
+  "job": null,
+  "resultRows": 0,
+  "error": null
+}

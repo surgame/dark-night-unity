@@ -1,0 +1,1198 @@
+{
+  "date": "2026-10-31",
+  "scope": "Browser shape study only; no Unity or actor traversal.",
+  "errors": [],
+  "cases": [
+    {
+      "scene": "basin",
+      "method": "dual",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "basin",
+        "method": "dual",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 58,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 500,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 56,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 188,
+        "propagations": 8368,
+        "removed": 1719,
+        "attempts": 1,
+        "elapsedMs": 11.300000000745058
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 38,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/basin",
+      "selected": null
+    },
+    {
+      "scene": "basin",
+      "method": "wfc",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "basin",
+        "method": "wfc",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 58,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 500,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 56,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 188,
+        "propagations": 8368,
+        "removed": 1719,
+        "attempts": 1,
+        "elapsedMs": 11.300000000745058
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 38,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/basin",
+      "selected": null
+    },
+    {
+      "scene": "basin",
+      "method": "hybrid",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "basin",
+        "method": "hybrid",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 58,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 500,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 56,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 188,
+        "propagations": 8368,
+        "removed": 1719,
+        "attempts": 1,
+        "elapsedMs": 11.300000000745058
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 38,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/basin",
+      "selected": null
+    },
+    {
+      "scene": "shoulder",
+      "method": "dual",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "shoulder",
+        "method": "dual",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 53,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 478,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 57,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 162,
+        "propagations": 7927,
+        "removed": 1430,
+        "attempts": 1,
+        "elapsedMs": 11.599999999627471
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 33,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/shoulder",
+      "selected": null
+    },
+    {
+      "scene": "shoulder",
+      "method": "wfc",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "shoulder",
+        "method": "wfc",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 53,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 478,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 57,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 162,
+        "propagations": 7927,
+        "removed": 1430,
+        "attempts": 1,
+        "elapsedMs": 11.599999999627471
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 33,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/shoulder",
+      "selected": null
+    },
+    {
+      "scene": "shoulder",
+      "method": "hybrid",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "shoulder",
+        "method": "hybrid",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 53,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 478,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 57,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 162,
+        "propagations": 7927,
+        "removed": 1430,
+        "attempts": 1,
+        "elapsedMs": 11.599999999627471
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 33,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/shoulder",
+      "selected": null
+    },
+    {
+      "scene": "network",
+      "method": "dual",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "network",
+        "method": "dual",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 52,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 542,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 51,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 258,
+        "propagations": 9664,
+        "removed": 2888,
+        "attempts": 1,
+        "elapsedMs": 11.699999999254942
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 26,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/network",
+      "selected": null
+    },
+    {
+      "scene": "network",
+      "method": "wfc",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "network",
+        "method": "wfc",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 52,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 542,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 51,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 258,
+        "propagations": 9664,
+        "removed": 2888,
+        "attempts": 1,
+        "elapsedMs": 11.699999999254942
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 26,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/network",
+      "selected": null
+    },
+    {
+      "scene": "network",
+      "method": "hybrid",
+      "state": {
+        "version": 1,
+        "seed": 271,
+        "scene": "network",
+        "method": "hybrid",
+        "camera": "whole",
+        "grid": false,
+        "overlay": false,
+        "atlas": false,
+        "dug": false,
+        "selected": null
+      },
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 52,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "hybrid": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 542,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0,
+        "slopeCells": 51,
+        "slopeTypes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "stats": {
+        "observations": 258,
+        "propagations": 9664,
+        "removed": 2888,
+        "attempts": 1,
+        "elapsedMs": 11.699999999254942
+      },
+      "hybridStats": {
+        "observations": 6,
+        "propagations": 120,
+        "attempts": 1
+      },
+      "macroLayout": [
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 1,
+          "kind": "浅凹"
+        },
+        {
+          "left": 1,
+          "right": 0,
+          "kind": "缓坡"
+        },
+        {
+          "left": 0,
+          "right": 0,
+          "kind": "斜肩"
+        },
+        {
+          "left": 0,
+          "right": 1,
+          "kind": "斜肩"
+        }
+      ],
+      "macroMismatches": 0,
+      "hybridOccupancyChanges": 26,
+      "sameOccupancy": true,
+      "geometryIdentity": "271/network",
+      "selected": null
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    }
+  ],
+  "failedGenerationRetainsScene": true,
+  "restored": {
+    "state": {
+      "version": 1,
+      "seed": 902,
+      "scene": "shoulder",
+      "method": "wfc",
+      "camera": "close",
+      "grid": true,
+      "overlay": true,
+      "atlas": true,
+      "dug": true,
+      "selected": null
+    },
+    "dual": {
+      "boundaryConfigurations": 12,
+      "positions": [
+        0.5
+      ],
+      "segments": 134,
+      "mismatches": 0,
+      "cornerConflicts": 0,
+      "nonManifold": 0,
+      "changed": 4
+    },
+    "wfc": {
+      "boundaryConfigurations": 62,
+      "positions": [
+        0.25,
+        0.5,
+        0.75
+      ],
+      "segments": 134,
+      "mismatches": 0,
+      "cornerConflicts": 0,
+      "nonManifold": 0,
+      "changed": 4
+    },
+    "hybrid": {
+      "boundaryConfigurations": 12,
+      "positions": [
+        0.5
+      ],
+      "segments": 494,
+      "mismatches": 0,
+      "cornerConflicts": 0,
+      "nonManifold": 0,
+      "changed": 2,
+      "slopeCells": 47,
+      "slopeTypes": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "stats": {
+      "observations": 166,
+      "propagations": 7950,
+      "removed": 1413,
+      "attempts": 1,
+      "elapsedMs": 5.900000000372529
+    },
+    "hybridStats": {
+      "observations": 6,
+      "propagations": 120,
+      "attempts": 1
+    },
+    "macroLayout": [
+      {
+        "left": 1,
+        "right": 1,
+        "kind": "缓坡"
+      },
+      {
+        "left": 1,
+        "right": 0,
+        "kind": "浅凹"
+      },
+      {
+        "left": 0,
+        "right": 1,
+        "kind": "缓坡"
+      },
+      {
+        "left": 1,
+        "right": 2,
+        "kind": "斜肩"
+      },
+      {
+        "left": 2,
+        "right": 0,
+        "kind": "缓坡"
+      },
+      {
+        "left": 0,
+        "right": 1,
+        "kind": "缓坡"
+      }
+    ],
+    "macroMismatches": 0,
+    "hybridOccupancyChanges": 21,
+    "sameOccupancy": true,
+    "geometryIdentity": "902/shoulder",
+    "selected": null
+  },
+  "fragment": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\dualgrid-wfc-shapes.html",
+    "sha256": "9f0273c7966c83d8bee16e6c89d0180f955452a57f826749173d3aebe7b7863a"
+  },
+  "passed": true
+}

@@ -1,0 +1,122 @@
+if (System.IO.File.Exists("Assets/DarkNights/Res/Objects/Hero/AnimationSelection.json"))
+    throw new System.InvalidOperationException("Recorded run5/jump2 selection exists; use bind_selected.cs.txt.");
+var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode || UnityEditor.EditorApplication.isCompiling ||
+    UnityEditor.EditorApplication.isUpdating || scene.path != DarkNights.Editor.Terrain.TerrainScenePaths.CaveWhitebox || scene.isDirty)
+    throw new System.InvalidOperationException("Expected the saved, idle whitebox scene.");
+var entry = scene.GetRootGameObjects().SelectMany(root =>
+    root.GetComponentsInChildren<DarkNights.Entry.Terrain.WhiteboxEntry>(true)).Single();
+var visual = (DarkNights.View.ActorView)entry.HeroPlacement.View;
+var data = new UnityEditor.SerializedObject(visual);
+var poseRoot = (UnityEngine.Transform)data.FindProperty("poseRoot").objectReferenceValue;
+if (poseRoot == null || poseRoot.Find("Author Hero") != null)
+    throw new System.InvalidOperationException("Character art root is missing or has already been populated.");
+string rootPath = "Assets/DarkNights/Res/Objects/Hero";
+var manifest = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(rootPath + "/SourceManifest.json"));
+float density = (float)manifest["pixelsPerUnit"];
+foreach (Newtonsoft.Json.Linq.JObject frame in manifest["frames"])
+{
+    string path = rootPath + "/" + (string)frame["file"];
+    var importer = (UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(path);
+    if (importer == null) throw new System.IO.FileNotFoundException("Imported hero frame is missing.", path);
+    importer.textureType = UnityEditor.TextureImporterType.Sprite;
+    importer.spriteImportMode = UnityEditor.SpriteImportMode.Single;
+    importer.spritePixelsPerUnit = density;
+    var spriteSettings = new UnityEditor.TextureImporterSettings();
+    importer.ReadTextureSettings(spriteSettings);
+    spriteSettings.spriteAlignment = (int)UnityEngine.SpriteAlignment.Custom;
+    spriteSettings.spritePivot = new UnityEngine.Vector2((float)frame["pivot"][0], (float)frame["pivot"][1]);
+    importer.SetTextureSettings(spriteSettings);
+    importer.filterMode = UnityEngine.FilterMode.Point;
+    importer.wrapMode = UnityEngine.TextureWrapMode.Clamp;
+    importer.textureCompression = UnityEditor.TextureImporterCompression.Uncompressed;
+    importer.npotScale = UnityEditor.TextureImporterNPOTScale.None;
+    importer.mipmapEnabled = false;
+    importer.alphaIsTransparency = true;
+    importer.sRGBTexture = true;
+    importer.SaveAndReimport();
+}
+string clipsPath = rootPath + "/AnimationClips";
+if (UnityEditor.AssetDatabase.IsValidFolder(clipsPath))
+    throw new System.IO.IOException("Animation clip destination already exists; refusing overwrite.");
+UnityEditor.AssetDatabase.CreateFolder(rootPath, "AnimationClips");
+foreach (var oldRenderer in visual.GetComponentsInChildren<UnityEngine.SpriteRenderer>(true))
+{
+    UnityEditor.Undo.RecordObject(oldRenderer, "Replace whitebox hero art");
+    oldRenderer.enabled = false;
+    UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(oldRenderer);
+}
+var art = new UnityEngine.GameObject("Author Hero");
+art.transform.SetParent(poseRoot, false);
+UnityEditor.Undo.RegisterCreatedObjectUndo(art, "Bind author hero art");
+var sprite = art.AddComponent<UnityEngine.SpriteRenderer>();
+sprite.sharedMaterial = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Material>(
+    "Assets/DarkNights/Res/Scenes/Workbenches/Terrain/CaveWhiteboxAssets/WhiteboxUnlit.mat");
+sprite.sortingOrder = 5;
+string artPath = UnityEditor.AnimationUtility.CalculateTransformPath(art.transform, visual.transform);
+var clips = data.FindProperty("clips");
+clips.arraySize = 3;
+string[] poses = new string[] { "idle", "move", "jump" };
+string[] folders = new string[] { "idle", "walk", "air" };
+double[] durations = new double[] { 3.8, .8, .4 };
+for (int p = 0; p < poses.Length; p++)
+{
+    string folder = "AnimationFrames/" + folders[p] + "/";
+    var frames = manifest["frames"].Where(frame => ((string)frame["file"]).StartsWith(folder, System.StringComparison.Ordinal))
+        .Select(frame => UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Sprite>(rootPath + "/" + (string)frame["file"])).ToArray();
+    if (frames.Length == 0 || frames.Any(frame => frame == null))
+        throw new System.InvalidOperationException("A required native hero sprite is missing: " + poses[p]);
+    if (p == 0) sprite.sprite = frames[0];
+    var clip = new UnityEngine.AnimationClip { name = "Hero " + poses[p], frameRate = 12, legacy = false };
+    var keys = new System.Collections.Generic.List<UnityEditor.ObjectReferenceKeyframe>();
+    for (int i = 0; i < frames.Length; i++)
+        keys.Add(new UnityEditor.ObjectReferenceKeyframe { time = i / 12f, value = frames[i] });
+    keys.Add(new UnityEditor.ObjectReferenceKeyframe { time = (float)durations[p], value = frames[0] });
+    UnityEditor.AnimationUtility.SetObjectReferenceCurve(clip,
+        UnityEditor.EditorCurveBinding.PPtrCurve(artPath, typeof(UnityEngine.SpriteRenderer), "m_Sprite"), keys.ToArray());
+    var settings = UnityEditor.AnimationUtility.GetAnimationClipSettings(clip);
+    settings.loopTime = p != 2;
+    settings.stopTime = (float)durations[p];
+    UnityEditor.AnimationUtility.SetAnimationClipSettings(clip, settings);
+    UnityEditor.AssetDatabase.CreateAsset(clip, clipsPath + "/Hero-" + poses[p] + ".anim");
+    UnityEditor.AssetDatabase.SaveAssetIfDirty(clip);
+    var item = clips.GetArrayElementAtIndex(p);
+    item.FindPropertyRelative("Name").stringValue = poses[p];
+    item.FindPropertyRelative("Clip").objectReferenceValue = clip;
+    item.FindPropertyRelative("Duration").doubleValue = durations[p];
+    item.FindPropertyRelative("Loop").boolValue = p != 2;
+}
+data.FindProperty("shadow").objectReferenceValue = null;
+data.FindProperty("clothing").objectReferenceValue = null;
+data.FindProperty("handheld").objectReferenceValue = null;
+data.FindProperty("expeditionUnit").objectReferenceValue = null;
+data.FindProperty("standingOffset").vector2Value = UnityEngine.Vector2.zero;
+data.FindProperty("deathOffset").vector2Value = UnityEngine.Vector2.zero;
+var targets = data.FindProperty("tintTargets").FindPropertyRelative("targets");
+targets.arraySize = 1;
+targets.GetArrayElementAtIndex(0).FindPropertyRelative("renderer").objectReferenceValue = sprite;
+targets.GetArrayElementAtIndex(0).FindPropertyRelative("baseColor").colorValue = UnityEngine.Color.white;
+var lightTargets = data.FindProperty("lightTargets");
+lightTargets.arraySize = 1;
+lightTargets.GetArrayElementAtIndex(0).objectReferenceValue = sprite;
+data.ApplyModifiedProperties();
+UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(visual);
+visual.Preview(1, 0);
+UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+if (!UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene, scene.path))
+    throw new System.IO.IOException("Failed to save author character bindings.");
+scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scene.path);
+UnityEditor.Selection.activeObject = null;
+UnityEditor.SceneView.RepaintAll();
+return new
+{
+    scene.path,
+    guid = UnityEditor.AssetDatabase.AssetPathToGUID(scene.path),
+    scene.isDirty,
+    source = (string)manifest["authorProject"],
+    sourceFrames = manifest["frames"].Count(),
+    clips = poses,
+    assets = rootPath,
+    playing = UnityEditor.EditorApplication.isPlaying,
+    failed = UnityEditor.EditorUtility.scriptCompilationFailed
+};

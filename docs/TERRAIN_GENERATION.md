@@ -2,6 +2,8 @@
 
 本页维护当前两层地图、生成、碰撞、装卸和采集合同。工具静态能力见[工具配置](TOOL_DEFINITION_HARVESTING.md)，传输／Ready见[联机合同](MULTIPLAYER.md)，文件格式见[存档合同](SAVE_FORMAT.md)。工作台预览不能替代正式输入、权限或奖励事务验收。
 
+2026-11-03制作方向变更及复评：用户明确旧版地图设计弃用，采用大块拼接，并建议工程命名MapModule及独立的新工作流。[地图工坊／地图试验场方案](MAP_MODULE_WORKFLOW.md)规划原生作者Scene、模块Prefab及独立MapModuleBake，运行沿现有FishNet／YYGC Stateful、SessionTerrain与局部流；已准备初始地图的安装需游戏侧显式适配。本页旧空间生成器及其工作台仍是当前未退役实现，不作为后续制作基线；正式引用尚未切换。现有权威格、矿层、采掘与完整地图合同继续保留，形状／存档／动态破坏变化不因新版命名自动成立，实际结果只见DEVELOPMENT。
+
 ## 状态与层次
 
 | 层 | 唯一状态与用途 |

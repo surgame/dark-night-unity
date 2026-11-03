@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-01",
+  "output": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/terrain-performance.html",
+  "sha256": "eedf84c54c44750568b19a76b47a9a897e89e62b96cb89cd5708424f20d57d71",
+  "build": "records/20261101-030540-397486-build.json",
+  "browserVerification": "records/1793473540751-verification/report.json",
+  "unityVerification": "artifacts/terrain-render-bench-20261101/unity-r4/report.json",
+  "assessment": "artifacts/terrain-render-bench-20261101/unity-r4/assessment.json",
+  "studyBytes": 5900701.0,
+  "artifactBytes": 46479971.0,
+  "editorClosed": true,
+  "gameplayChanged": false
+}

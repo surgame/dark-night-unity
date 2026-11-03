@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-31",
+  "tool": "Built-in image_gen.imagegen",
+  "requestedSize": [
+    2560,
+    1760
+  ],
+  "output": {
+    "file": "room-diversity.png",
+    "source": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_PdNNrC7j9mmgxIFAS5deVCqG.png",
+    "width": 1512,
+    "height": 1040,
+    "hasAlpha": false,
+    "bytes": 2257176,
+    "sha256": "f2b6f0a50fec4e160990045ad0733160f7ac20a4a34f5a5d408a119da27de010",
+    "copiedWithoutResizing": true
+  },
+  "inputs": [
+    {
+      "file": "brief.json",
+      "sha256": "a1de9d8d8633224686f958d3625fa40042a04a37bcb6e6790ce591b002de212c"
+    },
+    {
+      "file": "room-layout.json",
+      "sha256": "f426812ac2d5b6c3e7647c4c5721e43f9986500a4c3cf18c11fa7c8ecfbbe5b7"
+    },
+    {
+      "file": "make-guide.cjs",
+      "sha256": "d3e06c8ae193dc45a3bf2479857fc532ffc07739c4d2c974830199b8869f10e4"
+    },
+    {
+      "file": "shape-guide.svg",
+      "sha256": "9f1988795dba07694a9cfb5843bc843f2ea592d1affdf65a45a9535e3756296c"
+    },
+    {
+      "file": "shape-guide.png",
+      "sha256": "9a583f7cd96f591e19b5a5ce522a14434648a6333de4f2b7adec39513b2cae3c"
+    },
+    {
+      "file": "generation-prompt.txt",
+      "sha256": "43b3a03018d238cf3436852d3a32a76abad0c8eda3c75647d02a8c4b2ca5cbff"
+    }
+  ],
+  "styleReference": {
+    "file": "../20261030-modular-cave-playground/sources/user-style-reference.png",
+    "role": "Line, color and material style only; not chamber proportions",
+    "sha256": "36cf0768ba9df891e074ae9cdfdd977d73d6c640978b8e7a9b6c7e68168a21a4"
+  },
+  "scope": "One static concept image for chamber shape and scale variety; no runtime map or WFC execution."
+}

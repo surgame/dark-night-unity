@@ -9,6 +9,15 @@ namespace DarkNights.Editor.Terrain
         public const string PendingDeletion = OldWorkbenches;
         public const string ReferenceChamber = "Assets/DarkNights/Res/Scenes/References/Terrain/ReferenceChamber.unity";
         public const string RandomCave = Workbenches + "/RandomCave.unity";
+        public const string CaveWhitebox = Workbenches + "/CaveWhitebox.unity";
+        public const string EntranceGentle = Workbenches + "/CaveEntranceGentle.unity";
+        public const string EntranceShelf = Workbenches + "/CaveEntranceShelf.unity";
+        public const string EntranceVault = Workbenches + "/CaveEntranceVault.unity";
+        public const string EntranceFissure = Workbenches + "/CaveEntranceFissure.unity";
+        public const string VaultStrata = Workbenches + "/CaveVaultStrata.unity";
+        public const string VaultMoss = Workbenches + "/CaveVaultMoss.unity";
+        public const string VaultBlue = Workbenches + "/CaveVaultBlue.unity";
+        public const string VaultOchre = Workbenches + "/CaveVaultOchre.unity";
         public const string CaveExploration = OldWorkbenches + "/CaveExploration(old).unity";
         public const string TerrainDebugBootstrap = OldWorkbenches + "/TerrainDebugBootstrap(old).unity";
         public const string PendingCaveContourStatic = PendingDeletion + "/CaveContourStatic.unity";

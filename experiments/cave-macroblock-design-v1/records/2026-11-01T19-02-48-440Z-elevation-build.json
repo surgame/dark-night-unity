@@ -1,0 +1,22 @@
+{
+  "createdAt": "2026-11-01T19:02:48.440Z",
+  "scope": "Elevation design display only; no game physics, traversal, solver or Unity validation.",
+  "inputs": {
+    "catalog.js": "68c133ee2af7e2bc71a5fd649775749394bf371d125f2e25f37458cc048bfe98",
+    "elevation.js": "fe27f114681e1afcb582aff3f76d1a6440374869befb1043d18c6b38475cf6b6",
+    "elevation-view.html": "1559169b0ff008589517e642b38ad34422264e7b1b12c89846f58e4d1b0b8bba",
+    "elevation-app.js": "7353a42f4b73bfcee820a6f14f1ab411723ff0396c9b9657816bd20dc50e2dd5",
+    "ELEVATION.md": "54767a891e7edbc1454d80058de758f76500b0df952c80b6249c3916c2a8f7ce"
+  },
+  "originalPreserved": [
+    "catalog.js",
+    "app.js",
+    "view.html",
+    "README.md"
+  ],
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-macroblock-elevation.html",
+    "bytes": 24449,
+    "sha256": "6eb4cd0f343a47fbe18fbd9a1c001d069a9862f7cf77415731ed7c54fc275874"
+  }
+}

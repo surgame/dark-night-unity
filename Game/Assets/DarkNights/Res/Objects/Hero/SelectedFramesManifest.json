@@ -1,0 +1,1007 @@
+{
+  "selection": {
+    "version": 1,
+    "sourceChat": {
+      "title": "整理主角 Spine 素材并制作预览",
+      "threadId": "01a181a5-8822-7850-acb8-0ca72115ae1f",
+      "selectionTurnId": "01a181bc-16b5-77c2-99c8-df91764c1295",
+      "selectionQuote": "帮我衔接一下run5和jump2看看效果",
+      "airborneTurnId": "01a181ef-2a91-71d1-8b67-67b4925db299",
+      "landingCorrectionTurnId": "01a18259-d0af-7e63-b52e-2a21501e99a9"
+    },
+    "authorProject": "美术素材/角色/主角/主角-腾空腿部.spine",
+    "idle": "ai_idel1_ok",
+    "move": "ai_mie_run5_ok",
+    "jumpBase": "ai_jump2_ok",
+    "airMovingLegs": "air_move_legs",
+    "airStationaryLegs": "air_idle_legs",
+    "airSampleStart": 0.12,
+    "airSampleEnd": 0.6,
+    "airSampleSeconds": 1.0,
+    "framesPerSecond": 12,
+    "landing": "真实接地立即按实际位移选择idle或move，不补播jump2末0.2秒",
+    "missingUnrelatedArt": "与原预览一致，只在派生播放数据隐藏尚缺工具等附件；不补画或改写原spine",
+    "notSelected": [
+      "ai_walk不能替代已选run5",
+      "单张腾空定格不能替代jump2加腿姿",
+      "中立身体／按速度前倾方案仅讨论，尚未制作或确认"
+    ]
+  },
+  "authorSha256": "58e8bbc7669eb9b1845e559fc380149f7fd6e2b4e1780d2bf6e3f68863237263",
+  "sourceJsonSha256": "89948ce57e4662f67f7de89d9249f90b27ed7e7dc8e4607f7cad7182aea04f26",
+  "derivedJsonSha256": "a1a7dcbfda99a0167c02cac1ddf1bd4ab9eec32e826e2b13aa9a1baa94daf2e4",
+  "pixelsPerUnit": 2083.3333333333335,
+  "rootMotion": "Derived air animations remove author root translation; gameplay owns position.",
+  "hiddenMissingAttachments": [
+    {
+      "slot": "body",
+      "attachment": "body_back",
+      "path": "dig/body_back"
+    },
+    {
+      "slot": "body",
+      "attachment": "body_rear",
+      "path": "dig2/body_rear"
+    },
+    {
+      "slot": "carry-left-grip",
+      "attachment": "grip",
+      "path": "carry_hammer/grip"
+    },
+    {
+      "slot": "carry-right-forearm",
+      "attachment": "arm_forearm",
+      "path": "carry_hammer/arm_forearm"
+    },
+    {
+      "slot": "carry-right-grip",
+      "attachment": "grip",
+      "path": "carry_hammer/grip"
+    },
+    {
+      "slot": "carry-right-upper",
+      "attachment": "arm_upper",
+      "path": "carry_hammer/arm_upper"
+    },
+    {
+      "slot": "dig-grip-far",
+      "attachment": "grip",
+      "path": "carry_hammer/grip"
+    },
+    {
+      "slot": "dig-grip-near",
+      "attachment": "grip",
+      "path": "carry_hammer/grip"
+    },
+    {
+      "slot": "dig-pick-handle",
+      "attachment": "pick_handle",
+      "path": "dig/pick_handle"
+    },
+    {
+      "slot": "dig-pick-head",
+      "attachment": "pick_head",
+      "path": "dig/pick_head"
+    },
+    {
+      "slot": "dig2-pick-head",
+      "attachment": "rear-pick-head",
+      "path": "dig/pick_head"
+    },
+    {
+      "slot": "eyes",
+      "attachment": "eyes_scare",
+      "path": "scare/eyes_scare"
+    },
+    {
+      "slot": "hammer-handle",
+      "attachment": "hammer_handle",
+      "path": "carry_hammer/hammer_handle"
+    },
+    {
+      "slot": "hammer-head",
+      "attachment": "hammer_head",
+      "path": "carry_hammer/hammer_head"
+    },
+    {
+      "slot": "head",
+      "attachment": "head_back",
+      "path": "dig/head_back"
+    },
+    {
+      "slot": "head",
+      "attachment": "head_rear",
+      "path": "dig2/head_rear"
+    },
+    {
+      "slot": "mouse",
+      "attachment": "mouse_scare",
+      "path": "scare/mouth_scare"
+    }
+  ],
+  "poses": [
+    {
+      "pose": "idle",
+      "sourceAnimation": "ai_idel1_ok",
+      "duration": 3.8,
+      "frames": [
+        {
+          "file": "SelectedFrames/idle/idle-000.png",
+          "sha256": "7a3630ca9fd432bda9c4576f872a991bab855292a20e7c4b21edf527ee150bb7",
+          "nativeSource": "selected-idle_00.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-001.png",
+          "sha256": "0249322cd394178e10092453be582dd230685d6622fb2e61ca16701d1a3eeb26",
+          "nativeSource": "selected-idle_01.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-002.png",
+          "sha256": "314d0005ece00b316474ce35be0548394a4bf146737f743683ab5c56613c6203",
+          "nativeSource": "selected-idle_02.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-003.png",
+          "sha256": "07ab42e7b6b4d5c7ca48c27e471c78232d44200fba9750f04db9e83dc265c3f8",
+          "nativeSource": "selected-idle_03.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-004.png",
+          "sha256": "2f804d1e0e1cfe50a528ef0ac98281649754ea48c62a9012ec70e5b30eb82365",
+          "nativeSource": "selected-idle_04.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-005.png",
+          "sha256": "8e3c6270e2f60bb772ae24da192faddfb274041a2124fd2627ae00b2d1e6fd42",
+          "nativeSource": "selected-idle_05.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-006.png",
+          "sha256": "6daaf918c75c365fd1f02ce03922a2bd87bd1072f183e381d136f53476da453a",
+          "nativeSource": "selected-idle_06.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-007.png",
+          "sha256": "588875ad5a7b46898c0eb8788752a89f069cc796daefbe87462bd7db48d48618",
+          "nativeSource": "selected-idle_07.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-008.png",
+          "sha256": "6dc270fc560325887cfea92939bef13d2cb4cb0865c2e3736a57eb83451f5df7",
+          "nativeSource": "selected-idle_08.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-009.png",
+          "sha256": "52cb31fc11a4323006b4f9d27db50303221187fe1ff82e1833f65947b58f7d89",
+          "nativeSource": "selected-idle_09.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-010.png",
+          "sha256": "2cfed1d6efc9b62e5d81d96dc07c7b6bad4ac002ad7cef4e39384f14a54b82d0",
+          "nativeSource": "selected-idle_10.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-011.png",
+          "sha256": "6506bceda028e541e77a2847b8795ba54dc0859edbcea0a337325d5cdf493bc2",
+          "nativeSource": "selected-idle_11.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-012.png",
+          "sha256": "93626dc229b297dea0ebc125d811d6c4b658ea18161e7bcafda878af614a5bef",
+          "nativeSource": "selected-idle_12.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-013.png",
+          "sha256": "13d87b5bfeb587a33d951c97a9701982af7f60cb489f9a819ccbaf20669eaec1",
+          "nativeSource": "selected-idle_13.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-014.png",
+          "sha256": "78662ba46d449c1a51efed1cac626eb765eb5f3cd0686134c211a5609f23ebdd",
+          "nativeSource": "selected-idle_14.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-015.png",
+          "sha256": "744983185da8afb88af2a4b7fe8be8d14b5b9b19447a7a846a5880c81668dc10",
+          "nativeSource": "selected-idle_15.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-016.png",
+          "sha256": "414e9699e23ca35ebb806e90ff2665391e5bbb2ea63c473b5a7c2630acc44f82",
+          "nativeSource": "selected-idle_16.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-017.png",
+          "sha256": "5303dfe8b2015381dda32a99ad833d611846afa7a6a1ada2a764a543e62a281c",
+          "nativeSource": "selected-idle_17.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-018.png",
+          "sha256": "558b599f171280c5462918d00499a4ae60cd82e3441796495a3ac32e94ff2b26",
+          "nativeSource": "selected-idle_18.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-019.png",
+          "sha256": "b370a57c2aaae5727a9d578915e3fb81b37436dda5f83ba695fa3e3a6799ead1",
+          "nativeSource": "selected-idle_19.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-020.png",
+          "sha256": "6b8bd5c46566839a88dd1480722d5db4af818e2c271745bafe9edcc3701fe53f",
+          "nativeSource": "selected-idle_20.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-021.png",
+          "sha256": "560d2d94049bdf1059e115fbe1b192b9b4537c01d021c6f19a9c527f017d7f5a",
+          "nativeSource": "selected-idle_21.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-022.png",
+          "sha256": "2e5aa7892fcf0c3677fd7ccf6af10714a9030a3540b126f8e84e25aa7adbdc4a",
+          "nativeSource": "selected-idle_22.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-023.png",
+          "sha256": "d62350b2456d46da11f95e198973224c61b3b8671364348efa93a4f4c85bcda2",
+          "nativeSource": "selected-idle_23.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-024.png",
+          "sha256": "61e8e9d177b2db3beb3f7ba01bb915939f7b24aeebbe96e0ea276f87f986702f",
+          "nativeSource": "selected-idle_24.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-025.png",
+          "sha256": "97a37eeb82c184c7465177ab4ce62cf1afba11d2665eecee1ad4f8ed74af2467",
+          "nativeSource": "selected-idle_25.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-026.png",
+          "sha256": "0d78280e01c65bab0627341ed921435a5bef8a61436ea487c5747e34fbd4d44e",
+          "nativeSource": "selected-idle_26.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-027.png",
+          "sha256": "156ee1f4328294f35adfa67303b6be9160c257de2f8a817e38770ae838f90adf",
+          "nativeSource": "selected-idle_27.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-028.png",
+          "sha256": "5705ae624f06b9920ceea6b3cb1eb75ec8b9c7d4c9aca45d94d534597d1b3980",
+          "nativeSource": "selected-idle_28.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-029.png",
+          "sha256": "04281fc5da0c8b662af038ac8d0935e1dabde1ae9cc35267fe26a876649c636a",
+          "nativeSource": "selected-idle_29.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-030.png",
+          "sha256": "ca02c93d3105620470697a03b186e813961b1dbe56b357b8fcc09fc636ce5162",
+          "nativeSource": "selected-idle_30.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-031.png",
+          "sha256": "3ffbe3dedd967c377ec50e98eb474d7a382883680ef729783e1acbfed7f51421",
+          "nativeSource": "selected-idle_31.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-032.png",
+          "sha256": "eca1f2dae76e9551f3efb2ec834ff8f66945adf65d6a6630146c20f3d678f73b",
+          "nativeSource": "selected-idle_32.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-033.png",
+          "sha256": "91683449fe7b98dfcd3ea3b65e2d74bbba24e265b7e6155f503bdaaa5e757822",
+          "nativeSource": "selected-idle_33.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-034.png",
+          "sha256": "456d0c3ed3f209db61bbcdabcfbeefa3c35100f604a6da5fa6afd659ad8b7e88",
+          "nativeSource": "selected-idle_34.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-035.png",
+          "sha256": "fc02aa5b2879e2cfc922d333c264de5fd5b82d09044bcab1f8ba7ed5165c7ab1",
+          "nativeSource": "selected-idle_35.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-036.png",
+          "sha256": "9e1e6dadd5480b104ab28568c38a418ea60c029767e090cea747e075c293f461",
+          "nativeSource": "selected-idle_36.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-037.png",
+          "sha256": "bcae843467d45c08e331b0ce36cffccc18b999b378c4be86458bb4b13413eee0",
+          "nativeSource": "selected-idle_37.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-038.png",
+          "sha256": "0677fae67260b2c5bf661dcbb006c60348fea0e7c6a2d72eb4b81439a7992f89",
+          "nativeSource": "selected-idle_38.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-039.png",
+          "sha256": "08f8cd1de2fcc447f53526b47f9ecd5af9060016409f6a0c843e47b5716fa56d",
+          "nativeSource": "selected-idle_39.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-040.png",
+          "sha256": "7584f94490312f8445ae775151c606485271340aa0c6d900ef0b23a6827147fd",
+          "nativeSource": "selected-idle_40.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-041.png",
+          "sha256": "081fc55aa5c9198afdc861835ae23b40cf70a22ca4928eef0faf3ad9df691506",
+          "nativeSource": "selected-idle_41.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-042.png",
+          "sha256": "5061ed9dc6938aadead59cd4252875cfaabac611e4cd6ae00d081920f83723f9",
+          "nativeSource": "selected-idle_42.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-043.png",
+          "sha256": "defe54149a465ed348031f319140faa07dd05765bb566c96ab5f9d36dac143c7",
+          "nativeSource": "selected-idle_43.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-044.png",
+          "sha256": "691550fd4a69b7ba6254b46194c9095d7d65d2b6668af482a08164442f7b3494",
+          "nativeSource": "selected-idle_44.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        },
+        {
+          "file": "SelectedFrames/idle/idle-045.png",
+          "sha256": "156abcfb4ba3ec1129fc94f47a5c958d1b8a8736c767e834d3a13b3d46415dcd",
+          "nativeSource": "selected-idle_45.png",
+          "pivot": [
+            0.5,
+            0.00398406374501992
+          ]
+        }
+      ]
+    },
+    {
+      "pose": "move",
+      "sourceAnimation": "ai_mie_run5_ok",
+      "duration": 2.4,
+      "frames": [
+        {
+          "file": "SelectedFrames/move/move-000.png",
+          "sha256": "0ef6b861835d552d05cc4e0318ee47f38c96566095b247a0676335916e4d804e",
+          "nativeSource": "selected-move_00.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-001.png",
+          "sha256": "d25e0f65765c13de352b6cf48b08338c2d580d9e2be0d1ad242ae62096c8c43e",
+          "nativeSource": "selected-move_01.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-002.png",
+          "sha256": "8ecf0972dc700a8b30c0b530f0d129cfa1cdfccd30075a9cbd5591df77e5c087",
+          "nativeSource": "selected-move_02.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-003.png",
+          "sha256": "eac48e3ff15b1cfa18d07390760840dc098b5f2849535a45f82d9fe9caf2ca19",
+          "nativeSource": "selected-move_03.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-004.png",
+          "sha256": "a678dc8d3eebff67f7925ba2f50b69856050cd22d67ff5dbd18ca7aca0d50a64",
+          "nativeSource": "selected-move_04.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-005.png",
+          "sha256": "bcb620baa67b7f2ead7d6e79a4cdc8f30f5c40f2d136cf8237857affc3b95af7",
+          "nativeSource": "selected-move_05.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-006.png",
+          "sha256": "140dcc8f77fae337a847aeea37b716e633ae39d8c2f07335e8acfe1ad0905f17",
+          "nativeSource": "selected-move_06.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-007.png",
+          "sha256": "2408849a53731eea05d0aefb1a1edc413024702517e774df11acc6f557044f70",
+          "nativeSource": "selected-move_07.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-008.png",
+          "sha256": "fd60d833e15b650862cd23ff9335d3497c796fc4715b536c2c23f1a9cd53372b",
+          "nativeSource": "selected-move_08.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-009.png",
+          "sha256": "cfc56659b5fe52edd5b6ae17d3faa380c90140fa42702d305599713103b35879",
+          "nativeSource": "selected-move_09.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-010.png",
+          "sha256": "2e647034bc334916cd7f91ac9d5531a89cc0f7df68d3535adf81fd0b1727c8d2",
+          "nativeSource": "selected-move_10.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-011.png",
+          "sha256": "3afecb3744f393d5bd4420b88fa99d32801b4b098fe941e3101549b89b9873aa",
+          "nativeSource": "selected-move_11.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-012.png",
+          "sha256": "07241191dd016127a06ac7e3f316f1eaad4ed84abdfec0b46a121ba968a3fdff",
+          "nativeSource": "selected-move_12.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-013.png",
+          "sha256": "fbf76e40231172dc22914e4be94817a4a9d9d3b472ab05b29833920445accaa9",
+          "nativeSource": "selected-move_13.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-014.png",
+          "sha256": "7bc444afcbb0c00bea00357690361a8de8beceec81e7429bd32ef88ce5c72f82",
+          "nativeSource": "selected-move_14.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-015.png",
+          "sha256": "6ee55bc7b95e3a185c0b0ea40ff8a982906c7802288d88dfb6d318ac732f532b",
+          "nativeSource": "selected-move_15.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-016.png",
+          "sha256": "4695c58709fbe1799742e0296d97b9cab80c7cda2901372f7f6c1a3ef75271b5",
+          "nativeSource": "selected-move_16.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-017.png",
+          "sha256": "c97f813686f884e11a5160b77f6aa9ae085a3c0259f8a7c146931477b4f7827f",
+          "nativeSource": "selected-move_17.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-018.png",
+          "sha256": "53af1d4203a8e9f25c8b8be1c49cadfdc20b9948c5f3108de746fabb86f32db7",
+          "nativeSource": "selected-move_18.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-019.png",
+          "sha256": "4f66879ca52efe8eb29ac8478fc15ffd5dd6c8acfceb7b9c399bef1c378f6f91",
+          "nativeSource": "selected-move_19.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-020.png",
+          "sha256": "5915b7b10cde626835717753bb48669912f00b4440c27df4429653d4a9543ef7",
+          "nativeSource": "selected-move_20.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-021.png",
+          "sha256": "bf6668da6e577a05af98f05bc91f6e2c3af90f914867bd384a8c03136789488a",
+          "nativeSource": "selected-move_21.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-022.png",
+          "sha256": "4588437b5bf167a05bab1316b7c20c67d2ee79bb290f296c5eeecb4be379308f",
+          "nativeSource": "selected-move_22.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-023.png",
+          "sha256": "56425c274fc95488947b199abc9c77e25097a6ecbbb92585398339faf915baab",
+          "nativeSource": "selected-move_23.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-024.png",
+          "sha256": "0ef6b861835d552d05cc4e0318ee47f38c96566095b247a0676335916e4d804e",
+          "nativeSource": "selected-move_24.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-025.png",
+          "sha256": "d25e0f65765c13de352b6cf48b08338c2d580d9e2be0d1ad242ae62096c8c43e",
+          "nativeSource": "selected-move_25.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-026.png",
+          "sha256": "8ecf0972dc700a8b30c0b530f0d129cfa1cdfccd30075a9cbd5591df77e5c087",
+          "nativeSource": "selected-move_26.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-027.png",
+          "sha256": "eac48e3ff15b1cfa18d07390760840dc098b5f2849535a45f82d9fe9caf2ca19",
+          "nativeSource": "selected-move_27.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/move/move-028.png",
+          "sha256": "a678dc8d3eebff67f7925ba2f50b69856050cd22d67ff5dbd18ca7aca0d50a64",
+          "nativeSource": "selected-move_28.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "pose": "jump_move",
+      "sourceAnimation": "jump_move",
+      "duration": 0.8,
+      "frames": [
+        {
+          "file": "SelectedFrames/jump_move/jump_move-000.png",
+          "sha256": "d61771098b6e0a740ce4aced6945ae01a11c82080183a40acfcb57447d62be26",
+          "nativeSource": "selected-jump_move_00.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-001.png",
+          "sha256": "10cf79e591831d53d58b48e18f2faadb20b10dcaceda42a0997da363d03962d8",
+          "nativeSource": "selected-jump_move_01.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-002.png",
+          "sha256": "89b86b3221b95c19fe2f41d2330f6011abc6bbef8c4d4f845f16d7841f76e534",
+          "nativeSource": "selected-jump_move_02.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-003.png",
+          "sha256": "457bd20c1d7b9d03ece65baa66f70589b4260f9702780145bd123fccfa8628ab",
+          "nativeSource": "selected-jump_move_03.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-004.png",
+          "sha256": "423788c947e31e1bb2b570ac08f0e98bfa013fb0a9e10125abff12426f196eb1",
+          "nativeSource": "selected-jump_move_04.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-005.png",
+          "sha256": "8283ec8dbbfcfcdc075223f858b3446839b901f2aa1ef34a17c5cd82dbca367b",
+          "nativeSource": "selected-jump_move_05.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-006.png",
+          "sha256": "11fdac91679e473e74c1b152bccd2b03514a5f9a1f865a3c1ae6cd01470271b1",
+          "nativeSource": "selected-jump_move_06.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-007.png",
+          "sha256": "0e4b95b595e2da85efad008228cfdcb924f01c51396e0ddbae384e97356ecb21",
+          "nativeSource": "selected-jump_move_07.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-008.png",
+          "sha256": "dc46d9d7f0fbee0d8824fef4ee35cf5712e2eabffb07af367761ce19b484a82a",
+          "nativeSource": "selected-jump_move_08.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_move/jump_move-009.png",
+          "sha256": "7ae23c6902b3ccd5a791e74167c2618128cf2f9035a05385d6c9d03cbea8a83a",
+          "nativeSource": "selected-jump_move_09.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "pose": "jump_idle",
+      "sourceAnimation": "jump_idle",
+      "duration": 0.8,
+      "frames": [
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-000.png",
+          "sha256": "e8e5b1269ce155354988789ffbe3933e7ec7cbf685b8c765181ba30dbbe073b0",
+          "nativeSource": "selected-jump_idle_00.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-001.png",
+          "sha256": "179170a9981c1658232329ea28e49bd097d8758292c52170b790d245109f789d",
+          "nativeSource": "selected-jump_idle_01.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-002.png",
+          "sha256": "53d9fd3c09255351370d29eff50ccfe9a87fca8a27f020720882b5832584591e",
+          "nativeSource": "selected-jump_idle_02.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-003.png",
+          "sha256": "db6a2b440e52dc3061cfc8736f76d6c6f58693344b42970fc4fe1f7a7a4335ee",
+          "nativeSource": "selected-jump_idle_03.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-004.png",
+          "sha256": "3a958c2ab99423637017eedc76fe463a5dc2be9f34f2ba216ef28fc1540300f9",
+          "nativeSource": "selected-jump_idle_04.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-005.png",
+          "sha256": "c5cfaef104579392f92777ff7128022d16acfe9b384ad0a65abbc5fea1fc9b82",
+          "nativeSource": "selected-jump_idle_05.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-006.png",
+          "sha256": "5fe8ca3cd4a14296c5bcd9373e38838ef24d89277c127ac800f030558f3cc208",
+          "nativeSource": "selected-jump_idle_06.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-007.png",
+          "sha256": "db23b9f8959a6c5ee3be15a94d92b2d46cff7a3fe47c3a19a3770fccc6b5aeb1",
+          "nativeSource": "selected-jump_idle_07.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-008.png",
+          "sha256": "0fbbf7e45777ce96977743dbf913b4dd82939433cb6de3039c9d31d511c1f7dd",
+          "nativeSource": "selected-jump_idle_08.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        },
+        {
+          "file": "SelectedFrames/jump_idle/jump_idle-009.png",
+          "sha256": "9ddda6ff1797db6c1e6baa8fc6f4f8b9dd00263c4fd7847e78af6799ca22b32f",
+          "nativeSource": "selected-jump_idle_09.png",
+          "pivot": [
+            0.5,
+            0.0
+          ]
+        }
+      ]
+    }
+  ]
+}

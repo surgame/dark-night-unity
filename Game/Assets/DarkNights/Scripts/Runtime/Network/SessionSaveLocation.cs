@@ -8,6 +8,7 @@ namespace DarkNights.Runtime.Network
     internal sealed class SessionSaveLocation
     {
         private string normal;
+        private string study;
         public string Current { get; private set; }
         public void Initialize(string[] arguments)
         {
@@ -19,11 +20,21 @@ namespace DarkNights.Runtime.Network
         }
         public void Select(string testId)
         {
+            if (study != null)
+            {
+                if (testId != null) throw new InvalidOperationException("模块研究不使用旧快速局。");
+                Current = study; return;
+            }
             if (testId != null && testId != DarkNights.Runtime.Objects.QuickTestPreset.LandedPickaxeId &&
                 testId != DarkNights.Runtime.Objects.QuickTestPreset.EmbeddedMineralsId &&
                 testId != DarkNights.Runtime.Objects.QuickTestPreset.ShipCargoId)
                 throw new ArgumentException("未知快速测试存储项。", nameof(testId));
             Current = testId == null ? normal : Path.Combine(normal, "QuickTests", testId);
+        }
+        public void UseMapModule(string identity)
+        {
+            study = Path.Combine(Application.persistentDataPath, "MapModuleResearch", identity);
+            Current = study;
         }
     }
 }

@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-01",
+  "scope": "Six fixed-terrain contour and macroblock whiteboxes; no production or destruction changes.",
+  "pinnedBase": "../dualgrid-cave-exploration-v1/records/2026-11-01T10-02-10-373Z-build.json",
+  "sources": [
+    {
+      "file": "view.html",
+      "sha256": "a3ee71fdc0cc714c32ab94bfb09471e8aa664deb637c925cedf9759feb1fb2e8"
+    },
+    {
+      "file": "build.cjs",
+      "sha256": "d5d613c5692813fce5f92a4d7b334ca9eac070b30e50ee61d4bc55713117ebfc"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/player.js",
+      "sha256": "d5eef5d5ee71e9e8221bc6b3752449429ac5c008e3b20c5d1a4eda55fe43f2f7"
+    },
+    {
+      "file": "geometry.js",
+      "sha256": "fe3ec8e5d80c6e6999eb2dfc1c4a33fd4ac3c34bfca6532ac2b271b45c2118eb"
+    },
+    {
+      "file": "modules.js",
+      "sha256": "33d51461ca9d2954ed91e8043bf2d28c10fbe04043811297351173eec47008eb"
+    },
+    {
+      "file": "solver.js",
+      "sha256": "1753928cb499d4296fd6c1db5bd8097ac8d7ecc1a2f78dbfe78db57674d0ad48"
+    },
+    {
+      "file": "renderer.js",
+      "sha256": "b52b4bb42f6b4373bb4b14c6cc81c794c2118f650460e27713d5deaf3fe9a854"
+    },
+    {
+      "file": "app.js",
+      "sha256": "f907ff4411b13dfdd8be95e4c02729be19f1fbae82e086c01b73c316397a7027"
+    }
+  ],
+  "standalone": {
+    "file": "index.html",
+    "bytes": 46621,
+    "sha256": "e4e804eb4326c0daf643ec5dafb96b231894ca81a06690989419fa30e1585568"
+  },
+  "fragment": {
+    "file": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\cave-macroblock-comparison.html",
+    "bytes": 45506,
+    "sha256": "7f9bef888d1965d1f37a831c2255af2f30e4a7c66ada0c672fc9e87fe269dfd4"
+  }
+}

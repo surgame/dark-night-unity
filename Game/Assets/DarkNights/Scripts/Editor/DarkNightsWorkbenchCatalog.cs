@@ -22,7 +22,7 @@ namespace DarkNights.Editor
             {
                 ("level", Levels, "正式装配 · 场景 · 试玩", "查看正式场景、地图引用和当前试玩来源。", "游戏"),
                 ("ship", Ship, "船舱服务 · 航程 · 界面", "编辑船体和船舱服务，查看正式航程与共享游戏界面来源。", "游戏"),
-                ("map", Map, "地图设计工作台", "所有地图制作统一进入现有地图设计工作台。", "游戏"),
+                ("map", Map, "地图工坊 · 旧版参考", "新版模块拼装进入地图工坊；旧地图工作台独立保留。", "游戏"),
                 ("objects", Objects, "角色 · 手电 · 武器", "通过原生工坊编辑角色、手持装备与能力。", "游戏"),
                 ("input", Input, "默认动作 · 本机改键", "定位默认输入资产，区分项目键位与玩家本机覆盖。", "设置"),
                 ("graphics", Graphics, "画质 · 管线 · 光照", "使用原生项目图形设置，复杂光照参数放入扩展。", "设置"),
@@ -31,7 +31,14 @@ namespace DarkNights.Editor
 
         internal static IReadOnlyList<DarkNightsWorkbenchEntry> Entries { get; } = Array.AsReadOnly(new[]
         {
-            Tool("visual", Map, "地图设计工作台", "地形、矿物、环境、巢穴、塌方及保存与用于新局。", "打开地图工作台",
+            Source("hero-spine", Objects, "主角骨骼与动画", "Spine原生数据、已选动作和研究主角Rig；未来物理接管沿渲染器骨骼钩子扩展。",
+                HeroSpineAssetSetup.DataPath, "Assets/DarkNights/Res/Terrain/MapModule/HeroRig.prefab",
+                "Assets/DarkNights/Res/Objects/Hero/AnimationSelection.json"),
+            Tool("cooperative-physics", Objects, "合作物理候选与诊断", "独立动态刚体研究场景、配置以及有界录制／导出。", "打开合作物理",
+                PhysicsWorkbenchWindow.Open),
+            Tool("mapmodule", Map, "地图工坊 · MapModule", "原生模块与研究样例、画布拼装、固定版本和快速启动调试。", "打开地图工坊",
+                MapModule.MapModuleWorkbenchWindow.Open),
+            Tool("visual", Map, "旧版地图工作台／参考", "原有地形、矿物、环境、巢穴、塌方与正式地图应用入口；不承接新版模块作者数据。", "打开旧版工作台",
                 DarkNightsNativeWorkspace.Visual),
             Tool("terrain", Map, "地形业务与耐久", "底层Profile、规则瓦片耐久及离线单格试采。", "打开地形业务",
                 DarkNightsNativeWorkspace.Terrain, true),

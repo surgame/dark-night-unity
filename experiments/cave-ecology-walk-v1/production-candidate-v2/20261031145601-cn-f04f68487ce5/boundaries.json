@@ -1,0 +1,125 @@
+{
+  "format": "ecology-boundary-candidates-v2",
+  "coordinates": "socket-local-pixel-y-down",
+  "placement": "Translate each definition by its target socket origin; witness offsets are provenance only.",
+  "definitions": {
+    "left": {
+      "id": "entry-boundary",
+      "side": "left",
+      "kind": "declared-entrance",
+      "x": 0,
+      "port": "P128-v2",
+      "contract": {
+        "id": "declared-cave-entry-v2",
+        "fromPort": "OUTSIDE",
+        "toPort": "P128-v2"
+      },
+      "socketOrigin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "right": {
+      "id": "terminal-boundary",
+      "side": "right",
+      "kind": "terminal-cap",
+      "x0": 0,
+      "x1": 64,
+      "wallX": 26,
+      "floor": 0,
+      "roof": -128,
+      "fromPort": "P128-v2",
+      "toPort": "CLOSED",
+      "shape": {
+        "floor": [
+          [
+            0,
+            0
+          ],
+          [
+            26,
+            0
+          ]
+        ],
+        "roof": [
+          [
+            0,
+            -128
+          ],
+          [
+            26,
+            -128
+          ]
+        ]
+      },
+      "road": {
+        "centre": [
+          [
+            0,
+            0
+          ],
+          [
+            26,
+            0
+          ]
+        ],
+        "far": [
+          [
+            0,
+            -8
+          ],
+          [
+            26,
+            -8
+          ]
+        ],
+        "near": [
+          [
+            0,
+            12
+          ],
+          [
+            26,
+            12
+          ]
+        ],
+        "lipDepth": 9,
+        "farOffset": -8,
+        "nearOffset": 12,
+        "projection": "sideview-depth-v2"
+      },
+      "contract": {
+        "id": "dry128-terminal-cap-v2",
+        "fromPort": "P128-v2",
+        "toPort": "CLOSED",
+        "width": 64,
+        "openingLength": 26,
+        "wallThickness": 38
+      },
+      "collisionWall": {
+        "x": 26,
+        "y": -477,
+        "w": 38,
+        "h": 1063.830078
+      },
+      "socketOrigin": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "witness": {
+    "seed": 0,
+    "worldId": "ecology-walk-v2-f04f68487ce5af902661679f2d1a522897a23092b18788db1949235c7e36ee2c-0-07a488d8",
+    "sourceWorldOffsets": {
+      "left": {
+        "x": 0,
+        "y": 330
+      },
+      "right": {
+        "x": 5656,
+        "y": 276.322266
+      }
+    }
+  }
+}

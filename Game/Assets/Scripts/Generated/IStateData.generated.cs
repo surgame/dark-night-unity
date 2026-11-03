@@ -309,6 +309,8 @@ namespace YYGC.Generated
                 "mscorlib",
                 "netstandard",
                 "nunit.framework",
+                "spine-csharp",
+                "spine-unity",
             });
         }
 
@@ -326,6 +328,7 @@ namespace YYGC.Generated
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ExpeditionJourneyState>(19);
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.GeologyEventState>(20);
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.TerrainGameplayState>(21);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.PhysicsWorldState>(22);
         }
     }
 }

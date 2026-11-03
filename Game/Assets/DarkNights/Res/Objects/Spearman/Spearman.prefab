@@ -647,6 +647,13 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 7104364086929422060}
   _renderers: []
+  _allRenderers:
+  - {fileID: 4978949647261299557}
+  - {fileID: 7073023052566576789}
+  - {fileID: 7234762824370364557}
+  - {fileID: 6374070867801711368}
+  - {fileID: 2817778724255226358}
+  - {fileID: 6685160183541451119}
   _spriteRenderers:
   - {fileID: 4978949647261299557}
   - {fileID: 7073023052566576789}
@@ -712,6 +719,8 @@ MonoBehaviour:
     Clip: {fileID: 7400000, guid: b7c39c7845a0b4346830eb9e5f732d48, type: 2}
     Duration: 0.75
     Loop: 0
+  spineAnimation: {fileID: 0}
+  skeletalLightTargets: []
   standingOffset: {x: 0, y: 0.06}
   deathOffset: {x: 0, y: 0.06}
 --- !u!1 &8048561106397157640

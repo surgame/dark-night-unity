@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-31",
+  "errors": [],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": []
+    }
+  ],
+  "seams": [
+    {
+      "enabled": true,
+      "index": 0,
+      "label": "营地干台 / 原版窄洞",
+      "connectorId": "dry128-standard",
+      "hasAuthoredShapes": true,
+      "hasPortSignatures": true,
+      "allowedSourcePairs": 165,
+      "totalSourcePairs": 196,
+      "scope": "Current seven placed seams; allowed source pairs are rule compatibility, not art acceptance.",
+      "declaredMotionBounds": 3
+    },
+    {
+      "enabled": true,
+      "index": 1,
+      "label": "原版窄洞 / 苔溪踏石",
+      "connectorId": "dry128-standard",
+      "hasAuthoredShapes": true,
+      "hasPortSignatures": true,
+      "allowedSourcePairs": 165,
+      "totalSourcePairs": 196,
+      "scope": "Current seven placed seams; allowed source pairs are rule compatibility, not art acceptance.",
+      "declaredMotionBounds": 11
+    },
+    {
+      "enabled": true,
+      "index": 2,
+      "label": "苔溪踏石 / 碎岩修桥",
+      "connectorId": "dry128-moss",
+      "hasAuthoredShapes": true,
+      "hasPortSignatures": true,
+      "allowedSourcePairs": 165,
+      "totalSourcePairs": 196,
+      "scope": "Current seven placed seams; allowed source pairs are rule compatibility, not art acceptance.",
+      "declaredMotionBounds": 11
+    },
+    {
+      "enabled": true,
+      "index": 3,
+      "label": "碎岩修桥 / 根系泉瀑",
+      "connectorId": "dry128-moss",
+      "hasAuthoredShapes": true,
+      "hasPortSignatures": true,
+      "allowedSourcePairs": 165,
+      "totalSourcePairs": 196,
+      "scope": "Current seven placed seams; allowed source pairs are rule compatibility, not art acceptance.",
+      "declaredMotionBounds": 11
+    },
+    {
+      "enabled": true,
+      "index": 4,
+      "label": "根系泉瀑 / 低顶货槽",
+      "connectorId": "dry128-standard",
+      "hasAuthoredShapes": true,
+      "hasPortSignatures": true,
+      "allowedSourcePairs": 165,
+      "totalSourcePairs": 196,
+      "scope": "Current seven placed seams; allowed source pairs are rule compatibility, not art acceptance.",
+      "declaredMotionBounds": 11
+    },
+    {
+      "enabled": true,
+      "index": 5,
+      "label": "低顶货槽 / 伞菇高台",
+      "connectorId": "dry128-standard",
+      "hasAuthoredShapes": true,
+      "hasPortSignatures": true,
+      "allowedSourcePairs": 165,
+      "totalSourcePairs": 196,
+      "scope": "Current seven placed seams; allowed source pairs are rule compatibility, not art acceptance.",
+      "declaredMotionBounds": 11
+    },
+    {
+      "enabled": true,
+      "index": 6,
+      "label": "伞菇高台 / 裂面矿厅",
+      "connectorId": "dry128-moss",
+      "hasAuthoredShapes": true,
+      "hasPortSignatures": true,
+      "allowedSourcePairs": 165,
+      "totalSourcePairs": 196,
+      "scope": "Current seven placed seams; allowed source pairs are rule compatibility, not art acceptance.",
+      "declaredMotionBounds": 22
+    }
+  ],
+  "interactions": {
+    "keyboard": true,
+    "failedGenerationRetainsScene": true,
+    "restore": {
+      "good": true,
+      "staleIgnored": true
+    },
+    "regenerate": true
+  },
+  "scope": "Current browser candidate only; no Unity or production art acceptance.",
+  "buildId": "f04f68487ce5af902661679f2d1a522897a23092b18788db1949235c7e36ee2c",
+  "motionPixels": 5261,
+  "frozenPixels": 0,
+  "walk": {
+    "steps": 6427,
+    "completed": true,
+    "recoveries": 0,
+    "flags": {
+      "miningCollected": true,
+      "bridgeBuilt": true,
+      "cargoDelivered": true,
+      "hasBeam": false,
+      "primaryCollected": true,
+      "primaryDelivered": true
+    },
+    "stateBytes": 5324
+  },
+  "fragment": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\ecology-walk-repaired.html",
+    "sha256": "2a41fb0aa6c252fc146473e9a7e81333979c6494a3c6faee482e74f9325976d0"
+  },
+  "passed": true
+}

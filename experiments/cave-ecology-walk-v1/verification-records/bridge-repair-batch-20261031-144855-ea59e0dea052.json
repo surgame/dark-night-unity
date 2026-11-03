@@ -1,0 +1,30 @@
+{
+  "scope": "One current rule/geometry/asset-packaging batch; no browser, Unity, build or final export.",
+  "sourceIdentity": "ea59e0dea052db9bd49fcf160b74d9c15b9c34a3a8dd1c89911d12407fb5bc7a",
+  "rules": {
+    "exitCode": 0,
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verification-records\\rules-authored-bridge-20261031-144855-ea59e0dea052.json"
+  },
+  "geometry": {
+    "exitCode": 0,
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verification-records\\assembly-authored-bridge-20261031-144855-ea59e0dea052.json"
+  },
+  "localizedBoundaries": {
+    "exitCode": 0,
+    "stdout": "{\"passed\":true,\"coordinates\":\"socket-local-pixel-y-down\",\"witnessSeed\":0}\n",
+    "stderr": ""
+  },
+  "bridgePackaging": {
+    "nativeSize": [
+      1536,
+      1024
+    ],
+    "previewSize": [
+      768,
+      512
+    ],
+    "encoding": "WEBP-lossless-exact",
+    "previewBytes": 214772,
+    "roundtripPixelExact": true
+  }
+}

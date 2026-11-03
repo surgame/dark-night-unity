@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-31",
+  "scope": "One visual concept based on the current game's DualGrid approach and the user's original protagonist. No tile production or Unity changes.",
+  "module": "CL-01/08",
+  "nativeTarget": [1536, 1024],
+  "purpose": "Review a simpler hand-drawn cave art direction that can later be decomposed into small terrain tiles and separate ecological objects.",
+  "productionMethod": "Built-in image generation for a large concept image. Exact small tiles, alpha masks and slopes would use deterministic tools in a later authorized slice.",
+  "transparency": "Opaque scene preview. Future terrain, background, mineral and ecology layers must be separate.",
+  "sharedEdgesAndShapePrecision": "The concept demonstrates a restrained contour vocabulary only. It does not certify the 16 four-corner masks, tile edge pixels, slope geometry, collision or animation.",
+  "localImplementationReferences": [
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveTerrainAssets.cs",
+    "Game/Assets/DarkNights/Res/Art/Custom/CaveExploration/SOURCE.md",
+    "Game/Assets/DarkNights/Res/Art/Custom/CaveExploration/CavePixelRock.shader",
+    "docs/TERRAIN_GENERATION.md"
+  ],
+  "imageReferences": [
+    {
+      "path": "美术素材/地图/20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "role": "Character identity and drawing style: cyan round hood, beige face, simple features, tiny body and black linework."
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/CaveExploration/cave-dualgrid.png",
+      "role": "Existing four-corner tile structure and repeatable contour vocabulary; simplify the detailed rock treatment for the protagonist."
+    }
+  ],
+  "direction": [
+    "Orthographic side view; thin lit rims and inner shadow bands convey solid rock thickness.",
+    "Small repeatable rock groups, restrained cracks, flat warm earth and cool slate color blocks.",
+    "Terrain assembled from solid areas, straight edges, inner and outer corners, shallow and 45-degree slopes.",
+    "Quiet dark background preserves the character silhouette.",
+    "Sparse independent grass, mushrooms, exposed ore and one short water drop suggest detachable dynamic layers."
+  ],
+  "preserve": [
+    "Original protagonist files, prior concepts, failed reviews and runtime candidates.",
+    "Current game, dependencies, terrain state, slope geometry and player saves."
+  ]
+}

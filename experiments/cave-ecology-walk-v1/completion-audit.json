@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-31",
+  "objective": "Complete modular map visualize walk demo.",
+  "evidenceIdentity": "4ba04709ef56c53ecefd3e3102d13fc5218234459c79c36c4c098e858f6dfbe7",
+  "requirements": [
+    {
+      "requirement": "Original approved narrow-cave hand-drawn style",
+      "evidence": [
+        "manifest.json sources original foreground panels and hero",
+        "source original SHA readback matches",
+        "separate vegetation-sheet source and crop identities"
+      ],
+      "scope": "Original art preserved; current art candidate still needs user aesthetic review."
+    },
+    {
+      "requirement": "Independently moving ecological elements and flowing water/waterfalls",
+      "evidence": [
+        "renderer.js plantSprite/roots/stream/fall",
+        "verification-browser.json motion changedPixelsOver420ms and frozenChangedPixels",
+        "staticEcologyConceptsConsumed=false"
+      ],
+      "scope": "Independent bitmap strip deformation and procedural water; not a Spine project or formal liquid simulation."
+    },
+    {
+      "requirement": "Changing terrain with visual effects",
+      "evidence": [
+        "engine.js bridge/beam surface activation and crumble warning/break events",
+        "renderer.js terrain bridge construction and eventEffects particles",
+        "verification-engine.json bridge remains enabled through return"
+      ],
+      "scope": "Authoring-demo interactions and bounded transient effects."
+    },
+    {
+      "requirement": "Complete operable route with game-design cause and effect",
+      "evidence": [
+        "verification-engine.json three automatic-input-only outbound and return routes with no teleport or recovery",
+        "verification-browser.json integrated automatic control plus actual keyboard/pointer inputs and oneClickReturn",
+        "cargo retains primary identity across chute and delivery"
+      ],
+      "scope": "Manual entire-route playthrough is not claimed."
+    },
+    {
+      "requirement": "Module extraction, constrained rearrangement and extensibility",
+      "evidence": [
+        "world-data.js fourteen catalog definitions and eight selected rooms",
+        "verification-engine.json eighteen seeds and six ecological slot orders",
+        "MODULE_CONTRACT.md extension/anchors/sockets/lifecycle contract"
+      ],
+      "scope": "Finite authored catalog and constrained order; not arbitrary 2D WFC or a visual authoring editor."
+    }
+  ],
+  "openProductionItems": [
+    "Unity integration",
+    "Spine binding",
+    "Formal collision/network/save/performance acceptance"
+  ],
+  "demoRequiredWorkRemaining": [],
+  "standaloneMatchesTestedWrapper": true
+}

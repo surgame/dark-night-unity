@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "method": "contour",
+      "differences": 0,
+      "min": 51,
+      "max": 242,
+      "uploadBytes": 407376,
+      "expected": 407376,
+      "error": 0
+    },
+    {
+      "method": "blocks",
+      "differences": 0,
+      "min": 51,
+      "max": 242,
+      "uploadBytes": 678976,
+      "expected": 678976,
+      "error": 0
+    },
+    {
+      "method": "bridges",
+      "differences": 0,
+      "min": 51,
+      "max": 242,
+      "uploadBytes": 521272,
+      "expected": 521272,
+      "error": 0
+    },
+    {
+      "method": "wfc",
+      "differences": 0,
+      "min": 51,
+      "max": 242,
+      "uploadBytes": 688400,
+      "expected": 688400,
+      "error": 0
+    }
+  ],
+  "identity": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "software": false,
+    "output": [
+      960,
+      600
+    ]
+  }
+}

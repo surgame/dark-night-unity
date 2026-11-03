@@ -1,0 +1,797 @@
+{
+  "date": "2026-11-01",
+  "scope": "Grouped CPU throughput and independent batch completion; no Unity.",
+  "models": [
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 316,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 20
+    },
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 20
+    },
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 472,
+      "mergedRebuilds": 24
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 314,
+      "mergedRebuilds": 44
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 44
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 44
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 442,
+      "mergedRebuilds": 47
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 305,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 474,
+      "mergedRebuilds": 26
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 319,
+      "mergedRebuilds": 71
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 325,
+      "mergedRebuilds": 71
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 325,
+      "mergedRebuilds": 71
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 462,
+      "mergedRebuilds": 76
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 313,
+      "mergedRebuilds": 8
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 9
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 9
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 453,
+      "mergedRebuilds": 10
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 342,
+      "mergedRebuilds": 137
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 354,
+      "mergedRebuilds": 138
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 354,
+      "mergedRebuilds": 138
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 511,
+      "mergedRebuilds": 163
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 308,
+      "mergedRebuilds": 31
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 33
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 33
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 521,
+      "mergedRebuilds": 45
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 322,
+      "mergedRebuilds": 251
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 323,
+      "mergedRebuilds": 251
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 323,
+      "mergedRebuilds": 251
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 473,
+      "mergedRebuilds": 325
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0,
+      "svg": [
+        {
+          "width": 320,
+          "paths": 6
+        },
+        {
+          "width": 320,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0,
+      "svg": [
+        {
+          "width": 320,
+          "paths": 6
+        },
+        {
+          "width": 320,
+          "paths": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "measurements": [],
+  "quick": {
+    "rows": 16,
+    "operations": 51520,
+    "example": {
+      "dual": {
+        "replicas": 8,
+        "operations": 8192,
+        "cpu": {
+          "n": 1,
+          "p50": 1.962500000023283,
+          "p95": 1.962500000023283,
+          "max": 1.962500000023283
+        },
+        "groupCpu": {
+          "n": 1,
+          "p50": 15.700000000186265,
+          "p95": 15.700000000186265,
+          "max": 15.700000000186265
+        },
+        "cpuLatency": {
+          "n": 1,
+          "p50": 2,
+          "p95": 2,
+          "max": 2
+        },
+        "complete": {
+          "n": 1,
+          "p50": 3,
+          "p95": 3,
+          "max": 3
+        },
+        "upload": {
+          "n": 1,
+          "p50": 0.39999999990686774,
+          "p95": 0.39999999990686774,
+          "max": 0.39999999990686774
+        },
+        "uploadBytes": {
+          "n": 1,
+          "p50": 776304,
+          "p95": 776304,
+          "max": 776304
+        },
+        "rebuilt": {
+          "n": 1,
+          "p50": 74,
+          "p95": 74,
+          "max": 74
+        },
+        "dirty": {
+          "n": 1,
+          "p50": 74,
+          "p95": 74,
+          "max": 74
+        },
+        "nodes": {
+          "n": 1,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "propagations": {
+          "n": 1,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "meshBytes": {
+          "n": 1,
+          "p50": 782352,
+          "p95": 782352,
+          "max": 782352
+        },
+        "vertices": {
+          "n": 1,
+          "p50": 21732,
+          "p95": 21732,
+          "max": 21732
+        },
+        "draws": {
+          "n": 1,
+          "p50": 45,
+          "p95": 45,
+          "max": 45
+        },
+        "drawnVertices": {
+          "n": 1,
+          "p50": 9990,
+          "p95": 9990,
+          "max": 9990
+        },
+        "fallbacks": 0,
+        "expansions": 0
+      },
+      "whole": {
+        "replicas": 8,
+        "operations": 8192,
+        "cpu": {
+          "n": 1,
+          "p50": 59.36249999998836,
+          "p95": 59.36249999998836,
+          "max": 59.36249999998836
+        },
+        "groupCpu": {
+          "n": 1,
+          "p50": 474.89999999990687,
+          "p95": 474.89999999990687,
+          "max": 474.89999999990687
+        },
+        "cpuLatency": {
+          "n": 1,
+          "p50": 59.8000000002794,
+          "p95": 59.8000000002794,
+          "max": 59.8000000002794
+        },
+        "complete": {
+          "n": 1,
+          "p50": 61,
+          "p95": 61,
+          "max": 61
+        },
+        "upload": {
+          "n": 1,
+          "p50": 0.39999999990686774,
+          "p95": 0.39999999990686774,
+          "max": 0.39999999990686774
+        },
+        "uploadBytes": {
+          "n": 1,
+          "p50": 776304,
+          "p95": 776304,
+          "max": 776304
+        },
+        "rebuilt": {
+          "n": 1,
+          "p50": 74,
+          "p95": 74,
+          "max": 74
+        },
+        "dirty": {
+          "n": 1,
+          "p50": 74,
+          "p95": 74,
+          "max": 74
+        },
+        "nodes": {
+          "n": 1,
+          "p50": 76379,
+          "p95": 76379,
+          "max": 76379
+        },
+        "propagations": {
+          "n": 1,
+          "p50": 188881,
+          "p95": 188881,
+          "max": 188881
+        },
+        "meshBytes": {
+          "n": 1,
+          "p50": 782352,
+          "p95": 782352,
+          "max": 782352
+        },
+        "vertices": {
+          "n": 1,
+          "p50": 21732,
+          "p95": 21732,
+          "max": 21732
+        },
+        "draws": {
+          "n": 1,
+          "p50": 45,
+          "p95": 45,
+          "max": 45
+        },
+        "drawnVertices": {
+          "n": 1,
+          "p50": 9990,
+          "p95": 9990,
+          "max": 9990
+        },
+        "fallbacks": 0,
+        "expansions": 0
+      },
+      "hybrid": {
+        "replicas": 8,
+        "operations": 8192,
+        "cpu": {
+          "n": 1,
+          "p50": 46.375,
+          "p95": 46.375,
+          "max": 46.375
+        },
+        "groupCpu": {
+          "n": 1,
+          "p50": 371,
+          "p95": 371,
+          "max": 371
+        },
+        "cpuLatency": {
+          "n": 1,
+          "p50": 46.10000000009313,
+          "p95": 46.10000000009313,
+          "max": 46.10000000009313
+        },
+        "complete": {
+          "n": 1,
+          "p50": 46.90000000037253,
+          "p95": 46.90000000037253,
+          "max": 46.90000000037253
+        },
+        "upload": {
+          "n": 1,
+          "p50": 0.20000000018626451,
+          "p95": 0.20000000018626451,
+          "max": 0.20000000018626451
+        },
+        "uploadBytes": {
+          "n": 1,
+          "p50": 776304,
+          "p95": 776304,
+          "max": 776304
+        },
+        "rebuilt": {
+          "n": 1,
+          "p50": 74,
+          "p95": 74,
+          "max": 74
+        },
+        "dirty": {
+          "n": 1,
+          "p50": 74,
+          "p95": 74,
+          "max": 74
+        },
+        "nodes": {
+          "n": 1,
+          "p50": 42628,
+          "p95": 42628,
+          "max": 42628
+        },
+        "propagations": {
+          "n": 1,
+          "p50": 140895,
+          "p95": 140895,
+          "max": 140895
+        },
+        "meshBytes": {
+          "n": 1,
+          "p50": 782352,
+          "p95": 782352,
+          "max": 782352
+        },
+        "vertices": {
+          "n": 1,
+          "p50": 21732,
+          "p95": 21732,
+          "max": 21732
+        },
+        "draws": {
+          "n": 1,
+          "p50": 45,
+          "p95": 45,
+          "max": 45
+        },
+        "drawnVertices": {
+          "n": 1,
+          "p50": 9990,
+          "p95": 9990,
+          "max": 9990
+        },
+        "fallbacks": 0,
+        "expansions": 0
+      },
+      "edge": {
+        "replicas": 8,
+        "operations": 8192,
+        "cpu": {
+          "n": 1,
+          "p50": 22.125,
+          "p95": 22.125,
+          "max": 22.125
+        },
+        "groupCpu": {
+          "n": 1,
+          "p50": 177,
+          "p95": 177,
+          "max": 177
+        },
+        "cpuLatency": {
+          "n": 1,
+          "p50": 21.200000000186265,
+          "p95": 21.200000000186265,
+          "max": 21.200000000186265
+        },
+        "complete": {
+          "n": 1,
+          "p50": 28.5,
+          "p95": 28.5,
+          "max": 28.5
+        },
+        "upload": {
+          "n": 1,
+          "p50": 2.8999999999068677,
+          "p95": 2.8999999999068677,
+          "max": 2.8999999999068677
+        },
+        "uploadBytes": {
+          "n": 1,
+          "p50": 9861156,
+          "p95": 9861156,
+          "max": 9861156
+        },
+        "rebuilt": {
+          "n": 1,
+          "p50": 79,
+          "p95": 79,
+          "max": 79
+        },
+        "dirty": {
+          "n": 1,
+          "p50": 79,
+          "p95": 79,
+          "max": 79
+        },
+        "nodes": {
+          "n": 1,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "propagations": {
+          "n": 1,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "meshBytes": {
+          "n": 1,
+          "p50": 9865476,
+          "p95": 9865476,
+          "max": 9865476
+        },
+        "vertices": {
+          "n": 1,
+          "p50": 274041,
+          "p95": 274041,
+          "max": 274041
+        },
+        "draws": {
+          "n": 1,
+          "p50": 45,
+          "p95": 45,
+          "max": 45
+        },
+        "drawnVertices": {
+          "n": 1,
+          "p50": 124860,
+          "p95": 124860,
+          "max": 124860
+        },
+        "fallbacks": 0,
+        "expansions": 0
+      }
+    }
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/terrain-pressure.html",
+    "sha256": "a2036f02943b7f536da13c161f441e4fd9434105a5d9934ec8c04de35ea2d6c1"
+  },
+  "passed": true
+}

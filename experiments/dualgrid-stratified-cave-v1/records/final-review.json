@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-01",
+  "build": "records/2026-11-01T10-43-18-023Z-build.json",
+  "inspection": "records/1793529798381-browser-inspection/report.json",
+  "priorOutputsAndInputs": [
+    {
+      "name": "dualgrid-cave-exploration-v1",
+      "sources": 8,
+      "standalone": true,
+      "fragment": true
+    },
+    {
+      "name": "dualgrid-abandoned-mine-v1",
+      "sources": 12,
+      "standalone": true,
+      "fragment": true
+    }
+  ],
+  "currentIdentityMatched": true,
+  "inventory": {
+    "files": 20,
+    "bytes": 609761
+  },
+  "limits": "HTML whitebox only; no Unity or full-route acceptance."
+}

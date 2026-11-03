@@ -73,7 +73,10 @@ namespace DarkNights.Core.Save
                 var crew = c.Saved.Expedition?.Crew.FirstOrDefault(v => v.Id == a.Id);
                 if (crew?.Boarded == true || crew?.Role == 4)
                     maximumHeight = Math.Max(maximumHeight, JourneyValidator.MaximumCrewHeight(c.Saved.Expedition?.Journey));
-                if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, maximumHeight) || !Number(a.VerticalSpeed, -1000, 1000) ||
+                if (c.Layout.Physics != null && c.Saved.Terrain != null)
+                    maximumHeight = Config.Terrain.PlayableTerrain.OriginY + 8 - 44;
+                float velocityLimit = c.Layout.Physics == null ? 1000 : 64000;
+                if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, maximumHeight) || !Number(a.VerticalSpeed, -velocityLimit, velocityLimit) ||
                     !Number(a.HorizontalSpeed, -64000, 64000) || !Number(a.TakeoffHorizontalSpeed, -64000, 64000) ||
                     !Number(a.DropRemaining, 0, hero?.DropSeconds ?? 0) || !Number(a.JetpackFuel, 0, hero?.FuelSeconds ?? 0) ||
                     a.ExplosiveCharges < 0 || a.ExplosiveCharges > 1000 ||
@@ -84,7 +87,8 @@ namespace DarkNights.Core.Save
                     (!a.JetpackOwned && (a.JetpackEquipped || a.JetpackFuel != 0)) ||
                     a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
                     (a.Enemy && (a.ManualControl || (c.Saved.Expedition == null && a.Height != 0) || a.JetpackEquipped)) ||
-                    (a.SupportPlatform == 0 && ((c.Saved.Terrain == null && a.Height != 0) || a.VerticalSpeed != 0)) ||
+                    (c.Layout.Physics == null && a.SupportPlatform == 0 &&
+                        ((c.Saved.Terrain == null && a.Height != 0) || a.VerticalSpeed != 0)) ||
                     (a.SupportPlatform > 0 && !c.Layout.Platforms.Any(p => p.Id == a.SupportPlatform && p.Contains((float)a.X) &&
                         Math.Abs(p.Height - a.Height) < 0.001 && a.VerticalSpeed == 0)) ||
                     (a.IgnoredPlatform > 0 && !c.Layout.Platforms.Any(p => p.Id == a.IgnoredPlatform)))

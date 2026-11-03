@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "calls": [
+    {
+      "output": "sources/rock.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a18896-3db9-7340-b606-b6184a07f49c/call_V38eUQiLQgR5KfuE9JppffWM.png",
+      "reference": "../20261030-hero-led-cave-concepts/01-flat-cave.png",
+      "transparentBackground": false,
+      "prompt": "Production texture source for a 2D side-view game. Use the image ONLY as style reference for its foreground rock. Generate ONE square 1024x1024 opaque solid rock fill texture, entire frame rock, orthographic straight-on. Match the APPROVED CLEAN CARTOON INK STYLE: broad grey-brown matte rock planes, confident slightly irregular dark outlines separating large asymmetrical interlocking fractured stone masses, 2 or 3 flat value steps per mass, very sparse short cracks. About 4 to 5 large irregular masses across. Some blunted angular faces, some rounded contour variation; avoid evenly spaced cobblestones or repeated square bricks. Palette charcoal warm grey #45443f, middle grey brown #605b50 and modest warm grey highlights #7d7462, ink #242723. Very clean large flat color areas, NO painterly brush texture, NO hatching, NO speckles, NO moss or plants, NO yellow sand, NO shiny surfaces, NO gradients, NO minerals. Uniform neutral ambient lighting, no baked flashlight beam or directional rim light. No terrain silhouette, no floor band, no holes, no scene, no characters, no UI, no labels, no border, no watermark. Rock should fill the whole square and extend beyond every edge. Aim for repeatable material but do not draw a tile grid. This image is a reusable material sampled inside separately generated terrain geometry, not a scene illustration."
+    },
+    {
+      "output": "sources/backdrop.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a18896-3db9-7340-b606-b6184a07f49c/call_LgofCqDwFlfGwoHd0Nwh9LFy.png",
+      "reference": "../20261030-hero-led-cave-concepts/01-flat-cave.png",
+      "transparentBackground": false,
+      "prompt": "Reusable BACKGROUND SOURCE for a 2D side-scrolling cave game. Use reference only for its BLUE DISTANT CAVE ART. One opaque landscape image approximately 1536x1024. Remove all foreground rock, walkable ground, minerals and characters. Entire canvas shows a clean cartoon underground cave in 3 overlapping flat silhouette layers: huge irregular slate-blue pillars, tapered stalactites descending from above, subdued silhouettes of distant columns. Broad simple shapes, crisp organic edges, little or NO interior linework. Deep muted blue nearest layer, medium desaturated blue middle layer, softly lighter blue distant openings; low contrast and quiet enough for foreground cyan characters and grey-brown rock. Match reference clean hand-drawn flat animation style; NO hatching, brush grain, noisy stone texture, photorealistic shading, volumetric light, glowing crystals or glossy 3D. No central focal point, no sky opening, no bright sunbeam. Distribute features irregularly across the width, uninterrupted cavern continues past all edges; avoid obvious symmetrical composition. No ground shelf or foreground framing. No text, HUD, borders, labels or watermark. This is a distant layer for modular maps, not a complete game scene."
+    },
+    {
+      "output": "sources/ore.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a18896-3db9-7340-b606-b6184a07f49c/call_kTkRfKTbyyVdqwxUiexkBffI.png",
+      "reference": "../20261030-hero-led-cave-concepts/06-near-wall-mining.png",
+      "transparentBackground": true,
+      "prompt": "Create a TRANSPARENT production sprite sheet for a clean hand-inked 2D cave mining game, square approximately 1024x1024. Reference is STYLE ONLY: match its small ochre mineral inclusions embedded in the right wall, NOT its scene. Arrange exactly FOUR isolated small mineral-marking clusters in a spacious 2 by 2 layout, one centered within each quadrant with ample transparent margin. Each cluster consists of 5 to 9 asymmetrical shallow polygonal ochre-gold inclusions and a few tiny thin gold vein flecks, arranged as an irregular broken seam. They are FLAT mineral inlays viewed straight-on, pressed into a wall, NOT tall crystals or standing crystals on a floor, NOT piles of treasure. Broad matte mustard/ochre/cream facets, restrained charcoal ink outlines, maximum 3 flat shades, no glow, no gradients, no blur, no fine texture. Distinct shapes across the four clusters: short diagonal broken seam, small compact flecks, narrow vertical scatter, broad sparse branching seam. Every colored inclusion isolated on genuine transparent alpha; no grey rock backing, no stone plaque, no background, no drop shadow, no checkerboard drawn, no separators, no labels, no text, no character. Alpha must surround and separate all four clusters. This sheet will be sampled in four quadrants and revealed through separately rendered terrain masks, so do NOT show wall scenery."
+    }
+  ]
+}

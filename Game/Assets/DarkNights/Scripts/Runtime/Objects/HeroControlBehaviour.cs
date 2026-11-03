@@ -61,7 +61,7 @@ namespace DarkNights.Runtime.Objects
         internal static void ResetInput(ActorState state)
         {
             HeroEquipment.Cancel(state);
-            state.Horizontal = 0; state.SprintHeld = false; state.ShipEntryBlocked = false;
+            state.Horizontal = state.Climb = 0; state.SprintHeld = false; state.ShipEntryBlocked = false;
             state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
             HeroJumpMotion.Clear(state, clearVelocity: false);
             state.LastInputSequence = 0; state.LastInputTick = 0;

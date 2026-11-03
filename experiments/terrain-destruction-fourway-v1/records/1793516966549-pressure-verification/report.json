@@ -1,0 +1,442 @@
+{
+  "date": "2026-11-01",
+  "scope": "Grouped CPU throughput and independent batch completion; no Unity.",
+  "models": [
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 316,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 20
+    },
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 20
+    },
+    {
+      "w": 96,
+      "profile": "tunnel",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 472,
+      "mergedRebuilds": 24
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 314,
+      "mergedRebuilds": 44
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 44
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 44
+    },
+    {
+      "w": 96,
+      "profile": "scatter",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 442,
+      "mergedRebuilds": 47
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 305,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 19
+    },
+    {
+      "w": 96,
+      "profile": "bursts",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 474,
+      "mergedRebuilds": 26
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 319,
+      "mergedRebuilds": 71
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 325,
+      "mergedRebuilds": 71
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 325,
+      "mergedRebuilds": 71
+    },
+    {
+      "w": 96,
+      "profile": "holes",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 462,
+      "mergedRebuilds": 76
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 313,
+      "mergedRebuilds": 8
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 9
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 332,
+      "mergedRebuilds": 9
+    },
+    {
+      "w": 320,
+      "profile": "tunnel",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 453,
+      "mergedRebuilds": 10
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 342,
+      "mergedRebuilds": 137
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 354,
+      "mergedRebuilds": 138
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 354,
+      "mergedRebuilds": 138
+    },
+    {
+      "w": 320,
+      "profile": "scatter",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 511,
+      "mergedRebuilds": 163
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 308,
+      "mergedRebuilds": 31
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 33
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 330,
+      "mergedRebuilds": 33
+    },
+    {
+      "w": 320,
+      "profile": "bursts",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 521,
+      "mergedRebuilds": 45
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "dual",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 322,
+      "mergedRebuilds": 251
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "whole",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 323,
+      "mergedRebuilds": 251
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "hybrid",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 323,
+      "mergedRebuilds": 251
+    },
+    {
+      "w": 320,
+      "profile": "holes",
+      "method": "edge",
+      "valid": 256,
+      "geometryEqual": true,
+      "mergedMeshEqual": true,
+      "immediateRebuilds": 473,
+      "mergedRebuilds": 325
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0,
+      "clippedLabels": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0,
+      "clippedLabels": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0,
+      "clippedLabels": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0,
+      "clippedLabels": 0,
+      "svg": [
+        {
+          "width": 360,
+          "paths": 6
+        },
+        {
+          "width": 360,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0,
+      "clippedLabels": 0,
+      "svg": [
+        {
+          "width": 320,
+          "paths": 6
+        },
+        {
+          "width": 320,
+          "paths": 6
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0,
+      "clippedLabels": 0,
+      "svg": [
+        {
+          "width": 320,
+          "paths": 6
+        },
+        {
+          "width": 320,
+          "paths": 6
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "measurements": [],
+  "button": {
+    "rounds": 8,
+    "rows": 128,
+    "operations": 1288704
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/terrain-pressure.html",
+    "sha256": "73fbdfa51ab7839a99b3e8ecefcc8dccb2d84dca3be05047b0d132c4f9d2e52e"
+  },
+  "passed": true
+}

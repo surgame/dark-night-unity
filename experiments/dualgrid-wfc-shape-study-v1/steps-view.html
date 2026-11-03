@@ -1,0 +1,26 @@
+<div id="terrain-steps">
+  <div class="st-heading"><h3>三种地形的实现过程</h3></div>
+  <div class="viz-controls" aria-label="地形方案">
+    <button type="button" class="btn" data-method="dual" aria-pressed="true">16型 Dual Grid</button>
+    <button type="button" class="btn" data-method="wfc" aria-pressed="false">扩展 WFC</button>
+    <button type="button" class="btn" data-method="hybrid" aria-pressed="false">WFC＋Dual Grid</button>
+  </div>
+  <div class="st-navigation">
+    <button type="button" class="btn" id="st-prev" aria-label="上一步">上一步</button>
+    <label class="form-label"><span class="sr-only">实现步骤</span><select class="form-select" id="st-stage"></select></label>
+    <button type="button" class="btn btn-primary" id="st-next">下一步</button>
+  </div>
+  <div id="st-phase" class="text-small text-muted" role="status" aria-live="polite">正在计算真实中间状态…</div>
+  <canvas id="st-canvas" role="img" aria-label="当前地形实现步骤的白模、数据与选择结果。"></canvas>
+  <div id="st-detail" class="text-small" aria-live="polite"></div>
+  <div id="st-error" class="text-small text-destructive" role="alert" hidden></div>
+</div>
+<style>
+#terrain-steps{display:grid;gap:calc(var(--font-size-base)*.6);color:var(--foreground)}
+#terrain-steps .st-heading{padding-inline-end:95px}
+#terrain-steps .st-navigation{display:flex;gap:calc(var(--font-size-base)*.5);align-items:center;flex-wrap:wrap}
+#terrain-steps .st-navigation label{min-width:0;flex:1}
+#terrain-steps canvas{display:block;width:100%;height:440px;touch-action:pan-y}
+#terrain-steps [hidden]{display:none}
+@media(max-width:480px){#terrain-steps canvas{height:460px}#terrain-steps .st-navigation label{flex-basis:100%;order:-1}}
+</style>

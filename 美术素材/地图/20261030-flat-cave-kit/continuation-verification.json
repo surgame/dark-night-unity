@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-30",
+  "sourceChat": "01a18896-3db9-7340-b606-b6184a07f49c",
+  "continuationChat": "01a1891b-2542-7ea1-a69e-12cf28b0c785",
+  "ok": true,
+  "currentOutput": "exports-v3",
+  "outputFiles": 209,
+  "outputBytes": 208124533,
+  "allOutputHashesMatch": true,
+  "allSourceHashesMatch": true,
+  "reviewedAndExportedNativeLocalEqual": true,
+  "rendererHashesMatch": true,
+  "previewBytes": 818471,
+  "checkpoint": "revisions/resume-20261030",
+  "preservedOutputs": [
+    "exports",
+    "exports-v2"
+  ],
+  "scripts": [
+    {
+      "file": "build.cjs",
+      "sha256": "f51328fd94ed35603c3113c7e3da11ea74d04dafb8048f3582920272239bed2f"
+    },
+    {
+      "file": "export.cjs",
+      "sha256": "0c8a4c258c7a30f1513633058e62f21d709b152f19472d44e824d75c349b1c11"
+    },
+    {
+      "file": "inspect-mapping.cjs",
+      "sha256": "25517d106f250ab147b51f4e7e10f43cf17be28302cf07e3506b352304632350"
+    },
+    {
+      "file": "brief.json",
+      "sha256": "cd96ae015eb3690396e940f64d883f2d838f5ae1f363a02cb71fe630c3e87c64"
+    }
+  ],
+  "runtime": {
+    "node": "v26.7.0",
+    "sharp": "0.35.5",
+    "playwright": "1.62.1"
+  },
+  "limitations": [
+    "Mirrored rock repetition remains visible.",
+    "Abrupt surface-band endings and bending at sharp turns still require art review.",
+    "Offline sample only; no Unity import, compilation, collision, gameplay or lighting acceptance."
+  ]
+}

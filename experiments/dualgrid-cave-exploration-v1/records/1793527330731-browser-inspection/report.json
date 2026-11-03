@@ -1,0 +1,239 @@
+{
+  "date": "2026-11-01",
+  "scope": "Bounded browser artwork/interaction inspection; no Unity, performance or full route acceptance.",
+  "layouts": [
+    {
+      "width": 1000,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "width": 1000,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "source": {
+    "standalone": "387a3b3409066400676b0dd7b98ff06e654acf77f4f0dd83de0f573d3cbff466",
+    "fragment": "8a53a7bec6e75fb0a9c7d908c60621e43f72eb7014bc175a77b7ac17b502ef7b"
+  },
+  "initial": {
+    "ready": true,
+    "mode": "overview",
+    "site": "entry",
+    "visited": [],
+    "player": {
+      "x": 20,
+      "y": 25.479991995192133,
+      "grounded": false
+    },
+    "camera": {
+      "x": 124,
+      "y": 70,
+      "scale": 3.725806451612903
+    },
+    "dug": 0,
+    "revision": 0,
+    "size": [
+      248,
+      140
+    ],
+    "insideRock": false
+  },
+  "geometry": {
+    "templates": 16,
+    "samples": 3112,
+    "mismatches": []
+  },
+  "interactions": {
+    "start": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 20,
+        "y": 25.529999709357714,
+        "grounded": true
+      },
+      "camera": {
+        "x": 26.88049412673027,
+        "y": 20.529999709357714,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "moved": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.16499999999995,
+        "y": 29.55800942072921,
+        "grounded": true
+      },
+      "camera": {
+        "x": 36.16499999999995,
+        "y": 24.55800942072921,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "jumped": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.16499999999995,
+        "y": 28.538634420729206,
+        "grounded": false
+      },
+      "camera": {
+        "x": 36.16499999999995,
+        "y": 23.538634420729206,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "dug": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.16499999999995,
+        "y": 29.55800930204973,
+        "grounded": true
+      },
+      "camera": {
+        "x": 36.16499999999995,
+        "y": 24.55800930204973,
+        "scale": 17.7080078125
+      },
+      "dug": 3,
+      "revision": 1,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    },
+    "restored": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 31.16499999999995,
+        "y": 29.55800930204973,
+        "grounded": false
+      },
+      "camera": {
+        "x": 36.16499999999995,
+        "y": 24.55800930204973,
+        "scale": 17.7080078125
+      },
+      "dug": 3,
+      "revision": 0,
+      "size": [
+        248,
+        140
+      ],
+      "insideRock": false
+    }
+  },
+  "inline": {
+    "ready": true,
+    "mode": "inspect",
+    "site": "hall",
+    "visited": [],
+    "player": {
+      "x": 20,
+      "y": 25.479991995192133,
+      "grounded": false
+    },
+    "camera": {
+      "x": 144,
+      "y": 57,
+      "scale": 4.347169811320755
+    },
+    "dug": 0,
+    "revision": 0,
+    "size": [
+      248,
+      140
+    ],
+    "insideRock": false
+  },
+  "inlineLayout": {
+    "width": 288,
+    "scroll": 288
+  },
+  "touch": {
+    "ready": true,
+    "mode": "walk",
+    "site": "entry",
+    "visited": [
+      "entry"
+    ],
+    "player": {
+      "x": 20,
+      "y": 25.529999709357714,
+      "grounded": true
+    },
+    "camera": {
+      "x": 26.5,
+      "y": 28.392857142857142,
+      "scale": 6.339622641509434
+    },
+    "dug": 3,
+    "revision": 1,
+    "size": [
+      248,
+      140
+    ],
+    "insideRock": false
+  },
+  "ok": true
+}

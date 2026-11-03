@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-31",
+  "tool": "Built-in image_gen.imagegen",
+  "requestedSize": [
+    2560,
+    1600
+  ],
+  "outputs": [
+    {
+      "role": "draft",
+      "file": "world-layout-draft.png",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_Yx64SS4LStlDSFPCtvoUNFfz.png",
+      "width": 1586,
+      "height": 992,
+      "bytes": 2230519,
+      "sha256": "48936e82a5d57b46b722d59d7fbec5070aab54a905088ef349b88b5a68fb434f",
+      "copiedWithoutResizing": true
+    },
+    {
+      "role": "final",
+      "file": "world-layout.png",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_pHHO61K9puUT3C1UxsIHANzl.png",
+      "width": 1586,
+      "height": 992,
+      "bytes": 2150045,
+      "sha256": "1188d1bc922c64ea862a904dd40f6307ae430cad7f5f9d5eecd17c530a6f63db",
+      "copiedWithoutResizing": true
+    }
+  ],
+  "inputs": [
+    {
+      "file": "brief.json",
+      "sha256": "88b62f18eb7dc4c36ea539c827bd6fd139dcf6ec072331c037eb214c9075612d"
+    },
+    {
+      "file": "layout.json",
+      "sha256": "8b089f80d9c68a9d690fb90d569344bcfa025820fbdec350a8656face01cfeb7"
+    },
+    {
+      "file": "make-guide.cjs",
+      "sha256": "348173990ae7047d6495a0ab840667fc6eaca9dbd9b8b7d8d746ef755aeb6e2c"
+    },
+    {
+      "file": "layout-guide.svg",
+      "sha256": "fc2bb98d610bcbadcf1bd047512cdb1a810be9efb187b4601542b76550059387"
+    },
+    {
+      "file": "layout-guide.png",
+      "sha256": "b41cac84cf070e7082e8fb64c6f8bea20d09a170a1eb2cbcdd9c1f1fc3262e33"
+    },
+    {
+      "file": "generation-prompt.txt",
+      "sha256": "d1f4fc4ad6396bce00912b717a4c29f4b219f139e05e3888a0db190321c62757"
+    },
+    {
+      "file": "refinement-prompt.txt",
+      "sha256": "e1896d00b63c560d3e56cea335cd9da64165b43a12464274abc25db685bd366b"
+    }
+  ],
+  "styleReference": {
+    "file": "../20261030-modular-cave-playground/sources/user-style-reference.png",
+    "sha256": "36cf0768ba9df891e074ae9cdfdd977d73d6c640978b8e7a9b6c7e68168a21a4"
+  },
+  "attempts": [
+    {
+      "status": "argument-validation-rejected",
+      "reason": "The built-in tool does not expose size/n fields; no image generated. Retried using its supported fields and the requested size in the prompt."
+    },
+    {
+      "status": "draft-generated",
+      "file": "world-layout-draft.png"
+    },
+    {
+      "status": "targeted-correction-generated",
+      "file": "world-layout.png",
+      "corrections": [
+        "close right endpoints inside frame",
+        "reduce exposed ore piles",
+        "separate object-slot legend from ore"
+      ]
+    }
+  ],
+  "review": {
+    "status": "Final local image read back visually; topology declaration and all input/output identities checked.",
+    "scope": "Concept artwork and guide graph only",
+    "caveats": [
+      "Actual native size differs from requested; no artificial upscale.",
+      "Generated terrain is not pixel-identical to the guide.",
+      "Planning arrows, mineral transparency and object-slot marks are author annotations.",
+      "No runtime map, character collision, actual material layers, WFC execution or Unity acceptance proven."
+    ]
+  }
+}

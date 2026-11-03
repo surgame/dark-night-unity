@@ -1,0 +1,21 @@
+{
+  "createdAt": "2026-11-01T20:53:41.331Z",
+  "scope": "Two authored cave space proposals, no gameplay physics or Unity validation.",
+  "inputs": {
+    "data.js": "2e774b455eec9796d1f8394afa9770d0e4dd0b918e3ed767d49b873fe30a640b",
+    "geometry.js": "04d015135a9dda209417ae42c65d51837ba5c66b1b7aab0d7f8c7b3b3f60854e",
+    "view.html": "a81fa205e2ffe3487c15219e2a97d58f3b4a5a0379fe89f1f95b011a7bc8024f",
+    "app.js": "488716cd5262c9b82b767e2462b48c4ea35650ed0b8f2ffa0da50345d3023aef",
+    "README.md": "0580f4df7978482e863a005f6938656c347ce86f6a6a6e2620a2cce0e434c1a5"
+  },
+  "priorPreserved": {
+    "record": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\compact-natural-mine-v1\\records\\2026-11-01T20-32-35-376Z-build.json",
+    "fragment": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/compact-natural-mine.html",
+    "sha256": "c003d2f430f1be0d1a51e095e877467c0866fbb7fc87428e24cdee6a3f14fe0b"
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-progression-maps.html",
+    "bytes": 24590,
+    "sha256": "f65559120cce88ae5fdbc294b7400a9ef9b260ecd2b55953aadc3941fcc33133"
+  }
+}

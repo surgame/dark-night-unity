@@ -17,7 +17,15 @@
 
 CampControlMode和PolicyRevision由SessionAuthority唯一写入，投影给各端，不通过转移FishNet所有权实现。暂停停止业务时间，网络、心跳、UI、合法会话控制及存储继续；不使用Time.timeScale=0停掉整个服务进程。菜单只锁本地输入，不自动暂停全房间。
 
-当前主角有限空控候选协议36：ActorState增加水平速度及起跳水平速度，仍由Host唯一推进；客户端继续消费位置、朝向和动作冻结投影，不新增客户端运动模拟或每角色NetworkTransform。统一MovementBehaviour每步只执行一次，玩家与自动控制只提交意图。所有装配移动能力的Definition按身份冻结完整MovementConfig摘要，包含CanJump／EnableAirControl、到达容差及四项空控值，并加入内容握手；参数不同的构建拒绝加入。本次合并替代原HeroAirControlConfig摘要，内容身份改变，但不改变协议36载荷字段。输入超时／租约撤销只撤输入，已有惯性由权威运动继续推进。当前候选的真实多人、晚加入及恢复仍按DEVELOPMENT待验。
+当前协议38在原PhysicsWorldWire完整投影上扩展环境吊绳抓附：未选物理时必须为空；候选必须完整覆盖存活手动角色、配置中全部道具（含绳节）及所有绳索端点，不能只纠正人物而保留旧道具／约束。接收先核对后端配置摘要、地图／epoch、角色姿态及控制租约，原子冻结到同一WorldViewData后展示；不创建客户端业务刚体或每角色NetworkTransform。ActorState仍唯一拥有角色，PhysicsWorldState只拥有道具／约束。独立Host＋Client及弱网验收状态见DEVELOPMENT。
+
+HeroInput沿原可靠输入流增加-1／0／1的Climb轴，复用控制租约、去重、超时及菜单清输入。PhysicsRopeWire增加HangingRopeId和Position（逻辑像素弧长）；环境抓附Length为零，普通牵引新字段为零。抓绳请求只给目标绳节ID，Host从实际物理姿态重新计算最近抓点，验证距离、端部及同绳52像素间隔，客户端不能提交抓点坐标。攀爬跨节、绳节和人物运动统一在原60Hz批次结算；投影共用原表现时间线。拓扑及交互规则进入Profile身份，不兼容协议或配置拒绝混连。
+
+物理Profile摘要包含规则、道具初始放置、单位／形状版本、Unity版本及实际原生迭代／接触参数，纳入原布局／内容握手；MovementConfig完整摘要继续保留。不同后端、参数或原生设置拒绝混连。Host以单一60Hz时钟收集意图、统一Simulate、提交相关物体；物理根与表现根分离。Host物理显示共用相邻步采样，客户端角色、箱子与绳端共用原公共表现时间线。
+
+PhysicsLink请求携带本人角色、控制租约及明确目标ID；正ID为角色，-1～-32为本配置道具，0仅可解除已有连接。可信连接、Ready、epoch、PolicyRevision、序号／去重及SharedCamp／HostOnly沿原入口执行；服务端再检查本人控制、存活、暂停、端点和实际距离。每个OwnerId最多一条绳索，不允许自行指定绳长或以目标PlayerId取得权限；退休端点在下一步清理。
+
+本轮预测评估结论是继续Host权威完整状态同步，客户端只做显示插值。FishNet传输层不使Unity物理确定化；无当前弱网／交互误差测量时，不默认叠加FishNet预测时钟或本地半套刚体。PhysicsWorldSnapshot已保留输入确认与关联体／约束闭包，后续是否接预测按PH-04测量决定；这不等于本轮已经实现客户端物理预测。输入超时／租约撤销只清输入，已生效惯性继续由Host推进。
 
 星图切片原协议35：JourneyWire沿原WorldSession可靠完整投影增加共享勘测位图、CoordinateFlight及TargetX／TargetY。位图唯一归ExpeditionJourneyState，Host只在实际移动时累加，晚加入／重连读取相同冻结结果。UI不显示未揭露节点、列表不公布总数；本轮只做显示隐藏，不声称对掌握完整配置的恶意客户端隐藏星体数据。
 

@@ -1,0 +1,53 @@
+{
+  "mode": "built-in image_gen",
+  "reference": {
+    "path": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-9fb75665-fc4c-4345-81c6-a787a2a90965.png",
+    "role": "User supplied style reference, not a requested edit target"
+  },
+  "calls": [
+    {
+      "output": "sources/rock.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1885a-d455-7a51-ad10-5e3b12d43271/call_HSMOM9Bqnu1JVh5bprRBmqJ3.png",
+      "transparent": false,
+      "prompt": "Create a production game art TEXTURE SOURCE, not a scene or concept illustration. The attached image is STYLE REFERENCE ONLY. Output square 1024x1024 opaque image completely filled edge-to-edge by the dark grey olive stone material seen in the foreground bottom of reference. Hand inked chunky rounded fractured boulders, confident dark irregular outlines, broad desaturated grey-green planes, subtle dry brush hatching, a little muted yellow olive moss in crevices. About 5 large boulders across, not pebbles, no tiny excessive detail. Lighting uniform ambient, surface viewed straight-on orthographically, no perspective foreshortening, no openings, no sky, no ground silhouette, no character, no minerals, no border, no text. Seamlessly repeatable horizontally and vertically; edge rock structures continue across opposite edges. Palette and inked storybook videogame medium must closely match reference foreground. This is a reusable solid rock fill sheet, not a tile atlas."
+    },
+    {
+      "output": "sources/floor.png",
+      "status": "Preserved first version; superseded by floor-wide-v2.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1885a-d455-7a51-ad10-5e3b12d43271/call_wNAsfq0seu7VHWx5ZRmHbPo0.png",
+      "transparent": true,
+      "prompt": "Use attached image as STYLE REFERENCE ONLY. Create a reusable transparent-background terrain sprite for a side-on 2.5D hand-inked cave game. Landscape 1536x1024. ONE single long perfectly LEVEL horizontal rocky ground ledge runs uninterrupted through left and right image edges, no end caps, no slope. Transparent upper 35 percent. Walking surface back edge at y approximately 40 percent, front edge at 48 percent so the narrow ochre dirt top face is visible in perspective. Thick dark grey olive rounded boulder wall occupies the lower half all the way to bottom edge, NOT a floating island with rounded bottom. Several huge irregular boulders across, black ink cracks, muted olive moss on leading edges, golden tan packed earth upper surface, tiny sparse plants at back edge, no bright greens. Exact reference hand-painted inked storybook style, broad planes, restrained texture. No sky, no cave scene behind, no people, no UI, no labels, no border or checkerboard drawn in image. Level top face all the way across, left and right edges same height and visual thickness. Preserve actual alpha above the irregular rock and plants silhouette. Neutral illumination from upper left, no background glow. This will be mapped onto algorithmic slopes, so do not draw any slope yourself."
+    },
+    {
+      "output": "sources/ceiling.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1885a-d455-7a51-ad10-5e3b12d43271/call_mmiqZ8MMN3wQ0WFStDIonsD8.png",
+      "transparent": true,
+      "prompt": "Create ONE reusable cave ceiling terrain sprite, transparent background, landscape 1536x1024. Reference is STYLE ONLY, closely match its top foreground rock. The entire top 45 percent is dense large dark olive grey rock, cut off by top and both side image boundaries. Across y roughly 45 percent runs an irregular but broadly LEVEL downward-facing rocky ceiling silhouette. Below it genuine empty alpha transparency; isolated roots and sparse moss hang down as far as y65 percent. Thick chunky rounded stone overhang, deeply black inked cracks between large angular round boulders, subdued grey green broad planes, very restrained ochre olive moss, hand-painted storybook game style. Several separate wiry roots hang naturally DOWN from rock joins. No floor, no sky, no background mountains or cave, no scenery behind, no text, no border, no ground top face, no character, no minerals. Solid ceiling extends through left and right edges at the same height; there are NO end caps. This is a modular art source for warping along a terrain contour. Do not add atmospheric glow in transparent area."
+    },
+    {
+      "output": "sources/backdrop.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1885a-d455-7a51-ad10-5e3b12d43271/call_3rZUC8B9802U1AbZKOxOYVbW.png",
+      "transparent": false,
+      "prompt": "Generate a production reusable BACKGROUND LAYER for a side-scrolling cave videogame, 1536x1024 landscape opaque. Attached image is style reference only: reproduce its distant cool blue-green cave walls and layered atmospheric depth. Remove ALL foreground rock framing, remove ALL walkable floor, remove character, remove forest, remove crystals. The whole canvas is a dim grey teal subterranean limestone gallery, distant huge organic stone pillars and irregular downward stalactites, soft silhouettes of deeper pillars through cold subtle mist, textured ink-and-wash storybook style. Large broad simple masses with muted linework, noticeably lower contrast than foreground. Top and bottom should be dark teal rock fading into deeper cavern; middle moderately luminous desaturated blue grey. Horizontally repeating composition without a focal point, no opening to sky, no sun shaft, no hero subject, no text, no panels, no borders. This is an empty background behind separately rendered terrain, not a completed scene. Closely match the background's muted palette and hand-drawn treatment from reference."
+    },
+    {
+      "output": "sources/ore.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1885a-d455-7a51-ad10-5e3b12d43271/call_G1qqNEZhxuqnv8OTxq1KU0x6.png",
+      "transparent": true,
+      "prompt": "Create a production transparent game sprite sheet in the EXACT inked hand-painted style of reference, square 1024x1024. Four independent small ore outcrop clusters arranged in a clean 2 by 2 grid, generous transparent gutters. Each cluster centered in its quarter, no crossing of quarter edges. Upper left: three amber ochre pointed crystals embedded in a grey olive rock fragment. Upper right: two small warm gold crystal shards growing sideways from a tiny dark rock patch. Lower left: a low dark rock mound with four muted amber mineral faces. Lower right: one tall amber crystal flanked by two small short ones with a little olive moss. Sharp angular mineral shapes, strong irregular dark ink outlines, simple gold cream front faces and ochre shadow faces, subdued dry brush texture, no magical glow or sparkle. Match mineral deposits on right-hand cave wall of reference. All sprites viewed side on, no isometric camera, no scene, no floor strip, no labels, no UI, no drawn checkerboard. Actual fully transparent background. Only these four sprites. Palette visually coherent with olive grey rock."
+    },
+    {
+      "output": "sources/floor-wide-v2.png",
+      "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1885a-d455-7a51-ad10-5e3b12d43271/call_sNx4wHsd2UnRIxUjucRmSfga.png",
+      "transparent": true,
+      "inputRoles": ["sources/floor.png: edit target", "user reference: style reference"],
+      "prompt": "Edit FIRST image, using SECOND as style reference. Preserve transparent background and dark grey olive hand-inked chunky rocky front face. Make the ochre dirt walking surface visibly WIDER in depth: a broad irregular shelf whose back edge runs at about y=490 and front edge around y=590, width varying gently between 75 and 120 pixels. Output 1536x1024. The land remains overall horizontal from left to right, no big slope, no sharp triangle corner. Organic small uneven boulders and subdued olive moss along the front lip, gently meandering front and back boundaries, a few tiny pebbles within the dirt surface. Dirt surface should read as a walkable TOP PLANE with depth, not a thin golden outline. Keep plants sparse and small so the top plane is visible. Rock wall occupies everything below to bottom edge and continues through left/right image boundaries, never floating, no rounded endcaps. Empty alpha above, no backdrop, no character, no labels, no drawn checkerboard. Maintain reference-like dark ink, broad stone planes, brush texture and muted palette; do not make road geometrically straight or perfectly uniform."
+    }
+  ],
+  "notes": [
+    "Requested native dimensions are prompt intentions. Actual returned dimensions are recorded in sources-manifest.json.",
+    "Seamless requests do not establish exact pixel edges. The renderer uses deterministic material overlap, common world coordinates and shared contour profiles.",
+    "All six outputs are copied without modification from the built-in tool. Preview encodings and runtime-derived rendering are separate.",
+    "Hero reference is the existing artifacts/dot-cave-handoff-20261029/01-character/hero-idle.png, not AI generated in this task."
+  ]
+}

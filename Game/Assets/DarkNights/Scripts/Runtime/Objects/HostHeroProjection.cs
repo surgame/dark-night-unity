@@ -9,6 +9,19 @@ namespace DarkNights.Runtime.Objects
     /// </summary>
     public static class HostHeroProjection
     {
+        /// <summary>服务端在模拟步前按可信本地连接槽位冻结唯一手动角色，供相邻步显示插值使用。</summary>
+        internal static ActorViewData CaptureOwned(ObjectSession world, int playerSlot)
+        {
+            if (world == null || !world.Context.IsActive || playerSlot < 0) return null;
+            foreach (var actor in world.Index.Actors)
+            {
+                var state = actor.Read();
+                if (state.ManualControl && state.ControllerSlot == playerSlot && state.ControlLease > 0)
+                    return ObjectProjection.CaptureActor(world, actor);
+            }
+            return null;
+        }
+
         public static ActorViewData Capture(ObjectSession world, SessionAuthority authority,
             SessionViewData frame, ActorViewData observed, int playerSlot)
         {

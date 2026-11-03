@@ -1,0 +1,735 @@
+{
+  "date": "2026-10-31",
+  "purpose": "Modular ecological cave authoring walk demo; no Unity integration.",
+  "sources": [
+    {
+      "name": "hero",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "nativeSize": [
+        282,
+        309
+      ],
+      "packagedSize": [
+        120,
+        131
+      ],
+      "sourceSha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+      "packagedSha256": "95abf945a11ddd1f76352ec3f7686d8fa763b0eca6c4fdfbca40f349d9d61a8f",
+      "packagedBytes": 4404,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    },
+    {
+      "name": "back",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\sources\\backwall-clean.png",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "packagedSize": [
+        640,
+        640
+      ],
+      "sourceSha256": "350fbbd30d656fe10c4a5c64e41e67448f4e6a99c1260ac541b650eb9b128827",
+      "packagedSha256": "079b29ab8583715fbb106dc546473ba20217a71b17b5608b4c05214585e1826e",
+      "packagedBytes": 24386,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    },
+    {
+      "name": "rockMaterial",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\rock-material-v2.png",
+      "nativeSize": [
+        1536,
+        1024
+      ],
+      "packagedSize": [
+        768,
+        512
+      ],
+      "sourceSha256": "19183e896ed5a0642fb133333894100425693d5a038548066a7ddef4f22cc371",
+      "packagedSha256": "d22641924d7f1ba413bba74ac7e97b936709e21c10fef30ecdf5ca37f124d099",
+      "packagedBytes": 28022,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "canonical-rock-material"
+    },
+    {
+      "name": "bridgeDesign",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\bridge-authored-v2.png",
+      "nativeSize": [
+        1536,
+        1024
+      ],
+      "packagedSize": [
+        768,
+        512
+      ],
+      "sourceSha256": "d08626d839ab4d60ba6fa3efabec7ce51688db8def25f0441886bdded927a790",
+      "packagedSha256": "b2212bfef6270d7d87df41d8f10728936b5f24b39211746c9939f85b93d3f127",
+      "packagedBytes": 214772,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": true,
+        "alphaPreserved": true,
+        "exactTransparentRgb": true
+      },
+      "role": "authored-bridge-design",
+      "moduleSize": [
+        623,
+        414
+      ],
+      "artCoreSize": [
+        495,
+        330.0
+      ],
+      "artCoreOffset": [
+        64,
+        0
+      ],
+      "interfaceOutsideSourceArt": true,
+      "aspectPolicy": "preserve-native-ratio",
+      "nativeSourceBytesUnmodified": true
+    },
+    {
+      "name": "panel0",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-1.png",
+      "nativeSize": [
+        623,
+        414
+      ],
+      "packagedSize": [
+        623,
+        414
+      ],
+      "sourceSha256": "ee9d8fbd166cebcbc152e62507a886a669527fd9a1fe832398354b42d158ea28",
+      "packagedSha256": "8b8b9e9dcd24c4d5e20eced53ab1b391536c79a653a6b06bc8decbc47a22446a",
+      "packagedBytes": 19862,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    },
+    {
+      "name": "panel1",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-2.png",
+      "nativeSize": [
+        623,
+        414
+      ],
+      "packagedSize": [
+        623,
+        414
+      ],
+      "sourceSha256": "0f08bbc9315c39ff9e3f47656f0841807fa29b8a174635d56d58ff309f4e1828",
+      "packagedSha256": "9a7bda87f68dc03a1af41ec2669129d166b21682d2473766db46565616c7b849",
+      "packagedBytes": 15644,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    },
+    {
+      "name": "panel2",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-3.png",
+      "nativeSize": [
+        623,
+        414
+      ],
+      "packagedSize": [
+        623,
+        414
+      ],
+      "sourceSha256": "30382335205d9fd07a1aa42e05910ec3e276af26c4f68bee302c3a0d7baa7557",
+      "packagedSha256": "bc1ec48d5060728bd7a0b1cdf975624992e97a2bd97c882667a8df202c9fd1e8",
+      "packagedBytes": 18958,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    },
+    {
+      "name": "panel3",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-4.png",
+      "nativeSize": [
+        623,
+        414
+      ],
+      "packagedSize": [
+        623,
+        414
+      ],
+      "sourceSha256": "a465d7e570b887e6fa3866099407bf2e194331e80bdb23da066c7de505705e46",
+      "packagedSha256": "3ff72a10ba781a5e89798b28a28ef6e9ca1741684e5aa165b16269139f5d9895",
+      "packagedBytes": 19404,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    },
+    {
+      "name": "panel4",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-5.png",
+      "nativeSize": [
+        623,
+        414
+      ],
+      "packagedSize": [
+        623,
+        414
+      ],
+      "sourceSha256": "daf910df918d65109354a8abd1a28c00d83a18e77f4c5a5667b7ff776c3c3f22",
+      "packagedSha256": "bdabe86c6656fb0f2be94399b7afbb3c41349a2d42e55c0c8603fab82aef4c8c",
+      "packagedBytes": 19786,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    },
+    {
+      "name": "panel5",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\exports-v3\\foreground\\module-6.png",
+      "nativeSize": [
+        623,
+        414
+      ],
+      "packagedSize": [
+        623,
+        414
+      ],
+      "sourceSha256": "693d986937c47c4ee9c3f59a1b7b861257dc92e3b491fd8d9d6b763d1be87178",
+      "packagedSha256": "40fd51f23a6768e51c9e6462e229110638a104dba1bf185619216efc110c86c6",
+      "packagedBytes": 18644,
+      "encoding": {
+        "format": "WEBP",
+        "lossless": false,
+        "alphaPreserved": true,
+        "quality": 86
+      },
+      "role": "original-separated-layer"
+    }
+  ],
+  "output": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\ecology-walk-repaired.html",
+  "bytes": 768145,
+  "outputSha256": "2a41fb0aa6c252fc146473e9a7e81333979c6494a3c6faee482e74f9325976d0",
+  "buildId": "f04f68487ce5af902661679f2d1a522897a23092b18788db1949235c7e36ee2c",
+  "buildIdentityInput": {
+    "schema": "ecology-build-v2",
+    "portVersion": "ecology-module-rules-v2",
+    "shapeVersion": "ecology-author-shapes-v2",
+    "sources": [
+      {
+        "file": "view.html",
+        "sha256": "cd393e107970158d36def2013c18918239c54d461e23e5e5c4de3b99e95f6e25"
+      },
+      {
+        "file": "contours.js",
+        "sha256": "17556b2c1c8a49adc2a95a9f7329d69a1dc14ae55d4bab8cc65843324568e204"
+      },
+      {
+        "file": "authored-profiles.js",
+        "sha256": "22944d1e6f9fc17c117ce9cde23b8fa19c6602bbbea865b29cab936dd4839ced"
+      },
+      {
+        "file": "module-rules.js",
+        "sha256": "225a021802318cd1e3f5a32130ebe6578352dabec3c9ce28285086ea7e0537e0"
+      },
+      {
+        "file": "terrain-shapes.js",
+        "sha256": "cbc7cbc6dca5197e4051d4600f321411053b1ea28dca562b18ed31ff5711d214"
+      },
+      {
+        "file": "world-data.js",
+        "sha256": "084be0e51d23b37300288cc8f0d8c2548a674e203673f51c351b6543a8da1b56"
+      },
+      {
+        "file": "engine.js",
+        "sha256": "c6abb16c95572d92dbafcb16f637bdf5f7cf52d5fdc8c55cd538618cbb5d2dae"
+      },
+      {
+        "file": "renderer.js",
+        "sha256": "7ba7b5a9f47017c51c452b0a395ce696fb210c33745180055bd5a18d9e06cff9"
+      },
+      {
+        "file": "assembly-inspector.js",
+        "sha256": "f0407ca7156c8ea20a583d40a22e92f640aba5948e821c6bcea58ce4572cb00b"
+      },
+      {
+        "file": "app.js",
+        "sha256": "cfd44aa7af313991fbcc9813cedbd91906437304d0e4747b1a33ada2d814c26f"
+      },
+      {
+        "file": "build.py",
+        "sha256": "107b82e6be7fe89e8db1c786c7126c16ecf6bad867b90eeb9397c3beedd04599"
+      },
+      {
+        "file": "authored-profile-input.json",
+        "sha256": "1e188727052c86a6525121cdc64f5980f5b875baa690a97103b8d47687b776ed"
+      },
+      {
+        "file": "trace-authored.py",
+        "sha256": "8fa70b929b938c1cde60961ea26e886455a13d2715170712ab0726796b23e86e"
+      }
+    ],
+    "assets": [
+      {
+        "name": "hero",
+        "sourceSha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+        "packagedSha256": "95abf945a11ddd1f76352ec3f7686d8fa763b0eca6c4fdfbca40f349d9d61a8f"
+      },
+      {
+        "name": "back",
+        "sourceSha256": "350fbbd30d656fe10c4a5c64e41e67448f4e6a99c1260ac541b650eb9b128827",
+        "packagedSha256": "079b29ab8583715fbb106dc546473ba20217a71b17b5608b4c05214585e1826e"
+      },
+      {
+        "name": "rockMaterial",
+        "sourceSha256": "19183e896ed5a0642fb133333894100425693d5a038548066a7ddef4f22cc371",
+        "packagedSha256": "d22641924d7f1ba413bba74ac7e97b936709e21c10fef30ecdf5ca37f124d099"
+      },
+      {
+        "name": "bridgeDesign",
+        "sourceSha256": "d08626d839ab4d60ba6fa3efabec7ce51688db8def25f0441886bdded927a790",
+        "packagedSha256": "b2212bfef6270d7d87df41d8f10728936b5f24b39211746c9939f85b93d3f127"
+      },
+      {
+        "name": "panel0",
+        "sourceSha256": "ee9d8fbd166cebcbc152e62507a886a669527fd9a1fe832398354b42d158ea28",
+        "packagedSha256": "8b8b9e9dcd24c4d5e20eced53ab1b391536c79a653a6b06bc8decbc47a22446a"
+      },
+      {
+        "name": "panel1",
+        "sourceSha256": "0f08bbc9315c39ff9e3f47656f0841807fa29b8a174635d56d58ff309f4e1828",
+        "packagedSha256": "9a7bda87f68dc03a1af41ec2669129d166b21682d2473766db46565616c7b849"
+      },
+      {
+        "name": "panel2",
+        "sourceSha256": "30382335205d9fd07a1aa42e05910ec3e276af26c4f68bee302c3a0d7baa7557",
+        "packagedSha256": "bc1ec48d5060728bd7a0b1cdf975624992e97a2bd97c882667a8df202c9fd1e8"
+      },
+      {
+        "name": "panel3",
+        "sourceSha256": "a465d7e570b887e6fa3866099407bf2e194331e80bdb23da066c7de505705e46",
+        "packagedSha256": "3ff72a10ba781a5e89798b28a28ef6e9ca1741684e5aa165b16269139f5d9895"
+      },
+      {
+        "name": "panel4",
+        "sourceSha256": "daf910df918d65109354a8abd1a28c00d83a18e77f4c5a5667b7ff776c3c3f22",
+        "packagedSha256": "bdabe86c6656fb0f2be94399b7afbb3c41349a2d42e55c0c8603fab82aef4c8c"
+      },
+      {
+        "name": "panel5",
+        "sourceSha256": "693d986937c47c4ee9c3f59a1b7b861257dc92e3b491fd8d9d6b763d1be87178",
+        "packagedSha256": "40fd51f23a6768e51c9e6462e229110638a104dba1bf185619216efc110c86c6"
+      }
+    ],
+    "contourSourceSha256": "62aca4b507895f4ab9fcf09c458eda39e2f792e42240a1835bf36aba4615a2f0",
+    "vegetationSourceSha256": "6b1b3c4c91ec9d63b58f7f0c2b1ba93886d405a9fc2b897a6a315695c3f8844e",
+    "vegetationRegions": [
+      {
+        "name": "grass",
+        "sourceRegion": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "alphaBoundsInRegion": [
+          49,
+          50,
+          510,
+          484
+        ],
+        "nativeCutoutSize": [
+          461,
+          434
+        ],
+        "packagedSize": [
+          160,
+          151
+        ],
+        "bytes": 10340
+      },
+      {
+        "name": "orange",
+        "sourceRegion": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "alphaBoundsInRegion": [
+          86,
+          124,
+          449,
+          480
+        ],
+        "nativeCutoutSize": [
+          363,
+          356
+        ],
+        "packagedSize": [
+          160,
+          157
+        ],
+        "bytes": 12148
+      },
+      {
+        "name": "teal",
+        "sourceRegion": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "alphaBoundsInRegion": [
+          67,
+          135,
+          448,
+          483
+        ],
+        "nativeCutoutSize": [
+          381,
+          348
+        ],
+        "packagedSize": [
+          160,
+          146
+        ],
+        "bytes": 11612
+      },
+      {
+        "name": "ivory",
+        "sourceRegion": [
+          0,
+          512,
+          590,
+          1024
+        ],
+        "alphaBoundsInRegion": [
+          37,
+          139,
+          541,
+          449
+        ],
+        "nativeCutoutSize": [
+          504,
+          310
+        ],
+        "packagedSize": [
+          160,
+          98
+        ],
+        "bytes": 7008
+      },
+      {
+        "name": "vine",
+        "sourceRegion": [
+          600,
+          512,
+          970,
+          1024
+        ],
+        "alphaBoundsInRegion": [
+          84,
+          18,
+          269,
+          479
+        ],
+        "nativeCutoutSize": [
+          185,
+          461
+        ],
+        "packagedSize": [
+          80,
+          200
+        ],
+        "bytes": 9864
+      },
+      {
+        "name": "fern",
+        "sourceRegion": [
+          970,
+          512,
+          1536,
+          1024
+        ],
+        "alphaBoundsInRegion": [
+          9,
+          52,
+          548,
+          449
+        ],
+        "nativeCutoutSize": [
+          539,
+          397
+        ],
+        "packagedSize": [
+          160,
+          118
+        ],
+        "bytes": 9486
+      }
+    ]
+  },
+  "portVersion": "ecology-module-rules-v2",
+  "shapeVersion": "ecology-author-shapes-v2",
+  "sourceFiles": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\view.html",
+      "sha256": "cd393e107970158d36def2013c18918239c54d461e23e5e5c4de3b99e95f6e25"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\contours.js",
+      "sha256": "17556b2c1c8a49adc2a95a9f7329d69a1dc14ae55d4bab8cc65843324568e204"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\authored-profiles.js",
+      "sha256": "22944d1e6f9fc17c117ce9cde23b8fa19c6602bbbea865b29cab936dd4839ced"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\module-rules.js",
+      "sha256": "225a021802318cd1e3f5a32130ebe6578352dabec3c9ce28285086ea7e0537e0"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\terrain-shapes.js",
+      "sha256": "cbc7cbc6dca5197e4051d4600f321411053b1ea28dca562b18ed31ff5711d214"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\world-data.js",
+      "sha256": "084be0e51d23b37300288cc8f0d8c2548a674e203673f51c351b6543a8da1b56"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\engine.js",
+      "sha256": "c6abb16c95572d92dbafcb16f637bdf5f7cf52d5fdc8c55cd538618cbb5d2dae"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\renderer.js",
+      "sha256": "7ba7b5a9f47017c51c452b0a395ce696fb210c33745180055bd5a18d9e06cff9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\assembly-inspector.js",
+      "sha256": "f0407ca7156c8ea20a583d40a22e92f640aba5948e821c6bcea58ce4572cb00b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\app.js",
+      "sha256": "cfd44aa7af313991fbcc9813cedbd91906437304d0e4747b1a33ada2d814c26f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\build.py",
+      "sha256": "107b82e6be7fe89e8db1c786c7126c16ecf6bad867b90eeb9397c3beedd04599"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\authored-profile-input.json",
+      "sha256": "1e188727052c86a6525121cdc64f5980f5b875baa690a97103b8d47687b776ed"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\trace-authored.py",
+      "sha256": "8fa70b929b938c1cde60961ea26e886455a13d2715170712ab0726796b23e86e"
+    }
+  ],
+  "contourSource": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\art-silhouettes.json",
+    "sha256": "62aca4b507895f4ab9fcf09c458eda39e2f792e42240a1835bf36aba4615a2f0"
+  },
+  "vegetation": {
+    "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\vegetation-sheet.png",
+    "sourceSha256": "6b1b3c4c91ec9d63b58f7f0c2b1ba93886d405a9fc2b897a6a315695c3f8844e",
+    "nativeSize": [
+      1536,
+      1024
+    ],
+    "regions": [
+      {
+        "name": "grass",
+        "sourceRegion": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "alphaBoundsInRegion": [
+          49,
+          50,
+          510,
+          484
+        ],
+        "nativeCutoutSize": [
+          461,
+          434
+        ],
+        "packagedSize": [
+          160,
+          151
+        ],
+        "bytes": 10340
+      },
+      {
+        "name": "orange",
+        "sourceRegion": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "alphaBoundsInRegion": [
+          86,
+          124,
+          449,
+          480
+        ],
+        "nativeCutoutSize": [
+          363,
+          356
+        ],
+        "packagedSize": [
+          160,
+          157
+        ],
+        "bytes": 12148
+      },
+      {
+        "name": "teal",
+        "sourceRegion": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "alphaBoundsInRegion": [
+          67,
+          135,
+          448,
+          483
+        ],
+        "nativeCutoutSize": [
+          381,
+          348
+        ],
+        "packagedSize": [
+          160,
+          146
+        ],
+        "bytes": 11612
+      },
+      {
+        "name": "ivory",
+        "sourceRegion": [
+          0,
+          512,
+          590,
+          1024
+        ],
+        "alphaBoundsInRegion": [
+          37,
+          139,
+          541,
+          449
+        ],
+        "nativeCutoutSize": [
+          504,
+          310
+        ],
+        "packagedSize": [
+          160,
+          98
+        ],
+        "bytes": 7008
+      },
+      {
+        "name": "vine",
+        "sourceRegion": [
+          600,
+          512,
+          970,
+          1024
+        ],
+        "alphaBoundsInRegion": [
+          84,
+          18,
+          269,
+          479
+        ],
+        "nativeCutoutSize": [
+          185,
+          461
+        ],
+        "packagedSize": [
+          80,
+          200
+        ],
+        "bytes": 9864
+      },
+      {
+        "name": "fern",
+        "sourceRegion": [
+          970,
+          512,
+          1536,
+          1024
+        ],
+        "alphaBoundsInRegion": [
+          9,
+          52,
+          548,
+          449
+        ],
+        "nativeCutoutSize": [
+          539,
+          397
+        ],
+        "packagedSize": [
+          160,
+          118
+        ],
+        "bytes": 9486
+      }
+    ],
+    "note": "Ivory and fern extend beyond ideal grid cells; explicit non-overlapping crops preserve whole sprites. Alpha preserved."
+  },
+  "staticEcologyConceptsConsumed": false,
+  "dynamicLayers": [
+    "stream-current",
+    "waterfall",
+    "splash",
+    "grass",
+    "mushroom",
+    "vine",
+    "root",
+    "ore-dust",
+    "bridge-construction",
+    "crumbling-rock",
+    "cargo-transfer"
+  ],
+  "spineProjectCreated": false,
+  "buildRecord": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\build-records\\20261031-145548-202099-f04f68487ce5.json"
+}

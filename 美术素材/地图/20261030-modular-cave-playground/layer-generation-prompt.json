@@ -1,0 +1,11 @@
+{
+  "tool": "image_gen.imagegen",
+  "date": "2026-10-30",
+  "reference": "sources/cave-modules-generated.png",
+  "transparent_background": false,
+  "prompt": "Use case: stylized-concept. Generate ONE separate opaque cave BACKWALL illustration layer for this 2D mining game, matching only the dark neutral GREY close backwalls visible through the passages in the reference atlas. Output a square 1254x1254 full-bleed raster. This asset will cover the entire world behind independently destructible brown foreground rocks and independently interactive mineral cells, including initially hidden areas. Every pixel must be quiet opaque grey rock: absolutely NO gold, minerals, crystals, deposits, amber spots, props, tools, characters, floor, path, ground surface, ceiling edge, stalactites, openings, empty cavities, horizons, black holes, atlas dividers or panels. Do NOT copy the six-room composition. Instead paint a continuous varied close rock backwall, covering the WHOLE square from corner to corner. Medium and large irregular angular grey slabs, restrained dark irregular ink fractures, very subtle broad flat grey shading, same clean friendly hand-drawn line language as the interior grey walls in the reference. Lower detail and contrast than the warm foreground, cool neutral graphite grey, readable under ambient lighting, no near-black vignette or baked local lighting. No photorealism, gradients, text, grid, border or watermark. The image must remain a rock backwall everywhere, so digging through the separate foreground will reveal this stable quiet wall and never reveal baked decorative ore or empty transparency.",
+  "output": "sources/backwall-clean.png",
+  "originalGeneratedPath": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_thN2eKO9MvhFAlFYgFejysJN.png",
+  "foregroundDerivation": "layers.js consumes immutable native source panels and traced geometry masks. It produces transparent foreground canvas layers exported as six 623x414 PNGs by check-layers.cjs. No baked grey backwall or ore is used in the current composite.",
+  "oreSource": "../20261030-flat-cave-kit/sources/ore.png"
+}

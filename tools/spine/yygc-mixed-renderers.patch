@@ -1,0 +1,145 @@
+--- a/Runtime/Objects/Views/ObjectView.cs
++++ b/Runtime/Objects/Views/ObjectView.cs
+@@ -54,6 +54,10 @@
+         [HideInInspector]
+         private Renderer[] _renderers;
+ 
++        // 渲染类型与物理维度独立；缓存完整Renderer集合供边界、显隐及编辑器校验使用。
++        [SerializeField, HideInInspector]
++        private Renderer[] _allRenderers;
++
+         [SerializeField]
+         [ReadOnly]
+         [BoxGroup(LabelText = "2D 物理与空间配置", ShowLabel = true, GroupID = "2D")]
+@@ -153,9 +157,7 @@
+         public Collider2D[] Colliders2D => _colliders2D;
+         public SpriteRenderer[] SpriteRenderers => _spriteRenderers ?? System.Array.Empty<SpriteRenderer>();
+         public MeshRenderer[] MeshRenderers => _meshRenderers ?? System.Array.Empty<MeshRenderer>();
+-        public Renderer[] Renderers => _dimension == DimensionMode._2D 
+-            ? (Renderer[])_spriteRenderers 
+-            : (Renderer[])_meshRenderers;
++        public Renderer[] Renderers => _allRenderers ?? System.Array.Empty<Renderer>();
+ 
+         protected virtual void Awake()
+         {
+@@ -164,6 +166,9 @@
+ 
+         private void ValidateRuntimeReferences()
+         {
++            _allRenderers = GetComponentsInChildren<Renderer>(true);
++            _spriteRenderers = _allRenderers.OfType<SpriteRenderer>().ToArray();
++            _meshRenderers = _allRenderers.OfType<MeshRenderer>().ToArray();
+             bool hasError = false;
+ 
+             // 按维度校验碰撞体
+@@ -244,18 +249,11 @@
+                 _rb = null;
+             }
+ 
+-            // 4. Renderers
+-            if (_dimension == DimensionMode._2D)
+-            {
+-                _spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+-                _meshRenderers = System.Array.Empty<MeshRenderer>();
+-            }
+-            else
+-            {
+-                _spriteRenderers = System.Array.Empty<SpriteRenderer>();
+-                _meshRenderers = GetComponentsInChildren<MeshRenderer>(true);
+-            }
+-            _renderers = null; // 清空旧列表
++            // 4. Renderers：完整渲染集合与碰撞维度解耦。
++            _allRenderers = GetComponentsInChildren<Renderer>(true);
++            _spriteRenderers = _allRenderers.OfType<SpriteRenderer>().ToArray();
++            _meshRenderers = _allRenderers.OfType<MeshRenderer>().ToArray();
++            _renderers = null; // 保留旧字段身份，完成迁移后清空。
+ 
+             // 5. StateSynchronizer
+             network = GetComponent<StateSynchronizer>();
+@@ -456,71 +454,21 @@
+ 
+         private bool RefreshRenderers()
+         {
+-            bool hasChanges = false;
+-
+-            // 1. 处理老数据迁移
+-            if (_renderers != null && _renderers.Length > 0)
+-            {
+-                Debug.Log($"[ObjectView] {gameObject.name}: 检测到旧的通用 Renderers 列表，开始自动迁移数据...", this);
+-                if (_dimension == DimensionMode._2D)
+-                {
+-                    _spriteRenderers = _renderers.OfType<SpriteRenderer>().Where(r => r != null).ToArray();
+-                    _meshRenderers = System.Array.Empty<MeshRenderer>();
+-                }
+-                else
+-                {
+-                    _spriteRenderers = System.Array.Empty<SpriteRenderer>();
+-                    _meshRenderers = _renderers.OfType<MeshRenderer>().Where(r => r != null).ToArray();
+-                }
+-                _renderers = null;
+-                hasChanges = true;
+-            }
+-
+-            // 2. 正常刷新列表并做脏检查
+-            if (_dimension == DimensionMode._2D)
+-            {
+-                bool hasNull = _spriteRenderers != null && _spriteRenderers.Any(r => r == null);
+-                var oldSprites = _spriteRenderers?.Where(r => r != null).ToArray() ?? System.Array.Empty<SpriteRenderer>();
+-                var currentSprites = GetComponentsInChildren<SpriteRenderer>(true);
+-                bool isSame = !hasNull && oldSprites.SequenceEqual(currentSprites);
+-
+-                if (!isSame || hasChanges)
+-                {
+-                    var previousCount = oldSprites.Length;
+-                    _spriteRenderers = currentSprites;
+-                    _meshRenderers = System.Array.Empty<MeshRenderer>();
+-                    _renderers = null; // 确保清空
+-
+-                    if (!EditorApplication.isPlayingOrWillChangePlaymode)
+-                    {
+-                        Debug.Log($"[ObjectView] {gameObject.name}: 刷新 SpriteRenderers ({previousCount} -> {_spriteRenderers.Length})", this);
+-                        return true;
+-                    }
+-                }
+-            }
+-            else
+-            {
+-                bool hasNull = _meshRenderers != null && _meshRenderers.Any(r => r == null);
+-                var oldMeshes = _meshRenderers?.Where(r => r != null).ToArray() ?? System.Array.Empty<MeshRenderer>();
+-                var currentMeshes = GetComponentsInChildren<MeshRenderer>(true);
+-                bool isSame = !hasNull && oldMeshes.SequenceEqual(currentMeshes);
+-
+-                if (!isSame || hasChanges)
+-                {
+-                    var previousCount = oldMeshes.Length;
+-                    _meshRenderers = currentMeshes;
+-                    _spriteRenderers = System.Array.Empty<SpriteRenderer>();
+-                    _renderers = null; // 确保清空
+-
+-                    if (!EditorApplication.isPlayingOrWillChangePlaymode)
+-                    {
+-                        Debug.Log($"[ObjectView] {gameObject.name}: 刷新 MeshRenderers ({previousCount} -> {_meshRenderers.Length})", this);
+-                        return true;
+-                    }
+-                }
+-            }
+-
+-            return hasChanges;
++            var current = GetComponentsInChildren<Renderer>(true);
++            bool migrated = _renderers != null && _renderers.Length > 0;
++            bool hasNull = _allRenderers != null && _allRenderers.Any(value => value == null);
++            var previous = _allRenderers ?? System.Array.Empty<Renderer>();
++            var sprites = current.OfType<SpriteRenderer>().ToArray();
++            var meshes = current.OfType<MeshRenderer>().ToArray();
++            bool changed = migrated || hasNull || !previous.SequenceEqual(current) ||
++                !(_spriteRenderers ?? System.Array.Empty<SpriteRenderer>()).SequenceEqual(sprites) ||
++                !(_meshRenderers ?? System.Array.Empty<MeshRenderer>()).SequenceEqual(meshes);
++            if (!changed) return false;
++            _allRenderers = current;
++            _spriteRenderers = sprites;
++            _meshRenderers = meshes;
++            _renderers = null;
++            return !EditorApplication.isPlayingOrWillChangePlaymode;
+         }
+ #endif
+ 

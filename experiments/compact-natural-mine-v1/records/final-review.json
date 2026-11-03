@@ -1,0 +1,53 @@
+{
+  "scope": "compact design display only",
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/compact-natural-mine.html",
+    "bytes": 16564,
+    "sha256": "c003d2f430f1be0d1a51e095e877467c0866fbb7fc87428e24cdee6a3f14fe0b"
+  },
+  "displayReview": "records/1793565155707-display-review/report.json",
+  "goals": [
+    {
+      "id": "A",
+      "room": "04",
+      "index": 6,
+      "name": "浅层采区",
+      "choice": "试采后可以折返",
+      "length": 55.16496359591325,
+      "ratio": 1
+    },
+    {
+      "id": "B",
+      "room": "06",
+      "index": 10,
+      "name": "中层壁矿",
+      "choice": "再走一小段，决定是否继续挖",
+      "length": 82.14866712352176,
+      "ratio": 1.4891456781384975
+    },
+    {
+      "id": "C",
+      "room": "09",
+      "index": 14,
+      "name": "深层富矿",
+      "choice": "穿过短风险点，进入本轮最深目标",
+      "length": 123.24708341609845,
+      "ratio": 2.2341550756543755
+    }
+  ],
+  "sameCamera": true,
+  "routeDisplaySamples": {
+    "samples": 501,
+    "outside": []
+  },
+  "priorPreserved": {
+    "record": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-macroblock-design-v1\\records\\2026-11-01T19-32-56-128Z-depth-build.json",
+    "fragment": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-surface-depth.html",
+    "sha256": "aca5bcbb64173172855bf1d7d1628a75ee29cca57168bd61d6b40310f0b9bde5"
+  },
+  "availablePhysicalGiBBeforeDisplay": 15.19,
+  "diskFreeGiB": {
+    "C": 17.75,
+    "D": 88.81
+  }
+}

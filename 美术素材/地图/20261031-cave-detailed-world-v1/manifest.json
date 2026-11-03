@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-31",
+  "owner": {
+    "threadId": "01a1891b-2542-7ea1-a69e-12cf28b0c785",
+    "channel": "Local"
+  },
+  "feedback": "Details previously appeared in separate local views rather than the full map.",
+  "scope": "One continuous authored cross-section with camera-only pan, focus and zoom; structure candidate awaiting user review.",
+  "editingSource": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\29\\01a1891b-2542-7ea1-a69e-12cf28b0c785\\cave-detailed-world.html",
+  "derivedLayout": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-detailed-world-v1\\world-layout.json",
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-expedition-structure-v1\\source-record.json",
+      "bytes": 26363,
+      "sha256": "0652fb0b9a6608d8b39e768046ce1cb8e245f675333dd913d23cd54f63278d2c"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\29\\01a1891b-2542-7ea1-a69e-12cf28b0c785\\cave-expedition-plan.html",
+      "bytes": 34317,
+      "sha256": "df062f6be983f2b5eb1e8161cfbfae405bf7110d85bfe70087484515b0a098a0"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\27\\01a17f6a-fb74-7721-83e8-a88513491a3a\\dark-nights-brainstorm.html",
+      "bytes": 74249,
+      "sha256": "66b7a37102114d4c6a8c183f0a13ccb3b33c7aef1c2a90182d1c9800d9e34b21",
+      "unchangedFromPreviousRecord": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Config\\balance.json",
+      "bytes": 5286,
+      "sha256": "7e12b6cf11597b9bb72514e7ccba58532ecb6677db100ab27a4606029356c6ff",
+      "unchangedFromPreviousRecord": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroJumpMotion.cs",
+      "bytes": 3056,
+      "sha256": "d497e48bc11f4a2c72abd2a39b609a706ec855493b4ce6a35e49d3742a4b7241",
+      "unchangedFromPreviousRecord": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\Terrain\\PlayableTerrain.cs",
+      "bytes": 10205,
+      "sha256": "37f87a84f036737734518f0825b60dd803b0e7fb06cc26a4d9eccac57da5d57c",
+      "unchangedFromPreviousRecord": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Worker\\Worker.asset",
+      "bytes": 2147,
+      "sha256": "929f47b5a151fe08b460fcb8d6fbaf34d517b8f66b30e066ea29b689644a107f",
+      "unchangedFromPreviousRecord": true
+    }
+  ],
+  "sourcePolicy": "Original cards, prior visualization, gameplay configuration and runtime source are read-only. Derived JSON is not a second editing source.",
+  "outputs": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\29\\01a1891b-2542-7ea1-a69e-12cf28b0c785\\cave-detailed-world.html",
+      "bytes": 36510,
+      "sha256": "ff27f3116c28c36e2b1bd0bae44cd061f028cd824d0fd672a4ce2f0420a19c18"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\29\\01a1891b-2542-7ea1-a69e-12cf28b0c785\\cave-detailed-world-browser.html",
+      "bytes": 124149,
+      "sha256": "76a3a4688d5efc126306f3cdaf56fdc3c5a1cd1a75f58d5b1693c61b941df078"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\29\\01a1891b-2542-7ea1-a69e-12cf28b0c785\\cave-detailed-world-review.json",
+      "bytes": 49981,
+      "sha256": "582a42893e1732b750d166e2939f666ba84b3293502b4a5f68c9f2789821daca"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-detailed-world-v1\\README.md",
+      "bytes": 3897,
+      "sha256": "e770b9e1cf5d4d2102678b03d1f5f55f87cb5f04bc607c42a27a4912f57d01ab"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-detailed-world-v1\\world-layout.json",
+      "bytes": 26102,
+      "sha256": "34349347e2e86956118b9fff2df7e3cbfec63d53f89e74964a932c78dcebba35"
+    }
+  ],
+  "declaredGeometry": {
+    "rooms": 8,
+    "connections": 7,
+    "airPrimitivesIncludingCorridorSegments": 42,
+    "jumpArcs": 6,
+    "contentRecords": 23,
+    "attachedSolids": 7
+  },
+  "review": {
+    "summary": {
+      "layouts": 54,
+      "worldGeometryStable": true,
+      "overlapAndBoundsChecksPassed": true,
+      "allRoomAndJumpLabelsAt736": 14
+    },
+    "interactions": [
+      "roomLabel",
+      "physicalFeature",
+      "featureLabel",
+      "slider",
+      "pan",
+      "wheel",
+      "risks",
+      "returnPhase",
+      "restoredState"
+    ],
+    "runtimeErrors": [],
+    "manualReadbacks": [
+      "final-all-736-light.png",
+      "final-all-320-dark.png",
+      "final-mine-736-light.png"
+    ],
+    "initialSourceAndScreenshotsPreserved": true
+  },
+  "inventory": {
+    "reviewFiles": 18,
+    "reviewBytes": 1231000,
+    "candidateFilesExcludingManifest": [
+      "README.md",
+      "world-layout.json"
+    ],
+    "unityIntermediateFiles": 0,
+    "removedFiles": 0
+  },
+  "unimplemented": [
+    "WFC solver",
+    "procedural map generation",
+    "free player movement and collision",
+    "weight and cargo simulation",
+    "gas, liquids and remains probability",
+    "Unity runtime, multiplayer and save changes",
+    "art design image"
+  ],
+  "stage": "CL remains active; next art design depends on user structure confirmation."
+}

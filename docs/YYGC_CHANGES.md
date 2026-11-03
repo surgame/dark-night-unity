@@ -6,14 +6,26 @@
 
 | 项目 | 依据 |
 | --- | --- |
-| 当前基线与目标 | tools/grid-business/dependency.lock.json；fee18645c997ed7529c4592917de6c412033c84e → .deps/YYGC-grid-business |
-| 基础补丁与overlay | tools/grid-business/yygc.patch，再tools/debug-hub/yygc-debug-hub.patch，完整摘要取实际锁 |
-| 最近框架变更 | 下方10-09集成、10-08Debugging、10-06AnyRuleD入口及10-03Workshop条目 |
+| 当前基线与目标 | tools/spine/framework.lock.json；fee18645c997ed7529c4592917de6c412033c84e → .deps/YYGC-spine-renderers |
+| 基础补丁与overlay | tools/grid-business/yygc.patch、tools/debug-hub/yygc-debug-hub.patch，再tools/spine/yygc-mixed-renderers.patch；完整摘要取实际锁 |
+| 最近框架变更 | 下方11-03混合Renderer修正及10-09集成，其他逐项原记录保留 |
 | 较早授权定位 | [输入](#hero-input)、[U2](#unified-u2)、[场景定义](#scene-definitions)、[Workshop](#workshop-display)及按日期条目 |
 
 以下记录均保留其原分支、协议、静态／Unity／Player身份及授权范围；旧“当前”、候选或未完成表述只属于该条目的历史时点。游戏侧未改框架的批次保留为审计边界，不能据此自行修改YYGC／.deps源码、补丁或升级依赖。
 
 本轮文档整理只增加导航并更新文档引用，没有修改框架或依赖锁，逐项原记录继续保留。
+
+## 2026-11-03授权／11-04接入：ObjectView混合Renderer缓存
+
+用户明确“本次同意”，批准此前提出的单文件修正、隔离候选、游戏侧补丁／锁接入及编译／原生引用与保存检查，并要求与M17会话互不干扰。M17交出Local单一Editor后执行五包切换，不修改其输入／物理实现或覆盖其脏Scene。当前实现及验证结果由DEVELOPMENT承接，不扩展为其他YYGC改动许可。
+
+| 框架相对文件 | 原因与最终行为 | 落点与验证 |
+| --- | --- | --- |
+| `Runtime/Objects/Views/ObjectView.cs` | 原2D维度只缓存Sprite，Watcher却比较全部Renderer，导致Spine Mesh始终不匹配并重复标脏；新增完整Renderer缓存，Awake／显式刷新／OnValidate维护完整集及Sprite、Mesh子集，旧迁移字段保留，物理维度及Collider选择保持 | `.deps/YYGC-spine-renderers`及`tools/spine/yygc-mixed-renderers.patch`；与获批提案内容一致；C#编译0错误，独立原生副本保存重开及延迟回调后缓存8/8且未标脏，2D碰撞引用保持，缺失脚本0 |
+
+新候选从fee1864和两份既有补丁重建；38份原补丁文件内容一致（LF规范化使其中34份只存在换行差异），再加入本次一个ObjectView文件。`tools/spine/framework.lock.json`锁定三份补丁与39份最终派生文件；新准备脚本核验全部变化路径和文件摘要，拒绝覆盖未知修改。原`.deps/YYGC-grid-business`的原字节／已有修改以及`D:/Developer/YYGC`主检出保留。GameCore＋AnyRuleD四包统一指向新候选，不混合新旧框架。没有框架基线／包版本升级，本批不改业务协议、存档或授权M17玩法；证据归`artifacts/hero-spine-runtime-20261103/yygc-renderers/`。
+
+UPM重新导入暴露原基线BlurShader的重复`_BlitTexture_TexelSize`错误，已证明候选、旧依赖和基线内容一致；没有扩大授权修改此文件。主角CampSpine Shader消息为空，C#通过不代表整个框架Shader通过。未运行Play、测试、Player、多人或性能验收；原用户脏场景未保存／清标记，检查副本和meta在验证关闭后保全。
 
 ## 2026-10-09：按用户请求集成现成 Debug Hub 候选
 

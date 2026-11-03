@@ -83,6 +83,8 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 0}
   _renderers: []
+  _allRenderers:
+  - {fileID: 8868729631562136736}
   _spriteRenderers:
   - {fileID: 8868729631562136736}
   _meshRenderers: []

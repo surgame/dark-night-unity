@@ -1,0 +1,254 @@
+{
+  "date": "2026-11-01",
+  "scope": "New mine layout, visible structure, local input and state isolation only; no Unity or complete shaft/route acceptance.",
+  "layouts": [
+    {
+      "width": 1000,
+      "scroll": 1000,
+      "theme": "light"
+    },
+    {
+      "width": 736,
+      "scroll": 736,
+      "theme": "dark"
+    },
+    {
+      "width": 360,
+      "scroll": 360,
+      "theme": "light"
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "theme": "dark"
+    }
+  ],
+  "focus": [
+    {
+      "id": "stope",
+      "camera": {
+        "x": 127,
+        "y": 17,
+        "scale": 18.593408203125
+      }
+    },
+    {
+      "id": "hoist",
+      "camera": {
+        "x": 198,
+        "y": 42,
+        "scale": 10.6248046875
+      }
+    },
+    {
+      "id": "sealed",
+      "camera": {
+        "x": 25,
+        "y": 61,
+        "scale": 23.905810546875003
+      }
+    },
+    {
+      "id": "deep",
+      "camera": {
+        "x": 158,
+        "y": 98,
+        "scale": 15.93720703125
+      }
+    },
+    {
+      "id": "service",
+      "camera": {
+        "x": 70,
+        "y": 85,
+        "scale": 10.093564453125
+      }
+    }
+  ],
+  "errors": [],
+  "sources": {
+    "standalone": "37d6ad85009ecddaade8d0ddf461ed989645616ac8695cedec2b8530de350194",
+    "fragment": "71ec66994524ffec9f7b8dc97eb4c30e1366dcf1369eb8689de200e0ff2e1bca",
+    "layout": "f0100c69c4a028ff6e4bd0afccb2a5e5bf68bcfdb923caa25b177c2c67397551",
+    "props": "2a4adb0f0cf33cb71a9109aff3578debb200634e01471fc1d4f98f9e1a82b6dd"
+  },
+  "initial": {
+    "ready": true,
+    "mode": "overview",
+    "site": "entry",
+    "visited": [],
+    "player": {
+      "x": 25,
+      "y": 25.479975585937563,
+      "grounded": false
+    },
+    "camera": {
+      "x": 116,
+      "y": 64,
+      "scale": 3.9827586206896552
+    },
+    "dug": 0,
+    "revision": 0,
+    "size": [
+      232,
+      128
+    ],
+    "insideRock": false
+  },
+  "interactions": {
+    "start": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 25,
+        "y": 25.529999830457964,
+        "grounded": true
+      },
+      "camera": {
+        "x": 30,
+        "y": 20.529999830457964,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        232,
+        128
+      ],
+      "insideRock": false
+    },
+    "moved": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 33.8133333333333,
+        "y": 25.529999830457964,
+        "grounded": true
+      },
+      "camera": {
+        "x": 38.8133333333333,
+        "y": 20.529999830457964,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        232,
+        128
+      ],
+      "insideRock": false
+    },
+    "jumped": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 34.431666666666636,
+        "y": 24.39277760823574,
+        "grounded": false
+      },
+      "camera": {
+        "x": 39.431666666666636,
+        "y": 19.39277760823574,
+        "scale": 17.7080078125
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        232,
+        128
+      ],
+      "insideRock": false
+    },
+    "dug": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 34.60812499999998,
+        "y": 25.774160342746363,
+        "grounded": true
+      },
+      "camera": {
+        "x": 39.60812499999998,
+        "y": 20.774160342746363,
+        "scale": 17.7080078125
+      },
+      "dug": 4,
+      "revision": 1,
+      "size": [
+        232,
+        128
+      ],
+      "insideRock": false
+    },
+    "restored": {
+      "ready": true,
+      "mode": "walk",
+      "site": "entry",
+      "visited": [
+        "entry"
+      ],
+      "player": {
+        "x": 34.60812499999998,
+        "y": 25.774160342746363,
+        "grounded": false
+      },
+      "camera": {
+        "x": 39.60812499999998,
+        "y": 20.774160342746363,
+        "scale": 17.7080078125
+      },
+      "dug": 4,
+      "revision": 0,
+      "size": [
+        232,
+        128
+      ],
+      "insideRock": false
+    },
+    "stateIsolation": true
+  },
+  "inline": {
+    "width": 288,
+    "scroll": 288,
+    "state": {
+      "ready": true,
+      "mode": "inspect",
+      "site": "stope",
+      "visited": [],
+      "player": {
+        "x": 25,
+        "y": 25.479975585937563,
+        "grounded": false
+      },
+      "camera": {
+        "x": 127,
+        "y": 17,
+        "scale": 5.70566037735849
+      },
+      "dug": 0,
+      "revision": 0,
+      "size": [
+        232,
+        128
+      ],
+      "insideRock": false
+    }
+  },
+  "ok": true
+}

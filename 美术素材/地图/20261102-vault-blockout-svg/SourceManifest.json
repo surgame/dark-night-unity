@@ -1,0 +1,200 @@
+{
+  "date": "2026-11-02",
+  "purpose": "Four colored wide cave terrain blockout modules, flat orthographic side view. No items, ecology or transition modules.",
+  "nativePngSize": [
+    1920,
+    1200
+  ],
+  "svgViewBox": [
+    1536,
+    960
+  ],
+  "pixelsPerUnityUnit": 125,
+  "worldRect": [
+    -0.08,
+    -4.8,
+    15.36,
+    9.6
+  ],
+  "method": "Deterministic vector faces, strata and exact author silhouette clipping; no image generation or external source art.",
+  "sourceOfShape": "WhiteboxTerrainAuthoring.Floor/Ceiling in the native Prefab; SVG/PNG and frozen grid shapes derived from these points.",
+  "outputs": [
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Strata-Terrain.svg",
+        "bytes": 37587,
+        "sha256": "b63c0c2f37acadb6b265a22264b6f03fb208855aab1d5a5783f72c91f69afefc"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Strata\\Terrain.png",
+        "bytes": 231376,
+        "sha256": "1377b04a08beaffe5ba60e3743493515ee28aefb20b8ad3f8929d80c40756ab7"
+      }
+    },
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Strata-Backdrop.svg",
+        "bytes": 5012,
+        "sha256": "98dedd651f0a82531a9af6276b4fb007386cfcc788d51d9bd94c7302c13ce9a6"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Strata\\Backdrop.png",
+        "bytes": 303831,
+        "sha256": "7f641d8629ab9af0fec39f81081602145005232eef20346cae9fd8cbc7719651"
+      }
+    },
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Moss-Terrain.svg",
+        "bytes": 35978,
+        "sha256": "a4407a40504f356fc508cab1cabb032d7ec48042127c59c457754581a4270a16"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Moss\\Terrain.png",
+        "bytes": 226643,
+        "sha256": "722ed5419ac467ab063be277a3d18e695a9cc5683ee0521541852e501a745be6"
+      }
+    },
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Moss-Backdrop.svg",
+        "bytes": 4468,
+        "sha256": "7e1eab35fbf9f00c0537fea663a4ecdffa9fdd68e176b246687b8c8445afc9e2"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Moss\\Backdrop.png",
+        "bytes": 280475,
+        "sha256": "b744f754afcc2e68077cc02c62758b83548258cde513f7909653a2ac60ea6e30"
+      }
+    },
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Blue-Terrain.svg",
+        "bytes": 36292,
+        "sha256": "0f6b072f15a3347eaf5751e46a1f193ec44d33db83b1f69d2d9318c1ffc46b0e"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Blue\\Terrain.png",
+        "bytes": 228486,
+        "sha256": "c84f0c5bc42abd6cf5a90a52c8c112b611a9dadae4f06084d53f40fedcb9d59c"
+      }
+    },
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Blue-Backdrop.svg",
+        "bytes": 4539,
+        "sha256": "8d4c8273aead7eb5c0d4e1f16edbc8a26bfa5c216b411f7d7a61bd5cd7fa976d"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Blue\\Backdrop.png",
+        "bytes": 327272,
+        "sha256": "028f1468154c79383d326d696d0e605fec3b482817aa6fdcd37a5fd8e83c67a0"
+      }
+    },
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Ochre-Terrain.svg",
+        "bytes": 36413,
+        "sha256": "db1a138c382d1cc6c1687a655750a3c798128a7f97957f5d3b2e4148d6503a41"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Ochre\\Terrain.png",
+        "bytes": 255176,
+        "sha256": "e0279f7bd4980495cbfd3fa8414917e3a2e5d7348d7ac85ccd72e8da4d7cd5b9"
+      }
+    },
+    {
+      "sourceSvg": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-vault-blockout-svg\\Custom\\Ochre-Backdrop.svg",
+        "bytes": 4607,
+        "sha256": "05e5fc6f670ea222d24f0a543ce764cf1f8e2fa127ea117d1a73ee60556deff0"
+      },
+      "derivedPng": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Ochre\\Backdrop.png",
+        "bytes": 273776,
+        "sha256": "3ac32f990ce969bdb1ae9f2bfb6349789e830a2351889e5eccc33fde5bf57c3c"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "M01-Strata",
+      "prefab": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Strata\\M01-Strata.prefab",
+        "bytes": 21732,
+        "sha256": "35c7048fbb998fb6e6638068a2e4975e2c68ee0ba8dcea231485c19f9cec2a5f"
+      },
+      "scene": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\CaveVaultStrata.unity",
+        "bytes": 33230,
+        "sha256": "5ac93aa082db85e0c115943a7e740a33a8fcf47c902ebd689fec1d60a488e449"
+      },
+      "fingerprint": "f5caaf31d4443f48349958065a572d9f5d5af5724d01bde76b02a8b69993bbcb"
+    },
+    {
+      "id": "M01-Moss",
+      "prefab": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Moss\\M01-Moss.prefab",
+        "bytes": 20774,
+        "sha256": "81ead56745ca2bba6674d96d0f06ac5b13a753bc1806cb14ef107ab9d4e8a3e5"
+      },
+      "scene": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\CaveVaultMoss.unity",
+        "bytes": 33222,
+        "sha256": "1ca226515e1e0a5eeca43df529002f9022c5bea4bfca284e6e7135babf51c087"
+      },
+      "fingerprint": "7ba75feacebd287116292756d5e9ea91e23961ffaf0d07f733a4dc61ef343a7c"
+    },
+    {
+      "id": "M01-Blue",
+      "prefab": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Blue\\M01-Blue.prefab",
+        "bytes": 20941,
+        "sha256": "bb27b2ed0093985bee6555501fadd79d5f21ac064238592e9a414dcb7b59d252"
+      },
+      "scene": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\CaveVaultBlue.unity",
+        "bytes": 33227,
+        "sha256": "5372fefc86bc21b46a48f4397cc1bb6ecf7303132af4b2d7a1fd88b81db792b8"
+      },
+      "fingerprint": "b90510714a0c72458bfa20982fc919784e7cd29f38af8ecd017b79ede5235cef"
+    },
+    {
+      "id": "M01-Ochre",
+      "prefab": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\VaultStyles\\Ochre\\M01-Ochre.prefab",
+        "bytes": 21041,
+        "sha256": "426c71a53d9c452b205572b1be4f320453b8a41d08fd2b7c7ebfb1aeb12a2c6f"
+      },
+      "scene": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\CaveVaultOchre.unity",
+        "bytes": 33225,
+        "sha256": "772f9a7a2f69cfc2ec51f6323570fbaad3bba4073f14d4a966a3e5758df4b275"
+      },
+      "fingerprint": "64c53b6ad4d8d3fcce9ee11b92950a2e3508a735fd7ce782a723aacd7c21912c"
+    }
+  ],
+  "rebuildScripts": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\entrance-whitebox\\make-vault-styles.py",
+      "bytes": 10300,
+      "sha256": "5b9c93a112084a1b3878d8b3aaa93c124fd97f083b3c731ba0eed4172d6132b7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\entrance-whitebox\\raster-vault-styles.cjs",
+      "bytes": 1480,
+      "sha256": "5adf28ea4c21a21a252200fe41a517f1002047b3078b6ffaf82173e3523a6738"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\entrance-whitebox\\create-vault-styles.csx",
+      "bytes": 8063,
+      "sha256": "1ffd02954aee5e52f5b7d0d78b4d9418125d1433b4330ae7af0229b8d35dc2ca"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\entrance-whitebox\\resume-vault-ochre.csx",
+      "bytes": 8081,
+      "sha256": "f19e336e292f42a2d85c17e5b7657ef1cb90dc543d13470cbaf00ffdd6f4ec77"
+    }
+  ],
+  "validationScope": "Source, saved native references and edit-mode display only; no Play, actor traversal, game tests, player build or runtime performance."
+}

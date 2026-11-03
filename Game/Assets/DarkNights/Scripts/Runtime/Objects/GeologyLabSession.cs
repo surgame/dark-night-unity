@@ -72,7 +72,7 @@ namespace DarkNights.Runtime.Objects
                 state.SprintHeld = sprint; state.UsePressed |= usePressed; state.UseHeld = useHeld; state.AimAngle = aim;
                 SetMiningTarget(state, aim);
                 double delta = World.Camp.BeginStep(1d / 60);
-                hero.Tick(delta);
+                SessionActorMotion.Advance(World, delta);
                 foreach (var geology in events) geology.Tick(delta);
                 return true;
             });

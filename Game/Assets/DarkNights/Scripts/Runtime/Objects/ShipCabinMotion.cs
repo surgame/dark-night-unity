@@ -3,6 +3,8 @@ using System;
 using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Logic.Terrain;
+using DarkNights.Core.Physics;
+using DarkNights.Runtime.Physics;
 using UnityEngine;
 
 namespace DarkNights.Runtime.Objects
@@ -17,8 +19,9 @@ namespace DarkNights.Runtime.Objects
             (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Gathering ||
                 world.Flow.Phase == JourneyPhase.Landed && Ship.Read().ShipDoorClock == 0);
 
-        internal bool Player(ActorBehaviour actor, MovementBehaviour movement, double delta)
+        internal bool Player(ActorBehaviour actor, GridActorMotionBackend movement, ActorMotionInput input)
         {
+            double delta = input.DeltaSeconds;
             if (!world.IsExpedition || Ship == null) return false;
             var s = actor.Edit(); var ship = Ship.Read();
             if (ship.PilotId == actor.Id)
@@ -28,7 +31,7 @@ namespace DarkNights.Runtime.Objects
                 HeroJumpMotion.Clear(s);
                 HeroEquipment.Cancel(s); return true;
             }
-            float target = s.X + movement.Direction * movement.MoveSpeed * (float)delta;
+            float target = s.X + input.Direction * movement.MoveSpeed(input) * (float)delta;
             if (!s.Boarded)
             {
                 // 交界处运动适配：入口仍以 RampToe 和脚底高度判定；修改登船方式时须与 ShipRampTransition 一起检查。
@@ -36,28 +39,29 @@ namespace DarkNights.Runtime.Objects
                 if (s.X > toe + 8 || s.X < toe - 24) s.ShipEntryBlocked = false;
                 if (s.DropPending && Math.Abs(s.X - toe) <= 24) s.ShipEntryBlocked = true;
                 if (s.ShipEntryBlocked) return false;
-                if (!Open || movement.Direction <= 0 || s.X > toe + 3 || target < toe || Math.Abs(s.Height - ship.Height) > 4) return false;
+                if (!Open || input.Direction <= 0 || s.X > toe + 3 || target < toe || Math.Abs(s.Height - ship.Height) > 4) return false;
                 s.Boarded = true;
             }
-            MovePlayer(actor, movement, delta);
+            MovePlayer(actor, movement, input);
             return true;
         }
 
-        private void MovePlayer(ActorBehaviour actor, MovementBehaviour movement, double delta)
+        private void MovePlayer(ActorBehaviour actor, GridActorMotionBackend movement, ActorMotionInput input)
         {
+            double delta = input.DeltaSeconds;
             var s = actor.Edit(); var ship = Ship.Read();
             float oldLocal = Math.Clamp(s.X - ship.X, ShipGeometry.RampToe, ShipGeometry.CabinRight);
             float oldFloor = ship.Height + ShipGeometry.Floor(oldLocal);
             bool grounded = s.VerticalSpeed <= 0 && s.Height <= oldFloor + .5f;
             HeroControlDefinition rules = world.Catalog.Balance.HeroControl;
-            float target = movement.HorizontalTarget(delta, grounded);
+            float target = movement.HorizontalTarget(input, grounded);
             float requestedLocal = target - ship.X;
             float local = Math.Clamp(requestedLocal, Open ? ShipGeometry.RampToe : ShipGeometry.RampHinge + 8,
                 ShipGeometry.CabinRight);
 
             // 交界处运动适配的唯一调用点：移除 ShipRampTransition 时可恢复下方原有步行出舱路径。
             bool adapted = false, leftCabin = false;
-            adapted = ShipRampTransition.TryLeave(actor, movement, ship.X, target, Open, delta, ref grounded, out leftCabin);
+            adapted = ShipRampTransition.TryLeave(actor, movement, input, ship.X, target, Open, ref grounded, out leftCabin);
             if (leftCabin) return;
             if (!adapted && Open && requestedLocal < ShipGeometry.RampToe && grounded && !s.JumpPending)
             {
@@ -91,7 +95,7 @@ namespace DarkNights.Runtime.Objects
             {
                 s.Height = floor;
                 if (rules != null) HeroJumpMotion.Land(s, rules, delta, recoverFuel: false);
-                if (rules != null) movement.LandHorizontal();
+                if (rules != null) movement.LandHorizontal(input);
                 if (Math.Abs(local - requestedLocal) > .01f) s.HorizontalSpeed = 0;
                 return;
             }
@@ -108,7 +112,7 @@ namespace DarkNights.Runtime.Objects
             {
                 s.Height = floor;
                 if (rules != null) HeroJumpMotion.Land(s, rules, delta, recoverFuel: false);
-                if (rules != null) movement.LandHorizontal();
+                if (rules != null) movement.LandHorizontal(input);
             }
             else
             {

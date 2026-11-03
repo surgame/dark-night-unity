@@ -1,0 +1,775 @@
+{
+  "date": "2026-11-01",
+  "cases": [
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 271,
+      "method": "contour",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 49604,
+        "chunkVertices": 49604,
+        "sourceBytes": 396832,
+        "chunkBytes": 396832,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 271,
+      "method": "blocks",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 32,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20866,
+        "chunkVertices": 50534,
+        "sourceBytes": 167952,
+        "chunkBytes": 404272,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 271,
+      "method": "bridges",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 44,
+        "freeLibrary": 60,
+        "instances": 269,
+        "sourceVertices": 18052,
+        "chunkVertices": 45682,
+        "sourceBytes": 146568,
+        "chunkBytes": 365456,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 271,
+      "method": "wfc",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 31,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 20452,
+        "chunkVertices": 50676,
+        "sourceBytes": 164640,
+        "chunkBytes": 405408,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 482,
+        "removed": 0,
+        "peakDomainValues": 310
+      }
+    },
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 372,
+      "method": "contour",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 42,
+        "sourceVertices": 51456,
+        "chunkVertices": 51456,
+        "sourceBytes": 411648,
+        "chunkBytes": 411648,
+        "chunks": 42,
+        "fieldBytes": 248005
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 372,
+      "method": "blocks",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 29,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 18888,
+        "chunkVertices": 52512,
+        "sourceBytes": 152128,
+        "chunkBytes": 420096,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 372,
+      "method": "bridges",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 41,
+        "freeLibrary": 60,
+        "instances": 275,
+        "sourceVertices": 16246,
+        "chunkVertices": 47798,
+        "sourceBytes": 132168,
+        "chunkBytes": 382384,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 128,
+      "seed": 372,
+      "method": "wfc",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 28,
+        "freeLibrary": 48,
+        "instances": 128,
+        "sourceVertices": 18306,
+        "chunkVertices": 52356,
+        "sourceBytes": 147472,
+        "chunkBytes": 418848,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 85,
+        "propagations": 492,
+        "removed": 0,
+        "peakDomainValues": 298
+      }
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 271,
+      "method": "contour",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 142,
+        "sourceVertices": 204676,
+        "chunkVertices": 204676,
+        "sourceBytes": 1637408,
+        "chunkBytes": 1637408,
+        "chunks": 142,
+        "fieldBytes": 987525
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 271,
+      "method": "blocks",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 42,
+        "freeLibrary": 48,
+        "instances": 512,
+        "sourceVertices": 27038,
+        "chunkVertices": 209088,
+        "sourceBytes": 220400,
+        "chunkBytes": 1672704,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 271,
+      "method": "bridges",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 54,
+        "freeLibrary": 60,
+        "instances": 1124,
+        "sourceVertices": 23162,
+        "chunkVertices": 188710,
+        "sourceBytes": 194288,
+        "chunkBytes": 1509680,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 271,
+      "method": "wfc",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 41,
+        "freeLibrary": 48,
+        "instances": 512,
+        "sourceVertices": 26752,
+        "chunkVertices": 210560,
+        "sourceBytes": 218112,
+        "chunkBytes": 1684480,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 359,
+        "propagations": 2089,
+        "removed": 0,
+        "peakDomainValues": 1230
+      }
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 372,
+      "method": "contour",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 150,
+        "sourceVertices": 200618,
+        "chunkVertices": 200618,
+        "sourceBytes": 1604944,
+        "chunkBytes": 1604944,
+        "chunks": 150,
+        "fieldBytes": 987525
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 372,
+      "method": "blocks",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 39,
+        "freeLibrary": 48,
+        "instances": 512,
+        "sourceVertices": 26138,
+        "chunkVertices": 205388,
+        "sourceBytes": 213200,
+        "chunkBytes": 1643104,
+        "chunks": 150,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 372,
+      "method": "bridges",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 51,
+        "freeLibrary": 60,
+        "instances": 1098,
+        "sourceVertices": 22522,
+        "chunkVertices": 185162,
+        "sourceBytes": 188960,
+        "chunkBytes": 1481296,
+        "chunks": 150,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "standard",
+      "size": 512,
+      "seed": 372,
+      "method": "wfc",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 40,
+        "freeLibrary": 48,
+        "instances": 512,
+        "sourceVertices": 26438,
+        "chunkVertices": 206136,
+        "sourceBytes": 215600,
+        "chunkBytes": 1649088,
+        "chunks": 150,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 362,
+        "propagations": 1999,
+        "removed": 0,
+        "peakDomainValues": 1236
+      }
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 271,
+      "method": "contour",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 38,
+        "sourceVertices": 50922,
+        "chunkVertices": 50922,
+        "sourceBytes": 407376,
+        "chunkBytes": 407376,
+        "chunks": 38,
+        "fieldBytes": 248005
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 271,
+      "method": "blocks",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 60,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 32684,
+        "chunkVertices": 52060,
+        "sourceBytes": 262496,
+        "chunkBytes": 416480,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 271,
+      "method": "bridges",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 55,
+        "freeLibrary": 72,
+        "instances": 269,
+        "sourceVertices": 18566,
+        "chunkVertices": 46324,
+        "sourceBytes": 150680,
+        "chunkBytes": 370592,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 271,
+      "method": "wfc",
+      "pins": 37,
+      "loops": 14,
+      "resources": {
+        "presetUsed": 20,
+        "presetLibrary": 32,
+        "freeUsed": 61,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 33520,
+        "chunkVertices": 52402,
+        "sourceBytes": 269184,
+        "chunkBytes": 419216,
+        "chunks": 38,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 91,
+        "propagations": 816,
+        "removed": 903,
+        "peakDomainValues": 1393
+      }
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 372,
+      "method": "contour",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 42,
+        "sourceVertices": 52416,
+        "chunkVertices": 52416,
+        "sourceBytes": 419328,
+        "chunkBytes": 419328,
+        "chunks": 42,
+        "fieldBytes": 248005
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 372,
+      "method": "blocks",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 52,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 28986,
+        "chunkVertices": 53778,
+        "sourceBytes": 232912,
+        "chunkBytes": 430224,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 372,
+      "method": "bridges",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 53,
+        "freeLibrary": 72,
+        "instances": 275,
+        "sourceVertices": 16666,
+        "chunkVertices": 48310,
+        "sourceBytes": 135528,
+        "chunkBytes": 386480,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 128,
+      "seed": 372,
+      "method": "wfc",
+      "pins": 43,
+      "loops": 20,
+      "resources": {
+        "presetUsed": 17,
+        "presetLibrary": 32,
+        "freeUsed": 67,
+        "freeLibrary": 243,
+        "instances": 128,
+        "sourceVertices": 35500,
+        "chunkVertices": 54244,
+        "sourceBytes": 285024,
+        "chunkBytes": 433952,
+        "chunks": 42,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 85,
+        "propagations": 849,
+        "removed": 948,
+        "peakDomainValues": 1405
+      }
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 271,
+      "method": "contour",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 142,
+        "sourceVertices": 209456,
+        "chunkVertices": 209456,
+        "sourceBytes": 1675648,
+        "chunkBytes": 1675648,
+        "chunks": 142,
+        "fieldBytes": 987525
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 271,
+      "method": "blocks",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 143,
+        "freeLibrary": 243,
+        "instances": 512,
+        "sourceVertices": 71470,
+        "chunkVertices": 214858,
+        "sourceBytes": 575856,
+        "chunkBytes": 1718864,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 271,
+      "method": "bridges",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 66,
+        "freeLibrary": 72,
+        "instances": 1124,
+        "sourceVertices": 23778,
+        "chunkVertices": 190880,
+        "sourceBytes": 199216,
+        "chunkBytes": 1527040,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 271,
+      "method": "wfc",
+      "pins": 153,
+      "loops": 101,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 154,
+        "freeLibrary": 243,
+        "instances": 512,
+        "sourceVertices": 77704,
+        "chunkVertices": 218986,
+        "sourceBytes": 625728,
+        "chunkBytes": 1751888,
+        "chunks": 142,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 359,
+        "propagations": 3676,
+        "removed": 4452,
+        "peakDomainValues": 6471
+      }
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 372,
+      "method": "contour",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 0,
+        "freeLibrary": 0,
+        "instances": 150,
+        "sourceVertices": 205474,
+        "chunkVertices": 205474,
+        "sourceBytes": 1643792,
+        "chunkBytes": 1643792,
+        "chunks": 150,
+        "fieldBytes": 987525
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 372,
+      "method": "blocks",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 138,
+        "freeLibrary": 243,
+        "instances": 512,
+        "sourceVertices": 68824,
+        "chunkVertices": 211062,
+        "sourceBytes": 554688,
+        "chunkBytes": 1688496,
+        "chunks": 150,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 372,
+      "method": "bridges",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 63,
+        "freeLibrary": 72,
+        "instances": 1098,
+        "sourceVertices": 23122,
+        "chunkVertices": 187372,
+        "sourceBytes": 193760,
+        "chunkBytes": 1498976,
+        "chunks": 150,
+        "fieldBytes": 0
+      },
+      "wfc": null
+    },
+    {
+      "profile": "mixed",
+      "size": 512,
+      "seed": 372,
+      "method": "wfc",
+      "pins": 150,
+      "loops": 75,
+      "resources": {
+        "presetUsed": 25,
+        "presetLibrary": 32,
+        "freeUsed": 145,
+        "freeLibrary": 243,
+        "instances": 512,
+        "sourceVertices": 72606,
+        "chunkVertices": 213730,
+        "sourceBytes": 584944,
+        "chunkBytes": 1709840,
+        "chunks": 150,
+        "fieldBytes": 0
+      },
+      "wfc": {
+        "observations": 362,
+        "propagations": 3439,
+        "removed": 3957,
+        "peakDomainValues": 5934
+      }
+    }
+  ],
+  "pinnedMeshes": 3064,
+  "scope": "Finite graph, port, fixed-room geometry and payload checks; no gameplay acceptance.",
+  "sources": [
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "plan.js",
+      "sha256": "18049c81f48e486ede4af06b2a5fe590b78b56d586b5c1192089afd16eb7f595"
+    },
+    {
+      "file": "solver.js",
+      "sha256": "600a5056fa68937b6d49f44807e02b98003bef39fde750da114f4220e3dbf956"
+    },
+    {
+      "file": "field.js",
+      "sha256": "6d53d9cc0bcde52b811cb805406e29834b67d1eacb2f82b347e9332db7f1ecdb"
+    },
+    {
+      "file": "mesh.js",
+      "sha256": "cdbf702e90c0be4df1cd3cab5db8cb5e521a11375a46df4e84a9c237be307d6f"
+    }
+  ],
+  "conflictRejected": true,
+  "ok": true
+}

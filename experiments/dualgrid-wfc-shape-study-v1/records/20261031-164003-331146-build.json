@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-31",
+  "scope": "Independent geometric comparison; no Unity or production asset changes.",
+  "output": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\dualgrid-wfc-shapes.html",
+  "bytes": 95973,
+  "sha256": "4024137a8bcc06a4ec43bbfb79bac406b7fd0c90ff40a391428f765a60e4aedb",
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\view.html",
+      "sha256": "a0dd821e32626003e378a75cd0ed99586ac10dec0782e8f3b8aefd71d640722d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\plan.js",
+      "sha256": "58f6ea6d3028a9088ec97f9fc2675c4ab8260c0be84abf65a182823e52748b47"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\catalog.js",
+      "sha256": "26d9e94189409769833f7201f26de4ad0a2928069b5cd19f963f302d0003c908"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\solver.js",
+      "sha256": "1879df13a125ff97e7224a2f5dac22feb0a2f6201684977300c409a51edfd103"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\model.js",
+      "sha256": "8362d214a3496e18c084e94e9db91664782a38152714cad8d2b80ff6976b04b0"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\hybrid.js",
+      "sha256": "689e481dfb5ce6a272037fe8c6aa51e785666ebd34029e1de6e0bb4e0760876c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\renderer.js",
+      "sha256": "7a39687ecc02f98319378f6627fdb593b9bc2a33554b4c2e218331178cc10f37"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\app.js",
+      "sha256": "28e4db8da2fb5ae2f7438f1b516602aa484959ceba89b1cb443f9ae4101cc84a"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\build.py",
+      "sha256": "18813036cda9fb58ee9bb3c3bbaccbf1d64f965a31a5a918a9ed180af1c5514b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\TerrainShapeGeometry.cs",
+      "sha256": "cc0e70966a16dc59ad1fa5deaab853ccba81d672e6637526983a5d0ecb731e9e"
+    }
+  ]
+}

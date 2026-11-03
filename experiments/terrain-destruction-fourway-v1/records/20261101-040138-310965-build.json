@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-01",
+  "scope": "Independent four-way destructible terrain prototype; no Unity writes.",
+  "output": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\terrain-fourway.html",
+  "bytes": 111094,
+  "sha256": "e75a68b425e36a252231663db47583e291fd2cfb391402a18a8644947659b72e",
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\view.html",
+      "sha256": "1a9a8b1af0ec2ebf00b7496c29d6468be1ebe6234260ce52f50ca950e3192af7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\geometry.js",
+      "sha256": "d7b605c77f1cfdece1ba046dd50d1a5500e06a09c71ebf1a757fab5f790c291c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\solver.js",
+      "sha256": "398841ea5202f64183d1765e43afa112480672375add28f09227a2607e61c5b2"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\meshes.js",
+      "sha256": "a79554d030009446ff93dd4e911ec7d65145634915c9674fbb25f7f82045c737"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\adapters.js",
+      "sha256": "427b70f24de5c4d47e70a4683e2aa8f7e1621a2d50eb2f3160477c72f064e256"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\gpu.js",
+      "sha256": "406f84a5473fdf96e04846078844c912f89ed27d80a261eb80077f7e745634fd"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\benchmark.js",
+      "sha256": "acb409ba4c7abd53f9fc75dfcc9f813428d6831c6dd5bb954c0735aa5765b183"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\app.js",
+      "sha256": "bc53bbb4ee9854ae0cfe5f8bae2794573191c9b8684f525417e94eed60b020a9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\build.py",
+      "sha256": "dd35961e44b4bc350d3260fbc98d002ddb1c89ceb277b3859e016528057f0514"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\reference.json",
+      "sha256": "18457df123ed77c5339173c7539c8f036442f9659d9193fdfc94d35e59f9a9a3"
+    }
+  ]
+}

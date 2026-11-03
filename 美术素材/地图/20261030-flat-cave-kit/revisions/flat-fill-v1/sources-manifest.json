@@ -1,0 +1,48 @@
+[
+  {
+    "key": "rock",
+    "path": "sources/rock.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": false,
+    "alphaRange": null,
+    "bytes": 1419840,
+    "sha256": "ceddaeddb1156b018bfa7f869f2e0063eaa706a297457297ae2753d9eef7b1ed"
+  },
+  {
+    "key": "backdrop",
+    "path": "sources/backdrop.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "alphaRange": null,
+    "bytes": 1311729,
+    "sha256": "5b760b1010d01bfd75c760cc5e0427bb185698632a364247a349ea9d39bb3558"
+  },
+  {
+    "key": "ore",
+    "path": "sources/ore.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "bytes": 450883,
+    "sha256": "af798c3d1a43fd7edc191d590d77f384f287aff2068270481bd3e11ff8c8f663"
+  },
+  {
+    "key": "hero",
+    "path": "../20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+    "width": 282,
+    "height": 309,
+    "hasAlpha": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "bytes": 36504,
+    "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+  }
+]

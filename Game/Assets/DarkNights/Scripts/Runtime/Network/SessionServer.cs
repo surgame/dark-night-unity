@@ -7,6 +7,7 @@ using AnyRules.Next.FishNet;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
+using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Session;
 using DarkNights.Runtime.Save;
 using DarkNights.Runtime.Diagnostics;
@@ -35,6 +36,11 @@ namespace DarkNights.Runtime.Network
         private double uptime, budgetAt;
         private bool disposed;
         private long lastPublishTick;
+        private ActorViewData previousHostHero;
+        private int previousHostEpoch;
+        private long previousHostTick;
+        private Core.Physics.PhysicsWorldSnapshot previousPhysics, renderPhysics;
+        private int physicsRenderFrame = -1;
         public SessionAuthority Authority { get; }
         /// <summary>仅供地图兴趣服务解析可信连接的玩家槽位；请求参数不能指定槽位。</summary>
         internal int TerrainPlayerSlot(NetworkConnection connection) => peers.TryGetValue(connection, out var peer) && peer.Authority != null ? peer.Authority.PlayerSlot : -1;
@@ -51,6 +57,7 @@ namespace DarkNights.Runtime.Network
             codec = new ProjectionCodec(catalog, layout);
             Authority = new SessionAuthority(simulation);
             clock = new SessionClock(Authority);
+            clock.BeforeStep = CaptureHostHero;
             Storage = new SessionStorage(Authority, saves);
             if (measure) { Measurements = new SessionMeasurements(); clock.MeasureStep = Measurements.Step; }
             try { Publish(); }
@@ -186,6 +193,38 @@ namespace DarkNights.Runtime.Network
             if (receipts.Count != 0 || previousEpoch != Authority.Epoch || Authority.ServerTick - lastPublishTick >= 6) Publish();
         }
 
+        private void CaptureHostHero()
+        {
+            previousHostEpoch = Authority.Epoch;
+            previousHostTick = Authority.ServerTick;
+            previousPhysics = simulation.Physics?.Capture();
+            var host = peers.Values.FirstOrDefault(peer => peer.IsHost && peer.Authority?.Ready == true);
+            previousHostHero = Authority.Loading || simulation.Paused || host == null ? null :
+                HostHeroProjection.CaptureOwned(simulation, host.Authority.PlayerSlot);
+        }
+
+        /// <summary>采样本地Host主角的相邻模拟步；当前冻结副本仍由既有身份与租约入口验证。</summary>
+        public ActorPresentationSample SampleHostHero(ActorViewData current)
+        {
+            bool continuous = !Authority.Loading && !simulation.Paused &&
+                previousHostEpoch == Authority.Epoch && previousHostTick + 1 == Authority.ServerTick;
+            return ActorPresentationSample.Interpolate(continuous ? previousHostHero : null, current,
+                clock.PendingSeconds * 60);
+        }
+
+        /// <summary>Host全部物理显示共用相邻60Hz切点；渲染帧只冻结一次，暂停／epoch变化直接采样当前结果。</summary>
+        public Core.Physics.PhysicsBodyPresentation SampleHostPhysics(Core.Physics.PhysicsBodySnapshot observed)
+        {
+            if (physicsRenderFrame != UnityEngine.Time.frameCount)
+            { renderPhysics = simulation.Physics?.Capture(); physicsRenderFrame = UnityEngine.Time.frameCount; }
+            var current = renderPhysics?.Bodies.FirstOrDefault(b => b.Id == observed.Id) ?? observed;
+            bool continuous = !Authority.Loading && !simulation.Paused && previousHostEpoch == Authority.Epoch &&
+                previousHostTick + 1 == Authority.ServerTick && previousPhysics?.WorldId == renderPhysics?.WorldId &&
+                previousPhysics?.MapEpoch == renderPhysics?.MapEpoch;
+            return new Core.Physics.PhysicsBodyPresentation(continuous
+                ? previousPhysics?.Bodies.FirstOrDefault(b => b.Id == current.Id) : null, current, clock.PendingSeconds * 60);
+        }
+
         private static void Reply(SessionPeer peer, SessionReceipt receipt) => peer.Endpoint.Reply(peer.Network,
             receipt.Sequence, receipt.Epoch, receipt.Revision, receipt.Code.ToString(), receipt.AffectedCount,
             receipt.EntityId, false, receipt.PlayerSlot, receipt.ConnectionGeneration);
@@ -215,6 +254,8 @@ namespace DarkNights.Runtime.Network
             Authority.Dispose();
             peers.Clear();
             publications.Clear();
+            previousHostHero = null;
+            clock.BeforeStep = null;
         }
     }
 }

@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-01",
+  "inputs": [
+    {
+      "file": "../20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "bytes": 36504,
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+      "width": 282,
+      "height": 309
+    },
+    {
+      "file": "../../角色/主角/images/head.png",
+      "bytes": 11283,
+      "sha256": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b",
+      "width": 229,
+      "height": 185
+    },
+    {
+      "file": "../20261101-hero-terrain-palette-studies/01-terracotta-strata.png",
+      "bytes": 2285651,
+      "sha256": "dc941ce1e70a8b7165350432c73bdd746285b296dcf813b01e97f72874d7dd0d",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "../20261101-hero-terrain-palette-studies/02-sage-slate.png",
+      "bytes": 2398499,
+      "sha256": "a070b49460e0cdc0606326b6c27128718ea6776d16f415c957cc77f2c43b9be9",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "../20261101-hero-terrain-palette-studies/03-moonwhite-salt.png",
+      "bytes": 2340639,
+      "sha256": "7dfac848fb53aecf1f4f697973274c32061e455102fbdf0b201aadf8e422f956",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "flat-shape-guide.svg",
+      "bytes": 766,
+      "sha256": "31f4050664338a0e1520830a2160ece5ca9ff23be72c6f32bed59a7cb7d9dee8"
+    },
+    {
+      "file": "flat-shape-guide.png",
+      "bytes": 62496,
+      "sha256": "4437a1faa5c74b125e50635a7c32bdd2ae301b35905f5f345667b86eec60ffe2",
+      "width": 1536,
+      "height": 1024
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "ok": true,
+  "identity": "Current source hashes in manifest.json; offline browser only.",
+  "solverSeeds": [
+    {
+      "seed": 0,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 1,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 2,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 3,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 4,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 5,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 6,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 7,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 8,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 9,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 10,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 11,
+      "stats": {
+        "observations": 16,
+        "reductions": 15,
+        "removed": 30,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 12,
+      "stats": {
+        "observations": 16,
+        "reductions": 15,
+        "removed": 30,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 13,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 14,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 15,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 16,
+      "stats": {
+        "observations": 16,
+        "reductions": 15,
+        "removed": 30,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 17,
+      "stats": {
+        "observations": 13,
+        "reductions": 15,
+        "removed": 54,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 18,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 19,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 20,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 21,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 22,
+      "stats": {
+        "observations": 12,
+        "reductions": 15,
+        "removed": 62,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 23,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 24,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 25,
+      "stats": {
+        "observations": 16,
+        "reductions": 15,
+        "removed": 30,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 26,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 27,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 28,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 29,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 30,
+      "stats": {
+        "observations": 14,
+        "reductions": 15,
+        "removed": 46,
+        "backtracks": 0
+      }
+    },
+    {
+      "seed": 31,
+      "stats": {
+        "observations": 15,
+        "reductions": 15,
+        "removed": 38,
+        "backtracks": 0
+      }
+    }
+  ],
+  "defaultSeed": 309,
+  "defaultSequence": [
+    "descent",
+    "alcove-r",
+    "low-r",
+    "descent",
+    "low",
+    "low-r",
+    "ascent",
+    "ascent-r",
+    "chamber-r",
+    "descent",
+    "chamber-r",
+    "alcove-r",
+    "chamber",
+    "shelf",
+    "shelf-r",
+    "chamber-r"
+  ],
+  "socketErrors": 0,
+  "maxSeamError": 0.000008210180567402858,
+  "checked": [
+    "same-seed determinism",
+    "socket rules",
+    "six actual art modules",
+    "keyboard movement",
+    "jump and landing",
+    "cross-module movement",
+    "16 module camera probes",
+    "pointer hold and release",
+    "native touch hold and jump",
+    "native touch mining",
+    "seed change",
+    "state restore",
+    "three views at 736/360/320 light and dark",
+    "four trace checkpoints"
+  ],
+  "points": [
+    {
+      "module": 1,
+      "x": 333.40000000000055,
+      "y": 331.1446153846155
+    },
+    {
+      "module": 2,
+      "x": 956.4000000000005,
+      "y": 373.23733333333337
+    },
+    {
+      "module": 3,
+      "x": 1579.4000000000005,
+      "y": 344.5661538461538
+    },
+    {
+      "module": 4,
+      "x": 2202.3999999999924,
+      "y": 369.14461538461353
+    },
+    {
+      "module": 5,
+      "x": 2825.3999999999924,
+      "y": 419.9569230769221
+    },
+    {
+      "module": 6,
+      "x": 3448.3999999999924,
+      "y": 414.5661538461548
+    },
+    {
+      "module": 7,
+      "x": 4071.3999999999924,
+      "y": 321.96000000000186
+    },
+    {
+      "module": 8,
+      "x": 4694.400000000009,
+      "y": 331.08000000000175
+    },
+    {
+      "module": 9,
+      "x": 5317.400000000009,
+      "y": 398.00799999999873
+    },
+    {
+      "module": 10,
+      "x": 5940.400000000009,
+      "y": 430.1446153846175
+    },
+    {
+      "module": 11,
+      "x": 6563.400000000009,
+      "y": 459.00799999999873
+    },
+    {
+      "module": 12,
+      "x": 7186.400000000009,
+      "y": 463.23733333333416
+    },
+    {
+      "module": 13,
+      "x": 7809.400000000009,
+      "y": 457.9493333333325
+    },
+    {
+      "module": 14,
+      "x": 8432.400000000009,
+      "y": 464.9799999999974
+    },
+    {
+      "module": 15,
+      "x": 9055.400000000009,
+      "y": 474.2909090909075
+    },
+    {
+      "module": 16,
+      "x": 9678.400000000009,
+      "y": 459.00799999999873
+    }
+  ],
+  "errors": [],
+  "finalState": {
+    "version": 2,
+    "seed": 309,
+    "view": "walk",
+    "bounds": false,
+    "light": true,
+    "trace": 0,
+    "layer": "all"
+  }
+}

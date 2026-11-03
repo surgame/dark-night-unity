@@ -310,6 +310,8 @@ namespace YYGC.Generated
                 "mscorlib",
                 "netstandard",
                 "nunit.framework",
+                "spine-csharp",
+                "spine-unity",
             });
         }
 

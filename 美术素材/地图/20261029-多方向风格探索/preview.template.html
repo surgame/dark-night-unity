@@ -1,0 +1,161 @@
+<div id="dn-style-exploration">
+  <div class="viz-controls">
+    <strong id="dn-style-name">原版简化手绘</strong>
+    <label class="form-check" id="dn-compare-option">
+      <input class="form-check-input" id="dn-compare" type="checkbox">
+      <span class="form-check-label">与实机底稿对照</span>
+    </label>
+  </div>
+  <div class="dn-style-stage" role="img" aria-label="所选地图风格效果图">
+    <img id="dn-style-current" alt="所选地图风格" decoding="async">
+    <img id="dn-style-original" alt="2026年9月22日历史实机底稿" hidden>
+    <div id="dn-style-divider" hidden aria-hidden="true"></div>
+  </div>
+  <div id="dn-style-wipe" class="viz-controls" hidden>
+    <label class="form-label" for="dn-style-split">底稿覆盖 <span id="dn-split-value">50%</span></label>
+    <input class="form-range" id="dn-style-split" type="range" min="0" max="100" value="50">
+  </div>
+  <div id="dn-style-detail" class="text-small" aria-live="polite"></div>
+  <div id="dn-style-choices" class="viz-grid"></div>
+  <div id="dn-style-error" role="alert" hidden>图片未能完整载入。</div>
+</div>
+<style>
+  #dn-style-exploration { color:var(--foreground); }
+  #dn-style-exploration .dn-style-stage {
+    position:relative; aspect-ratio:1672/941; width:100%; overflow:hidden;
+    margin:10px 0;
+  }
+  #dn-style-exploration .dn-style-stage img {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:fill;
+  }
+  #dn-style-exploration [hidden] { display:none !important; }
+  #dn-style-divider {
+    position:absolute; top:0; bottom:0; width:2px;
+    background:var(--background); box-shadow:1px 0 0 var(--foreground);
+    pointer-events:none;
+  }
+  #dn-style-choices { margin-top:12px; }
+  #dn-style-choices .dn-choice { min-width:0; text-align:center; }
+  #dn-style-choices img { display:block; width:100%; height:auto; margin-bottom:6px; }
+  #dn-style-split { flex:1; min-width:120px; }
+  #dn-style-detail { min-height:1.5em; }
+</style>
+<script>
+(() => {
+  const root = document.getElementById("dn-style-exploration");
+  const data = /*__IMAGE_DATA__*/null;
+  const currentImage = root.querySelector("#dn-style-current");
+  const originalImage = root.querySelector("#dn-style-original");
+  const name = root.querySelector("#dn-style-name");
+  const detail = root.querySelector("#dn-style-detail");
+  const choices = root.querySelector("#dn-style-choices");
+  const compareOption = root.querySelector("#dn-compare-option");
+  const compareInput = root.querySelector("#dn-compare");
+  const wipe = root.querySelector("#dn-style-wipe");
+  const splitInput = root.querySelector("#dn-style-split");
+  const splitValue = root.querySelector("#dn-split-value");
+  const divider = root.querySelector("#dn-style-divider");
+  let state = {version:1, id:"B", compare:false, split:50};
+
+  function readState(value) {
+    const saved = value && value.privateContent;
+    if (!saved || saved.version !== 1) return;
+    if (data.variants.some(item => item.id === saved.id)) state.id = saved.id;
+    state.compare = saved.compare === true;
+    const number = Number(saved.split);
+    if (Number.isFinite(number)) state.split = Math.max(0, Math.min(100, number));
+  }
+  function save() {
+    const selected = data.variants.find(item => item.id === state.id);
+    if (window.openai && typeof window.openai.setWidgetState === "function") {
+      window.openai.setWidgetState({
+        modelContent:{variant:state.id, name:selected.name, compare:state.compare},
+        privateContent:{...state}
+      }).catch(() => {});
+    }
+  }
+  function render() {
+    const selected = data.variants.find(item => item.id === state.id);
+    const isRuntime = ["A","B","C"].includes(state.id);
+    if (!isRuntime) state.compare = false;
+    if (currentImage.getAttribute("src") !== selected.src) currentImage.src = selected.src;
+    currentImage.alt = selected.name;
+    name.textContent = selected.id + " · " + selected.name;
+    detail.textContent = selected.detail + (isRuntime ? " · 底稿：2026-09-22" : "");
+    compareOption.hidden = !isRuntime;
+    compareInput.checked = state.compare;
+    originalImage.hidden = !state.compare;
+    divider.hidden = !state.compare;
+    wipe.hidden = !state.compare;
+    splitInput.value = String(state.split);
+    splitValue.textContent = state.split + "%";
+    originalImage.style.clipPath = "inset(0 " + (100-state.split) + "% 0 0)";
+    divider.style.left = state.split + "%";
+    choices.querySelectorAll("button").forEach(button => {
+      button.setAttribute("aria-pressed", String(button.dataset.variant === state.id));
+    });
+    root.dataset.selected = state.id;
+  }
+  data.variants.forEach(item => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "btn btn-ghost";
+    button.dataset.variant = item.id;
+    button.setAttribute("aria-label", "查看" + item.name);
+    const thumb = document.createElement("img");
+    thumb.src = item.src;
+    thumb.alt = "";
+    thumb.className = "cursor-interaction";
+    button.textContent = item.id + " · " + item.name;
+    const content = document.createElement("div");
+    content.className = "dn-choice";
+    content.append(thumb, button);
+    const select = () => {
+      state.id = item.id;
+      render();
+      save();
+    };
+    thumb.addEventListener("click", select);
+    button.addEventListener("click", select);
+    choices.append(content);
+  });
+  compareInput.addEventListener("change", () => {
+    state.compare = compareInput.checked;
+    render();
+    save();
+  });
+  splitInput.addEventListener("input", () => {
+    state.split = Number(splitInput.value);
+    render();
+  });
+  splitInput.addEventListener("change", save);
+  originalImage.src = data.original;
+  readState(window.openai && window.openai.widgetState);
+  window.addEventListener("openai:set_globals", event => {
+    readState(event.detail && event.detail.globals && event.detail.globals.widgetState);
+    render();
+  });
+  render();
+  const loads = Array.from(root.querySelectorAll("img")).map(image =>
+    image.complete && image.naturalWidth
+      ? Promise.resolve()
+      : new Promise((resolve, reject) => {
+          image.addEventListener("load", resolve, {once:true});
+          image.addEventListener("error", reject, {once:true});
+        })
+  );
+  Promise.all(loads).then(() => {
+    root.dataset.ready = "true";
+  }).catch(() => {
+    root.querySelector("#dn-style-error").hidden = false;
+  });
+  root._inspect = () => ({
+    ...state,
+    ready:root.dataset.ready === "true",
+    selectedWidth:currentImage.naturalWidth,
+    sourceWidth:originalImage.naturalWidth,
+    thumbnails:choices.querySelectorAll("img").length,
+    comparisonVisible:!originalImage.hidden
+  });
+})();
+</script>

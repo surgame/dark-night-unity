@@ -12,6 +12,7 @@ namespace DarkNights.Core.ViewData
         private SessionViewData current;
         private readonly Dictionary<int, ActorViewData> previous = new Dictionary<int, ActorViewData>();
         private double received, duration;
+        private Physics.PhysicsWorldSnapshot previousPhysics;
 
         public void Push(SessionViewData frame, double now)
         {
@@ -19,11 +20,15 @@ namespace DarkNights.Core.ViewData
             if (current != null && frame.Publication <= current.Publication && frame.Epoch == current.Epoch) return;
             previous.Clear();
             duration = 0;
+            previousPhysics = null;
             if (current != null && current.Epoch == frame.Epoch && !frame.Paused && !frame.Loading &&
                 frame.World.Camp.Mode == "Playing" && frame.ServerTick > current.ServerTick)
             {
                 duration = Math.Min(0.2, (frame.ServerTick - current.ServerTick) / 60.0);
                 foreach (ActorViewData actor in current.World.Actors) previous.Add(actor.Id, actor);
+                if (current.World.Physics?.WorldId == frame.World.Physics?.WorldId &&
+                    current.World.Physics?.MapEpoch == frame.World.Physics?.MapEpoch)
+                    previousPhysics = current.World.Physics;
             }
             current = frame; received = now;
         }
@@ -41,7 +46,11 @@ namespace DarkNights.Core.ViewData
             return old.ActionTime + (actor.ActionTime - old.ActionTime) * Ratio(now);
         }
 
-        public void Reset() { current = null; previous.Clear(); duration = 0; }
+        public Physics.PhysicsBodyPresentation Physics(Physics.PhysicsBodySnapshot body, double now) =>
+            new Physics.PhysicsBodyPresentation(System.Linq.Enumerable.FirstOrDefault(
+                previousPhysics?.Bodies ?? Array.Empty<Physics.PhysicsBodySnapshot>(), b => b.Id == body.Id), body, Ratio(now));
+
+        public void Reset() { current = null; previous.Clear(); previousPhysics = null; duration = 0; }
         private bool Previous(ActorViewData actor, out ActorViewData value) =>
             previous.TryGetValue(actor.Id, out value) && value.Kind == actor.Kind;
         private double Ratio(double now) => duration <= 0 ? 1 : Math.Max(0, Math.Min(1, (now - received) / duration));

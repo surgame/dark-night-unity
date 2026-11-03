@@ -1,0 +1,103 @@
+{
+  "ok": true,
+  "measurements": [
+    {
+      "angle": 0,
+      "oldAxisRatio": 1,
+      "newAxisRatio": 1,
+      "orthogonalDot": 0,
+      "scaleX": 0.4,
+      "scaleY": 0.4
+    },
+    {
+      "angle": 15,
+      "oldAxisRatio": 1.3062416181051149,
+      "newAxisRatio": 1,
+      "orthogonalDot": 0,
+      "scaleX": 0.39999999999999997,
+      "scaleY": 0.39999999999999997
+    },
+    {
+      "angle": 30,
+      "oldAxisRatio": 1.767591879243998,
+      "newAxisRatio": 1,
+      "orthogonalDot": 0,
+      "scaleX": 0.4,
+      "scaleY": 0.4
+    },
+    {
+      "angle": 45,
+      "oldAxisRatio": 2.6180339887498945,
+      "newAxisRatio": 1,
+      "orthogonalDot": 0,
+      "scaleX": 0.4,
+      "scaleY": 0.4
+    },
+    {
+      "angle": 60,
+      "oldAxisRatio": 4.791287847477917,
+      "newAxisRatio": 1,
+      "orthogonalDot": 0,
+      "scaleX": 0.4,
+      "scaleY": 0.4
+    },
+    {
+      "angle": 65,
+      "oldAxisRatio": 6.4437200746371035,
+      "newAxisRatio": 1.0000000201637254,
+      "orthogonalDot": 0,
+      "scaleX": 0.4,
+      "scaleY": 0.4
+    },
+    {
+      "angle": 70,
+      "oldAxisRatio": 9.442730599949376,
+      "newAxisRatio": 1,
+      "orthogonalDot": 0,
+      "scaleX": 0.4,
+      "scaleY": 0.4
+    }
+  ],
+  "alphaChecks": {
+    "rock": {
+      "intermediateAlphaPixels": 0
+    },
+    "floor": {
+      "intermediateAlphaPixels": 0
+    },
+    "ceiling": {
+      "intermediateAlphaPixels": 0
+    }
+  },
+  "steepOpacity": [
+    {
+      "angle": 60,
+      "pixel": [
+        64,
+        128,
+        192,
+        255
+      ]
+    },
+    {
+      "angle": 65,
+      "pixel": [
+        64,
+        128,
+        192,
+        255
+      ]
+    },
+    {
+      "angle": 70,
+      "pixel": [
+        64,
+        128,
+        192,
+        255
+      ]
+    }
+  ],
+  "scope": "Straight-slope local scale and orthogonality, actual steep-band opacity and native same-camera before/after images. Curved ribbons still follow the contour; no Unity claim.",
+  "errors": []
+}

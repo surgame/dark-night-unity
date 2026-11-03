@@ -1,0 +1,69 @@
+<div id="ecology-walk">
+  <div class="ew-heading">
+    <h3>灰松谷 · 生态矿路</h3>
+    <span id="ew-seed" class="text-small text-muted"></span>
+  </div>
+  <div class="viz-controls">
+    <button type="button" class="btn btn-primary" id="ew-start">开始试走</button>
+    <button type="button" class="btn" id="ew-auto" aria-pressed="false">自动往返</button>
+    <button type="button" class="btn" id="ew-map" aria-pressed="false">全图</button>
+    <button type="button" class="btn" id="ew-new">重新组合</button>
+    <button type="button" class="btn" id="ew-inspect" aria-pressed="false">接边检查</button>
+    <button type="button" class="btn btn-ghost" id="ew-rescue">回落脚点</button>
+  </div>
+  <div class="ew-stage">
+    <canvas id="ew-canvas" role="img" aria-label="模块化洞穴试走地图：原版窄洞、独立摇摆的植物、流水瀑布、架桥、投货槽及采矿返程。"></canvas>
+    <canvas id="ew-inspector-canvas" aria-hidden="true"></canvas>
+    <div id="ew-loading" class="ew-loading">正在准备原版岩体与角色…</div>
+    <div class="ew-room"><span id="ew-room"></span><span id="ew-load"></span></div>
+    <div class="ew-prompt" id="ew-prompt" aria-live="polite">按“开始试走”，再用 A / D 移动，空格跳跃，E 交互。</div>
+  </div>
+  <div class="viz-controls" id="ew-inspector-controls" hidden>
+    <label class="form-label">连接 <select class="form-select" id="ew-seam-select" aria-label="选择要查看的模块连接"></select></label>
+    <span id="ew-inspector-summary" class="text-small"></span>
+    <span class="text-small">绿线：碰撞踏面 · 蓝线：岩顶 · 黄带：接口区 · 虚框：植物运动范围</span>
+  </div>
+  <p id="ew-status" role="status" class="text-small text-destructive" hidden></p>
+  <div class="ew-objective" aria-live="polite"><span id="ew-objective">目标：深入远端矿室，采下主矿，原路交付。</span><span id="ew-progress" class="tabular-nums">0 / 8</span></div>
+  <div class="ew-touch">
+    <button type="button" class="btn" data-hold="left" aria-label="向左移动">←</button>
+    <button type="button" class="btn" data-hold="right" aria-label="向右移动">→</button>
+    <button type="button" class="btn" data-hold="jump">跳跃</button>
+    <button type="button" class="btn btn-primary" data-hold="interact">E 交互</button>
+  </div>
+  <div class="viz-controls">
+    <label class="form-label">局部查看 <select class="form-select" id="ew-room-select" aria-label="查看已组合的局部"><option value="">跟随角色</option></select></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="ew-motion" checked><span class="form-check-label">生态动态</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="ew-debug"><span class="form-check-label">形状与碰撞</span></label>
+  </div>
+  <div class="ew-detail text-small"><span id="ew-design"></span><span id="ew-log" aria-live="polite"></span></div>
+  <div class="ew-catalog text-small"><span>模块库</span><span id="ew-catalog"></span></div>
+  <p class="text-small text-muted">A / D 或方向键移动 · 空格跳跃 · E 采矿 / 取放 / 搭桥 / 投槽 · 当前为离线设计候选</p>
+</div>
+<style>
+#ecology-walk { display:grid; gap:calc(var(--font-size-base)*.6); color:var(--foreground); }
+#ecology-walk .ew-heading,#ecology-walk .ew-objective { display:flex; justify-content:space-between; align-items:center; gap:calc(var(--font-size-base)*.6); }
+#ecology-walk .ew-heading { padding-inline-end:95px; flex-wrap:wrap; }
+#ecology-walk .ew-stage { position:relative; overflow:hidden; background:#202b27; color:#e4dfc0; }
+#ecology-walk #ew-canvas { display:block; width:100%; aspect-ratio:16/9; touch-action:none; }
+#ecology-walk #ew-inspector-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+#ecology-walk #ew-inspector-controls[hidden],#ecology-walk #ew-status[hidden] { display:none; }
+#ecology-walk .ew-loading { position:absolute; inset:0; display:grid; place-items:center; background:#25342e; }
+#ecology-walk .ew-loading[hidden] { display:none; }
+#ecology-walk .ew-room { position:absolute; top:12px; left:14px; right:14px; display:flex; justify-content:space-between; gap:12px; text-shadow:0 1px 3px #142219; pointer-events:none; }
+#ecology-walk .ew-prompt { position:absolute; bottom:10px; left:12px; right:12px; text-align:center; background:rgba(24,35,28,.87); padding:6px 8px; pointer-events:none; }
+#ecology-walk .ew-touch { display:flex; gap:calc(var(--font-size-base)*.5); justify-content:center; touch-action:none; }
+#ecology-walk .ew-touch button { touch-action:none; user-select:none; }
+#ecology-walk .ew-detail { display:grid; gap:calc(var(--font-size-base)*.25); }
+#ecology-walk #ew-log { color:var(--muted-foreground); min-height:1em; }
+#ecology-walk .ew-catalog { display:flex; gap:calc(var(--font-size-base)*.5); align-items:baseline; }
+#ecology-walk #ew-catalog { display:flex; flex-wrap:wrap; gap:calc(var(--font-size-base)*.3) calc(var(--font-size-base)*.7); }
+#ecology-walk .ew-unused { color:var(--muted-foreground); }
+#ecology-walk .ew-selected { color:var(--foreground); text-decoration:underline; text-underline-offset:3px; }
+@media(max-width:480px) {
+  #ecology-walk #ew-canvas { aspect-ratio:5/4; }
+  #ecology-walk .ew-heading { padding-inline-end:0; }
+  #ecology-walk .ew-room { left:10px; right:10px; top:10px; }
+  #ecology-walk .ew-objective { align-items:flex-start; }
+}
+</style>

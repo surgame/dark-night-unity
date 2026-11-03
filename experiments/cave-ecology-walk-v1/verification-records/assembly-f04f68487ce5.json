@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-31",
+  "buildId": "f04f68487ce5af902661679f2d1a522897a23092b18788db1949235c7e36ee2c",
+  "scope": "Static authoring geometry only; no actor traversal, Unity, rendered art or multiplayer acceptance.",
+  "source": [
+    {
+      "file": "contours.js",
+      "sha256": "17556b2c1c8a49adc2a95a9f7329d69a1dc14ae55d4bab8cc65843324568e204"
+    },
+    {
+      "file": "authored-profiles.js",
+      "sha256": "22944d1e6f9fc17c117ce9cde23b8fa19c6602bbbea865b29cab936dd4839ced"
+    },
+    {
+      "file": "module-rules.js",
+      "sha256": "225a021802318cd1e3f5a32130ebe6578352dabec3c9ce28285086ea7e0537e0"
+    },
+    {
+      "file": "terrain-shapes.js",
+      "sha256": "cbc7cbc6dca5197e4051d4600f321411053b1ea28dca562b18ed31ff5711d214"
+    },
+    {
+      "file": "world-data.js",
+      "sha256": "084be0e51d23b37300288cc8f0d8c2548a674e203673f51c351b6543a8da1b56"
+    },
+    {
+      "file": "verify-assembly.cjs",
+      "sha256": "94dad1747116a33464edd55166807065696c058a4027aebc96c18767b5ae427c"
+    }
+  ],
+  "authoredInputs": [
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\authored-profile-input.json",
+      "sha256": "1e188727052c86a6525121cdc64f5980f5b875baa690a97103b8d47687b776ed"
+    },
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\trace-authored.py",
+      "sha256": "8fa70b929b938c1cde60961ea26e886455a13d2715170712ab0726796b23e86e"
+    },
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261031-cave-ecology-studies-v1\\sources\\bridge-authored-v2.png",
+      "sha256": "d08626d839ab4d60ba6fa3efabec7ce51688db8def25f0441886bdded927a790"
+    }
+  ],
+  "identityIssues": [],
+  "seeds": 3,
+  "sourcesCovered": 14,
+  "missingSources": [],
+  "checks": [
+    {
+      "seed": 0,
+      "passed": true,
+      "rooms": 8,
+      "connections": 7,
+      "portColumnsPerSide": 65,
+      "water": 10,
+      "plants": 47,
+      "boundaries": 2,
+      "roadDepthLayers": 8,
+      "issues": []
+    },
+    {
+      "seed": 1,
+      "passed": true,
+      "rooms": 8,
+      "connections": 7,
+      "portColumnsPerSide": 65,
+      "water": 8,
+      "plants": 47,
+      "boundaries": 2,
+      "roadDepthLayers": 8,
+      "issues": []
+    },
+    {
+      "seed": 2,
+      "passed": true,
+      "rooms": 8,
+      "connections": 7,
+      "portColumnsPerSide": 65,
+      "water": 8,
+      "plants": 47,
+      "boundaries": 2,
+      "roadDepthLayers": 8,
+      "issues": []
+    }
+  ],
+  "passed": true
+}

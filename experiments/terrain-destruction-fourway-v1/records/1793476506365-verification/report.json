@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-01",
+  "models": [
+    {
+      "w": 64,
+      "h": 40,
+      "seed": 271,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    },
+    {
+      "w": 96,
+      "h": 60,
+      "seed": 902,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    },
+    {
+      "w": 320,
+      "h": 192,
+      "seed": 271,
+      "hits": 40,
+      "geometryEqual": true,
+      "ports": 0,
+      "equivalentWfc": true
+    }
+  ],
+  "views": [
+    {
+      "method": "dual",
+      "variation": 570366
+    },
+    {
+      "method": "whole",
+      "variation": 570366
+    },
+    {
+      "method": "hybrid",
+      "variation": 570366
+    },
+    {
+      "method": "edge",
+      "variation": 570360
+    }
+  ],
+  "layouts": [],
+  "errors": [],
+  "scope": "Independent four-way WebGL2 prototype.",
+  "finiteCatalogueRejectsThreeWay": true,
+  "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "mouse": {
+    "clickCount": 1,
+    "dragCount": 6,
+    "allMethodsSame": true,
+    "panWithoutBreaking": true
+  },
+  "passed": false,
+  "failure": "frame.waitForTimeout: Frame was detached\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\verify.cjs:82:37"
+}

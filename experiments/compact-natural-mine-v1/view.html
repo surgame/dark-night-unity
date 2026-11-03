@@ -1,0 +1,43 @@
+<div id="compact-natural-mine">
+  <style>
+    #compact-natural-mine {color:var(--foreground);display:grid;gap:calc(var(--font-size-base)*.75);min-width:0}
+    #compact-natural-mine .heading {padding-right:90px}
+    #compact-natural-mine .map {width:100%;min-width:0}
+    #compact-natural-mine .map svg {display:block;width:100%}
+    #compact-natural-mine .map text {fill:var(--foreground);font-size:12px;font-weight:400}
+    #compact-natural-mine .rock {fill:var(--muted)}
+    #compact-natural-mine .air {fill:var(--background)}
+    #compact-natural-mine .edge {fill:none;stroke:var(--foreground);stroke-width:1.4;vector-effect:non-scaling-stroke}
+    #compact-natural-mine .guide {fill:none;stroke:var(--border);stroke-width:1;vector-effect:non-scaling-stroke}
+    #compact-natural-mine .ore {fill:var(--viz-series-2);fill-opacity:.2;stroke:var(--foreground);stroke-width:1;vector-effect:non-scaling-stroke}
+    #compact-natural-mine .zone {fill:var(--viz-series-2);fill-opacity:.1;stroke:var(--foreground);stroke-width:1;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+    #compact-natural-mine .route {fill:none;stroke:var(--viz-series-1);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+    #compact-natural-mine .focus {fill:var(--viz-series-1);fill-opacity:.13}
+    #compact-natural-mine .details {display:grid;gap:calc(var(--font-size-base)*.3)}
+  </style>
+  <h3 class="heading">紧凑天然矿洞</h3>
+  <div class="viz-controls">
+    <label class="form-label">探索目标
+      <select class="form-select" id="cnm-goal"></select>
+    </label>
+    <label class="form-label">视野
+      <select class="form-select" id="cnm-view">
+        <option value="all">整图</option>
+        <option value="shallow">浅层洞室组</option>
+        <option value="middle">中层洞室组</option>
+        <option value="deep">深层洞室组</option>
+      </select>
+    </label>
+  </div>
+  <div class="viz-row">
+    <label class="form-check"><input class="form-check-input" id="cnm-route" type="checkbox" checked><span class="form-check-label">建议动线</span></label>
+    <label class="form-check"><input class="form-check-input" id="cnm-bounds" type="checkbox"><span class="form-check-label">大块分组</span></label>
+    <label class="form-check"><input class="form-check-input" id="cnm-content" type="checkbox" checked><span class="form-check-label">玩点插槽</span></label>
+  </div>
+  <div class="map" id="cnm-map"></div>
+  <div class="details" aria-live="polite">
+    <p id="cnm-distance"></p>
+    <p class="text-small" id="cnm-detail"></p>
+  </div>
+  <p class="text-small">比例为距洞口的累计建议动线；不含支线、采矿与停留，未测实际耗时或角色通行。</p>
+</div>

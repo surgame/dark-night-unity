@@ -1,0 +1,274 @@
+{
+  "date": "2026-11-02",
+  "acceptance": "User rejected the 9.6-world-unit cave volume; retained research only. First preview hero scale 1 was incorrect; original author scene requires 4.",
+  "inputs": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\natural-contour-blockout-20261102\\design-inputs.json",
+    "bytes": 694758,
+    "sha256": "27f2a90e69669ba1915057c2ec25809ba8b2d54a227b105907933db299971943"
+  },
+  "svgSources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-natural-contour-blockout\\Custom\\Eroded.svg",
+      "bytes": 1624,
+      "sha256": "b65ba221f2be6793912f183c5c346a4ee423c25e0ad99f733327b0c13aeedf90"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-natural-contour-blockout\\Custom\\Rift.svg",
+      "bytes": 1776,
+      "sha256": "d2805583424e04203e7981c466a93cac9318957cbdab3dd2ac92540cdf4a3fe7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261102-natural-contour-blockout\\Custom\\Shoulder.svg",
+      "bytes": 1757,
+      "sha256": "55b7016bbd02f7f8de5f00b1fe5140e871e0c13c04daf1625a18eab8d5a9cc51"
+    }
+  ],
+  "nativeVisualAssets": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\CavityFade.asset",
+      "bytes": 4925,
+      "sha256": "9d3f4fbba68de3b370e06ac72bb9d31545ef9cb0c5277bafe29a9614532bcbed"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\CavityFade.asset.meta",
+      "bytes": 188,
+      "sha256": "02928277a91a5953e67d0b3912ff7da47ad6827f03ff42daa7bdd42f67f18d30"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\Ground.asset",
+      "bytes": 16809,
+      "sha256": "d75a3cf41331da2963dd112deac17ed2024671f57649054fc99e254d3033cd5d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\Ground.asset.meta",
+      "bytes": 188,
+      "sha256": "71c4831df912c0326a606e57be81559d59061bf73ec0f21bfa8705f02adb30d4"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\GroundInnerBand.asset",
+      "bytes": 29789,
+      "sha256": "a228b8e09203d54f73758273f8c7b32318c1efc4e07cdb8fdda797f12fa2afe8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\GroundInnerBand.asset.meta",
+      "bytes": 188,
+      "sha256": "b8ae9e1900e61c921001bf892cad0ad5f2668c6d407d19b398dd6dceacdead86"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\GroundLip.asset",
+      "bytes": 29783,
+      "sha256": "c142d69812b5fcd9191df40f57a051e07770755a46d30b9d47e66440cec678eb"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\GroundLip.asset.meta",
+      "bytes": 188,
+      "sha256": "05da66c533ad025b30688a32e4a4ac237e4e7f232a9cd14369079863898398c5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\M01-Eroded.prefab",
+      "bytes": 16780,
+      "sha256": "3f17853b8a13fafbebfec37770925bd23c30968ac12fbe88923e07183b2fe979"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\M01-Eroded.prefab.meta",
+      "bytes": 154,
+      "sha256": "fb73c6a6668f127628ceb720c253491c4e050b34e77f5834b45904a0f792fed1"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\Roof.asset",
+      "bytes": 18447,
+      "sha256": "4fe0351a58eafb1406a3348ac605177cbb5d7918f018eb8a2e30ef304fce72a0"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\Roof.asset.meta",
+      "bytes": 188,
+      "sha256": "04a3531a963d9052b0c40608a1faf4a537274a46bd99006df84fc993cd2d290f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\RoofLip.asset",
+      "bytes": 33039,
+      "sha256": "96250f38aa85ca6575440aca3b24190d233712657030bed9d39625d6269e280c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded\\RoofLip.asset.meta",
+      "bytes": 188,
+      "sha256": "57eb293e950df31141d2adb321444934e043861f17b771cb0518749c51debc82"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Eroded.meta",
+      "bytes": 172,
+      "sha256": "7acd22ae716e258c69687ff8166da9830d97761458e711d47eb56e4050ac7d32"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\NaturalContourUnlit.mat",
+      "bytes": 1124,
+      "sha256": "563473893958f5c25085657f534c8a3dbea247d7faa40303a8512cf8593b332d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\NaturalContourUnlit.mat.meta",
+      "bytes": 188,
+      "sha256": "70deded1dad695fbb48a5a382c5b90bfb2ffd04c3f7676042b479025abbcc4cb"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\CavityFade.asset",
+      "bytes": 4925,
+      "sha256": "9d3f4fbba68de3b370e06ac72bb9d31545ef9cb0c5277bafe29a9614532bcbed"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\CavityFade.asset.meta",
+      "bytes": 188,
+      "sha256": "8094f378cef5e0dc0f234a2fc970ff22ae7482f8982514af3b055340788fa336"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\Ground.asset",
+      "bytes": 17565,
+      "sha256": "1720d7b7976ebcf475a8536a242849a7b12196043b0b8277ce858fccc480279f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\Ground.asset.meta",
+      "bytes": 188,
+      "sha256": "400068aa37e2d92c8eaf63f3726241ab97c456f454a2872cb32245c22dd51076"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\GroundInnerBand.asset",
+      "bytes": 31297,
+      "sha256": "05e37ffbc080c8a626952d36a93122a4f898c4ce57e57aeb678b35d27ace355f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\GroundInnerBand.asset.meta",
+      "bytes": 188,
+      "sha256": "f760a6cb9c01ccddb12f559cfd02697be2162c293edf7de20e5537ee5a040419"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\GroundLip.asset",
+      "bytes": 31291,
+      "sha256": "c472dd59eec8b6a47766a3864e9616bdd4f7cd1428629dd4c496146818f36acd"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\GroundLip.asset.meta",
+      "bytes": 188,
+      "sha256": "320421ed639dd053e86836e6a1676769195517f6df69b531b9805c572fd11d2f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\M01-Rift.prefab",
+      "bytes": 16771,
+      "sha256": "cc59556108f3cd5c3dfd8d14e781686994f5748588f7da9b77a866d86d7930db"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\M01-Rift.prefab.meta",
+      "bytes": 154,
+      "sha256": "867e496e89fab45739141cc9364862ce6355962cd46f38243274152c40e1cb66"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\Roof.asset",
+      "bytes": 18429,
+      "sha256": "465f15759549a4a238033f40a36dce51cd4f538ccfabc8fdca4ce1fd10e976a5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\Roof.asset.meta",
+      "bytes": 188,
+      "sha256": "637da4400fb2b45388ab7ef8cd5b030fb2b924adee96e4d752b131794c791c08"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\RoofLip.asset",
+      "bytes": 33029,
+      "sha256": "a79afec60e0c940b7a81ccc2493a56b501d872417ade0dd8a0a320e3b1228106"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift\\RoofLip.asset.meta",
+      "bytes": 188,
+      "sha256": "a8b93a67494b2846f0171298a1a9d44af50d6412fba89a68fdef79f4f2919126"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Rift.meta",
+      "bytes": 172,
+      "sha256": "47e0dcb1a6ef11db538923c73a6ee52ca0a348e5d7cbca176443f9c6c1a02c4a"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\CavityFade.asset",
+      "bytes": 4925,
+      "sha256": "9d3f4fbba68de3b370e06ac72bb9d31545ef9cb0c5277bafe29a9614532bcbed"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\CavityFade.asset.meta",
+      "bytes": 188,
+      "sha256": "165a4fc7636c5902402b7d5684b358e31dcb83564f28981a4afeebca12554b60"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\Ground.asset",
+      "bytes": 18749,
+      "sha256": "6c1562a87faec2a502cba7d1a0f14edb308308d21eef624cf2976384a4fb2881"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\Ground.asset.meta",
+      "bytes": 188,
+      "sha256": "0c8aae776e1cffd6ede3dbeb508d53b4d52a6c9e6493a6d525fcaa75e914374a"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\GroundInnerBand.asset",
+      "bytes": 33679,
+      "sha256": "81c5be06ae7910527e63b4c21a53dd5dff227fe0f2a21dc9e7c79e4d51b13097"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\GroundInnerBand.asset.meta",
+      "bytes": 188,
+      "sha256": "734128802f0b15af2966bc9502bf72167dbd0249b0e5ddbdc73806206b9c5187"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\GroundLip.asset",
+      "bytes": 33669,
+      "sha256": "b1ac253efe575b033cfaf6723d4421e45cee785c67da37c13ad6dce96d35ede1"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\GroundLip.asset.meta",
+      "bytes": 188,
+      "sha256": "bce18b4d00f900bd37b82fd05a6b28388bd0b5d3728ef7fba420b35a5c1f3e17"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\M01-Shoulder.prefab",
+      "bytes": 16791,
+      "sha256": "923b18480739449418bea760b2900a6f33d7ecb588c5eab37263bacd76b1f2cc"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\M01-Shoulder.prefab.meta",
+      "bytes": 154,
+      "sha256": "d066126fd102a782f88f4141b152ed1d95c6099cbfad19477e7fdc85b7b9f255"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\Roof.asset",
+      "bytes": 19853,
+      "sha256": "365d7c88c8acb607b5fbda013e72d0b834e4d7cbab9a39dc8b132057d04caa19"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\Roof.asset.meta",
+      "bytes": 188,
+      "sha256": "eccbd6b911ec15aad0a4dd92af1862951d2d317b15920ab1db8c074d866348df"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\RoofLip.asset",
+      "bytes": 35849,
+      "sha256": "87552341f2777e2614dd07f2133b61495966c41f49862614e2782b87daffeafb"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder\\RoofLip.asset.meta",
+      "bytes": 188,
+      "sha256": "a76e0ed3e5e936fdecd015cbdd421f7f3e191606bdaa829fec3c02a4f440d78c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\EntranceWhiteboxAssets\\NaturalContours\\Shoulder.meta",
+      "bytes": 172,
+      "sha256": "bbe64327bdba224f61e4b0cd39aaf902f1a04a84ebdd64c91e8f5156f082aa8f"
+    }
+  ],
+  "scope": "Pure colored native mesh prefabs, no textures, collision backend or gameplay.",
+  "initialNativeReceipt": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\natural-contour-blockout-20261102\\native-preview-review.json",
+    "bytes": 1908,
+    "sha256": "7dab129d2725f0bff5973c55b94b5901503fb79ba1184fa65bf03e120d583171"
+  },
+  "pendingNotExecuted": [
+    "capture-natural-contours.csx corrected author-scale recapture",
+    "make-compact-contours.py 7.2-unit geometry output"
+  ],
+  "currentDiscussion": "1U=3.2x3.2 world units draft; 1x1,2x1,1x2,2x2 footprints; M01 proposed 2x1. Not user-confirmed."
+}

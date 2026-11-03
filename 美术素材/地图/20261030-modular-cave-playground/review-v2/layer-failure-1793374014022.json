@@ -1,0 +1,4 @@
+{
+  "message": "Buried ore must not be reachable through foreground.",
+  "stack": "AssertionError [ERR_ASSERTION]: Buried ore must not be reachable through foreground.\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261030-modular-cave-playground\\check-layers.cjs:48:12"
+}

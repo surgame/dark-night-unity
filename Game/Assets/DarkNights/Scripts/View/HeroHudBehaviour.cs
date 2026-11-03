@@ -31,6 +31,7 @@ namespace DarkNights.View
         public void InitializeMiningSelector()
         {
             if (mining != null) return;
+            View.gameObject.name = "Hero HUD (UI)";
             var viewport = (UnityEngine.RectTransform)View.transform;
             viewport.anchorMin = UnityEngine.Vector2.zero;
             viewport.anchorMax = UnityEngine.Vector2.one;

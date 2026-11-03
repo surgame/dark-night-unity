@@ -118,6 +118,10 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 6551936678525656623}
   _renderers: []
+  _allRenderers:
+  - {fileID: 3731150542082005605}
+  - {fileID: 5338260311561493757}
+  - {fileID: 7605154353738140104}
   _spriteRenderers:
   - {fileID: 3731150542082005605}
   - {fileID: 5338260311561493757}
@@ -152,6 +156,7 @@ MonoBehaviour:
       baseColor: {r: 1, g: 1, b: 1, a: 1}
     - renderer: {fileID: 7605154353738140104}
       baseColor: {r: 1, g: 1, b: 1, a: 1}
+  ship: {fileID: 0}
   expeditionVariants: []
   complete: {fileID: 3731150542082005605}
   foundation: {fileID: 5338260311561493757}

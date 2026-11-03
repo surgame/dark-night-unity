@@ -1,0 +1,50 @@
+<div id="cave-wfc-whitebox">
+  <style>
+    #cave-wfc-whitebox {
+      color: var(--foreground); width: 100%;
+      --cave-background: var(--background);
+      --cave-far: color-mix(in srgb, var(--foreground) 15%, var(--background));
+      --cave-face: light-dark(color-mix(in srgb, var(--foreground) 48%, var(--background)), color-mix(in srgb, var(--foreground) 42%, var(--background)));
+      --cave-top: light-dark(color-mix(in srgb, var(--foreground) 4%, var(--background)), color-mix(in srgb, var(--foreground) 86%, var(--background)));
+      --cave-side: color-mix(in srgb, var(--foreground) 57%, var(--background));
+      --cave-under: light-dark(color-mix(in srgb, var(--foreground) 72%, var(--background)), color-mix(in srgb, var(--foreground) 22%, var(--background)));
+      --cave-line: color-mix(in srgb, var(--foreground) 72%, var(--background));
+      --cave-joint: var(--viz-series-1); --cave-ink: var(--foreground);
+      --cave-fog: color-mix(in srgb, var(--foreground) 20%, var(--background));
+    }
+    #cave-wfc-whitebox .cave-views { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    #cave-wfc-whitebox .cave-seed { max-width: 180px; }
+    #cave-wfc-whitebox canvas { display: block; width: 100%; height: clamp(330px, 62vw, 480px); touch-action: none; }
+    #cave-wfc-whitebox .cave-status { margin: 10px 0; font-variant-numeric: tabular-nums; }
+    #cave-wfc-whitebox .cave-detail { margin: 8px 0 0; min-height: 2.5em; }
+    #cave-wfc-whitebox .cave-progress { margin: 8px 0; }
+  </style>
+  <h3>地下洞穴 · 共点 WFC 白模</h3>
+  <div class="viz-controls">
+    <label class="form-label cave-seed">种子
+      <input class="form-control" data-seed type="number" min="0" max="4294967295" step="1" value="20261029">
+    </label>
+    <button class="btn" type="button" data-generate>生成</button>
+    <button class="btn" type="button" data-next>换个种子</button>
+  </div>
+  <div class="cave-views" role="group" aria-label="查看地形">
+    <button class="btn" type="button" data-mode="scene" aria-pressed="true">透视白模</button>
+    <button class="btn" type="button" data-mode="seams" aria-pressed="false">共点检查</button>
+    <button class="btn" type="button" data-mode="atlas" aria-pressed="false">16 基础型</button>
+    <button class="btn" type="button" data-fit="all">全图</button>
+    <button class="btn" type="button" data-fit="local">近看</button>
+    <label class="form-check">
+      <input class="form-check-input" data-perspective type="checkbox" checked>
+      <span class="form-check-label">顶面厚度</span>
+    </label>
+  </div>
+  <div class="cave-progress" data-progress-wrap hidden>
+    <div class="progress" role="progressbar" aria-label="WFC 已确定大格" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progress-bar" style="width:0%"></div>
+    </div>
+  </div>
+  <p class="cave-status text-small" data-status aria-live="polite">准备生成…</p>
+  <canvas role="img" aria-label="可平移缩放的地下随机地形白模；明亮顶面、灰色正面与深色底面表现空间厚度"></canvas>
+  <p class="cave-detail text-small" data-detail aria-live="polite"></p>
+  <!-- CAVE_WFC_SCRIPTS -->
+</div>

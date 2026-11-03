@@ -1,0 +1,472 @@
+{
+  "date": "2026-10-31",
+  "scope": "Independent shape and dependency checks; no Unity, collision or actor traversal.",
+  "source": [
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\plan.js",
+      "sha256": "58f6ea6d3028a9088ec97f9fc2675c4ab8260c0be84abf65a182823e52748b47"
+    },
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\catalog.js",
+      "sha256": "26d9e94189409769833f7201f26de4ad0a2928069b5cd19f963f302d0003c908"
+    },
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-wfc-whitebox-v1\\solver.js",
+      "sha256": "1879df13a125ff97e7224a2f5dac22feb0a2f6201684977300c409a51edfd103"
+    },
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\model.js",
+      "sha256": "dc32152baa9497262bbbc64a6ebcf92cc782a6fa74793444134e26d589b0771a"
+    },
+    {
+      "file": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\hybrid.js",
+      "sha256": "1b946dfe03a3afe6a10a577d8ca7f71d6d8ab2adf1a9578c229532227fe9adf8"
+    }
+  ],
+  "cases": [
+    {
+      "scene": "basin",
+      "seed": 271,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 58,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 188,
+        "propagations": 8368,
+        "removed": 1719,
+        "attempts": 1,
+        "elapsedMs": 12.5287
+      },
+      "changed": {
+        "dual": [
+          882,
+          883,
+          930,
+          931
+        ],
+        "wfc": [
+          882,
+          883,
+          930,
+          931
+        ]
+      }
+    },
+    {
+      "scene": "basin",
+      "seed": 902,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 61,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 146,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 178,
+        "propagations": 8167,
+        "removed": 1524,
+        "attempts": 1,
+        "elapsedMs": 11.138699999999993
+      },
+      "changed": {
+        "dual": [
+          882,
+          883,
+          930,
+          931
+        ],
+        "wfc": [
+          882,
+          883,
+          930,
+          931
+        ]
+      }
+    },
+    {
+      "scene": "basin",
+      "seed": 1643,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 148,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 55,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 148,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 179,
+        "propagations": 8191,
+        "removed": 1549,
+        "attempts": 1,
+        "elapsedMs": 7.421199999999999
+      },
+      "changed": {
+        "dual": [
+          882,
+          883,
+          930,
+          931
+        ],
+        "wfc": [
+          882,
+          883,
+          930,
+          931
+        ]
+      }
+    },
+    {
+      "scene": "shoulder",
+      "seed": 271,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 53,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 162,
+        "propagations": 7927,
+        "removed": 1430,
+        "attempts": 1,
+        "elapsedMs": 6.8108
+      },
+      "changed": {
+        "dual": [
+          882,
+          883,
+          930,
+          931
+        ],
+        "wfc": [
+          882,
+          883,
+          930,
+          931
+        ]
+      }
+    },
+    {
+      "scene": "shoulder",
+      "seed": 902,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 132,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 59,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 132,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 166,
+        "propagations": 7950,
+        "removed": 1413,
+        "attempts": 1,
+        "elapsedMs": 8.213400000000007
+      },
+      "changed": {
+        "dual": [
+          882,
+          883,
+          930,
+          931
+        ],
+        "wfc": [
+          882,
+          883,
+          930,
+          931
+        ]
+      }
+    },
+    {
+      "scene": "shoulder",
+      "seed": 1643,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 54,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 136,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 167,
+        "propagations": 8006,
+        "removed": 1496,
+        "attempts": 1,
+        "elapsedMs": 10.739900000000006
+      },
+      "changed": {
+        "dual": [
+          834,
+          835,
+          882,
+          883
+        ],
+        "wfc": [
+          834,
+          835,
+          882,
+          883
+        ]
+      }
+    },
+    {
+      "scene": "network",
+      "seed": 271,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 52,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 164,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 258,
+        "propagations": 9664,
+        "removed": 2888,
+        "attempts": 1,
+        "elapsedMs": 11.522100000000023
+      },
+      "changed": {
+        "dual": [
+          546,
+          547,
+          594,
+          595
+        ],
+        "wfc": [
+          546,
+          547,
+          594,
+          595
+        ]
+      }
+    },
+    {
+      "scene": "network",
+      "seed": 902,
+      "dual": {
+        "boundaryConfigurations": 13,
+        "positions": [
+          0.5
+        ],
+        "segments": 172,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 73,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 172,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 256,
+        "propagations": 9612,
+        "removed": 2832,
+        "attempts": 1,
+        "elapsedMs": 7.552199999999999
+      },
+      "changed": {
+        "dual": [
+          882,
+          883,
+          930,
+          931
+        ],
+        "wfc": [
+          882,
+          883,
+          930,
+          931
+        ]
+      }
+    },
+    {
+      "scene": "network",
+      "seed": 1643,
+      "dual": {
+        "boundaryConfigurations": 12,
+        "positions": [
+          0.5
+        ],
+        "segments": 168,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "wfc": {
+        "boundaryConfigurations": 65,
+        "positions": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "segments": 168,
+        "mismatches": 0,
+        "cornerConflicts": 0,
+        "nonManifold": 0,
+        "changed": 0
+      },
+      "stats": {
+        "observations": 252,
+        "propagations": 9492,
+        "removed": 2672,
+        "attempts": 1,
+        "elapsedMs": 7.269499999999994
+      },
+      "changed": {
+        "dual": [
+          642,
+          643,
+          690,
+          691
+        ],
+        "wfc": [
+          642,
+          643,
+          690,
+          691
+        ]
+      }
+    }
+  ],
+  "failures": [],
+  "boundedContradiction": true,
+  "passed": true
+}

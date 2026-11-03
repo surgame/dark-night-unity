@@ -1,6 +1,6 @@
-# Unity世界存档v28
+# Unity世界存档v30
 
-本页维护当前文件字段、身份／关系、基础会话零值约束与原子保存恢复。当前候选入口仅接受 **v28**，正式目录 `Saves/v28`；v27及更旧Unity／Godot文件拒绝、不迁移、不覆盖、不自动删除。v28增加主角水平速度及起跳水平速度，避免恢复时丢失空中惯性；v27引入的共享星图合同继续保持。当前候选的真实写盘／恢复验收见[执行状态](DEVELOPMENT.md)。网络epoch与房间权限见[联机合同](MULTIPLAYER.md)。
+本页维护当前文件字段、身份／关系、基础会话零值约束与原子保存恢复。当前候选入口仅接受 **v30**，正式目录 `Saves/v30`；v29及更旧Unity／Godot文件拒绝、不迁移、不覆盖、不自动删除。v30扩展环境吊绳抓附，v29可空physics完整检查点、v28水平／起跳水平速度及v27共享星图继续保持。真实写盘／恢复验收见[执行状态](DEVELOPMENT.md)。网络epoch与房间权限见[联机合同](MULTIPLAYER.md)。
 
 ## 文件合同
 
@@ -9,7 +9,7 @@
 | 字段 | 合同 |
 | --- | --- |
 | format | `dark-nights.world` |
-| format_version | 整数28 |
+| format_version | 整数30 |
 | random_algorithm | SimulationRandom.Algorithm，`godot-pcg32-clz-f32-v1` |
 | rules_sha256 | 会话只读GameCatalog规范化SHA-256 |
 | layout_sha256 | 校验后LevelLayout规范化SHA-256 |
@@ -18,6 +18,16 @@
 | world | 深度冻结的权威数据 |
 
 精确嵌套字段以 `ObjectWorldSaveJson`、`SnapshotDocumentJson`、`SnapshotEntityJson`、`TerrainSaveJson`、`MineralSaveJson`、`ExpeditionSaveJson` 及对应Validator的显式映射为准。缺失／未知字段、重复JSON属性、尾随内容、非法enum、非有限数、越界值、重复身份或不兼容摘要拒绝，不用历史样例绕过校验。
+
+当前world强制含`physics`：格运动为null，显式物理候选为完整对象，严格包含`definition`、`tick`、`world_id`、`map_epoch`、`terrain_revision`、`bodies`、`ropes`。后端／规则摘要进入layout_sha256，不能用新后端读取旧物理帧。最多64体、8条角色连接，正ID对应存活手动角色、-1～-32对应冻结Profile的全部道具（包括环境绳节）；端点须在同一闭包，OwnerId唯一，长度不得超过本配置。
+
+v30的每项`physics.ropes`严格包含`owner`、`target`、`length`、`hanging_rope`、`position`五字段。普通牵引要求后两项为零；环境抓附要求`length=0`，绳ID存在、沿绳弧长在端部范围内，目标绳节与该弧长一致，同绳抓点间隔至少52逻辑像素。环境绳拓扑、锚点、绳节及攀爬／摆荡规则进入物理配置摘要；绳节全部姿态／速度沿现有bodies保存，恢复同一物理闭包及固定顶端。Climb为瞬时输入，不入档，加载后不继续旧攀爬命令。
+
+body保存位置、线／角速度、角度、睡眠、支撑法线、起跳速度／缓冲／上升门闩；角色位置和速度必须与actor条目逐值一致。输入确认序号和控制租约不进文件，解析后为零；连接所有权仍由重新Ready建立。物理候选的支撑0表示原生求解支撑（包含箱子），因此允许接地时随支撑竖直运动；格运动仍要求原接地零速关系。64,000逻辑像素／秒为物理速度边界，不是正常移动数值。
+
+有权威地图的物理候选，角色高度上限为PlayableTerrain地图上沿扣除44像素身体高度，与原生顶部边界一致；平地及格运动沿原高度规则。该边界版本进入物理摘要，不增加角色跳跃能力。
+
+恢复先验证完整闭包及配置，再在原世界替换事务内恢复角色／道具／绳索所属State，整体撤销原生执行缓存。新地图epoch由现有加载流程分配，下一步重建碰撞和Joint；TerrainRevision是捕获时最后一次求解使用的几何版本，不冒充新epoch的revision。Unity接触／热启动缓存不保存，不承诺恢复后逐位同轨。MapModule研究仍禁止普通槽位保存／读档；诊断片段可导出冻结初始世界和地形变化用于排障，不因此解除存储权限。
 
 v28的每个actor强制增加`horizontal_speed`和`takeoff_horizontal_speed`两个有限数，分别表示当前真实横向速度和本次离地的速度参考，单位为逻辑像素／秒，绝对值不得超过64,000（基础参数与现有最高调试倍率的联合边界）。玩家及非手动角色共用MovementBehaviour，均允许保存合法速度；这不解除基础会话暂停NPC的约束。捕获深度冻结，恢复写入同一ActorState；重接控制租约不清除两者，地面启停及下一次起跳按实际输入重新建立。所有装配移动能力的Definition按身份排序，其完整MovementConfig指纹纳入现有equipment_sha256组合，包含两项能力开关、到达容差及四项空控值。本次合并替代原HeroAirControlConfig摘要，内容身份改变，匹配整合前内容的存档可能被严格内容校验拒绝；v28字段形状不变，原文件保留，不自动迁移或删除。以下v27段落保留各自历史引入来源。
 
@@ -29,7 +39,7 @@ world保留level_id、terrain、expedition、economy、wave、elapsed、speed、
 
 每个identity严格含id、definition_guid、placement_key，实体与身份一一对应。GUID须匹配对应规则；非空放置键须来自当前作者布局，合法职业替换沿用身份的通用能力不授权恢复暂停业务。正式旧整数ID和Kind别名不兼容，独立Sample的LegacyV1另保隔离边界。
 
-actors的姿态／装备包括height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped／jetpack_fuel、explosive_charges及库存／货袋／照明字段；这是概要，不是完整字段列表。高度原地面为零、向上为正；原随机地图下限和平台支撑关系按当前布局校验。支撑0为权威地图，-1为空中，正数平台身份仅在对应合法布局有效。
+actors的姿态／装备包括height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped／jetpack_fuel、explosive_charges及库存／货袋／照明字段；这是概要，不是完整字段列表。高度原地面为零、向上为正；原随机地图下限和平台支撑关系按当前布局校验。格运动支撑0为权威地图，物理候选0为求解接地（可含动态箱体），-1为空中；正数平台身份仅在对应合法格运动布局有效。
 
 四格库存以canonical Definition GUID为持有依据，选中装备、动作、数量和配置指纹必须合法。喷气背包暂退，既有独立能力持有／装备／燃料字段继续按原关系校验、捕获与恢复；合法v25数据不清零或迁移，正式运行不据此启用喷气或恢复燃料。`light_definition`为规范GUID或空字符串，非空必须指向角色实际库存中的照明道具；没有合法手电不能light_enabled。移除同时清引用和开关，恢复不重新配发已移除手电。方向按角色朝向初始化，光场、调参、渲染缓存和后台任务不保存。
 
@@ -69,7 +79,7 @@ identity摘要由按Ordinal排序definitions／placements的紧凑JSON UTF-8求S
 
 ## 保存与恢复顺序
 
-GameSaveStore注入专用目录及ObjectWorldSaveJson，构造不写磁盘。正式路径来自Unity persistentDataPath下 `Saves/v28`，槽位0–9，文件 `slot-00.dnsave.json` 至 `slot-09.dnsave.json`；客户端不能提交任意路径。
+GameSaveStore注入专用目录及ObjectWorldSaveJson，构造不写磁盘。正式路径来自Unity persistentDataPath下 `Saves/v30`，槽位0–9，文件 `slot-00.dnsave.json` 至 `slot-09.dnsave.json`；客户端不能提交任意路径。
 
 主菜单“开始游戏”不展示存档选择。新局启动前只在当前版本目录选择第一个不存在的槽位，不删除／覆盖已有文件；十槽都占用时阻止新局并提示整理。继续选择当前目录最后修改的已有槽位，实际恢复仍走下述原子加载。选择不写盘、不承诺自动保存，暂停菜单仍可显式切槽；文件格式、旧版拒绝和保存权限不因界面调整改变。
 

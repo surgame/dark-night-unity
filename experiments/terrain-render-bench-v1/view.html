@@ -1,0 +1,42 @@
+<div id="terrain-performance-study">
+  <div class="tb-title"><h3>同一片洞穴，三种铺设方式</h3></div>
+  <div class="viz-controls" aria-label="铺设方式">
+    <button class="btn" type="button" data-mode="baked" aria-pressed="false">烘焙分块</button>
+    <button class="btn" type="button" data-mode="strip" aria-pressed="true">边缘变形网格</button>
+    <button class="btn" type="button" data-mode="atlas" aria-pressed="false">Dual Grid 图集</button>
+  </div>
+  <div class="viz-controls">
+    <button class="btn btn-primary" type="button" id="tb-hit">敲掉一格</button>
+    <button class="btn" type="button" id="tb-blast">局部爆破</button>
+    <button class="btn" type="button" id="tb-reset">恢复地形</button>
+    <label class="form-check"><input class="form-check-input" type="checkbox" id="tb-zones"><span class="form-check-label">更新范围</span></label>
+  </div>
+  <div id="tb-stage">
+    <canvas id="tb-map" width="960" height="640" role="img" aria-label="三种方式使用相同洞形、原岩壁素材、镜头与破坏结果。"></canvas>
+    <canvas id="tb-overlay" width="960" height="640" aria-hidden="true"></canvas>
+  </div>
+  <div id="tb-detail" class="text-small" role="status" aria-live="polite"></div>
+  <div class="viz-controls">
+    <button class="btn" type="button" id="tb-measure">在此设备测量三种方式</button>
+    <label class="form-label">测量来源<select id="tb-runtime" class="form-select"><option value="unity">Unity 离屏</option><option value="browser">浏览器离屏</option></select></label>
+    <span class="text-small" id="tb-progress" role="status" aria-live="polite"></span>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <caption id="tb-caption">实测中位数 · ms · 固定 960 × 640 离屏绘制</caption>
+      <thead><tr><th>方式</th><th class="text-end">首次准备</th><th class="text-end">静态完成</th><th class="text-end">单点更新</th><th class="text-end">爆破更新</th><th class="text-end">策略纹理 MiB</th></tr></thead>
+      <tbody id="tb-results"></tbody>
+    </table>
+  </div>
+  <div id="tb-method-note" class="text-small"></div>
+  <div id="tb-error" role="alert" class="text-destructive" hidden></div>
+</div>
+<style>
+#terrain-performance-study{display:grid;gap:calc(var(--font-size-base)*.6);color:var(--foreground)}
+#terrain-performance-study .tb-title{padding-inline-end:95px}
+#terrain-performance-study #tb-stage{position:relative}
+#terrain-performance-study canvas{display:block;width:100%;height:auto;aspect-ratio:3/2}
+#terrain-performance-study #tb-overlay{position:absolute;inset:0;pointer-events:none}
+#terrain-performance-study caption{text-align:start;padding-block:calc(var(--font-size-base)*.4)}
+#terrain-performance-study [hidden]{display:none}
+</style>

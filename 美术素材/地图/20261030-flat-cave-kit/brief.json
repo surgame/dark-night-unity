@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-30",
+  "purpose": "Standalone reusable flat ink cave art kit based on approved character-led concepts.",
+  "styleReferences": [
+    {"path": "美术素材/地图/20261030-hero-led-cave-concepts/01-flat-cave.png", "nativeSize": [1672,941]},
+    {"path": "美术素材/地图/20261030-hero-led-cave-concepts/06-near-wall-mining.png", "nativeSize": [1672,941]}
+  ],
+  "sources": {
+    "rock": {"requestedSize": [1024,1024], "alpha": false, "purpose": "Large flat irregular rock material; world-space sampled."},
+    "backdrop": {"requestedSize": [1536,1024], "alpha": false, "purpose": "Low-detail blue distant cave. Close excavation backwall rendered separately."},
+    "ore": {"requestedSize": [1024,1024], "alpha": true, "purpose": "Four small embedded mineral markings in quadrants, no stone backing."},
+    "floor": {"requestedSize": [1536,1024], "alpha": true, "purpose": "Broad top plane, irregular front lip and thick rock wall, replacing the rejected thin edge."},
+    "ceiling": {"requestedSize": [1536,1024], "alpha": true, "purpose": "Irregular overhang volume, replacing the rejected smooth cutout."}
+  },
+  "artContract": {
+    "method": "Built-in image generation for large bitmap source art; deterministic shared contours, clipping and floor bands in the offline renderer.",
+    "reason": "Large reusable material sources suit image generation. Geometric masks and excavation shapes require deterministic construction.",
+    "seams": "Shared world-coordinate sampling and contours precede chunk export. The current derived rock material uses opaque reflected addressing without crossfades; repeated mirror features remain a visual limitation. Surface overlays end at selected dark rock joints and remain opaque on steep slopes. Background uses reflected addressing.",
+    "precision": "Reuse frozen WFC sockets and shared smoothing. No claim of exact current Unity collision.",
+    "terrainScale": "80x48 modules, 4x4 game cells per module, 16 export pixels per cell; 5120x3072 full maps.",
+    "mining": "Offline visual sample only. Ordered local cuts reveal a separately masked mineral layer and stable close backwall. No rewards, authoritative movement or network simulation.",
+    "preservation": "Old art kit, original hero, Game, dependencies and other chat sources remain untouched.",
+    "mapping": "Surface strips use arc length and tangent/normal coordinates, fixed .4 scale on straight slopes. Curved ribbons still bend; thick deep stone uses fixed world UVs. Visual alpha skirts do not change gameplay collision.",
+    "finalSources": "Actual dimensions, alpha extrema and hashes in sources-manifest.json; complete generation provenance in prompts.json and surface-prompts.json."
+  }
+}

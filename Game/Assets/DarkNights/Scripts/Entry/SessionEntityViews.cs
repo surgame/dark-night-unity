@@ -14,7 +14,7 @@ namespace DarkNights.Entry
     /// <summary>
     /// 把冻结副本分发给会话已经装配的对象，管理展示时间线和本地输入绑定。
     /// 对象的创建、转职和退休由会话负责；缓存核对真实所有者，避免归池后的旧表现引用干扰新对象。
-    /// Host本地主角在权威模拟后使用即时冻结副本，其余角色继续使用公共展示时间线。
+    /// Host本地主角在权威模拟后按相邻步冻结副本插值，其余角色继续使用公共展示时间线。
     /// </summary>
     [DefaultExecutionOrder(-800)]
     public sealed class SessionEntityViews : MonoBehaviour, IEntityVisuals
@@ -37,6 +37,10 @@ namespace DarkNights.Entry
             view.Owner != null && view.Presentation.Owner == view.Owner.Owner && view.Presentation.Id == id &&
             view.Presentation.Epoch == epoch ? view.Presentation : null;
         public void SetIntentHandler(Action<InputIntent> handler) { intentHandler = handler; }
+        public Core.Physics.PhysicsBodyPresentation SamplePhysics(Core.Physics.PhysicsBodySnapshot body) =>
+            network.Hosting && network.Server != null && network.Server.Authority.Epoch == epoch &&
+            !network.Server.Authority.Loading ? network.Server.SampleHostPhysics(body) :
+            timeline.Physics(body, Time.unscaledTimeAsDouble);
 
         /// <summary>输入与HUD复用上一帧实际显示的Host主角冻结副本；控制租约或世界不一致时回到会话副本。</summary>
         public ActorViewData ControlledActor(ActorViewData observed)
@@ -148,10 +152,18 @@ namespace DarkNights.Entry
                     var current = network.Hosting && client.Ready
                         ? HostHeroProjection.Capture(network.ObjectWorld, network.Server?.Authority, frame, actor, client.PlayerSlot) : null;
                     var displayed = current ?? actor;
+                    var local = current == null ? default : network.Server.SampleHostHero(current);
+                    var physicsBody = frame.World.Physics?.Bodies.FirstOrDefault(b => b.Id == actor.Id);
+                    var physical = physicsBody == null ? default : SamplePhysics(physicsBody);
                     workKinds.TryGetValue(displayed.TargetId, out string kind);
-                    view.Present(displayed, frame.Epoch, kind ?? "", current?.X ?? timeline.X(actor, now),
-                        current?.ActionTime ?? timeline.ActionTime(actor, now), stage.Ambient,
-                        current?.Height ?? timeline.Height(actor, now), stage.ActorPresentationScale);
+                    if (view.Current == null || view.Current.ManualControl != displayed.ManualControl)
+                        view.Visual.gameObject.name = displayed.ManualControl
+                            ? "Hero #" + displayed.Id + " (" + displayed.Kind + ")"
+                            : displayed.Kind + " #" + displayed.Id;
+                    view.Present(displayed, frame.Epoch, kind ?? "", physicsBody != null ? physical.X : current != null ? local.X : timeline.X(actor, now),
+                        current != null ? local.ActionTime : timeline.ActionTime(actor, now), stage.Ambient,
+                        physicsBody != null ? physical.Height : current != null ? local.Height : timeline.Height(actor, now), stage.ActorPresentationScale,
+                        catalog.Balance.HeroControl.WalkSpeed);
                     ((ActorView)view.Visual).PresentBoarded(frame.World.Expedition?.Crew.FirstOrDefault(c => c.Id == actor.Id)?.Boarded == true);
                 }
             foreach (BuildingViewData building in frame.World.Buildings)

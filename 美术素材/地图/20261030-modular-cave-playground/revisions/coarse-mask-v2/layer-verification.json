@@ -1,0 +1,77 @@
+{
+  "ok": true,
+  "identity": "Current manifest.json, layered browser candidate only.",
+  "checked": [
+    "foreground alpha",
+    "baked mineral exclusion",
+    "foreground before rear mineral",
+    "no dual-layer damage on one impact",
+    "mineral depletion",
+    "stable background RGBA fingerprint",
+    "range rejection",
+    "four layer views",
+    "sparse state restoration",
+    "real mining keyboard input",
+    "320/360 layer layout"
+  ],
+  "alpha": {
+    "air": 0,
+    "rock": 255,
+    "oldOre1": 0,
+    "oldOre2": 0
+  },
+  "selected": {
+    "x": 264,
+    "y": 328,
+    "oreId": "16:20",
+    "rockId": "16:19"
+  },
+  "exposedRemoved": 2,
+  "extraRockCells": 1,
+  "harvested": 3,
+  "cleared": [
+    "16:19",
+    "16:20"
+  ],
+  "backgroundFingerprints": [
+    2911615787,
+    1604094294,
+    2700115311,
+    3752253687,
+    4085536210,
+    1293538395
+  ],
+  "outputs": [
+    {
+      "file": "exports-v2/foreground/module-1.png",
+      "bytes": 163122,
+      "sha256": "52560e7c1cb8158eb9cf1818a653c619ecd184bc935739290f5db56e9ad4a87b"
+    },
+    {
+      "file": "exports-v2/foreground/module-2.png",
+      "bytes": 147164,
+      "sha256": "d82ea96b06dd83134c46291b576800d2cbb08ed39b04d6a5282b35b7e0fe2d14"
+    },
+    {
+      "file": "exports-v2/foreground/module-3.png",
+      "bytes": 179059,
+      "sha256": "0de8be4fe0ecf5951a61b12c19a5f4c6637bcb99c2c21f9527971e176ca1fb90"
+    },
+    {
+      "file": "exports-v2/foreground/module-4.png",
+      "bytes": 163183,
+      "sha256": "a638a55956019c993d0299f38ad4724a93e5b6dc86e771a3ba8829bbb514c818"
+    },
+    {
+      "file": "exports-v2/foreground/module-5.png",
+      "bytes": 157342,
+      "sha256": "66e3d95f4abf017a716eb1b9bafd21421f47d4bfd2573da0a8d0e0c7df5f5e68"
+    },
+    {
+      "file": "exports-v2/foreground/module-6.png",
+      "bytes": 154452,
+      "sha256": "9e6bd683c8a14c3749930a931c484bccb8ad8070cb27cc8f25983a63d6281e42"
+    }
+  ],
+  "errors": []
+}

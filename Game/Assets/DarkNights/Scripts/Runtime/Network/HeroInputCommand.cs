@@ -21,6 +21,7 @@ namespace DarkNights.Runtime.Network
         public long InputSequence { get; set; }
         public long ObservedTick { get; set; }
         public int Horizontal { get; set; }
+        public int Climb { get; set; }
         public bool JumpHeld { get; set; }
         public bool UseHeld { get; set; }
         public bool JumpPressed { get; set; }
@@ -48,10 +49,10 @@ namespace DarkNights.Runtime.Network
             ControlLease, InputSequence, ObservedTick, Horizontal, JumpHeld, UseHeld, JumpPressed, DropPressed, AimAngle,
             SelectionRevision, UsePressed, UseReleased, CancelUse, SprintHeld,
             new HeroMiningTarget(MiningWorldId, MiningMapEpoch, MiningU, MiningV, MiningTileId, MiningFlags,
-                MiningTargetKind, MiningEntityId, MiningContentVersion, MiningMineralContentVersion), LightAimAngle);
+                MiningTargetKind, MiningEntityId, MiningContentVersion, MiningMineralContentVersion), LightAimAngle, Climb);
         public void OnReturnToPool()
         {
-            SenderObjectId = Protocol = Epoch = PolicyRevision = ActorId = ControlLease = Horizontal = 0;
+            SenderObjectId = Protocol = Epoch = PolicyRevision = ActorId = ControlLease = Horizontal = Climb = 0;
             InputSequence = ObservedTick = 0;
             AimAngle = LightAimAngle = 0;
             SelectionRevision = 0;

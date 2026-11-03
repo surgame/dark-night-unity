@@ -1,0 +1,18 @@
+{
+  "tool": "built-in imagegen",
+  "use": "blink attachment candidate",
+  "rawImage": "closed-eyes-generated.png",
+  "rawSize": [
+    2172,
+    724
+  ],
+  "prompt": "Create a clean tiny cartoon-game UI sprite: a pair of CLOSED CARTOON EYES, represented by exactly two short black shallow curved lines, both relaxed eyelid marks. Transparent background. No face, no head, no body, no other marks, no text. Place one small eyelid arc at about 6 percent of canvas width and the other at 94 percent, aligned to same vertical midpoint. Each arc occupies about 9 percent of full width; keep the wide empty space between. Simple hand-drawn black ink, rounded ends, even medium stroke. Very wide, short composition, intended for a small 89 by 19 pixel transparent game attachment. This is just two small black eyelid symbols.",
+  "normalization": "Unity Texture2D resamples generated eyelid regions [49,347,256,408] and [1915,347,2122,408] to two 8px strokes at original eye x=0..7 and81..88, on transparent89x19. Closed height4; transitional height7. Source artwork is not repainted.",
+  "visualApproval": "pending user review",
+  "firstAttempt": "imagegen output was rejected; no artifact returned. A new self-contained eyelid-symbol prompt succeeded.",
+  "files": {
+    "美术素材\\角色\\主角\\补图来源\\20261103-blink\\closed-eyes-generated.png": "fa53806515eeac2f27ff67cf0aa3d66088802b647ee6c5b646db3d635338b239",
+    "美术素材\\角色\\主角\\images\\blink\\eyes_closed.png": "f903b36af90e6d908db1ad947b18558d3c891d836b583a8bcd94211b57a5ba3e",
+    "美术素材\\角色\\主角\\images\\blink\\eyes_half.png": "2b8c86f5dc5d97a871a3172bd21cfe1304e7367fb44abf20fb5f779d32b18155"
+  }
+}

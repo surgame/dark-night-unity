@@ -1,0 +1,44 @@
+{
+  "ready": true,
+  "choices": {
+    "method": "bridges",
+    "profile": "mixed",
+    "size": 512,
+    "rounds": 16,
+    "seed": 271,
+    "view": "local",
+    "policy": "chunks"
+  },
+  "plan": {
+    "nodes": 512,
+    "pins": 153,
+    "loops": 101,
+    "edges": 612
+  },
+  "resources": {
+    "presetUsed": 25,
+    "presetLibrary": 32,
+    "freeUsed": 66,
+    "freeLibrary": 72,
+    "instances": 1124,
+    "sourceVertices": 23778,
+    "chunkVertices": 190880,
+    "sourceBytes": 199216,
+    "chunkBytes": 1527040,
+    "chunks": 142,
+    "fieldBytes": 0
+  },
+  "gpu": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "software": false,
+    "output": [
+      960,
+      600
+    ]
+  },
+  "job": null,
+  "resultRows": 0,
+  "error": null
+}

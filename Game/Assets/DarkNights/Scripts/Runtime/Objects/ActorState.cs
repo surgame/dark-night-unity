@@ -77,6 +77,7 @@ namespace DarkNights.Runtime.Objects
         public long LastInputSequence { get; internal set; }
         public long LastInputTick { get; internal set; }
         public int Horizontal { get; internal set; }
+        public int Climb { get; internal set; }
         public bool SprintHeld { get; internal set; }
         public bool JumpHeld { get; internal set; }
         public bool UseHeld { get; internal set; }
@@ -84,6 +85,8 @@ namespace DarkNights.Runtime.Objects
         // 只属于当前权威输入生命周期；不发送或保存，撤销控制、传送和恢复时归零。
         [MemoryPackIgnore] public double JumpBufferRemaining { get; internal set; }
         [MemoryPackIgnore] public bool JumpAscending { get; internal set; }
+        [MemoryPackIgnore] public float PhysicsGroundNormalX { get; internal set; }
+        [MemoryPackIgnore] public float PhysicsGroundNormalY { get; internal set; } = 1;
         public bool DropPending { get; internal set; }
         public bool ShipEntryBlocked { get; internal set; }
         public string MiningWorldId { get; internal set; }

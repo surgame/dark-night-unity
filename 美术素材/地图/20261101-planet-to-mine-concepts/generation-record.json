@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-01",
+  "tool": "image_gen.imagegen",
+  "mode": "Built-in, reference-guided generation of two distinct static concept compositions",
+  "actualModelId": "Not exposed by the tool",
+  "requestedSize": [
+    1536,
+    1024
+  ],
+  "transparentBackground": false,
+  "reference": {
+    "file": "user-style-reference.png",
+    "original": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-63535362-3cb6-4084-9f8a-63ca59b10dda.png",
+    "role": "User-approved art direction and cyan hero reference",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2276413,
+    "sha256": "9b3ef3bbe137a35b294fa3cfc7b9a82f084ae22348ec89c36f46593928e464ab"
+  },
+  "outputs": [
+    {
+      "file": "01-planet-mine-entrance.png",
+      "prompt": "prompt-01.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_289hX77VsCGxKSF0iro5teJi.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "png",
+      "space": "srgb",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 1900412,
+      "sha256": "f6e1258cfbb498d779aa1148fa887090a240fe54e1eb12df8fdee1c419014495",
+      "promptSha256": "24340a934961817cc70d8d594a02464d0ab99a039125f28eceaee4130206aeb5",
+      "copiedWithoutResizing": true
+    },
+    {
+      "file": "02-deep-mining-ecology.png",
+      "prompt": "prompt-02.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_ti6P0LEw6eJ0wagBkVfjAEBW.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "png",
+      "space": "srgb",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 1962142,
+      "sha256": "bf10e5db3df4af452cb59851118014d80271cea9cb31edadadc3a42a6d08a1a1",
+      "promptSha256": "db725f7e0386fd1a41fdd8e66d874d13386738c26aaa3d003ce90dfbbb1ec3c5",
+      "copiedWithoutResizing": true
+    }
+  ],
+  "visualReview": {
+    "method": "Direct inspection of both native generated images",
+    "findings": [
+      "Image 1 shows a compact lander on the left and a continuous organic slope into the cave on the right.",
+      "Image 2 shows a cyan miner at an embedded vein and an orange teammate carrying a mineral toward the left.",
+      "Both preserve the hand-inked style, warm rock, cool layered recesses, moss and mushrooms.",
+      "Working surfaces and thick foreground rock remain visible; no square stair grid.",
+      "The second cascade is placed on the left, leaving the main mining focus on the right."
+    ],
+    "limitations": [
+      "These are static concept paintings, not animated assets or a modular tile atlas.",
+      "Character and tool are AI redrawings; neither original sprite identity nor exact tool reach is certified.",
+      "Some warm floor edging remains continuous and some ore appears in the illustrated front rock face; these are art-direction choices, not runtime visibility rules.",
+      "Slope masks, common edges, collision and WFC rules are not produced or validated by these illustrations."
+    ]
+  },
+  "scope": "Art-only concept slice; no production assets, code, Unity, gameplay or dependency changes."
+}

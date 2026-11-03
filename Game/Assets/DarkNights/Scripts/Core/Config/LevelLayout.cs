@@ -11,6 +11,12 @@ namespace DarkNights.Core.Config
     {
         public bool Expedition { get; }
         public bool RandomTerrain { get; }
+        /// <summary>仅供本地角色白模：允许无建筑的作者布局，不开放正式存档或联机入口。</summary>
+        public bool LocalWhitebox { get; }
+        /// <summary>显式模块研究版本，非空时只允许无建筑的单初始主角布局，不改变普通关卡校验。</summary>
+        public string MapModuleIdentity { get; }
+        public bool MapModuleStudy => MapModuleIdentity.Length != 0;
+        public float MapModuleSpawnHeight { get; }
         public float WorldWidth { get; }
         public float GroundY { get; }
         public float BuildMinX { get; }
@@ -21,15 +27,22 @@ namespace DarkNights.Core.Config
         public IReadOnlyList<PlacementDefinition> Worksites { get; }
         public IReadOnlyList<PlacementDefinition> Actors { get; }
         public IReadOnlyList<PlatformDefinition> Platforms { get; }
+        public Physics.PhysicsWorldDefinition Physics { get; }
 
         public LevelLayout(float worldWidth, float groundY, float buildMinX, float buildMaxX,
             float spawnX, float cameraX, IReadOnlyList<PlacementDefinition> buildings,
             IReadOnlyList<PlacementDefinition> worksites, IReadOnlyList<PlacementDefinition> actors,
-            IReadOnlyList<PlatformDefinition> platforms = null, bool randomTerrain = false, bool expedition = false)
+            IReadOnlyList<PlatformDefinition> platforms = null, bool randomTerrain = false, bool expedition = false,
+            bool localWhitebox = false, string mapModuleIdentity = "", float mapModuleSpawnHeight = 0,
+            Physics.PhysicsWorldDefinition physics = null)
         {
+            Physics = physics;
             Platforms = new List<PlatformDefinition>(platforms ?? Array.Empty<PlatformDefinition>()).AsReadOnly();
             WorldWidth = worldWidth;
             RandomTerrain = randomTerrain; Expedition = expedition;
+            LocalWhitebox = localWhitebox;
+            MapModuleIdentity = mapModuleIdentity ?? throw new ArgumentNullException(nameof(mapModuleIdentity));
+            MapModuleSpawnHeight = mapModuleSpawnHeight;
             GroundY = groundY;
             BuildMinX = buildMinX;
             BuildMaxX = buildMaxX;
@@ -42,18 +55,30 @@ namespace DarkNights.Core.Config
 
         public void Validate(GameCatalog catalog)
         {
+            if (Physics != null && (Platforms.Count != 0 || Physics.Props.Any(p =>
+                p.X - p.Width * .5f < 8 || p.X + p.Width * .5f > WorldWidth - 8)))
+                throw new ArgumentException("物理候选不接受旧单向平台或越界道具放置。");
             if (catalog == null)
                 throw new ArgumentNullException(nameof(catalog));
             if (!Finite(WorldWidth) || WorldWidth <= 32 || !Finite(GroundY) ||
                 !Coordinate(BuildMinX) || !Coordinate(BuildMaxX) || BuildMinX >= BuildMaxX ||
                 !Coordinate(SpawnX) || !Coordinate(CameraX))
                 throw new ArgumentException("Invalid level bounds.");
-            if (Buildings.Count + Worksites.Count + Actors.Count > 255 || Buildings.Count == 0 || (!Expedition && Actors.Count == 0))
+            if (LocalWhitebox && (Expedition || RandomTerrain || Buildings.Count != 0 || Worksites.Count != 0 ||
+                Actors.Count != 1 || Actors[0] == null || Actors[0].Kind != "worker"))
+                throw new ArgumentException("Local whitebox requires exactly one worker and no other initial content.");
+            if (MapModuleStudy && (MapModuleIdentity.Length != 64 || MapModuleIdentity.Any(c => !"0123456789abcdef".Contains(c)) ||
+                LocalWhitebox || !Expedition || !RandomTerrain || Buildings.Count != 0 || Worksites.Count != 0 ||
+                Actors.Count != 1 || Actors[0]?.Kind != "worker" || Platforms.Count != 0 || !Finite(MapModuleSpawnHeight) ||
+                MapModuleSpawnHeight > (catalog.Balance.HeroControl?.MaximumHeight ?? 0) ||
+                MapModuleSpawnHeight < Terrain.PlayableTerrain.MinimumHeight))
+                throw new ArgumentException("MapModule研究需要固定版本、随机地形碰撞和唯一初始主角。");
+            if (Buildings.Count + Worksites.Count + Actors.Count > 255 || (!LocalWhitebox && !MapModuleStudy && Buildings.Count == 0) || (!Expedition && Actors.Count == 0))
                 throw new ArgumentException("Invalid initial entity count.");
             foreach (var entry in Buildings.Concat(Worksites).Concat(Actors))
                 if (entry == null || !Coordinate(entry.X) || entry.Variant < 0 || entry.Variant > 3 || entry.Name.Length > 80)
                     throw new ArgumentException("Invalid placement.");
-            if (Buildings.Count(b => b.Kind == (Expedition ? "ship" : "tavern")) != 1 ||
+            if ((!LocalWhitebox && !MapModuleStudy && Buildings.Count(b => b.Kind == (Expedition ? "ship" : "tavern")) != 1) ||
                 Buildings.Any(b => b.Variant != 0 || !catalog.Balance.Buildings.ContainsKey(b.Kind)) ||
                 Worksites.Any(w => w.Kind == "food" || !catalog.Balance.Worksites.ContainsKey(w.Kind)) ||
                 Actors.Any(a => a.Variant != 0 || (a.Kind != "worker" && a.Kind != "spearman" && a.Kind != "archer")) ||

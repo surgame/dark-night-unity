@@ -1,0 +1,9 @@
+Edit this existing whole-mine planning illustration. Preserve the composition, all eight region identities, side-view tree topology, S-shaped folded lower route, art style, character scale markers, title and Chinese text. Make only these targeted corrections:
+
+1. Close the two rightmost cavern endpoints visibly INSIDE the canvas. The upper-right 05 side ore pocket and the bottom-right 07 deep ore chamber must each end in a chunky, continuous, ink-outlined brown rock wall joining their ceiling and floor, at least 60 pixels before the right edge at this reference scale. Their walkable gray cavity and floor must NOT disappear off the right edge. Keep a solid rock margin beyond each terminal wall. Preserve the two approaches, room identities and tree topology. Keep labels readable; move a local leader slightly if necessary. This is a complete map, not a cropped segment.
+
+2. Reduce the excessive fully exposed golden crystal piles in the upper-right pocket and at the central hall. Retain a few small amber outcrops as clues. Show most potential ore embedded behind the brown rock shell with the same subtle ochre hatching already used near 07. Do not introduce new passages, holes, rooms, machinery, ladders, ropes, props, enemies or new encounter mechanics.
+
+3. In the bottom legend, change ONLY the fourth material swatch above “交互插槽”: replace the misleading pile of yellow minerals with a simple empty cyan outlined ring/anchor marker on a neutral dark background. It denotes an independent object slot, not ore. Keep the other three swatches and all existing legend text.
+
+Do not restyle the sheet or redraw the general layout. Preserve exact text and typography, and leave all content outside these small correction areas visually consistent with the original. Deliver the corrected complete landscape design image.

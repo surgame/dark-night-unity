@@ -1,0 +1,49 @@
+<section id="tf-pressure" aria-label="批量破坏压力评估">
+  <h3>批量破坏：成本随负载怎样增长</h3>
+  <div class="viz-controls">
+    <label class="form-label">破坏分布<select class="form-select" id="tp-profile">
+      <option value="tunnel">连续开挖</option><option value="scatter">分散敲击</option>
+      <option value="bursts">四处交错开挖</option><option value="holes" selected>密集打孔</option>
+    </select></label>
+    <label class="form-label">区块更新<select class="form-select" id="tp-policy">
+      <option value="immediate">每格重建</option><option value="merged" selected>批末合并重建</option>
+    </select></label>
+    <label class="form-label">重测轮次<select class="form-select" id="tp-rounds">
+      <option value="8">8 轮</option><option value="16" selected>16 轮</option><option value="32">32 轮</option>
+    </select></label>
+    <button class="btn btn-primary" type="button" id="tp-run">重测当前策略</button>
+  </div>
+  <div id="tp-progress" class="text-small" role="status" aria-live="polite"></div>
+  <div id="tp-meta" class="text-small"></div>
+  <div class="viz-row text-small" id="tp-legend" aria-label="方案图例"></div>
+  <div class="tp-charts">
+    <div><h3>CPU 更新吞吐</h3><svg id="tp-cpu" role="img" aria-label="每批破坏格数与CPU更新耗时"></svg></div>
+    <div><h3>独立单批完成延迟</h3><svg id="tp-complete" role="img" aria-label="每批破坏格数与包含GPU绘制的完成耗时"></svg></div>
+  </div>
+  <label class="form-label">查看负载<select class="form-select" id="tp-load">
+    <option value="16">每批 16 格</option><option value="64">每批 64 格</option>
+    <option value="256">每批 256 格</option><option value="1024" selected>每批 1024 格</option>
+  </select></label>
+  <div class="table-responsive"><table class="table table-sm tabular-nums" aria-label="所选批量负载的实际计时">
+    <thead><tr><th>方案</th><th class="text-end">整组 CPU / 批数</th><th class="text-end">每批 CPU P50</th>
+      <th class="text-end">独立完成 P50 / P95</th><th class="text-end">重建 / 脏块</th><th class="text-end">求解节点</th></tr></thead>
+    <tbody id="tp-results"></tbody>
+  </table></div>
+  <div id="tp-shape" class="text-small"></div>
+  <div id="tp-capacity" class="text-small"></div>
+  <details><summary>批量计时口径</summary><div class="tf-notes text-small">
+    <p>CPU：预先准备 K 份独立地图，整个更新循环只读一次起止时钟。展示真实整组毫秒数，并除以 K 得到每批平均吞吐；K 对同一负载的四方案相同，最多128。它不是高精度的单次延迟。</p>
+    <p>完成延迟：另用独立地图，实测一批更新、最终脏块上传、64×40格固定相机绘制及 GPU 同步；没有由 CPU 平均值推算。16.67ms仅为60Hz预算参照，不是实测游戏帧率。</p>
+    <p>两种策略都逐格执行相同破坏和 WFC 求解，最后只上传一次各脏块；合并策略额外把重复区块重建合为一次。四处交错是四个位置的权威串行输入，不是四线程或联机测试。打孔属于高碎片压力负载。</p>
+    <p>图线为 P50，竖线延伸至 P95；没有把旧数据乘大。每轮使用相同有效序列前缀并轮换方案顺序，校验所有最终几何与端口。重测不改变上方已挖的地图。</p>
+  </div></details>
+</section>
+<style>
+#terrain-fourway #tf-pressure{display:grid;gap:calc(var(--font-size-base)*.6)}
+#terrain-fourway .tp-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--font-size-base))}
+#terrain-fourway .tp-charts svg{display:block;width:100%;height:270px}
+#terrain-fourway .tp-charts svg text{fill:var(--foreground);font-size:12px}
+#terrain-fourway #tp-legend span{display:inline-flex;align-items:center;gap:calc(var(--font-size-base)*.35)}
+#terrain-fourway #tp-legend i{width:18px;height:2px}
+@media(max-width:650px){#terrain-fourway .tp-charts{grid-template-columns:1fr}}
+</style>

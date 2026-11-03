@@ -209,6 +209,10 @@ MonoBehaviour:
   _dimension: 0
   _animator: {fileID: 1305837464955039036}
   _renderers: []
+  _allRenderers:
+  - {fileID: 1288177499666589504}
+  - {fileID: 4666790211262021207}
+  - {fileID: 4355550236094777228}
   _spriteRenderers:
   - {fileID: 1288177499666589504}
   - {fileID: 4666790211262021207}
@@ -243,6 +247,8 @@ MonoBehaviour:
       baseColor: {r: 1, g: 1, b: 1, a: 1}
     - renderer: {fileID: 4355550236094777228}
       baseColor: {r: 1, g: 1, b: 1, a: 1}
+  ship: {fileID: 0}
+  expeditionVariants: []
   complete: {fileID: 1288177499666589504}
   foundation: {fileID: 4666790211262021207}
   rubble: {fileID: 4355550236094777228}

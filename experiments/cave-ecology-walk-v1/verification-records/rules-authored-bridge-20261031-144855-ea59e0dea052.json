@@ -1,0 +1,45 @@
+{
+  "version": "ecology-module-rules-v2",
+  "libraryIdentity": "3ab95ff8a7bcae99800a2da805e3235d7100ecf68ff265a743346ba7826cb4f6",
+  "sources": 14,
+  "selected": [
+    "camp",
+    "narrow",
+    "creek-stones",
+    "beam-gap",
+    "fungal-bowl",
+    "cargo",
+    "root-falls",
+    "mineral-bowl"
+  ],
+  "stats": {
+    "attempts": 1,
+    "observations": 4,
+    "propagations": 21,
+    "removed": 5,
+    "initialOptions": [
+      1,
+      1,
+      3,
+      1,
+      2,
+      1,
+      2,
+      2
+    ]
+  },
+  "checks": [
+    "sha256",
+    "source-retention",
+    "reproduction",
+    "propagation",
+    "full-profile-and-layer-matching",
+    "bounded-contradiction",
+    "unknown-lock",
+    "incompatible-socket",
+    "independent-streams",
+    "shared-art-family",
+    "additional-authored-profile"
+  ],
+  "scope": "Module-rule checks only; no rendered seam, terrain collision, actor traversal or production art approval."
+}

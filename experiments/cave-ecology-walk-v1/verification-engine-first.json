@@ -1,0 +1,1365 @@
+{
+  "date": "2026-10-31",
+  "scope": "Offline browser-physics verification using automatic button inputs only. No hero teleportation, Unity, Player, multiplayer, formal collision or production art acceptance.",
+  "source": [
+    {
+      "file": "world-data.js",
+      "sha256": "a05f3a2386655fe9698777d7aebfa5f3ed64c6b63503f2fedb79d4b53e13af86"
+    },
+    {
+      "file": "engine.js",
+      "sha256": "8bd750aad93f20a0282df9fd8893839fa42ef8ceaa1256624c18c388ceed88fa"
+    },
+    {
+      "file": "verify-engine.cjs",
+      "sha256": "228bdf0e282c531e8650d0f28fea1319ecd87df94055a3339cb55eb1dbde62b1"
+    }
+  ],
+  "physics": [],
+  "static": [
+    {
+      "seed": 0,
+      "worldId": "ecology-walk-v1-0",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔溪踏石",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 25,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 408
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 417
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 449
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 449
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 449
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "worldId": "ecology-walk-v1-1",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "低岸浅滩",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "深部矿碗",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 23,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 347
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 356
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 388
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 388
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 388
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "worldId": "ecology-walk-v1-2",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔溪踏石",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "碎岩修桥",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "根系泉瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 29,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 408
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 408
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 440
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 440
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 337
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "worldId": "ecology-walk-v1-3",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "低岸浅滩",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "碎岩修桥",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "菌丛凹厅",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 23,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 347
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 347
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 379
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 388
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 388
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "worldId": "ecology-walk-v1-4",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔溪踏石",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 25,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 408
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 417
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 449
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 449
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 449
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "worldId": "ecology-walk-v1-5",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔溪踏石",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "菌丛凹厅",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "根系泉瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "深部矿碗",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 27,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 408
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 417
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 449
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 458
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 355
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "worldId": "ecology-walk-v1-13",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔溪踏石",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "根系泉瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 28,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 408
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 417
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 449
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 449
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 346
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "worldId": "ecology-walk-v1-42",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔坡裂隙",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "菌丛凹厅",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "根系泉瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 27,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 235
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 244
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 276
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 285
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 182
+        }
+      ]
+    },
+    {
+      "seed": 77,
+      "worldId": "ecology-walk-v1-77",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔坡裂隙",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "碎岩修桥",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "菌丛凹厅",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 25,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 235
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 235
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 267
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 276
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 276
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "worldId": "ecology-walk-v1-101",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "低岸浅滩",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "碎岩修桥",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "菌丛凹厅",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "深部矿碗",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 23,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 347
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 347
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 379
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 388
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 388
+        }
+      ]
+    },
+    {
+      "seed": 4096,
+      "worldId": "ecology-walk-v1-4096",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔坡裂隙",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 25,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 235
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 244
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 276
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 276
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 276
+        }
+      ]
+    },
+    {
+      "seed": 9999,
+      "worldId": "ecology-walk-v1-9999",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔坡裂隙",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "碎岩修桥",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 26,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 235
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 235
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 267
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 267
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 267
+        }
+      ]
+    },
+    {
+      "seed": 65535,
+      "worldId": "ecology-walk-v1-65535",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔坡裂隙",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "碎岩修桥",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "菌丛凹厅",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 25,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 235
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 235
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 267
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 276
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 276
+        }
+      ]
+    },
+    {
+      "seed": 2147483647,
+      "worldId": "ecology-walk-v1-2147483647",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "低岸浅滩",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "木梁断口",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "双阶细瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 23,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 347
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 356
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 388
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 388
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 388
+        }
+      ]
+    },
+    {
+      "seed": 4294967295,
+      "worldId": "ecology-walk-v1-4294967295",
+      "catalog": 14,
+      "selected": 8,
+      "selection": [
+        {
+          "id": "r0",
+          "name": "营地干台",
+          "slot": "camp"
+        },
+        {
+          "id": "r1",
+          "name": "原版窄洞",
+          "slot": "narrow"
+        },
+        {
+          "id": "r2",
+          "name": "苔坡裂隙",
+          "slot": "wet"
+        },
+        {
+          "id": "r3",
+          "name": "碎岩修桥",
+          "slot": "engineering"
+        },
+        {
+          "id": "r4",
+          "name": "低顶货槽",
+          "slot": "cargo"
+        },
+        {
+          "id": "r5",
+          "name": "伞菇高台",
+          "slot": "fungi"
+        },
+        {
+          "id": "r6",
+          "name": "根系泉瀑",
+          "slot": "falls"
+        },
+        {
+          "id": "r7",
+          "name": "裂面矿厅",
+          "slot": "mine"
+        }
+      ],
+      "surfaceCount": 29,
+      "finiteSurfaceCoordinates": true,
+      "floorPortHeightsEqual": true,
+      "ports": [
+        {
+          "from": "r0",
+          "to": "r1",
+          "floorY": 334
+        },
+        {
+          "from": "r1",
+          "to": "r2",
+          "floorY": 338
+        },
+        {
+          "from": "r2",
+          "to": "r3",
+          "floorY": 235
+        },
+        {
+          "from": "r3",
+          "to": "r4",
+          "floorY": 235
+        },
+        {
+          "from": "r4",
+          "to": "r5",
+          "floorY": 267
+        },
+        {
+          "from": "r5",
+          "to": "r6",
+          "floorY": 267
+        },
+        {
+          "from": "r6",
+          "to": "r7",
+          "floorY": 164
+        }
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "kind": "physics",
+      "seed": 271,
+      "error": "AssertionError [ERR_ASSERTION]: No horizontal progress for six seconds: {\"seed\":271,\"step\":1965,\"returning\":false,\"hero\":{\"x\":3092,\"y\":357.8857142857143,\"w\":24,\"h\":41,\"vx\":112,\"vy\":0,\"grounded\":true,\"facing\":1,\"carry\":null},\"target\":{\"id\":\"r4-chute-10\",\"type\":\"chute\",\"x\":3073,\"y\":354.51428571428573,\"roomId\":\"r4\",\"target\":{\"x\":3299,\"y\":369.2857142857143},\"radius\":40,\"label\":\"向右投货槽\",\"name\":\"向右投货槽\"},\"prompt\":\"手持矿块时E投入货槽\",\"flags\":{\"miningCollected\":false,\"bridgeBuilt\":true,\"cargoDelivered\":false,\"hasBeam\":false,\"primaryCollected\":false,\"primaryDelivered\":false},\"logs\":[{\"time\":5.733333333333318,\"text\":\"已到达原版窄洞。\"},{\"time\":12.150000000000183,\"text\":\"已到达低岸浅滩。\"},{\"time\":18.566666666666894,\"text\":\"已到达碎岩修桥。\"},{\"time\":19.71666666666683,\"text\":\"已取得一份架桥木料。\"},{\"time\":20.050000000000143,\"text\":\"已用岸边材料修好桥面。\"},{\"time\":24.983333333333196,\"text\":\"已到达低顶货槽。\"}]}\n    at walk (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verify-engine.cjs:114:5)\n    at Object.<anonymous> (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verify-engine.cjs:142:29)\n    at Module._compile (node:internal/modules/cjs/loader:1934:14)\n    at Object..js (node:internal/modules/cjs/loader:2074:10)\n    at Module.load (node:internal/modules/cjs/loader:1656:32)\n    at Module._load (node:internal/modules/cjs/loader:1448:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "kind": "physics",
+      "seed": 902,
+      "error": "AssertionError [ERR_ASSERTION]: No horizontal progress for six seconds: {\"seed\":902,\"step\":1965,\"returning\":false,\"hero\":{\"x\":3092,\"y\":366.8857142857143,\"w\":24,\"h\":41,\"vx\":112,\"vy\":0,\"grounded\":true,\"facing\":1,\"carry\":null},\"target\":{\"id\":\"r4-chute-9\",\"type\":\"chute\",\"x\":3073,\"y\":363.51428571428573,\"roomId\":\"r4\",\"target\":{\"x\":3299,\"y\":378.2857142857143},\"radius\":40,\"label\":\"向右投货槽\",\"name\":\"向右投货槽\"},\"prompt\":\"手持矿块时E投入货槽\",\"flags\":{\"miningCollected\":false,\"bridgeBuilt\":true,\"cargoDelivered\":false,\"hasBeam\":false,\"primaryCollected\":false,\"primaryDelivered\":false},\"logs\":[{\"time\":5.733333333333318,\"text\":\"已到达原版窄洞。\"},{\"time\":12.150000000000183,\"text\":\"已到达低岸浅滩。\"},{\"time\":18.566666666666894,\"text\":\"已到达木梁断口。\"},{\"time\":19.55000000000017,\"text\":\"已取得一份架桥木料。\"},{\"time\":19.883333333333486,\"text\":\"已用岸边材料修好桥面。\"},{\"time\":24.983333333333196,\"text\":\"已到达低顶货槽。\"}]}\n    at walk (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verify-engine.cjs:114:5)\n    at Object.<anonymous> (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verify-engine.cjs:142:29)\n    at Module._compile (node:internal/modules/cjs/loader:1934:14)\n    at Object..js (node:internal/modules/cjs/loader:2074:10)\n    at Module.load (node:internal/modules/cjs/loader:1656:32)\n    at Module._load (node:internal/modules/cjs/loader:1448:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "kind": "physics",
+      "seed": 1643,
+      "error": "AssertionError [ERR_ASSERTION]: No horizontal progress for six seconds: {\"seed\":1643,\"step\":1965,\"returning\":false,\"hero\":{\"x\":3092,\"y\":418.8857142857143,\"w\":24,\"h\":41,\"vx\":112,\"vy\":0,\"grounded\":true,\"facing\":1,\"carry\":null},\"target\":{\"id\":\"r4-chute-10\",\"type\":\"chute\",\"x\":3073,\"y\":415.51428571428573,\"roomId\":\"r4\",\"target\":{\"x\":3299,\"y\":430.2857142857143},\"radius\":40,\"label\":\"向右投货槽\",\"name\":\"向右投货槽\"},\"prompt\":\"手持矿块时E投入货槽\",\"flags\":{\"miningCollected\":false,\"bridgeBuilt\":true,\"cargoDelivered\":false,\"hasBeam\":false,\"primaryCollected\":false,\"primaryDelivered\":false},\"logs\":[{\"time\":5.733333333333318,\"text\":\"已到达原版窄洞。\"},{\"time\":12.150000000000183,\"text\":\"已到达苔溪踏石。\"},{\"time\":18.566666666666894,\"text\":\"已到达碎岩修桥。\"},{\"time\":19.71666666666683,\"text\":\"已取得一份架桥木料。\"},{\"time\":20.050000000000143,\"text\":\"已用岸边材料修好桥面。\"},{\"time\":24.983333333333196,\"text\":\"已到达低顶货槽。\"}]}\n    at walk (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verify-engine.cjs:114:5)\n    at Object.<anonymous> (D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cave-ecology-walk-v1\\verify-engine.cjs:142:29)\n    at Module._compile (node:internal/modules/cjs/loader:1934:14)\n    at Object..js (node:internal/modules/cjs/loader:2074:10)\n    at Module.load (node:internal/modules/cjs/loader:1656:32)\n    at Module._load (node:internal/modules/cjs/loader:1448:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    }
+  ],
+  "summary": {
+    "passed": false,
+    "physicsSeeds": 0,
+    "staticSeeds": 15,
+    "automaticInputsOnly": true,
+    "limitation": "Floor endpoint checks do not certify full socket geometry, alpha seams, overhead clearance, formal gameplay balance or Unity acceptance."
+  }
+}

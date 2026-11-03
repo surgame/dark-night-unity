@@ -1,0 +1,36 @@
+Use case: stylized-concept / illustrated level-design sheet.
+Create ONE finished, richly illustrated, landscape 2560 x 1600 side-view cutaway planning image for the 2D cooperative mining game Dark Nights. This is the ENTIRE mine, not one camera view, not a top-down dungeon and not a set of separate room thumbnails.
+
+Reference image 1 (layout-guide.png): TOPOLOGY AND SPATIAL LAYOUT guide. Its gray channels are cave air, brown is solid rock, dots are eight design regions, and the fine dashed curve is the exploration spine. Preserve its connected tree topology and broad placement, including the large S-shaped descending foldback after the central hall. The main route is entrance upper-left -> shallow fork -> narrow middle passage -> central hall -> folded descending passage to lower-left-middle -> long low-level passage toward the deep ore at bottom-right. Two branches ONLY: shallow fork down-left to a small blind alcove; central hall up-right to a remote elevated ore pocket. Both branches terminate. No loops, no extra entrances, no disconnected rooms, no incidental connections across rock barriers. Treat the guide's circles and smooth strokes only as envelopes: replace them with irregular authored cave outlines, asymmetric ceilings, actual uneven dirt-and-rock ledges, short ramps, modest shelves and short stalactites. Do NOT render clean pipes, circles, a node diagram or ellipses.
+
+Reference image 2 (user-style-reference.png): ART DIRECTION ONLY. Preserve its chunky warm brown foreground boulders, thick expressive black ink contours, restrained flat painted facets, cool charcoal gray backwall, brown walkable shelf, small amber mineral outcrops and tiny cyan hooded explorers. Do not copy its narrow camera framing. The entire map must be readable as a real side-view cave scene in this style.
+
+Composition: a cohesive professional game-world design plate. Large illustrated mine fills most of the sheet. Small natural pine-valley surface strip and a single notch entrance at upper-left; most of the page is dense solid rock cut through by tight passages, not an open underground ocean. All explored routes belong to one consistent 2D side plane. Retain substantial foreground roof/floor rock masses between the three vertical tiers. Narrow passages dominate the journey; central hall and ore pockets are occasional modest expansions. Keep the lower main passage organic and varied rather than a flat road or evenly repeated tile strip. Two very small cyan explorer scale markers together in the central narrow corridor, each less than half the ordinary tunnel height. Local torch warmth may help scale, but this is an editor overview with all designed spaces visible, not gameplay fog-of-war. Avoid photorealism, neon, pink/purple palettes, excessive magical glow, ray-traced 3D or tiny noisy pebbles everywhere.
+
+Exploration design: nearby shallow outcrops support a short expedition. Put only small ore tips exposed along several walls. Indicate a few larger mineral bodies inside thick enclosing rock as a DESIGNER cutaway, with subdued ochre stippling or crosshatching, not fully glowing accessible rewards. The elevated upper-right pocket is farther along the route and may be richer despite being physically higher. A single small optional nest-location symbol may appear beside the distant rich ore, clearly marked as a candidate, not a boss or a monster encounter. Never draw minerals as a continuous gold outline. Keep the clean gray backwall visibly distinct from brown diggable foreground.
+
+Overlay thin unobtrusive ivory directional marks for the main exploration route and muted amber dashed marks for the two optional branches, as a technical annotation over the actual painted cave. These lines must follow open cave space and never pass through solid rock. Use spare warm ivory Chinese typography and fine leader lines, positioned in solid rock margins without covering the cave shapes. Exact large title at top:
+“灰松谷 · 矿洞全图规划”
+Exact small subtitle:
+“窄洞为主 · 支线探索 · 原路返回”
+
+Eight clear zone labels, one per indicated area, no repeats:
+“01 凹谷洞口” upper-left mouth.
+“02 浅层岔道” first fork.
+“03 窄洞主段” upper-middle corridor, matching the approved local narrow-cave style.
+“04 中部矿厅” central expansion, the principal orientation landmark.
+“05 侧向矿窝” remote upper-right blind pocket.
+“06 断层折返” lower-left-middle S bend, clearly a sloping route rather than a vertical drop.
+“07 深部厚矿” bottom-right end, visibly enclosed rock with sparse ore hints.
+“08 浅层盲端” small left branch, short-trip destination.
+
+One small note near the high ore pocket: “深度按路程与进入难度”
+One small candidate leader near the distant ore: “巢位候选”
+Compact bottom annotation legend with four small material swatches and exact text:
+“前景可挖岩体”  “稳定后壁”  “独立矿层”  “交互插槽”
+Small bottom planning line:
+“宏观骨架 → 模块约束拼装 → 人工修整 → 冻结预制地图”
+Small note:
+“矿体为策划透视，实机逐步揭露”
+
+No more text than specified. No spaceship, camp buildings, fixed ladders, ropes, minecarts, wooden bridges, industrial mining equipment, water/lava, treasure chests, portals, HUD, skill trees, UI cards, credits, logos or watermarks. No claimed gameplay timings, quantified rewards or grid measurements. All cave boundaries must remain legible, naturally hand-authored and layered. Deliver one coherent attractive whole-map illustrated design, not a generic schematic.

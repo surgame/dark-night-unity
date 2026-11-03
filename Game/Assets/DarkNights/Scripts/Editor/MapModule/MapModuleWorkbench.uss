@@ -1,0 +1,43 @@
+.workbench { flex-grow: 1; background-color: #263330; color: #e3e9dc; }
+.workbench Label { color: #e3e9dc; }
+.workbench .unity-toggle__text { color: #d1dac8; }
+.header { flex-direction: row; align-items: center; padding: 12px 14px; background-color: #1c2926; }
+.title { font-size: 22px; -unity-font-style: bold; margin-right: 14px; }
+.subtitle { color: #adbbad; font-size: 12px; }
+.context { flex-grow: 1; -unity-text-align: middle-right; margin-left: 16px; color: #d5c99d; white-space: normal; }
+.spacer { flex-grow: 1; }
+Button { min-height: 28px; margin: 3px; padding: 4px 10px; background-color: #3b4b43; color: #ecedde; border-width: 0; border-radius: 4px; }
+Button:hover { background-color: #526454; }
+Button:disabled { opacity: 0.45; }
+Button.primary { background-color: #c4ae75; color: #25352b; -unity-font-style: bold; min-width: 112px; }
+.toolbar { flex-direction: row; align-items: center; padding: 5px 10px; border-bottom-width: 1px; border-bottom-color: #53604e; }
+.version { flex-grow: 1; font-size: 11px; color: #c5cbb6; margin-left: 12px; }
+.body { flex-direction: row; flex-grow: 1; min-height: 200px; }
+.library { width: 236px; flex-shrink: 0; background-color: #202c29; padding: 10px; }
+.library TextField { margin: 0 3px 8px 3px; }
+.library .unity-base-field__label { min-width: 36px; width: 36px; }
+.library .unity-text-input { background-color: #31423c; color: #ecedde; padding: 6px; }
+.study-item { align-items: flex-start; padding: 9px 10px; }
+.study-item Label { white-space: normal; -unity-text-align: middle-left; }
+.item-caption { color: #b1bfab; font-size: 10px; margin-top: 4px; }
+.source-tools { margin-top: 18px; }
+.source-tools .unity-foldout__text { color: #b1bfab; }
+.hidden { display: none; }
+.viewport { flex-grow: 1; }
+.section { margin-top: 12px; margin-bottom: 10px; color: #c8ba91; -unity-font-style: bold; }
+.library Button { white-space: normal; -unity-text-align: middle-left; min-height: 40px; }
+Button.selected { background-color: #69765b; border-left-width: 3px; border-left-color: #e0c988; }
+.hint { margin-top: 24px; color: #a1af9d; white-space: normal; font-size: 11px; }
+.center { flex-grow: 1; min-width: 300px; min-height: 0; }
+.canvas-toolbar { flex-direction: row; align-items: center; padding: 4px 10px; }
+.canvas-toolbar Toggle { margin-left: 10px; }
+.canvas { flex-grow: 1; overflow: hidden; }
+.canvas-help { padding: 7px 10px; font-size: 11px; color: #b8c1ac; white-space: normal; }
+.inspector { width: 250px; flex-shrink: 0; background-color: #202c29; padding: 14px 12px; }
+.inspector Label { white-space: normal; margin-bottom: 10px; }
+#detail-heading { color: #d8c594; -unity-font-style: bold; margin-bottom: 16px; }
+.inspector Button { margin-top: 8px; }
+.inspector Vector2IntField { margin-bottom: 18px; }
+.inspector .unity-base-field__label { min-width: 65px; width: 65px; color: #c9d4bf; }
+.inspector .unity-composite-field__field .unity-base-field__label { min-width: 14px; width: 14px; }
+.status { padding: 10px 14px; min-height: 38px; white-space: normal; background-color: #182521; color: #d5dabb; }

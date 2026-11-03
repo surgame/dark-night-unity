@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-31",
+  "purpose": "Extend the user's selected textured cave design with less rectangular terrain silhouettes.",
+  "nativeTarget": [1536, 1024],
+  "source": "C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-f5a4b6ec-48c4-4a02-8bd0-37096eeda73e.png",
+  "method": "Built-in image generation edit of the supplied scene, saved as a separate sibling.",
+  "transparency": "Opaque concept scene.",
+  "shapeAndEdgePrecision": "Macro silhouette study using slopes, clipped rock shoulders and asymmetric banks. Not a final DualGrid mask atlas, collision shape or accepted tile-edge contract.",
+  "keep": [
+    "The selected richer warm-brown and cool-slate rock treatment, dark ink cracks and thin ochre rim.",
+    "One original cyan protagonist with its established size, face and outfit.",
+    "Side-view framing, restrained plants, orange mushrooms, ore patches, waterfall and pool."
+  ],
+  "change": [
+    "Long rectangular platforms become short resting ledges connected by unequal slopes.",
+    "Vertical step faces become diagonal broken rock shoulders and supported outcrops.",
+    "The rectangular pool becomes an asymmetric shallow basin with sloped rocky banks.",
+    "The ceiling and foreground form varied natural masses rather than repeated box shapes."
+  ],
+  "implementationIntent": "Retain local repeatable rock patterns and a limited edge vocabulary. Later production should map slope segments to existing game shapes; concept curves do not imply new collision or liquid systems."
+}

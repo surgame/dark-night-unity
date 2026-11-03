@@ -1,0 +1,44 @@
+<div id="cave-surface-depth">
+  <style>
+    #cave-surface-depth {color:var(--foreground);display:grid;gap:calc(var(--font-size-base)*.75);min-width:0}
+    #cave-surface-depth .heading {padding-right:90px}
+    #cave-surface-depth .map {width:100%;min-width:0}
+    #cave-surface-depth .map svg {display:block;width:100%}
+    #cave-surface-depth .map text {fill:var(--foreground);font-size:12px;font-weight:400}
+    #cave-surface-depth .rock {fill:var(--muted)}
+    #cave-surface-depth .air {fill:var(--background)}
+    #cave-surface-depth .edge {fill:none;stroke:var(--foreground);stroke-width:1.4;vector-effect:non-scaling-stroke}
+    #cave-surface-depth .guide {fill:none;stroke:var(--border);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-surface-depth .port {fill:none;stroke:var(--viz-series-1);stroke-width:2;vector-effect:non-scaling-stroke}
+    #cave-surface-depth .focus {fill:var(--viz-series-1);fill-opacity:.09}
+    #cave-surface-depth .ore {fill:var(--viz-series-2);fill-opacity:.25;stroke:var(--foreground);stroke-width:1;vector-effect:non-scaling-stroke}
+    #cave-surface-depth .zone {fill:var(--viz-series-2);fill-opacity:.1;stroke:var(--foreground);stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+    #cave-surface-depth .details {display:grid;gap:calc(var(--font-size-base)*.3)}
+  </style>
+  <h3 class="heading">地表入口 · 纵向下探</h3>
+  <div class="viz-controls">
+    <label class="form-label">视野
+      <select class="form-select" id="csd-view">
+        <option value="all">地表到深层 · 整图</option>
+        <option value="surface">地面洞口</option>
+        <option value="shallow">浅层</option>
+        <option value="middle">中层</option>
+        <option value="deep">深层</option>
+        <option value="single">单块</option>
+      </select>
+    </label>
+    <label class="form-label">模块
+      <select class="form-select" id="csd-module"></select>
+    </label>
+  </div>
+  <div class="viz-row">
+    <label class="form-check"><input class="form-check-input" id="csd-bounds" type="checkbox"><span class="form-check-label">模块边界／接口</span></label>
+    <label class="form-check"><input class="form-check-input" id="csd-content" type="checkbox" checked><span class="form-check-label">内容插槽</span></label>
+  </div>
+  <div class="map" id="csd-map"></div>
+  <div class="details" aria-live="polite">
+    <p id="csd-selected"></p>
+    <p class="text-small" id="csd-detail"></p>
+  </div>
+  <p class="text-small">地表进入，分层下探，原路折返。H为角色碰撞高度；刻度只表示空间高差，实际通行待白模校准。</p>
+</div>

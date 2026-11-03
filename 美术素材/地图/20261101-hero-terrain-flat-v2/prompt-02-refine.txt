@@ -1,0 +1,12 @@
+Use case: precise-object-edit.
+Asset type: strictly planar 2D hand-painted game environment.
+
+Image 1 is the green cave EDIT TARGET. Image 2 is the successful red cave PROJECTION REFERENCE ONLY: its floor is a single curve with a flat filled rock region below. Image 3 is the original cyan character reference.
+
+Make ONE targeted correction to image 1: eliminate the remaining impression of a lit FLOOR TOP / BEVELED RIM. The broad light-green band directly under the walking contour and the shaded wedge-shaped slabs still suggest looking down at the ground. Replace this with a genuinely flat green illustrated geological cut-section, following image 2's projection. Preserve the green palette, approximate cave outline, character, copper ore, ivory mushrooms, roots, waterfall and overall composition.
+
+Every solid terrain area must be one front-facing 2D filled shape. Use a uniform muted deep sage/teal base up to the black outer silhouette. Remove ALL pale contour-following strips from the floor. Pale seams may cross the rock interior as narrow diagonal material lines, but MUST NOT track the walking boundary or form an upper slab surface. Remove highlights/shadows that describe the thickness of individual rock plates. Broad flat patches and a few pen cracks are enough. No 3D facets, extrusion, bevel, cast shadow, tiled walkway, rear floor edge or receding surface.
+
+The cyan character's feet touch the single boundary between cave air and solid rock. Keep its huge cyan hood, small body, beige face, angled brows, V mouth and segmented collar from image 3. Plant roots sit on that same single silhouette, not across the area of a walking surface. Water remains a flat narrow vertical stripe ending at one horizontal line, no oval surface.
+
+This must read as a painted 2D terrain MASK with texture, seen exactly from the side. Keep hand-drawn contours and a quiet flat background. Landscape 1536x1024, no text, labels, grid, UI or watermark.

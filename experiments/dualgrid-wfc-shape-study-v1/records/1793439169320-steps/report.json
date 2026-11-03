@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-31",
+  "scope": "Algorithm steps and independent browser only.",
+  "models": [
+    {
+      "seed": 271,
+      "observation": 3,
+      "candidates": 4,
+      "propagationChanges": 5,
+      "macroObservations": 6,
+      "outputSHA256": "5bc1526b092b6295f0c5e13f77707c4d08f7085ba8d161ad9b978e2a0fffb067",
+      "changes": {
+        "dual": 4,
+        "wfc": 4,
+        "hybrid": 2
+      }
+    },
+    {
+      "seed": 902,
+      "observation": 2,
+      "candidates": 4,
+      "propagationChanges": 5,
+      "macroObservations": 6,
+      "outputSHA256": "d4555a9c7eb4a877084df26c296fad47b4b2ae48bb00092656e376ef590cbaf3",
+      "changes": {
+        "dual": 4,
+        "wfc": 4,
+        "hybrid": 3
+      }
+    },
+    {
+      "seed": 1643,
+      "observation": 1,
+      "candidates": 2,
+      "propagationChanges": 3,
+      "macroObservations": 6,
+      "outputSHA256": "6c2643dfc6d75a605bfb1b2fc9706615bb19f546c13330bb48f71ac226155c7d",
+      "changes": {
+        "dual": 4,
+        "wfc": 4,
+        "hybrid": 2
+      }
+    }
+  ],
+  "views": [],
+  "layouts": [],
+  "errors": [],
+  "passed": false,
+  "failure": "AssertionError [ERR_ASSERTION]: Browser wrapper does not contain the current complete fragment.\n    at D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\dualgrid-wfc-shape-study-v1\\steps-verify.cjs:49:5"
+}

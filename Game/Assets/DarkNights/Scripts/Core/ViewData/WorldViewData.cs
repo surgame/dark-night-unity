@@ -23,13 +23,16 @@ namespace DarkNights.Core.ViewData
         public IReadOnlyList<GeologySiteViewData> Geology { get; }
         public IReadOnlyList<ProjectileViewData> Projectiles { get; }
         public IReadOnlyList<EntityIdentityData> Identities { get; }
+        public Physics.PhysicsWorldSnapshot Physics { get; }
 
         public WorldViewData(CampViewData camp, IReadOnlyList<ActorViewData> actors,
             IReadOnlyList<BuildingViewData> buildings, IReadOnlyList<WorksiteViewData> worksites,
             IReadOnlyList<ProjectileViewData> projectiles, IReadOnlyList<EntityIdentityData> identities = null, ExpeditionViewData expedition = null,
             IReadOnlyList<MineralDepositViewData> mineralDeposits = null, string mineralWorldId = "",
-            ulong mineralMapEpoch = 0, IReadOnlyList<NestViewData> nests = null, IReadOnlyList<GeologySiteViewData> geology = null)
+            ulong mineralMapEpoch = 0, IReadOnlyList<NestViewData> nests = null, IReadOnlyList<GeologySiteViewData> geology = null,
+            Physics.PhysicsWorldSnapshot physics = null)
         {
+            Physics = physics;
             Expedition = expedition;
             MineralWorldId = mineralWorldId; MineralMapEpoch = mineralMapEpoch;
             nests = nests ?? Array.Empty<NestViewData>();

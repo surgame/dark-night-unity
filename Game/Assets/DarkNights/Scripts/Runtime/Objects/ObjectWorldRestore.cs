@@ -102,6 +102,7 @@ namespace DarkNights.Runtime.Objects
                 session.Waves.Edit().CopyFrom(ObjectSnapshotMapper.Wave(snapshot));
                 session.Projectiles.Edit().CopyFrom(ObjectSnapshotMapper.Projectiles(snapshot, session.Layout.GroundY));
                 session.ReplaceEntities(replacement, context);
+                session.Physics?.Restore(snapshot.Physics);
                 ExpeditionMapping.Restore(session, snapshot.Expedition);
                 if (session.TerrainGameplay != null)
                     session.TerrainGameplay.Edit().Nests = TerrainGameplayBehaviour.Initial(snapshot.Terrain?.Nests, snapshot.Terrain?.NestProgress);

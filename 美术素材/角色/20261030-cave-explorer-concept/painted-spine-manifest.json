@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-30",
+  "tool": "built-in image_gen.imagegen",
+  "source": "C:/Users/Jobscn/.codex/generated_images/01a18892-3bae-7d23-9b7d-5eb0633034da/call_lvnoJfODGhfcT9TAXgmunFgZ.png",
+  "output": "painted-spine-study-02.png",
+  "width": 1536,
+  "height": 1024,
+  "bytes": 2750402,
+  "sha256": "09895929fa5d1e8bb13365d1685128e100dde665eeca84d6b3446fbb87286112",
+  "userReference": "painted-spine-reference.png",
+  "userReferenceSha256": "ef3998bb3b8e9014108c877535a487f0be7e637c30d93dffdce3cab1bf360c79",
+  "inspection": "Original painted palette and character identity retained; setup, arm study and three poses visible. Arm study depicts dark end faces rather than production overlap patches; redraw these ends as filled hidden overlaps. Poses are separately generated drawings and do not validate shared-part rigging or fixed-camera consistency.",
+  "officialDocumentation": [
+    {
+      "title": "Spine User Guide: Meshes",
+      "url": "https://esotericsoftware.com/spine-meshes",
+      "httpStatus": 200,
+      "checked": "2026-10-30",
+      "finding": "Weighted meshes can deform with bones; mesh vertex positions can be keyed."
+    },
+    {
+      "title": "Spine User Guide: Slots",
+      "url": "https://esotericsoftware.com/spine-slots",
+      "httpStatus": 200,
+      "checked": "2026-10-30",
+      "finding": "Visible attachments and slot draw order can be keyed in animations."
+    }
+  ],
+  "scope": "Concept design only; no actual parts, Spine rig, Unity compilation or animation verification."
+}

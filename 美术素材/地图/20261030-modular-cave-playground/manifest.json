@@ -1,0 +1,113 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "sources": [
+    {
+      "key": "atlas",
+      "file": "sources/cave-modules-generated.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1985441,
+      "sha256": "c4f10cbe992dd980f3eb0bae9476a666a17744518715725835fbb2aacbf536f4",
+      "previewBytes": 158520
+    },
+    {
+      "key": "hero",
+      "file": "../20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "width": 282,
+      "height": 309,
+      "bytes": 36504,
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+      "previewBytes": 12220
+    },
+    {
+      "key": "backwall",
+      "file": "sources/backwall-clean.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1770912,
+      "sha256": "350fbbd30d656fe10c4a5c64e41e67448f4e6a99c1260ac541b650eb9b128827",
+      "previewBytes": 85696
+    },
+    {
+      "key": "ore",
+      "file": "../20261030-flat-cave-kit/sources/ore.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 450883,
+      "sha256": "af798c3d1a43fd7edc191d590d77f384f287aff2068270481bd3e11ff8c8f663",
+      "previewBytes": 175932
+    }
+  ],
+  "inputIdentity": [
+    {
+      "file": "sources/module-layout-guide.png",
+      "sha256": "b4e41637e4a85d70fffe1d578436dad0efc15456e59f4216febefc848897a6c9"
+    },
+    {
+      "file": "sources/user-style-reference.png",
+      "sha256": "36cf0768ba9df891e074ae9cdfdd977d73d6c640978b8e7a9b6c7e68168a21a4"
+    },
+    {
+      "file": "art-profiles.json",
+      "sha256": "4b8536337978a7279d362117ac1b361a95825ca19df7aaf6771efd8c8490d568"
+    },
+    {
+      "file": "art-silhouettes.json",
+      "sha256": "62aca4b507895f4ab9fcf09c458eda39e2f792e42240a1835bf36aba4615a2f0"
+    },
+    {
+      "file": "trace-silhouettes.cjs",
+      "sha256": "fa0ea2ed0deacda36e4ab95ec8dbdba0f719f2d7b134e7cc432f67627b6c46ad"
+    },
+    {
+      "file": "module-content.json",
+      "sha256": "2566ef572258ca63a8508256c5ac94c95001f2829d6af166df03b425a9444591"
+    },
+    {
+      "file": "preview.template.html",
+      "sha256": "6baa9db5db60c324c8d318459458402c2a3ed3b3556c4f1e36c7837e33271368"
+    },
+    {
+      "file": "generation-prompt.json",
+      "sha256": "f9f39cda81d9377abc512300a1f3270e5af4d44d59890e892c9d63f3cde02000"
+    },
+    {
+      "file": "layer-generation-prompt.json",
+      "sha256": "15e3fafbb6458a9354c87408c334020e5a3a4f3faa782fce5d91d4a7e088de16"
+    },
+    {
+      "file": "layer-contract.json",
+      "sha256": "89500189361dd7f5ff0aeec95f4c9a98c5fc18c709b872777ef4f4c2004864cd"
+    }
+  ],
+  "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_ttmji1sdeUmKyNAh3PuGbnMi.png",
+  "code": [
+    {
+      "file": "solver.js",
+      "sha256": "c49fe5e6e1db8461361a95ca027c8eaae146b49c94d0d5b1fb11593b75ab3085"
+    },
+    {
+      "file": "physics.js",
+      "sha256": "b2e76d36039548f8cc7f584f97ddd28c6d1969763bff1c7d2c3d83e4f8572db8"
+    },
+    {
+      "file": "terrain.js",
+      "sha256": "ca32a17789a9d732884006c55d9325fb4a25d0a938bda22e0d848642070dbafb"
+    },
+    {
+      "file": "layers.js",
+      "sha256": "a9b0a62c09c5266bdb6c1d59169b70575949dbc2b50ae4a294e93093171d9e2c"
+    },
+    {
+      "file": "painter.js",
+      "sha256": "6c713f9ec760e23818e80e75294cbb1f52eb48dc27a844c96296aa626fe9d861"
+    },
+    {
+      "file": "app.js",
+      "sha256": "800cddcfdd1bf9dff50129dd9cc2bc788fb103afc146d3f92ff6155b1ff16192"
+    }
+  ],
+  "preview": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\29\\01a1891b-2542-7ea1-a69e-12cf28b0c785\\modular-cave-roam.html",
+  "fragmentBytes": 653392,
+  "caveat": "Layered browser prototype only. Native-pixel connected-rock silhouettes separate the foreground, including stalactites and rubble; source image ore is excluded. The same silhouette controls initial rock queries. Stable opaque backwall and reused transparent ore remain separate. Sparse foreground edits and mineral HP are demo state, not a Unity ARDMap implementation, formal rewards, new object definitions or Spine animation. See silhouette-verification.json and exports-v3/foreground."
+}

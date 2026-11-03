@@ -1,0 +1,171 @@
+{
+  "date": "2026-11-01",
+  "scope": "Finite model and interface checks for this independent whitebox only.",
+  "sources": [
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/player.js",
+      "sha256": "d5eef5d5ee71e9e8221bc6b3752449429ac5c008e3b20c5d1a4eda55fe43f2f7"
+    },
+    {
+      "file": "geometry.js",
+      "sha256": "fe3ec8e5d80c6e6999eb2dfc1c4a33fd4ac3c34bfca6532ac2b271b45c2118eb"
+    },
+    {
+      "file": "modules.js",
+      "sha256": "33d51461ca9d2954ed91e8043bf2d28c10fbe04043811297351173eec47008eb"
+    },
+    {
+      "file": "solver.js",
+      "sha256": "1753928cb499d4296fd6c1db5bd8097ac8d7ecc1a2f78dbfe78db57674d0ad48"
+    }
+  ],
+  "seeds": [
+    {
+      "seed": 271,
+      "methods": [
+        {
+          "method": "dual",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "expanded",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "contour",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "blocks",
+          "blocks": 8,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "bridges",
+          "blocks": 8,
+          "bridges": 7,
+          "wfc": null
+        },
+        {
+          "method": "wfc",
+          "blocks": 8,
+          "bridges": 0,
+          "wfc": {
+            "observations": 8,
+            "propagations": 46,
+            "removed": 83,
+            "attempts": 1
+          }
+        }
+      ]
+    },
+    {
+      "seed": 372,
+      "methods": [
+        {
+          "method": "dual",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "expanded",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "contour",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "blocks",
+          "blocks": 8,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "bridges",
+          "blocks": 8,
+          "bridges": 7,
+          "wfc": null
+        },
+        {
+          "method": "wfc",
+          "blocks": 8,
+          "bridges": 0,
+          "wfc": {
+            "observations": 8,
+            "propagations": 46,
+            "removed": 83,
+            "attempts": 1
+          }
+        }
+      ]
+    },
+    {
+      "seed": 473,
+      "methods": [
+        {
+          "method": "dual",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "expanded",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "contour",
+          "blocks": 0,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "blocks",
+          "blocks": 8,
+          "bridges": 0,
+          "wfc": null
+        },
+        {
+          "method": "bridges",
+          "blocks": 8,
+          "bridges": 7,
+          "wfc": null
+        },
+        {
+          "method": "wfc",
+          "blocks": 8,
+          "bridges": 0,
+          "wfc": {
+            "observations": 8,
+            "propagations": 48,
+            "removed": 86,
+            "attempts": 1
+          }
+        }
+      ]
+    }
+  ],
+  "catalogPairs": 8192,
+  "minimumClearance": 4.447504954999381,
+  "conflictRejected": true,
+  "distinctContinuousOutputs": 4,
+  "ok": true
+}

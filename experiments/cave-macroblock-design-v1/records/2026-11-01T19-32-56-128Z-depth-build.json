@@ -1,0 +1,17 @@
+{
+  "createdAt": "2026-11-01T19:32:56.128Z",
+  "scope": "Surface entrance and vertical design schematic; no game physics, solver, reachability or Unity validation.",
+  "inputs": {
+    "catalog.js": "68c133ee2af7e2bc71a5fd649775749394bf371d125f2e25f37458cc048bfe98",
+    "depth-layout.js": "9b7950fa96c2b5bd2acb85f53e13654a26bd7f4a6ea7ed530bb0685b616e7c03",
+    "depth-view.html": "5dbb1c53bb34d5dbc0ceb449d607a7fbcc9ceb6debde4b3ceb1203585dfd1d49",
+    "depth-app.js": "47f1be0cc6d50651658eb2ceb18d411700d39f7256e90c059cdd775019197f4a",
+    "DEPTH.md": "a2b646090761f4be2fb8779b361721f2e4b41e75df4bb73eb48c02013da280ca"
+  },
+  "priorVersionsPreserved": true,
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-surface-depth.html",
+    "bytes": 24344,
+    "sha256": "aca5bcbb64173172855bf1d7d1628a75ee29cca57168bd61d6b40310f0b9bde5"
+  }
+}

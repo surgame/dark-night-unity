@@ -1,0 +1,61 @@
+{
+  "repository": "YYGC",
+  "base_commit": "fee18645c997ed7529c4592917de6c412033c84e",
+  "destination": ".deps/YYGC-spine-renderers",
+  "approval": "2026-11-03：ObjectView.cs混合Renderer缓存；保留旧脏检出，接入隔离候选并编译/原生引用与保存核对。",
+  "patches": [
+    {
+      "path": "tools/grid-business/yygc.patch",
+      "sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb"
+    },
+    {
+      "path": "tools/debug-hub/yygc-debug-hub.patch",
+      "sha256": "64490b4dabd9249aba2483709df9aafad93d96ee3e39f978cc7ba9b24b0d8a4b"
+    },
+    {
+      "path": "tools/spine/yygc-mixed-renderers.patch",
+      "sha256": "344f4fd10441622d90d19c82ec98a56c2f0cdbd88524a68e22d1c49f44837a4d"
+    }
+  ],
+  "files": {
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/package.json": "d5a3c87ff6df1f7b9efd61e48b545258eb3324208ad2ab52c0ed29104cf95440",
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs": "e76e2f7f2aa1acca5e546868435aab4463a8830957a09690f000554d4445f593",
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapInterestService.cs": "88feafcd51b9405c9eb6bcb77798ecb9d6c76c2b59fdf1704186491cac1655cb",
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs": "1c651e322e1b3abdd2452fc79fd45326eb82cc17a796acd2582bd66ef7c1501e",
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ProtocolLimits.cs": "eb29eea68af017071724e891a91f27cbe766226d8860fc50060ff4f681f7e9aa",
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs": "77211e8986b703d1aa40d52998ca773c672de3117623245f5181f2c6c9bdeced",
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs": "3be63d067d531b2bf0343b6e0a069d65624b295bf4a0a5d11b4abe12926cf18b",
+    "AnyRuleD~/Packages/com.tsgame.anyrules.networking/package.json": "34efef8983f656bc8bedbc1e2f9038fa2ad509de5c90906010a689ab6ff6b754",
+    "AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs": "996110f773a52f56222a047d26e695428dac8caf71945c673fbd4f371f49e910",
+    "AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs": "c7994bea63966abc46fbf16473fa5237971b89dd8435c7c553cc968c3a26989a",
+    "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs": "cdacc07522aceedbdd10aa883f3366b5089309f116a02db1f7735bf7656e57fe",
+    "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs": "0d1b047ca068113a6873e133e9189770e9b2878a478f302f17d63ed6c8e735d4",
+    "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs": "38bd867e64e3d1891da39c8d31fc63f9629747e086f3674ab61b881de8abbe5f",
+    "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs.meta": "72be6b9fb49c9748beaf4ea1faa8901ded891a18ae8a4769d1e79e6350d02fd4",
+    "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs": "8a6cabc53e6dee0346f18f63ff7914dad174e5fd1851568ed742fced4b523712",
+    "Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs": "56e78ba80b8e72f86e21d2488705b67937b791e869ecc8667bd9ce81749ac00b",
+    "Editor/Objects/Definition/Workshop/WorkshopConfigService.cs": "7bea7ee01e02ef6a1d2fe35e7ff39b4a122807079ef3c82838b836d60b7e7ad3",
+    "Runtime/Debugging/IRuntimeDebugPanel.cs": "8f7091bb54661d03eebd22b33591304392dc4a324be14bf9bb6223ceabb0bd1f",
+    "Runtime/Debugging/Resources.meta": "454f3e9e3f499d92cc15c1b8c8cfc702893c85632fcdab6c5b486cd465ef845e",
+    "Runtime/Debugging/Resources/YYGC.meta": "67099d8ebcbe2adae0a8377ec975f96113dba1a3b7c6611f9b3347a85f00d9bd",
+    "Runtime/Debugging/Resources/YYGC/Debugging.meta": "a76ceb4f23d47dd060039d67dd0d7a50e65d9674f992803aa625384fbe70917e",
+    "Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss": "c51f298ef602b04b02c329a39f8547aed2a8374b3b0b422b59623179dd060e78",
+    "Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta": "d059d50d73652d60a5a334d7267aad953db16ea29531ecc55106fff04ca8d8be",
+    "Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml": "fdb9f1e2de588ee9bbbdede69dbe00a5b8dc6c1855e501751f429d963916ea43",
+    "Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta": "bf14d86e995f1f799096d7898bd756481600bbad0e29c906f97887c866867fcc",
+    "Runtime/Debugging/RuntimeDebugHub.cs": "634b0212a1814d28556bbde3e72e59d6b8f9c87ed03cd7a13d2b6af05d07802b",
+    "Runtime/Debugging/RuntimeDebugHubView.cs": "22762d059f96ce909f8f0adfe095ffafae1633af7786a073b59dd908c6c3f20f",
+    "Runtime/Debugging/RuntimeDebugHubView.cs.meta": "36d3f6343e9232a32f0c493c19536f679666e67c543af66e9e0c1c650447566f",
+    "Runtime/Debugging/RuntimeDebugPanelContext.cs": "2f8f897274c79b176fa9ff97d3c96cd41a131909c3e35a820861463935bc5f11",
+    "Runtime/Debugging/RuntimeDebugPanelDescriptor.cs": "d5c3366053f6893bcee60afd4b568aa27f9b1fce2d3c1d46cf39b8728d0d1517",
+    "Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta": "c6f284802c909128da861d0a373eb223cfe132e2782688b81c9ec5ebadf17377",
+    "Runtime/Debugging/RuntimeDebugPanelRegistration.cs": "3f4b4c506e92bd035ab5575ba0df6d09c28da573f8d3d5b1e2e62b2c8870b197",
+    "Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta": "b4c7cd4000052deb947c56cb4259c44573f7d238a83f927413fea8628cc67624",
+    "Runtime/Debugging/RuntimeDebugPanelRegistry.cs": "7a84cf1c6e9b3f9dfce3d7cb4613f47515a31db2aa5dd41850a961077b78f55e",
+    "Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta": "09a37969a5ac938fe9797471c58be19b7d2e3b95c82aee696919b7e2a048fe44",
+    "Runtime/Objects/NetworkStates/SessionStateChange.cs": "9db9fa524910f0d353a0cda51f0d645914fba723eeda7666eb07d9f5c5f9ca01",
+    "Runtime/Objects/Views/ObjectView.cs": "e0d238c6bdf84ebb6ad2380947764fe589ba6c3c52c3d2fed871ccb872d99365",
+    "Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs": "126fbce5e1ed5c254e3e6f05615f7c5e677a96bd73d297204d877d315c19aa90",
+    "Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs.meta": "cfb02966e9fb88ad8393e3233d21b2deb2bb1922355f5433d8455e44f7145b89"
+  }
+}

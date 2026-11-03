@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-01",
+  "baseBuild": "../dualgrid-cave-exploration-v1/records/2026-11-01T10-02-10-373Z-build.json",
+  "scope": "Separate abandoned-mine whitebox; original cave sources/output/state keys preserved.",
+  "adapters": [
+    "Component ID and visible names",
+    "Independent storage key and state kind",
+    "Mine props hook after terrain, before character",
+    "New rectangle-authored mine layout"
+  ],
+  "standalone": {
+    "file": "index.html",
+    "bytes": 42872,
+    "sha256": "7c26816b02e705f6ab0f159a364507121b6012b0ba8a5c8590dd1c2ea5c3f131"
+  },
+  "fragment": {
+    "file": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\dualgrid-abandoned-mine.html",
+    "bytes": 41807,
+    "sha256": "f04686b9b74cf870389c7e7df9d5246a3ec9463348a6e612388e0c9bb23beef1"
+  },
+  "sources": [
+    {
+      "file": "../dualgrid-cave-exploration-v1/view.html",
+      "sha256": "d123c90622ae5e2bd031ca414c364154738550b29e40267f6f1b173eb2cc1b88"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/dual-grid.js",
+      "sha256": "7d8c4c2783d549ba2a2be1cf3719d9b8a7a80651b1b7551d043d4a86009e055c"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/layout.js",
+      "sha256": "ab84a597b7cab5b45d4615485a4a54655739b66a8b95e7de4fffaf6c3e2e5091"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/player.js",
+      "sha256": "d5eef5d5ee71e9e8221bc6b3752449429ac5c008e3b20c5d1a4eda55fe43f2f7"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/renderer.js",
+      "sha256": "f868041ac12a382c8e6e504fc17a66a47b364d7598ca5889d0e4d51407f03199"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/state.js",
+      "sha256": "0b78d3745880d99dc7c0f7596a10da55c34c2bab39e39f5d91905a82249e90b4"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/app.js",
+      "sha256": "90f54d0bfd27b0c415969449f1198ee5973863608392e0dbe8975c29b99a0e9d"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/build.cjs",
+      "sha256": "e3407e28199d14e6682f1c2224b92efefe1ec3e26670478f5102e48fdbec7a92"
+    },
+    {
+      "file": "../dualgrid-cave-exploration-v1/index.html",
+      "sha256": "387a3b3409066400676b0dd7b98ff06e654acf77f4f0dd83de0f573d3cbff466"
+    },
+    {
+      "file": "layout.js",
+      "sha256": "7da6f84b676be4d7857d01e9e4a9cb3a5912110c486afa61b75f30ca5e4d7c02"
+    },
+    {
+      "file": "props.js",
+      "sha256": "2a4adb0f0cf33cb71a9109aff3578debb200634e01471fc1d4f98f9e1a82b6dd"
+    },
+    {
+      "file": "build.cjs",
+      "sha256": "15a95518f72abe225cc1a2577b82ffcfd8fe5342d91e3b58dcb7e62efb888a24"
+    }
+  ]
+}

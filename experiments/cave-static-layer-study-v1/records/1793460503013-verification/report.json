@@ -1,0 +1,245 @@
+{
+  "date": "2026-10-31",
+  "scope": "Independent static-terrain comparison; no game digging or Unity changes.",
+  "models": [
+    {
+      "form": 0,
+      "seed": 271,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "maxFloorSampleJump": 0.1750000000000007,
+      "wholeStats": {
+        "observations": 16,
+        "propagations": 5524,
+        "removed": 116,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 16,
+        "propagations": 124,
+        "removed": 116,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 0,
+      "seed": 902,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "maxFloorSampleJump": 0.1750000000000007,
+      "wholeStats": {
+        "observations": 15,
+        "propagations": 5536,
+        "removed": 125,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 15,
+        "propagations": 128,
+        "removed": 125,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 0,
+      "seed": 1643,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "maxFloorSampleJump": 0.1750000000000007,
+      "wholeStats": {
+        "observations": 18,
+        "propagations": 5566,
+        "removed": 121,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 18,
+        "propagations": 138,
+        "removed": 121,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 1,
+      "seed": 271,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "maxFloorSampleJump": 0.125,
+      "wholeStats": {
+        "observations": 17,
+        "propagations": 5542,
+        "removed": 117,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 17,
+        "propagations": 130,
+        "removed": 117,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 1,
+      "seed": 902,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "maxFloorSampleJump": 0.125,
+      "wholeStats": {
+        "observations": 15,
+        "propagations": 5536,
+        "removed": 122,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 15,
+        "propagations": 128,
+        "removed": 122,
+        "attempts": 1
+      }
+    },
+    {
+      "form": 1,
+      "seed": 1643,
+      "equivalent": true,
+      "geometryPreserved": true,
+      "bothRejectConflict": true,
+      "maxFloorSampleJump": 0.125,
+      "wholeStats": {
+        "observations": 18,
+        "propagations": 5560,
+        "removed": 118,
+        "attempts": 1
+      },
+      "hybridStats": {
+        "observations": 18,
+        "propagations": 136,
+        "removed": 118,
+        "attempts": 1
+      }
+    }
+  ],
+  "views": [
+    {
+      "form": 0,
+      "mode": "base",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 0,
+      "mode": "whole",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 0,
+      "mode": "hybrid",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 1,
+      "mode": "base",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 1,
+      "mode": "whole",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    },
+    {
+      "form": 1,
+      "mode": "hybrid",
+      "viewport": {
+        "scale": 14.821428571428571,
+        "ox": 12.285714285714278,
+        "oy": 8,
+        "w": 736,
+        "h": 460
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "width": 736,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 736,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "overflow": false,
+      "clipped": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "overflow": false,
+      "clipped": 0
+    }
+  ],
+  "errors": [],
+  "animation": {
+    "water": 419,
+    "mushroom": 113,
+    "deterministicAtSameTime": true,
+    "actualLoopAdvances": true,
+    "reducedMotionStops": true
+  },
+  "output": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/30/01a18eaf-1b9d-7f23-a7d0-91286addbf55/cave-static-layers.html",
+    "sha256": "fb879703e01a1fa4f78a0e5d76773a70ab6a69e77e7e98663912425d3c2371f6"
+  },
+  "passed": true
+}

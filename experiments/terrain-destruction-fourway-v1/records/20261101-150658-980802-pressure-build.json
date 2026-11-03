@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-01",
+  "scope": "Grouped CPU throughput and independent batch latency; no Unity writes.",
+  "output": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\30\\01a18eaf-1b9d-7f23-a7d0-91286addbf55\\terrain-pressure.html",
+  "bytes": 435601,
+  "sha256": "73fbdfa51ab7839a99b3e8ecefcc8dccb2d84dca3be05047b0d132c4f9d2e52e",
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\view.html",
+      "sha256": "1a9a8b1af0ec2ebf00b7496c29d6468be1ebe6234260ce52f50ca950e3192af7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\pressure-panel.html",
+      "sha256": "6c5f36bb3d1026f53759edc01c3d0772f31b6044156600d645c0a819777f8f5f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\geometry.js",
+      "sha256": "d7b605c77f1cfdece1ba046dd50d1a5500e06a09c71ebf1a757fab5f790c291c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\solver.js",
+      "sha256": "398841ea5202f64183d1765e43afa112480672375add28f09227a2607e61c5b2"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\meshes.js",
+      "sha256": "a79554d030009446ff93dd4e911ec7d65145634915c9674fbb25f7f82045c737"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\adapters.js",
+      "sha256": "d014231502b178dc75c52bae1b04a2c87523262912d737d2bf04d0ba67d95847"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\gpu.js",
+      "sha256": "406f84a5473fdf96e04846078844c912f89ed27d80a261eb80077f7e745634fd"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\benchmark.js",
+      "sha256": "acb409ba4c7abd53f9fc75dfcc9f813428d6831c6dd5bb954c0735aa5765b183"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\pressure-model.js",
+      "sha256": "b1c0abe915f9475403fd4a1f02e644982c3df4ecd0103e37a128a890e8103ac1"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\pressure-benchmark.js",
+      "sha256": "ab34917170747ea1bf20ca3b41c29c6dc62fa41bdeaed835f2aa9f89b7695918"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\pressure-panel.js",
+      "sha256": "81372053caa236aaa97024263ad1729fe79b2b61e4702c3660cd302ade61cc66"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\revisions\\single-cell-v1\\references.json",
+      "sha256": "87ca54ded99bca4cf35d66ad84c1ec7fb8e848b2b67d738109671b8c64c69a0e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\pressure-references.json",
+      "sha256": "7b36e24f3a3092070906d2e5c66b4a59b5f21016154c7ba01a0513e15b31b9a8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\app.js",
+      "sha256": "0fd5b1c265f069880729cb71658401634734e8eb095231296deac27734dc6bd5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261029-wfc-cave-kit\\sources\\hero-scale-reference.png",
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\terrain-destruction-fourway-v1\\build_pressure.py",
+      "sha256": "2e599c8c07d6cd86f5ee94163c8f52db7e38323a6d192540e3e2de7b2fd73485"
+    }
+  ]
+}

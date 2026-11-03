@@ -32,8 +32,7 @@ namespace DarkNights.Runtime.Objects
                 double delta = world.Camp.BeginStep(seconds);
                 world.Flow.Tick(delta);
                 world.Ship.Tick(delta);
-                foreach (var actor in world.Index.Actors.Where(a => a.Read().ManualControl).ToArray())
-                    actor.Tick(delta);
+                SessionActorMotion.Advance(world, delta);
                 world.Projectiles.Tick(delta);
                 world.TerrainGameplay?.Tick(delta);
                 world.Geology.Tick(delta);
@@ -46,6 +45,7 @@ namespace DarkNights.Runtime.Objects
             var camp = world.Camp.Edit();
             camp.ExpeditionRun = 1;
             world.Economy.SetStock(new ResourceAmounts());
+            if (world.Layout.MapModuleStudy) MapModuleSessionSetup.Prepare(world);
             if (Ship == null) { world.Journey.Edit().Enabled = false; return; }
             var ship = Ship.Edit(); ship.DeviceStage = 3; ship.Powered = true;
             ship.DockX = ship.X; ship.DockHeight = ship.Height;

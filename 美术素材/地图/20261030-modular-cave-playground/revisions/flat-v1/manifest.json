@@ -1,0 +1,67 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "sources": [
+    {
+      "key": "atlas",
+      "file": "sources/cave-modules-generated.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1985441,
+      "sha256": "c4f10cbe992dd980f3eb0bae9476a666a17744518715725835fbb2aacbf536f4",
+      "previewBytes": 158520
+    },
+    {
+      "key": "hero",
+      "file": "../20261029-wfc-cave-kit/sources/hero-scale-reference.png",
+      "width": 282,
+      "height": 309,
+      "bytes": 36504,
+      "sha256": "3ebea8ac52ac6ea74a4ed5f6d1c3c0c908b98c73005b7c0a7b48f40cf1c442c9",
+      "previewBytes": 12220
+    }
+  ],
+  "inputIdentity": [
+    {
+      "file": "sources/module-layout-guide.png",
+      "sha256": "b4e41637e4a85d70fffe1d578436dad0efc15456e59f4216febefc848897a6c9"
+    },
+    {
+      "file": "sources/user-style-reference.png",
+      "sha256": "36cf0768ba9df891e074ae9cdfdd977d73d6c640978b8e7a9b6c7e68168a21a4"
+    },
+    {
+      "file": "art-profiles.json",
+      "sha256": "4b8536337978a7279d362117ac1b361a95825ca19df7aaf6771efd8c8490d568"
+    },
+    {
+      "file": "preview.template.html",
+      "sha256": "919c63fd68d31fa48cfd41fd9a60623f1463278523a6395b6508381fa9622100"
+    },
+    {
+      "file": "generation-prompt.json",
+      "sha256": "f9f39cda81d9377abc512300a1f3270e5af4d44d59890e892c9d63f3cde02000"
+    }
+  ],
+  "generatedSource": "C:/Users/Jobscn/.codex/generated_images/01a1891b-2542-7ea1-a69e-12cf28b0c785/call_ttmji1sdeUmKyNAh3PuGbnMi.png",
+  "code": [
+    {
+      "file": "solver.js",
+      "sha256": "c49fe5e6e1db8461361a95ca027c8eaae146b49c94d0d5b1fb11593b75ab3085"
+    },
+    {
+      "file": "physics.js",
+      "sha256": "4c59c80d06729a937ad41dc8978f693755c011f752a92593cb033eb0974c6425"
+    },
+    {
+      "file": "painter.js",
+      "sha256": "da46dc2248d541ab5812d9aa5e2feea89b345584f4702287ccebde886df5808b"
+    },
+    {
+      "file": "app.js",
+      "sha256": "aeaea150f6017ac412e6625f1e9d27b55aac413f9a4a2bc55bc31115cd9c2d3e"
+    }
+  ],
+  "preview": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\29\\01a1891b-2542-7ea1-a69e-12cf28b0c785\\modular-cave-roam.html",
+  "fragmentBytes": 258348,
+  "caveat": "Generated source is 1254x1254 and did not preserve the requested layout geometry. Native 623x414 crops exclude divider lines; collision profiles are manually traced from these actual crops. Six source panels plus six explicit horizontal reflections. Fixed native crop overlays bridge joints. Browser-only one-dimensional strip, not Unity or Spine."
+}

@@ -1,0 +1,27 @@
+{
+  "foreground": {
+    "source": "assets/rockMaterial.png",
+    "identity": "handdrawn-rock-v2",
+    "addressing": "world-mirror-768-v2",
+    "worldPeriod": 768
+  },
+  "backwall": {
+    "source": "assets/back.png",
+    "identity": "backwall-clean-v1",
+    "addressing": "world-mirror-623-v2",
+    "worldPeriod": 623
+  },
+  "authoredDesigns": {
+    "bridgeDesign": {
+      "source": "assets/bridgeDesign.png",
+      "identity": "bridge-authored-v2",
+      "placement": "Per-module authoredArt; preserve the whole source at uniform scale."
+    }
+  },
+  "interfaces": {
+    "width": 64,
+    "clearance": 128,
+    "signatureVersion": "ecology-module-rules-v2"
+  },
+  "sourcePolicy": "Native artwork copied without modifying its bytes; normalized shapes remain separate authoring data."
+}

@@ -1,0 +1,28 @@
+{
+  "state": {
+    "ready": true,
+    "mode": "walk",
+    "site": "entry",
+    "visited": [
+      "entry"
+    ],
+    "player": {
+      "x": 25,
+      "y": 25.529999830457964,
+      "grounded": true
+    },
+    "camera": {
+      "x": 30,
+      "y": 20.520314247909003,
+      "scale": 17.7080078125
+    },
+    "dug": 0,
+    "revision": 0,
+    "size": [
+      232,
+      128
+    ],
+    "insideRock": false
+  },
+  "errors": []
+}

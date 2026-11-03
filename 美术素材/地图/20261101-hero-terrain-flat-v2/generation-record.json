@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-01",
+  "tool": "image_gen.imagegen",
+  "mode": "Built-in reference-guided projection edits; three materials and one targeted sage correction",
+  "actualModelId": "Not exposed by tool",
+  "requestedSize": [
+    1536,
+    1024
+  ],
+  "inputs": "input-identities.json",
+  "outputs": [
+    {
+      "file": "01-terracotta-flat.png",
+      "prompt": "prompt-01.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_Ao8gq1lgW9J4FoPnmnotfakM.png",
+      "width": 1536,
+      "height": 1024,
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2058077,
+      "sha256": "9d0c648c7c21df12c2a7db68f5131a4da05f0889960ab3ad3456dfd0562f7580",
+      "promptSha256": "0eb35de8a4b9b4cfd660a7ba3894e0c31d56369a83c8b531347d84fcb4507a9d",
+      "copiedWithoutResizing": true
+    },
+    {
+      "file": "02-sage-flat.png",
+      "prompt": "prompt-02-refine.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_A1YaZxDAeoqUEeANZpKh0jM9.png",
+      "width": 1536,
+      "height": 1024,
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 1908900,
+      "sha256": "37e649312d6c5ca9b4bf6b2e1977660939493b842e76ecf73972b539d3bd815b",
+      "promptSha256": "8a3cb42d2fb74e622ebc8a72af82ab51dfd284de2cd616ceb5c32637f80a7bfc",
+      "copiedWithoutResizing": true
+    },
+    {
+      "file": "03-moonwhite-flat.png",
+      "prompt": "prompt-03.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_Dn2obmNabJ3TKjqOP3PnsGk9.png",
+      "width": 1536,
+      "height": 1024,
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2159209,
+      "sha256": "49ef4243efe8de104a5cc99cee1ec7be91ab45d7f6ae9897e3bd73375de1686f",
+      "promptSha256": "10d902ce0f7a0d8a8f49b6b671cf0e6d208ce11e5540061259c1a230a6243317",
+      "copiedWithoutResizing": true
+    }
+  ],
+  "supersededAttempts": [
+    {
+      "file": "02-sage-flat-draft.png",
+      "prompt": "prompt-02.txt",
+      "source": "C:/Users/Jobscn/.codex/generated_images/01a18eaf-1b9d-7f23-a7d0-91286addbf55/call_n7Kw3cF9PAWSdDjhjhP8BbnI.png",
+      "reason": "A broad light band still suggested an upper floor face; retained as superseded attempt.",
+      "width": 1536,
+      "height": 1024,
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2005198,
+      "sha256": "4133e9e369c4ba697e9ec4e6a06b13de17a4781e862806abff9014eb819911f0",
+      "promptSha256": "e814f786fafe35177835ccd866d7fecca0cb22e1462d81db19e613a97f1fc20c",
+      "copiedWithoutResizing": true
+    }
+  ],
+  "refinementReferences": [
+    "02-sage-flat-draft.png",
+    "01-terracotta-flat.png",
+    "../20261029-wfc-cave-kit/sources/hero-scale-reference.png"
+  ],
+  "visualReview": {
+    "method": "Direct visual inspection of native generated images",
+    "projection": [
+      "Final ground is a single side contour without visible receding walk surfaces.",
+      "Red and white versions show flat geological interior patterns below the contour.",
+      "Green initial rim still suggested an upper face; targeted correction removes the light contour band and volumetric plate shading.",
+      "Waterfall is side-on, ending at a short line rather than an elliptical top surface.",
+      "All retain original character traits and separate low-contrast planar backdrops."
+    ],
+    "limitations": [
+      "The guide is a projection/composition reference; generated contours are not pixel-identical or mutually registered.",
+      "Texture, ore facets and minor local shading remain stylistic and are not validated tile shapes.",
+      "These are static scenes; no production atlas, shared-edge guarantees, WFC, collision, looping water or Spine animation was produced.",
+      "Figures remain AI redrawings with slight scale variation, not exact source-sprite composites."
+    ]
+  },
+  "preservation": {
+    "originalHeroFilesUnchanged": 12,
+    "materialSourceImagesUnchanged": true,
+    "unityOrGameplayChanges": false
+  }
+}

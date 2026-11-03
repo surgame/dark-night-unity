@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-01",
+  "build": "records/2026-11-01T13-25-46-182Z-build.json",
+  "model": "records/1793537489990-model-review/report.json",
+  "measurement": "records/1793538496522-measurement/raw.json",
+  "browser": "records/1793539546573-browser-review/report.json",
+  "sourceAndOutputIdentitiesMatched": true,
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) i5-14600KF",
+    "availablePhysicalGiBBeforeFinalMeasurement": 11.58,
+    "identity": {
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Ti (0x00002D04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "vendor": "Google Inc. (NVIDIA)",
+      "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "software": false,
+      "output": [
+        960,
+        600
+      ]
+    },
+    "source": "Get-CimInstance and WebGL queries recorded in this task."
+  },
+  "records": 384,
+  "summaries": 24,
+  "current": {
+    "standaloneBytes": 79265,
+    "fragmentBytes": 77779
+  },
+  "preserved": [
+    {
+      "directory": "dualgrid-cave-exploration-v1",
+      "sources": 8,
+      "standalone": true,
+      "fragment": true
+    },
+    {
+      "directory": "dualgrid-abandoned-mine-v1",
+      "sources": 12,
+      "standalone": true,
+      "fragment": true
+    },
+    {
+      "directory": "dualgrid-stratified-cave-v1",
+      "sources": 11,
+      "standalone": true,
+      "fragment": true
+    },
+    {
+      "directory": "cave-macroblock-comparison-v1",
+      "sources": 9,
+      "standalone": true,
+      "fragment": true
+    }
+  ],
+  "scripts": [
+    {
+      "file": "verify.cjs",
+      "sha256": "9a4fa9b3f281b0df7809605aed82d2f3f4ec3020469accf73ef62e90e89502bd"
+    },
+    {
+      "file": "measure.cjs",
+      "sha256": "05c7ed843fba41e845d062998cb1eb09b11227ac3418767147870016dd7ceec7"
+    },
+    {
+      "file": "inspect.cjs",
+      "sha256": "10e263e745c0a3e897a4bb7178babfd2e98af4c176c0d3aa03009c56c47c8a34"
+    }
+  ],
+  "inventory": {
+    "files": 68,
+    "bytes": 5629052
+  },
+  "limits": "Independent browser geometry and WebGL benchmark. No production art/physics/lighting/network or Unity frame-rate acceptance."
+}
