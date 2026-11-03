@@ -1,5 +1,7 @@
 using System;
 using DarkNights.Core.Physics;
+using DarkNights.Runtime.Objects;
+using GameCore.Objects.Definition;
 using UnityEngine;
 
 namespace DarkNights.Runtime.Physics
@@ -12,12 +14,11 @@ namespace DarkNights.Runtime.Physics
     {
         public int RopeId = 1;
         public int FirstBodyId = -9;
-        public int SegmentCount = 8;
-        public float SegmentLength = .64f;
-        public float SegmentMass = .2f;
-        public float GrabReach = .48f;
-        public float ClimbSpeed = .8f;
-        public float SwingAcceleration = 4;
+        [SerializeField] private DefinitionReference definition;
+        public ObjectDefinition Definition => definition.Resolve() ??
+            throw new InvalidOperationException("场景吊绳缺少ObjectDefinition引用。");
+        public int SegmentCount => HangingRopeConfig.Required(Definition).SegmentCount;
+        public float SegmentLength => HangingRopeConfig.Required(Definition).SegmentLength;
         public LineRenderer Preview;
 
         public HangingRopeDefinition Freeze()
@@ -26,13 +27,18 @@ namespace DarkNights.Runtime.Physics
                 Math.Abs(transform.position.z) > .001f || Preview == null ||
                 GetComponentsInChildren<Rigidbody2D>(true).Length != 0)
                 throw new InvalidOperationException("吊绳作者锚点需保持单位变换、显式预览且不能携带运行刚体。");
-            return new HangingRopeDefinition(RopeId, FirstBodyId, SegmentCount, transform.position.x * 100,
-                transform.position.y * 100, SegmentLength * 100, SegmentMass, GrabReach * 100,
-                ClimbSpeed * 100, SwingAcceleration * 100);
+            return HangingRopeConfig.Required(Definition).Freeze(Definition, RopeId, FirstBodyId,
+                transform.position.x, transform.position.y);
         }
+
+#if UNITY_EDITOR
+        public void EditorSetDefinition(ObjectDefinition source) =>
+            definition = new DefinitionReference(source.Guid);
+#endif
 
         private void OnDrawGizmos()
         {
+            if (definition.IsEmpty || definition.Resolve() == null) return;
             Gizmos.color = new Color(.75f, .65f, .4f);
             Vector3 top = transform.position;
             Gizmos.DrawWireSphere(top, .08f);

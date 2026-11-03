@@ -68,7 +68,9 @@ namespace DarkNights.Editor.MapModule
             parent.Add(new Label("E 抓／放 · W/S 攀爬\nA/D 助摆 · Space 离绳"));
             var inspect = new Button(() => Selection.activeGameObject = rope.gameObject) { text = "在 Inspector 中编辑吊绳" };
             inspect.SetEnabled(editable); parent.Add(inspect);
-            parent.Add(new Label("在 Inspector 中调整绳长、绳节数量和摆荡力度。此处预览显示绳子的初始位置。"));
+            var parameters = new Button(() => Selection.activeObject = rope.Definition) { text = "编辑吊绳 Definition 参数" };
+            parameters.SetEnabled(editable); parent.Add(parameters);
+            parent.Add(new Label("绳长、分节、质量和摆荡参数统一在 Definition 的“可攀爬吊绳”共享配置中调整。此实例只保存固定点和定义引用。"));
         }
 
         private static void Changed(Transform value)

@@ -36,7 +36,7 @@ namespace DarkNights.Runtime.Physics
                     var body = bodies[id];
                     if (create)
                     {
-                        body.angularDamping = .08f;
+                        body.angularDamping = rope.AngularDamping;
                         var joint = body.gameObject.AddComponent<HingeJoint2D>();
                         joint.autoConfigureConnectedAnchor = false;
                         joint.anchor = new Vector2(0, rope.SegmentLength / 100);
@@ -44,6 +44,7 @@ namespace DarkNights.Runtime.Physics
                         joint.connectedAnchor = i == 0 ? new Vector2(rope.AnchorX, rope.AnchorHeight) / 100 : Vector2.zero;
                         joint.enableCollision = false;
                     }
+                    ApplyTangentialDamping(body, rope);
                     if (!create && !collisionChanged) continue;
                     foreach (var other in bodies.All)
                         if (other.Key != id)
@@ -108,9 +109,21 @@ namespace DarkNights.Runtime.Physics
             HeroJumpMotion.Clear(a, clearVelocity: false);
             a.TakeoffHorizontalSpeed = body.linearVelocity.x * 100;
             a.SupportPlatform = -1;
-            float assist = body.linearVelocity.x * input.Direction < 6 ? input.Direction * rope.SwingAcceleration : 0;
+            float threshold = rope.SwingSpeedThreshold / 100;
+            float projectedSpeed = body.linearVelocity.x * input.Direction;
+            float gain = Mathf.Clamp01((threshold - projectedSpeed) / (threshold * .25f));
+            float assist = input.Direction * rope.SwingAcceleration * gain;
+            ApplyTangentialDamping(body, rope);
             body.AddForce(new Vector2(assist, -actor.World.Catalog.Balance.HeroControl.Gravity) * body.mass / 100);
             return true;
+        }
+
+        private static void ApplyTangentialDamping(Rigidbody2D body, HangingRopeDefinition rope)
+        {
+            Vector2 radial = body.worldCenterOfMass - new Vector2(rope.AnchorX, rope.AnchorHeight) / 100;
+            Vector2 tangent = new Vector2(-radial.y, radial.x).normalized;
+            float speed = Vector2.Dot(body.linearVelocity, tangent);
+            body.AddForce(-tangent * (speed * rope.TangentialDamping * body.mass), ForceMode2D.Force);
         }
 
         private void Remove(int actor)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DarkNights.Runtime.Framework;
+using DarkNights.Core.Physics;
 using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
 using UnityEngine;
@@ -21,7 +22,8 @@ namespace DarkNights.Runtime.Objects
             new Dictionary<string, PreparedObjectDefinition>(StringComparer.Ordinal);
         private bool disposed;
         private ObjectDefinition[] geologyDefinitions = Array.Empty<ObjectDefinition>();
-        private readonly HashSet<ObjectView> geologyViews = new HashSet<ObjectView>();
+        private ObjectDefinition[] physicsDefinitions = Array.Empty<ObjectDefinition>();
+        private readonly HashSet<ObjectView> passiveViews = new HashSet<ObjectView>();
         public IReadOnlyList<ObjectDefinition> Definitions { get; private set; }
         public EquipmentDefinitionCatalog Equipment { get; private set; }
         public string MovementFingerprint { get; private set; }
@@ -29,7 +31,8 @@ namespace DarkNights.Runtime.Objects
         private ObjectSessionResources() { }
 
         public static async UniTask<ObjectSessionResources> Prepare(
-            IReadOnlyList<ObjectDefinition> definitions, CancellationToken cancellationToken)
+            IReadOnlyList<ObjectDefinition> definitions, CancellationToken cancellationToken,
+            PhysicsWorldDefinition physics = null)
         {
             var result = new ObjectSessionResources();
             try
@@ -38,8 +41,10 @@ namespace DarkNights.Runtime.Objects
                 result.Equipment = new EquipmentDefinitionCatalog(ObjectDefinitionDatabase.Instance);
                 var flow = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")?.SharedConfigs.OfType<ExpeditionFlowConfig>().SingleOrDefault();
                 result.geologyDefinitions = flow?.Geology?.Definition == null ? Array.Empty<ObjectDefinition>() : new[] { flow.Geology.Definition };
+                result.physicsDefinitions = (physics?.HangingRopes ?? Array.Empty<HangingRopeDefinition>())
+                    .Select(ResolveRopeDefinition).Distinct().ToArray();
                 ObjectDefinition[] all = definitions.Concat(result.Equipment.MiningDefinitions).Concat(result.Equipment.LightDefinitions)
-                    .Concat(result.geologyDefinitions).Distinct().ToArray();
+                    .Concat(result.geologyDefinitions).Concat(result.physicsDefinitions).Distinct().ToArray();
                 PreparedObjectDefinition[] leases = await StartupResourceBatch.Load(all,
                     ObjectInstanceFactory.PrepareAsync, cancellationToken);
                 int stored = 0;
@@ -85,13 +90,41 @@ namespace DarkNights.Runtime.Objects
         public ObjectView CreateGeologyView(DarkNights.Core.Config.Terrain.TerrainGeologySite site, Transform parent)
         {
             var view = Create(GeologyDefinition(site), null, parent);
-            geologyViews.Add(view);
+            passiveViews.Add(view);
             return view;
         }
 
-        public void ReleaseGeologyView(ObjectView view)
+        private static ObjectDefinition ResolveRopeDefinition(HangingRopeDefinition rope)
         {
-            if (view == null || !geologyViews.Remove(view)) return;
+            var definition = ObjectDefinitionDatabase.Instance.Definitions.SingleOrDefault(d =>
+                d != null && d.Guid.ToString() == rope.DefinitionGuid);
+            if (definition == null || HangingRopeConfig.DefinitionHash(definition) != rope.DefinitionHash)
+                throw new InvalidOperationException("吊绳ObjectDefinition缺失或配置摘要已变化。");
+            return definition;
+        }
+
+        public ObjectDefinition RopeDefinition(HangingRopeDefinition rope)
+        {
+            var definition = ResolveRopeDefinition(rope);
+            if (!physicsDefinitions.Contains(definition))
+                throw new InvalidOperationException("吊绳定义未在会话启动前准备。");
+            return definition;
+        }
+
+        public ObjectView CreateRopeView(HangingRopeDefinition rope, Transform parent)
+        {
+            var view = Create(RopeDefinition(rope), null, parent);
+            passiveViews.Add(view);
+            return view;
+        }
+
+        public void ReleaseRopeView(ObjectView view) => ReleaseView(view);
+
+        public void ReleaseGeologyView(ObjectView view) => ReleaseView(view);
+
+        private void ReleaseView(ObjectView view)
+        {
+            if (view == null || !passiveViews.Remove(view)) return;
             view.gameObject.SetActive(false); view.Owner?.Release();
             if (Application.isPlaying) UnityEngine.Object.Destroy(view.gameObject);
             else UnityEngine.Object.DestroyImmediate(view.gameObject);
@@ -118,7 +151,7 @@ namespace DarkNights.Runtime.Objects
         {
             if (disposed) return;
             disposed = true;
-            foreach (var view in geologyViews.ToArray()) ReleaseGeologyView(view);
+            foreach (var view in passiveViews.ToArray()) ReleaseView(view);
             foreach (PreparedObjectDefinition value in prepared.Values) value.Dispose();
             prepared.Clear();
         }

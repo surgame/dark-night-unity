@@ -265,6 +265,7 @@ namespace DarkNights.Runtime.Objects
             if (disposed) return;
             if (Mutations.IsOpen) throw new InvalidOperationException("Cannot retire a session inside a state notification.");
             disposed = true;
+            Physics?.ReleaseRopes();
             Physics?.Invalidate();
             Flow?.ResetPending();
             Geology.Dispose();

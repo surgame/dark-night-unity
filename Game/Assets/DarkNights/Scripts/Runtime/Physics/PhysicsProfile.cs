@@ -50,12 +50,16 @@ namespace DarkNights.Runtime.Physics
             }
             var chains = (hangingRopes ?? Array.Empty<HangingRopeDefinition>()).OrderBy(r => r.Id).ToArray();
             writer.Write(chains.Length);
-            if (chains.Length != 0) writer.Write("hanging-chain-v1;grip52;hand34;damping0.08;reach-cast32;swing-cap600");
+            if (chains.Length != 0)
+                writer.Write("hanging-object-v3;grip52;hand34;reach-cast32;swing-fade0.25;tangent-force-v1");
             foreach (var rope in chains)
             {
                 writer.Write(rope.Id); writer.Write(rope.FirstBodyId); writer.Write(rope.Count);
                 writer.Write(rope.AnchorX); writer.Write(rope.AnchorHeight); writer.Write(rope.SegmentLength);
                 writer.Write(rope.Mass); writer.Write(rope.Reach); writer.Write(rope.ClimbSpeed); writer.Write(rope.SwingAcceleration);
+                writer.Write(rope.SwingSpeedThreshold); writer.Write(rope.TangentialDamping);
+                writer.Write(rope.DefinitionGuid); writer.Write(rope.DefinitionHash);
+                writer.Write(rope.SegmentWidth); writer.Write(rope.AngularDamping);
             }
             writer.Flush();
             using var sha = SHA256.Create();

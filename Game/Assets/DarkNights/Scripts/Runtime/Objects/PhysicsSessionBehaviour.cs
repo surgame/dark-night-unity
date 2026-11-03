@@ -4,6 +4,7 @@ using System.Linq;
 using DarkNights.Core.Config;
 using DarkNights.Core.Physics;
 using DarkNights.Runtime.Physics;
+using GameCore.Objects.Behaviours.Interfaces;
 
 namespace DarkNights.Runtime.Objects
 {
@@ -11,9 +12,11 @@ namespace DarkNights.Runtime.Objects
     /// 合作道具和绳索的唯一YYGC状态所有者；角色结果仍归各自ActorState。
     /// 只在会话物理候选启用时分配执行后端，一次写事务内收集、模拟、提交，失败撤销原生缓存。
     /// </summary>
-    public sealed partial class PhysicsSessionBehaviour : SessionStateBehaviour<PhysicsWorldState>
+    public sealed partial class PhysicsSessionBehaviour : SessionStateBehaviour<PhysicsWorldState>, IStart
     {
         private UnityPhysicsBackend backend;
+        private readonly List<GameCore.Objects.Runner.ObjectInstance> ropeObjects =
+            new List<GameCore.Objects.Runner.ObjectInstance>();
         public bool Enabled => Session?.Layout.Physics != null;
         public PhysicsTrace Trace { get; private set; } = new PhysicsTrace();
         protected override void OnReset()
@@ -35,6 +38,34 @@ namespace DarkNights.Runtime.Objects
                 Props = Session.Layout.Physics?.Props.Select(p => new PhysicsBodyState
                     { Id = p.Id, X = p.X, Height = p.Height }).ToArray() ?? Array.Empty<PhysicsBodyState>()
             });
+            try
+            {
+                foreach (var rope in Session.Layout.Physics?.HangingRopes ?? Array.Empty<HangingRopeDefinition>())
+                {
+                    var instance = Session.Resources.Create(Session.Resources.RopeDefinition(rope), Session.Context, Session.Parent).Owner;
+                    ropeObjects.Add(instance);
+                    var behaviour = instance.GetBehaviour<HangingRopeBehaviour>() ??
+                        throw new InvalidOperationException("吊绳ObjectDefinition缺少业务能力。");
+                    behaviour.Bind(rope);
+                    instance.name = "吊绳 #" + rope.Id + "（权威）";
+                }
+            }
+            catch { ReleaseRopes(); throw; }
+        }
+
+        public void Start()
+        {
+            foreach (var instance in ropeObjects)
+            {
+                instance.Activate();
+                instance.gameObject.SetActive(false);
+            }
+        }
+
+        internal void ReleaseRopes()
+        {
+            foreach (var instance in ropeObjects) Session.ReleaseEntity(instance);
+            ropeObjects.Clear();
         }
 
         internal void Advance(IReadOnlyList<ActorBehaviour> actors, double delta)
@@ -138,7 +169,7 @@ namespace DarkNights.Runtime.Objects
 
         public override void OnDespawn()
         {
-            Invalidate(); Trace.Recording = false; base.OnDespawn();
+            ReleaseRopes(); Invalidate(); Trace.Recording = false; base.OnDespawn();
         }
     }
 }

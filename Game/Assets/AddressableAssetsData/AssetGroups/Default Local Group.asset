@@ -270,6 +270,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9802bfae9be17944b228110f82760a9
+    m_Address: dark_nights.object.hanging_rope
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec305e787cf586445915c0d7f2222886
     m_Address: dark_nights.expedition.miner
     m_ReadOnly: 0

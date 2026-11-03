@@ -48,12 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: DarkNights.Runtime::DarkNights.Runtime.Physics.HangingRopePlacement
   RopeId: 1
   FirstBodyId: -9
-  SegmentCount: 8
-  SegmentLength: 0.48
-  SegmentMass: 0.2
-  GrabReach: 0.48
-  ClimbSpeed: 0.8
-  SwingAcceleration: 4
+  definition:
+    guid: eedc9d6e885c472418bd78c6f0e14e36
+    legacyId: 0
   Preview: {fileID: 406358283517408664}
 --- !u!120 &406358283517408664
 LineRenderer:
@@ -115,7 +112,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.035
+        value: 0.024
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -124,7 +121,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.035
+        value: 0.024
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -164,8 +161,8 @@ LineRenderer:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 2
+    numCapVertices: 2
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}

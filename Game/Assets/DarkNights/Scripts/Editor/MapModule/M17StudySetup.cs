@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using DarkNights.Entry.MapModule;
 using DarkNights.Runtime.Physics;
+using DarkNights.Runtime.Objects;
 using DarkNights.View.MapModule;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -117,12 +118,15 @@ namespace DarkNights.Editor.MapModule
             try
             {
                 var placement = root.AddComponent<HangingRopePlacement>();
-                placement.SegmentLength = .48f;
+                placement.EditorSetDefinition(HangingRopeContentSetup.Ensure(profile));
+                var config = HangingRopeConfig.Required(placement.Definition);
                 var line = root.AddComponent<LineRenderer>();
                 line.sharedMaterial = profile.RopeViewPrefab.sharedMaterial;
                 line.useWorldSpace = false; line.positionCount = 2;
-                line.SetPosition(0, Vector3.zero); line.SetPosition(1, Vector3.down * 3.84f);
-                line.startWidth = line.endWidth = .035f;
+                line.SetPosition(0, Vector3.zero);
+                line.SetPosition(1, Vector3.down * (config.SegmentCount * config.SegmentLength));
+                line.startWidth = line.endWidth = config.LineWidth;
+                line.numCornerVertices = config.CornerVertices; line.numCapVertices = config.CapVertices;
                 line.startColor = line.endColor = new Color(.7f, .57f, .34f);
                 line.sortingOrder = 12; placement.Preview = line;
                 var display = UnityEngine.Object.Instantiate(root);

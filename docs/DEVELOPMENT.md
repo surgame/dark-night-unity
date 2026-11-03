@@ -6,6 +6,22 @@
 
 ## 当前阶段：CL 矿洞远征核心闭环
 
+2026-11-04 M17均衡调参与吊绳YYGC对象接入进入主分支提交与推送（本聊天／Local，CL-01／08，M17-05）：用户明确要求提交、合并主分支并推送。当前已在main，fetch后与origin/main无领先／落后，本批直接提交main，范围包含均衡调参、ObjectDefinition／IConfigData接入、原生Prefab与定义／Addressables登记及6份合同／操作／进度文档。16份源码与本片编译通过时的SHA一致，提交前差异及引用核对通过；沿用当前候选的三次C#编译与原生装配回执，实际运行、联机及恢复仍待验。协议／存档字段形状沿原合同，物理配置身份已更新，依赖沿原锁定配置。最终提交与远端身份以Git记录及`artifacts/m17-objectdefinition-20261104/publish-main/`回执为准，CL继续。
+
+2026-11-04 吊绳统一接入YYGC ObjectDefinition已实现，C#编译、生成注册及原生装配核对通过，运行待验（本聊天／Local，CL-01／08，M17-05）：用户要求将吊绳作为ObjectDefinition物体、通过IConfigData公开参数。本片承接上一轮12份未提交均衡成果，新增`Res/Objects/HangingRope/HangingRope.asset／prefab`，定义Key为`environment.hanging-rope`，GUID为`eedc9d6e885c472418bd78c6f0e14e36`。`HangingRopeConfig : IConfigData`在SharedConfigs统一公开15项运动、抓取、质量、碰撞和显示参数；M17制作Prefab移除实例数值字段，仅保留DefinitionReference、固定点及绳ID／起始负ID。工坊新增明确的Definition参数按钮，初始化入口复用同一定义。
+
+ObjectSessionResources在事务外预加载当前物理布局引用的吊绳定义；权威端通过既有ObjectInstance工厂准备HangingRopeBehaviour、绑定冻结拓扑，并由会话Behaviour的YYGC IStart激活。各端HangingRopeView通过同一定义创建、配置并显式激活，继续消费公共物理时间线；换epoch／连接及退出沿原租约释放。吊绳物体拥有配置和生命周期，绳节姿态／抓附仍唯一归PhysicsSessionBehaviour／PhysicsWorldState。Definition GUID／配置摘要、碰撞宽度和角阻尼进入Profile身份，物理身份为`0d39757695527b9f245352843dd1d305972296ebfef170020b0f20f07daf199f`；v30及网络载荷字段形状沿原合同，内容失配按原规则拒绝。玩家部署命令、消耗、动态拓扑与动态实例恢复仍为后续切片。
+
+复用6000.4.9f1／PID29880单一Editor。首次编译通过后完成原生迁移，静态复核补齐被动视图显式激活及GUID／碰撞宽度边界，再编译通过；最后将两处新建资源预览的长度、宽度及圆角改为读取同一IConfigData，并对新增Editor输入编译通过，三次均completed、failed=false、errors=[]。16份本批涉及手写C#最长300行，4份新源码及新资产meta由Unity生成；HangingRopeBehaviour工厂注册、Definition唯一登记、ObjectInstance／Initializer／View引用、2个Renderer缓存及Addressables地址`dark_nights.object.hanging_rope`均通过。M17实际冻结为12节／3.84世界单位、每节0.1kg、攀爬0.75、助摆1.6、阈值3、阻尼0.24，固定点(6.16,3.04)，缺失脚本0。来源`f7e1e559a41af9fdc131da713cd4fb874c38083618ad97a247c379fbe227e7c5`及Bake`639a9c6f2f69636b4c8077bad5c81624aee69d0ff698cd7057656518c43ccfc1`匹配，未重新生成地形。
+
+开始M17无脏标记／无Play、Selection为0；安装共享Prefab的临时层级令场景标脏，核对配置后通过原生SaveScene正常保存，场景字节与开工备份完全一致，未调用清脏标记。结束仍为原M17、5个根、无脏标记／无Play、Selection为0。定义目录及原Addressables分组各只新增本物体引用，既有作者资产GUID保留；预检可用物理内存约11.97GiB、Editor私有约5.51GiB、D盘85.32GiB，最终编译前可用物理内存约9.25GiB、D盘85.31GiB。输入、源码／配置身份、三次编译、安装、最终原生核对及收尾回执归`artifacts/m17-objectdefinition-20261104/`。ARCHITECTURE、EDITOR_WORKBENCH、SAVE_FORMAT、MAP_MODULE_WORKFLOW及ROADMAP已同步。本片未修改YYGC／依赖，未执行测试／Play／Player；实际对象激活与退休、抓放／攀爬／助摆、重开、双端联机及恢复仍待验，CL继续。
+
+2026-11-04 M17均衡绳索手感已接入，C#编译及原生配置核对通过，运行手感待验（本聊天／Local，CL-01／08）：用户选定手动试荡中的“均衡”方案并要求写入，同时询问ObjectDefinition及未来玩家部署复用。开工main无未提交修改，复用6000.4.9f1／PID29880单一Editor。M17原生Prefab及当前场景实例为12×0.32世界单位、每节0.1kg、攀爬0.75、助摆1.6、水平助力阈值3、切向阻尼0.24/s、绳宽0.024、转角／端帽顶点各2。新增阈值及阻尼随HangingRopePlacement冻结，助力在阈值前25%范围渐退，反向输入可制动，绳节和抓附角色按各自质量施加切向阻尼。表现每节4点采样、经过原节点，偏离原直段最多0.02世界单位。初始化入口同步同一参数，仅用于其原指定空目录。
+
+6份手写源码最长167行，单次connected command recompile为completed、failed=false、errors=[]。编译后通过原生Prefab API只保存两份吊绳Prefab，重读场景并FreezePhysics确认12绳节／1吊绳、ID -9～-20、固定点(6.16,3.04)、总长3.84及全部均衡参数，缺失脚本／作者刚体／作者Joint均0。物理身份为`5fb9908b084e2a174086c1c1b3f4c4bb5dbaa8b72c442d686eab28961c2c2a55`，求解版本和新增参数进入原Profile握手／保存摘要；网络载荷及v30文件字段形状沿原合同，旧物理身份失配按原规则拒绝恢复并保留文件。地形来源`f7e1e559a41af9fdc131da713cd4fb874c38083618ad97a247c379fbe227e7c5`及Bake`639a9c6f2f69636b4c8077bad5c81624aee69d0ff698cd7057656518c43ccfc1`匹配，未重复生成运行地图。
+
+26项保护输入中仅6份源码及2份目标Prefab改变，18项Scene／地形／meta／主角balance／Profile／依赖等输入SHA保持。场景始终为原M17、结束无脏标记／无Play；本轮重载及Prefab更新后Selection由134148变为0，原实例ID已失效，未能恢复该Inspector选择。预检可用物理内存约10.49GiB、Editor私有约5.43GiB、D盘85.32GiB；输入备份、编译、Prefab保存、原生核对及最终身份归`artifacts/m17-balanced-20261104/`。ARCHITECTURE、EDITOR_WORKBENCH及SAVE_FORMAT已同步。当前吊绳为场景配置＋Core冻结类，动态状态归PhysicsSessionBehaviour／PhysicsWorldState；玩家部署需后续ObjectDefinition／共享配置、可信部署事务、动态实例及同步恢复闭包，本片未激活部署功能或修改YYGC。未执行游戏测试／Play／Player；待验抓放、顺反助摆、松手衰减、跨节攀爬与离绳落地，联机／恢复仍沿原待验边界，CL继续。
+
 2026-11-04 本轮MapModule切场景及文案成果进入主分支提交与推送（本聊天／Local，CL-01／08）：用户明确要求提交、合并主分支并推送。当前已在main，fetch后与origin/main无领先／落后；本批汇总22份源码／UXML／操作文档差异，直接提交main。提交前差异与引用核对通过，沿用上述当前候选的正常Editor编译及实际UI文本回执；手动切换后的真实运行仍待验，协议／存档／依赖影响为无。最终提交与远端身份以Git记录及`artifacts/mapmodule-chinese-copy-20261104/publish-main/`回执为准，CL继续。
 
 2026-11-04 MapModule术语恢复完成，编译及Editor按钮核对通过（本聊天／Local，CL-01／08）：用户明确要求保留Prefab、Inspector等Unity术语，其他中文清理保持。本片恢复上一片改成“预制体”“属性面板”的文案，并在MAP_MODULE_WORKFLOW中明确沿用常用Unity英文术语，操作文档同步。当前单一6000.4.9f1／PID29880处于M17编辑态，预检可用物理内存约8.12GiB、D盘85.32GiB；只主动提交一次connected command recompile，最终completed、failed=false、errors=[]。Editor实际按钮已显示“编辑模块 Prefab”“在 Inspector 中查看”，其余新中文按钮保持。静态核对C#仅字符串变化，场景无脏标记、无Play。本片输入及编译／UI回执归`artifacts/mapmodule-chinese-copy-20261104/terminology-restore/`，CL继续。

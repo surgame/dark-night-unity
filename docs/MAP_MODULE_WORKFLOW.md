@@ -78,6 +78,7 @@
 | 地图场景定位与启动校验 | `Scripts/Editor/MapModule/MapModulePaths.cs`、`MapModuleStartupValidation.cs` |
 | 研究运行、地图安装与出生 | `Scripts/Entry/MapModule/MapModuleEntry.cs`、`Scripts/Runtime/Objects/MapModuleSessionSetup.cs`、`Scripts/Runtime/Terrain/SessionTerrainNetwork.cs` |
 | 物理配置、场景道具与运行所有者 | `Scripts/Runtime/Physics/PhysicsProfile.cs`、`PhysicsPropPlacement.cs`、`Scripts/Runtime/Objects/PhysicsSessionBehaviour.cs` |
+| 吊绳对象及参数 | `Scripts/Runtime/Objects/HangingRopeConfig.cs`、`HangingRopeBehaviour.cs`、`Scripts/View/HangingRopeView.cs`；定义及Prefab位于`Res/Objects/HangingRope/`，场景只经`HangingRopePlacement`引用定义 |
 | 唯一状态与资源装配 | `Scripts/Runtime/Objects/ObjectSession.cs`及对应Behaviour／State，按ARCHITECTURE追踪绑定链 |
 | 原生资源落点 | `Res/Terrain/MapModule/Modules/`、`Bakes/`；地图场景位于`Res/Scenes/Workbenches/MapModule/` |
 

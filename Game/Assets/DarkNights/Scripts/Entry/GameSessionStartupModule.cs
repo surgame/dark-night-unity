@@ -103,7 +103,8 @@ namespace DarkNights.Entry
             foreach (ScenePlacement placement in placementsByKey.Values) placement.gameObject.SetActive(false);
             var required = new[] { "worker", "ship" };
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesStarted");
-            ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
+            ObjectSessionResources resources = await ObjectSessionResources.Prepare(
+                required.Select(definitions.GetRequired).ToArray(), cancellationToken, layout.Physics);
             HeroLightPresentation lighting = null;
             if (randomLevel != null)
             {

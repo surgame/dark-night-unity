@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: HangingRope
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: eedc9d6e885c472418bd78c6f0e14e36
+  key: environment.hanging-rope
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 600
+  Name: "\u53EF\u6500\u722C\u540A\u7EF3"
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: e9802bfae9be17944b228110f82760a9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 0}
+  UseMonolithicPooling: 0
+  BehaviourTypes:
+  - DarkNights.Runtime.Objects.HangingRopeBehaviour
+  SharedConfigs:
+  - rid: 5207794020422254743
+  references:
+    version: 2
+    RefIds:
+    - rid: 5207794020422254743
+      type: {class: HangingRopeConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        SegmentCount: 12
+        SegmentLength: 0.32
+        SegmentWidth: 0.06
+        SegmentMass: 0.1
+        GrabReach: 0.48
+        ClimbSpeed: 0.75
+        SwingAcceleration: 1.6
+        SwingSpeedThreshold: 3
+        TangentialDamping: 0.24
+        AngularDamping: 0.08
+        LineWidth: 0.024
+        CornerVertices: 2
+        CapVertices: 2
+        SamplesPerSegment: 4
+        MaximumCurveOffset: 0.02

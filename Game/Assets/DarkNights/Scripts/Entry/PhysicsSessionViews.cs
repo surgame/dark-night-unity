@@ -4,6 +4,7 @@ using System.Linq;
 using DarkNights.Core.Physics;
 using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Physics;
+using DarkNights.Runtime.Objects;
 using DarkNights.View;
 using UnityEngine;
 
@@ -26,7 +27,8 @@ namespace DarkNights.Entry
         private long connection;
         private readonly Dictionary<int, SpriteRenderer> props = new Dictionary<int, SpriteRenderer>();
         private readonly Dictionary<int, LineRenderer> ropes = new Dictionary<int, LineRenderer>();
-        private readonly Dictionary<int, LineRenderer> hanging = new Dictionary<int, LineRenderer>();
+        private readonly Dictionary<int, (HangingRopeView View, HangingRopeConfig Config)> hanging =
+            new Dictionary<int, (HangingRopeView, HangingRopeConfig)>();
 
         public void Initialize(SessionNetwork network, PhysicsProfile profile, PhysicsWorldDefinition rules,
             PinewatchStage stage, SessionEntityViews entities)
@@ -82,22 +84,54 @@ namespace DarkNights.Entry
             }
             foreach (var rope in rules.HangingRopes)
             {
-                if (!props.ContainsKey(rope.Id))
+                if (!hanging.TryGetValue(rope.Id, out var installed))
                 {
-                    var anchor = Instantiate(propTemplate, parent); anchor.name = "固定吊绳锚点 " + rope.Id;
-                    anchor.transform.localScale = new Vector3(.16f / anchor.sprite.bounds.size.x,
-                        .16f / anchor.sprite.bounds.size.y, 1);
-                    anchor.transform.position = new Vector3(rope.AnchorX / 100, rope.AnchorHeight / 100, -.01f);
-                    props.Add(rope.Id, anchor);
+                    var created = network.ObjectResources.CreateRopeView(rope, parent);
+                    try
+                    {
+                        var visual = created as HangingRopeView ??
+                            throw new InvalidOperationException("吊绳定义需要HangingRopeView主视图。");
+                        var behaviour = visual.Owner.GetBehaviour<HangingRopeBehaviour>() ??
+                            throw new InvalidOperationException("吊绳视图缺少配置能力。");
+                        behaviour.Bind(rope);
+                        var config = behaviour.Configuration;
+                        visual.Configure(new Vector3(rope.AnchorX, rope.AnchorHeight, 0) / 100,
+                            config.LineWidth, config.CornerVertices, config.CapVertices);
+                        visual.Owner.Activate();
+                        installed = (visual, config);
+                        hanging.Add(rope.Id, installed);
+                    }
+                    catch { network.ObjectResources.ReleaseRopeView(created); throw; }
                 }
-                if (!hanging.TryGetValue(rope.Id, out LineRenderer visual))
-                { visual = Instantiate(ropeTemplate, parent); hanging.Add(rope.Id, visual); }
-                visual.useWorldSpace = true;
-                visual.positionCount = rope.Count + 1;
-                visual.SetPosition(0, new Vector3(rope.AnchorX / 100, rope.AnchorHeight / 100, -.01f));
-                for (int i = 0; i < rope.Count; i++)
-                    visual.SetPosition(i + 1, RopePoint(snapshot, rope.FirstBodyId - i, 0));
+                DrawHangingRope(installed.View.Line, snapshot, rope, installed.Config);
             }
+        }
+
+        private void DrawHangingRope(LineRenderer visual, PhysicsWorldSnapshot snapshot,
+            HangingRopeDefinition rope, HangingRopeConfig config)
+        {
+            int samplesPerSegment = config.SamplesPerSegment;
+            float maximumOffset = config.MaximumCurveOffset;
+            visual.positionCount = rope.Count * samplesPerSegment + 1;
+            Vector3 current = new Vector3(rope.AnchorX / 100, rope.AnchorHeight / 100, -.01f);
+            Vector3 previous = current;
+            Vector3 next = RopePoint(snapshot, rope.FirstBodyId, 0);
+            for (int i = 0; i < rope.Count; i++)
+            {
+                Vector3 following = i + 1 < rope.Count ? RopePoint(snapshot, rope.FirstBodyId - i - 1, 0) : next;
+                for (int sample = 0; sample < samplesPerSegment; sample++)
+                {
+                    float t = sample / (float)samplesPerSegment;
+                    Vector3 linear = Vector3.Lerp(current, next, t);
+                    Vector3 curve = .5f * (2 * current + (-previous + next) * t +
+                        (2 * previous - 5 * current + 4 * next - following) * (t * t) +
+                        (-previous + 3 * current - 3 * next + following) * (t * t * t));
+                    visual.SetPosition(i * samplesPerSegment + sample,
+                        linear + Vector3.ClampMagnitude(curve - linear, maximumOffset));
+                }
+                previous = current; current = next; next = following;
+            }
+            visual.SetPosition(rope.Count * samplesPerSegment, current);
         }
 
         private Vector3 RopePoint(PhysicsWorldSnapshot snapshot, int id, float localHeight)
@@ -120,7 +154,7 @@ namespace DarkNights.Entry
         {
             foreach (var view in props.Values) if (view != null) Destroy(view.gameObject);
             foreach (var view in ropes.Values) if (view != null) Destroy(view.gameObject);
-            foreach (var view in hanging.Values) if (view != null) Destroy(view.gameObject);
+            foreach (var item in hanging.Values) network.ObjectResources.ReleaseRopeView(item.View);
             props.Clear(); ropes.Clear(); hanging.Clear(); epoch = -1;
         }
         private void OnDestroy() => Clear();

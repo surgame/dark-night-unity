@@ -20,10 +20,18 @@ namespace DarkNights.Core.Physics
         public float Reach { get; }
         public float ClimbSpeed { get; }
         public float SwingAcceleration { get; }
+        public float SwingSpeedThreshold { get; }
+        public float TangentialDamping { get; }
+        public string DefinitionGuid { get; }
+        public string DefinitionHash { get; }
+        public float SegmentWidth { get; }
+        public float AngularDamping { get; }
         public float Length => Count * SegmentLength;
 
         public HangingRopeDefinition(int id, int firstBodyId, int count, float x, float height,
-            float segmentLength, float mass, float reach, float climbSpeed, float swingAcceleration)
+            float segmentLength, float mass, float reach, float climbSpeed, float swingAcceleration,
+            float swingSpeedThreshold, float tangentialDamping, string definitionGuid,
+            string definitionHash, float segmentWidth, float angularDamping)
         {
             if (id < 1 || id > 8 || firstBodyId >= 0 || count < 2 || count > 12 ||
                 firstBodyId - count + 1 < -32) throw new ArgumentException("吊绳身份或绳节范围无效。");
@@ -34,9 +42,19 @@ namespace DarkNights.Core.Physics
             PhysicsNumbers.Require(reach, 8, 64);
             PhysicsNumbers.Require(climbSpeed, 1, 160);
             PhysicsNumbers.Require(swingAcceleration, 1, 1600);
+            PhysicsNumbers.Require(swingSpeedThreshold, 1, 1600);
+            PhysicsNumbers.Require(tangentialDamping, 0, 10);
+            PhysicsNumbers.Require(segmentWidth, 2, 32);
+            PhysicsNumbers.Require(angularDamping, 0, 10);
+            if (!Guid.TryParseExact(definitionGuid, "N", out var parsedGuid) || parsedGuid == Guid.Empty || definitionHash == null ||
+                definitionHash.Length != 64 || System.Linq.Enumerable.Any(definitionHash, c => !Uri.IsHexDigit(c)))
+                throw new ArgumentException("吊绳缺少有效的ObjectDefinition身份和配置摘要。");
             Id = id; FirstBodyId = firstBodyId; Count = count; AnchorX = x; AnchorHeight = height;
             SegmentLength = segmentLength; Mass = mass; Reach = reach;
             ClimbSpeed = climbSpeed; SwingAcceleration = swingAcceleration;
+            SwingSpeedThreshold = swingSpeedThreshold; TangentialDamping = tangentialDamping;
+            DefinitionGuid = definitionGuid; DefinitionHash = definitionHash;
+            SegmentWidth = segmentWidth; AngularDamping = angularDamping;
         }
 
         public bool Contains(int bodyId) => bodyId <= FirstBodyId && bodyId > FirstBodyId - Count;
@@ -45,7 +63,7 @@ namespace DarkNights.Core.Physics
         {
             for (int i = 0; i < Count; i++)
                 yield return new PhysicsPropDefinition(FirstBodyId - i, AnchorX,
-                    AnchorHeight - (i + 1) * SegmentLength, 6, SegmentLength, Mass);
+                    AnchorHeight - (i + 1) * SegmentLength, SegmentWidth, SegmentLength, Mass);
         }
     }
 }

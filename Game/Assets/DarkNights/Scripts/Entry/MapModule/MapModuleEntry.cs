@@ -80,7 +80,8 @@ namespace DarkNights.Entry.MapModule
             foreach (var prop in PhysicsProps) prop.gameObject.SetActive(false);
             foreach (var rope in HangingRopes) rope.gameObject.SetActive(false);
             var definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
-            var resources = await ObjectSessionResources.Prepare(new[] { definitions.GetRequired("worker"), definitions.GetRequired("ship") }, token);
+            var resources = await ObjectSessionResources.Prepare(
+                new[] { definitions.GetRequired("worker"), definitions.GetRequired("ship") }, token, Layout.Physics);
             try
             {
                 token.ThrowIfCancellationRequested();
