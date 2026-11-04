@@ -23,7 +23,7 @@ namespace DarkNights.Runtime.Objects
         private float? flightHeight;
         private float? requestedSpeed;
         private bool jumpRequested;
-        internal bool HandledByCabin { get; private set; }
+        public bool HandledByCabin { get; private set; }
 
         protected override void OnSpawn()
         {

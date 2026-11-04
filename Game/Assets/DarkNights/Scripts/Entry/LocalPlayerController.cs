@@ -13,11 +13,11 @@ using UnityEngine;
 namespace DarkNights.Entry
 {
     /// <summary>
-    /// 单个本地玩家的角色上下文、控制请求和输入发送装配；角色及背包以服务端冻结投影为准。
-    /// View 采样器负责逐帧短按和节流；输入在框架权威模拟前采样，镜头在舞台LateUpdate前跟随。
+    /// 每个本地玩家一份的控制入口，选择本人角色并衔接键鼠采样、请求发送、HUD和镜头。
+    /// 角色依据服务端确认的控制者信息绑定；换角色或连接时清理旧输入，随本机会话对象销毁。
     /// </summary>
     [DefaultExecutionOrder(-1200)]
-    public sealed class HeroPlayerController : MonoBehaviour
+    public sealed class LocalPlayerController : MonoBehaviour
     {
         private HeroInputSampler sampler;
         private SessionNetwork network;

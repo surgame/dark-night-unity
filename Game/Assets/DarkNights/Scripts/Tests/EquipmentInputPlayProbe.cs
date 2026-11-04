@@ -30,7 +30,7 @@ namespace DarkNights.Tests
             await Until(() => (network = UnityEngine.Object.FindAnyObjectByType<SessionNetwork>()) != null &&
                 network.GetComponent<UIDocument>()?.rootVisualElement.Q("shop") != null, "正式装备UI初始化");
             var ui = network.GetComponent<SessionUiController>();
-            var hero = network.GetComponent<HeroPlayerController>();
+            var hero = network.GetComponent<LocalPlayerController>();
             ui.ActivateButton("MainMenu", "NewGame");
             await Until(() => network.Client.Ready && hero.Current != null && ui.Page.Length == 0, "地面主角Ready");
             var ship = network.Client.Replica.Current.World.Buildings.Single(b =>
@@ -58,7 +58,7 @@ namespace DarkNights.Tests
             evt.target = button; button.SendEvent(evt);
         }
 
-        internal static async UniTask Verify(SessionNetwork network, HeroPlayerController hero, string output)
+        internal static async UniTask Verify(SessionNetwork network, LocalPlayerController hero, string output)
         {
             var ship = network.Client.Replica.Current.World.Buildings.Single(b =>
                 b.Id == network.Client.Replica.Current.World.Expedition.Ship.Id);
@@ -66,7 +66,7 @@ namespace DarkNights.Tests
             await Until(() => !network.Client.Replica.Current.World.Expedition.Crew.Single(c => c.Id == hero.Current.Id).Boarded,
                 "实际步行离开船舱");
             var stage = UnityEngine.Object.FindAnyObjectByType<PinewatchStage>();
-            var pointer = typeof(HeroPlayerController).GetField("mining", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(hero);
+            var pointer = typeof(LocalPlayerController).GetField("mining", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(hero);
             HeroMiningTarget Target() => (HeroMiningTarget)pointer.GetType().GetProperty("Target").GetValue(pointer);
             await Aim(stage.SceneCamera, hero, 0, -16);
             await Until(() => Target().Present, "地面阶段采集目标与光标恢复");
@@ -109,7 +109,7 @@ namespace DarkNights.Tests
             Assert.That(network.Client.Replica.Current.World.Expedition.Clock, Is.Zero);
         }
 
-        private static async UniTask Aim(Camera camera, HeroPlayerController hero, float dx, float dh)
+        private static async UniTask Aim(Camera camera, LocalPlayerController hero, float dx, float dh)
         {
             Vector3 point = camera.WorldToScreenPoint(new Vector3((hero.Current.X + dx) / 100f,
                 (hero.Current.Height + dh) / 100f, 0));
@@ -135,7 +135,7 @@ namespace DarkNights.Tests
             await UniTask.Delay(150);
         }
 
-        private static async UniTask Walk(HeroPlayerController hero, float x)
+        private static async UniTask Walk(LocalPlayerController hero, float x)
         {
             float deadline = Time.realtimeSinceStartup + 12;
             while (Math.Abs(hero.Current.X - x) > 4)

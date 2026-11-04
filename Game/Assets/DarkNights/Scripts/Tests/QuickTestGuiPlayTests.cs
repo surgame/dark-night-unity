@@ -55,7 +55,7 @@ namespace DarkNights.Tests
             await Until(() => UnityEngine.Object.FindAnyObjectByType<QuickTestHub>()?.Available == false, 120);
             await Until(() => network.Client.Ready, 120);
             Assert.That(network.Client.Replica.Current.World.Expedition.Journey.Phase, Is.EqualTo(JourneyPhase.Landed));
-            var hero = network.GetComponent<HeroPlayerController>();
+            var hero = network.GetComponent<LocalPlayerController>();
             Assert.That(hero.Current, Is.Not.Null);
             Assert.That(network.ObjectResources.Equipment.Mining(hero.Current.Slot0Definition), Is.Not.Null);
             Assert.That(network.SaveDirectory, Does.Contain(Path.Combine("QuickTests", QuickTestPreset.LandedPickaxeId)));

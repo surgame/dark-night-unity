@@ -160,7 +160,7 @@ namespace DarkNights.Entry
                         else if (operation == "capture-frame") ScreenCapture.CaptureScreenshot(Path.Combine(
                             Path.GetDirectoryName(reportPath), Path.GetFileName((string)command["file"])));
                         else if (operation == "hero-mode")
-                            await network.GetComponent<HeroPlayerController>().SetHeroMode((int?)command["value"] != 0);
+                            await network.GetComponent<LocalPlayerController>().SetHeroMode((int?)command["value"] != 0);
                         else if (operation == "input-orders")
                         {
                             var input = network.GetComponent<SessionUiController>().Input;

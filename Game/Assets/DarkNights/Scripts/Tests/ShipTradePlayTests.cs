@@ -122,7 +122,7 @@ namespace DarkNights.Tests
             Game.Focus();
             Directory.CreateDirectory(Output);
             var ui = network.GetComponent<SessionUiController>();
-            var hero = network.GetComponent<HeroPlayerController>();
+            var hero = network.GetComponent<LocalPlayerController>();
             var trade = network.GetComponent<ShipTradeHud>();
             var document = network.GetComponent<UIDocument>();
             Assert.That(document.panelSettings.themeStyleSheet, Is.Not.Null);
@@ -249,7 +249,7 @@ namespace DarkNights.Tests
             await UniTask.Delay(150);
         }
 
-        private static async UniTask Walk(HeroPlayerController hero, float x)
+        private static async UniTask Walk(LocalPlayerController hero, float x)
         {
             float deadline = Time.realtimeSinceStartup + 10;
             while (Math.Abs(hero.Current.X - x) > 4)

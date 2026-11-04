@@ -5,14 +5,14 @@ using DarkNights.Runtime.Objects;
 namespace DarkNights.Runtime.Session
 {
     /// <summary>
-    /// 可信会话连接到角色能力的授权适配，不拥有角色、背包或第二份输入状态。
-    /// 控制租约防止释放再接管后的迟到输入；500 ms 没有新输入归零，暂停仍执行超时检查。
+    /// 会话级玩家与角色管理，依据可信连接检查控制权、请求参数和输入顺序，再调用角色控制能力。
+    /// 负责默认角色分配、重连和断线协调；500ms输入超时与暂停触发角色清理，具体输入由角色应用。
     /// </summary>
-    public sealed class SessionHeroControl
+    public sealed class SessionPlayerControl
     {
         public const int InputTimeoutTicks = 30;
         private readonly ObjectSession world;
-        internal SessionHeroControl(ObjectSession world) { this.world = world; }
+        internal SessionPlayerControl(ObjectSession world) { this.world = world; }
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
             operation == SessionOperation.UseHeroItem || operation == SessionOperation.SetHeroLight || operation == SessionOperation.Expedition ||
@@ -67,7 +67,7 @@ namespace DarkNights.Runtime.Session
                 actor = world.Mutations.Run(() =>
                 {
                     ActorBehaviour created = world.Commands.SpawnDefaultResident();
-                    created?.Object.GetBehaviour<HeroControlBehaviour>().Claim(connection.PlayerSlot, connection.Generation);
+                    created?.Object.GetBehaviour<PlayerControlBehaviour>().Claim(connection.PlayerSlot, connection.Generation);
                     created?.Object.GetBehaviour<HeroLightBehaviour>()?.GiveStarter();
                     return created;
                 });
@@ -127,7 +127,7 @@ namespace DarkNights.Runtime.Session
             ActorBehaviour actor = world.Index.Find<ActorBehaviour>(request.ActorIds[0]);
             if (actor == null || actor.Enemy || actor.Hp <= 0 || actor.IsTraining ||
                 world.Camp.Read().Mode != SessionMode.Playing || world.Catalog.Balance.HeroControl == null) return 0;
-            var control = actor.Object.GetBehaviour<HeroControlBehaviour>();
+            var control = actor.Object.GetBehaviour<PlayerControlBehaviour>();
             if (control == null || !Owns(actor, connection, request.ControlLease)) return 0;
             int affected = world.Mutations.Run(() =>
             {
@@ -162,9 +162,11 @@ namespace DarkNights.Runtime.Session
             if (!ValidInput(input, tick)) return false;
             var actor = world.Index.Find<ActorBehaviour>(input.ActorId);
             if (!Owns(actor, connection, input.ControlLease) || input.Sequence <= actor.Read().LastInputSequence) return false;
+            var control = actor.Object.GetBehaviour<PlayerControlBehaviour>();
+            if (control == null) return false;
             return world.Mutations.Run(() =>
             {
-                ApplyInput(actor.Edit(), actor.Id, input, tick);
+                control.ApplyInput(input, tick);
                 return true;
             });
         }
@@ -195,44 +197,6 @@ namespace DarkNights.Runtime.Session
                 Math.Abs(input.AimAngle) <= 180 && input.SelectionRevision >= 0;
         }
 
-        private void ApplyInput(ActorState state, int actorId, HeroInputRequest input, long tick)
-        {
-            state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
-            state.LightAimAngle = input.LightAimAngle;
-            state.Horizontal = input.Horizontal; state.Climb = input.Climb; state.JumpHeld = input.JumpHeld; state.SprintHeld = input.SprintHeld;
-            if (input.CancelUse || input.SelectionRevision != state.SelectionRevision)
-            { state.AimAngle = input.AimAngle; HeroEquipment.Cancel(state); }
-            else
-            {
-                bool preservePressedTarget = state.UsePressed && world.Resources.Equipment.Mining(HeroInventoryBehaviour.Slot(state, state.SelectedItem)) != null;
-                state.UseHeld = input.UseHeld;
-                state.UsePressed |= input.UsePressed;
-                state.UseReleased |= input.UseReleased;
-                if (!preservePressedTarget)
-                {
-                    state.AimAngle = input.AimAngle;
-                    state.MiningWorldId = input.Mining.WorldId;
-                    state.MiningMapEpoch = input.Mining.MapEpoch;
-                    state.MiningU = input.Mining.U; state.MiningV = input.Mining.V;
-                    state.MiningTileId = input.Mining.TileId; state.MiningFlags = input.Mining.Flags;
-                    state.MiningTargetKind = input.Mining.Kind; state.MiningEntityId = input.Mining.EntityId;
-                    state.MiningContentVersion = input.Mining.ContentVersion;
-                    state.MiningMineralContentVersion = input.Mining.MineralContentVersion;
-                    if (input.Mining.Present && world.Geology.ReservesSource(new AnyRules.Next.CellCoord(input.Mining.U, input.Mining.V)))
-                    {
-                        state.MiningWorldId = null;
-                        state.MiningTargetKind = DarkNights.Core.ViewData.HeroMiningTargetKind.None;
-                    }
-                }
-            }
-            state.JumpPending |= input.JumpPressed;
-#if UNITY_EDITOR
-            Terrain.TerrainJumpTrace.Received(world.Terrain?.Map, state, input, tick);
-#endif
-            bool pilot = world.IsExpedition && world.Expedition.Ship?.Read().PilotId == actorId;
-            state.DropPending = pilot ? input.DropPressed : state.DropPending || input.DropPressed;
-        }
-
         internal void Expire(long tick)
         {
             foreach (var actor in world.Index.Actors)
@@ -240,7 +204,11 @@ namespace DarkNights.Runtime.Session
                 var current = actor.Read();
                 if (!current.ManualControl || (!world.Paused && tick - current.LastInputTick <= InputTimeoutTicks) ||
                     (current.Horizontal == 0 && current.Climb == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending && !current.PickaxeSwingActive && string.IsNullOrEmpty(current.MiningWorldId))) continue;
-                world.Mutations.Run(() => { ClearInput(actor.Edit()); return true; });
+                world.Mutations.Run(() =>
+                {
+                    actor.Object.GetBehaviour<PlayerControlBehaviour>().ClearInput();
+                    return true;
+                });
             }
         }
 
@@ -248,7 +216,7 @@ namespace DarkNights.Runtime.Session
         {
             foreach (var actor in world.Index.Actors)
                 if (actor.Read().ControllerSlot == slot)
-                    world.Mutations.Run(() => { actor.Object.GetBehaviour<HeroControlBehaviour>().Release(); return true; });
+                    world.Mutations.Run(() => { actor.Object.GetBehaviour<PlayerControlBehaviour>().Release(); return true; });
         }
 
         internal void InvalidateInputs()
@@ -257,23 +225,16 @@ namespace DarkNights.Runtime.Session
                 if (actor.Read().ControllerSlot >= 0)
                     world.Mutations.Run(() =>
                     {
-                        var state = actor.Edit();
-                        ClearInput(state); state.ControlLease = checked(state.ControlLease + 1);
+                        actor.Object.GetBehaviour<PlayerControlBehaviour>().InvalidateInput();
                         return true;
                     });
         }
 
-        private static void ClearInput(ActorState state)
-        {
-            HeroEquipment.Cancel(state);
-            state.Horizontal = state.Climb = 0; state.SprintHeld = false; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
-            HeroJumpMotion.Clear(state, clearVelocity: false);
-        }
         private int Claim(SessionConnection connection, ActorBehaviour actor)
         {
             int id = world.Mutations.Run(() =>
             {
-                actor.Object.GetBehaviour<HeroControlBehaviour>().Claim(connection.PlayerSlot, connection.Generation);
+                actor.Object.GetBehaviour<PlayerControlBehaviour>().Claim(connection.PlayerSlot, connection.Generation);
                 return actor.Id;
             });
             connection.DefaultHeroId = id;
@@ -281,7 +242,7 @@ namespace DarkNights.Runtime.Session
             return id;
         }
         private bool CanClaim(ActorBehaviour actor) => actor != null && !actor.Enemy && (actor.Hp > 0 || world.IsExpedition && actor.Read().OwnerSlot >= 0) && !actor.IsTraining &&
-            actor.Read().ControllerSlot < 0 && actor.Object.GetBehaviour<HeroControlBehaviour>() != null &&
+            actor.Read().ControllerSlot < 0 && actor.Object.GetBehaviour<PlayerControlBehaviour>() != null &&
             world.Camp.Read().Mode == SessionMode.Playing && world.Catalog.Balance.HeroControl != null;
         private static bool Owns(ActorBehaviour actor, SessionConnection connection, int lease) =>
             actor != null && connection != null && actor.Hp > 0 && !actor.Enemy && actor.Read().ManualControl &&

@@ -72,7 +72,7 @@ namespace DarkNights.Tests
             Assert.That(hub.PanelRegistered, Is.False);
             Assert.That(YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.GameplayActions), Is.False);
             Assert.That(network.SaveDirectory, Does.Contain(Path.Combine("QuickTests", QuickTestPreset.LandedPickaxeId)));
-            var hero = hub.GetComponent<HeroPlayerController>();
+            var hero = hub.GetComponent<LocalPlayerController>();
             await Until(() => hero.Current != null, 15);
             var expedition = network.Client.Replica.Current.World.Expedition;
             Assert.That(expedition.Journey.Phase, Is.EqualTo(JourneyPhase.Landed));

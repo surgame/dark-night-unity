@@ -30,10 +30,10 @@ namespace DarkNights.Runtime.Objects
                     {
                         if (s.ShipPhase != 0 && (!world.Flow.Enabled || world.Flow.Phase != JourneyPhase.Descent)) return 0;
                         s.ShipVelocityX = s.ShipVelocityY = 0;
-                        s.PilotId = 0; a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a); return 1;
+                        s.PilotId = 0; a.ControlLease = checked(a.ControlLease + 1); PlayerControlBehaviour.ResetInput(a); return 1;
                     }
                     if (s.PilotId != 0 || !a.Boarded || !ShipGeometry.AtPilot(a.X - s.X, a.Height - s.Height)) return 0;
-                    s.PilotId = hero.Id; a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a);
+                    s.PilotId = hero.Id; a.ControlLease = checked(a.ControlLease + 1); PlayerControlBehaviour.ResetInput(a);
                     world.Notify(world.Flow.Enabled ? "已进入驾驶位：A/D 平移，空格上升，S 加速下降；松手缓降，安全接地后原地着陆。" :
                         "已进入驾驶位：A/D 平移，空格上升，S 下降；松开悬停，低速接近降落区后着陆。"); return 1;
                 case "takeoff":
@@ -91,7 +91,7 @@ namespace DarkNights.Runtime.Objects
         {
             var s = Ship.Edit(); s.PilotId = 0;
             s.ShipDoorClock = world.Catalog.Balance.Expedition.Ship.DoorSeconds;
-            var a = pilot.Edit(); a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a);
+            var a = pilot.Edit(); a.ControlLease = checked(a.ControlLease + 1); PlayerControlBehaviour.ResetInput(a);
             world.Flow.Landed();
             world.Notify("已安全着陆并离开驾驶位，正在展开坡道。");
         }
@@ -118,7 +118,7 @@ namespace DarkNights.Runtime.Objects
             var s = Ship.Edit(); s.X = s.DockX; s.Height = s.DockHeight;
             s.PilotId = s.ShipPhase = 0; s.ShipVelocityX = s.ShipVelocityY = 0; s.ShipDoorClock = 0;
             foreach (var a in world.Index.Actors.Where(a => !a.Enemy))
-            { Cabin.Place(a); HeroControlBehaviour.ResetInput(a.Edit()); }
+            { Cabin.Place(a); PlayerControlBehaviour.ResetInput(a.Edit()); }
         }
 
         internal void Arrive(float dockX, float dockHeight, float arrivalHeight)
@@ -129,7 +129,7 @@ namespace DarkNights.Runtime.Objects
             s.X = x; s.Height = h; s.DockX = dockX; s.DockHeight = dockHeight;
             s.ShipPhase = 3; s.ShipDoorClock = 0; s.ShipVelocityX = s.ShipVelocityY = 0;
             foreach (var actor in world.Index.Actors.Where(a => a.Read().Boarded))
-                HeroControlBehaviour.ResetInput(actor.Edit());
+                PlayerControlBehaviour.ResetInput(actor.Edit());
         }
     }
 }

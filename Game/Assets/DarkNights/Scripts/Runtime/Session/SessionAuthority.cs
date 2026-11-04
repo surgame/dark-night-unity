@@ -27,7 +27,7 @@ namespace DarkNights.Runtime.Session
         private readonly Queue<SessionCommandEntry> pending = new Queue<SessionCommandEntry>();
         private readonly SessionProjector projector = new SessionProjector();
         private readonly ObjectSession world;
-        private readonly SessionHeroControl heroes;
+        private readonly SessionPlayerControl heroes;
         private readonly SessionJourneyTransfer journey;
         private SessionEventJournal events;
         private SessionReceipt loadTicket;
@@ -46,7 +46,7 @@ namespace DarkNights.Runtime.Session
         public SessionAuthority(ObjectSession simulation)
         {
             world = simulation ?? throw new ArgumentNullException(nameof(simulation));
-            heroes = new SessionHeroControl(world);
+            heroes = new SessionPlayerControl(world);
             journey = new SessionJourneyTransfer(world);
             events = new SessionEventJournal(world.Feedback, () => ServerTick);
             world.Activate();
@@ -176,7 +176,7 @@ namespace DarkNights.Runtime.Session
                             if (current?.Ready == true && current.DefaultHeroRequested) heroes.AssignDefault(current);
                 }
             }
-            else if (SessionHeroControl.IsOperation(request.Operation))
+            else if (SessionPlayerControl.IsOperation(request.Operation))
             {
                 if (request.Operation == SessionOperation.ClaimHero) connection.DefaultHeroRequested = true;
                 else if (request.Operation == SessionOperation.ReleaseHero) connection.DefaultHeroRequested = false;

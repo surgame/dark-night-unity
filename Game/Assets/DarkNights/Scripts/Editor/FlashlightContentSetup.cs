@@ -35,7 +35,7 @@ namespace DarkNights.Editor
                 Create(database);
             }
             foreach (var definition in database.Definitions.Where(value => value != null &&
-                value.BehaviourTypes.Contains(typeof(HeroControlBehaviour).FullName)))
+                value.BehaviourTypes.Contains(typeof(PlayerControlBehaviour).FullName)))
             {
                 if (!definition.BehaviourTypes.Contains(typeof(HeroLightBehaviour).FullName))
                     definition.BehaviourTypes.Add(typeof(HeroLightBehaviour).FullName);

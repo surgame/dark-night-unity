@@ -121,7 +121,7 @@ namespace DarkNights.Tests
         {
             using var f = await HeroTestSession.Create();
             f.Command(SessionOperation.ClaimHero); f.Input(horizontal: 1);
-            f.Step(SessionHeroControl.InputTimeoutTicks + 2);
+            f.Step(SessionPlayerControl.InputTimeoutTicks + 2);
             float stopped = f.Actor.X; f.Step(20); Assert.That(f.Actor.X, Is.EqualTo(stopped));
             var old = f.Packet(horizontal: 1, jumpPressed: true);
             f.Command(SessionOperation.SetPaused, value: 1);

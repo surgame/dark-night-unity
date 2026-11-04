@@ -6,8 +6,8 @@ using UnityEngine;
 namespace DarkNights.View
 {
     /// <summary>
-    /// 角色拥有自己的冻结副本、姿态选择、攻击动画时间映射和明确实体 ID 的现有操作入口。
-    /// 位置与动作时间来自公共展示时间线，生命和任务只读；转职或解绑即丢弃旧职业配置与副本。
+    /// 消费角色冻结副本，维护显示位置、姿态选择、动画时间映射和手持外观。
+    /// 身份或定义重新绑定、解绑及归池时丢弃旧显示状态，业务操作由现有玩家输入入口提交。
     /// </summary>
     public sealed class ActorPresentationBehaviour : EntityPresentationBehaviour
     {
@@ -24,10 +24,10 @@ namespace DarkNights.View
         public double MaxHp => rules?.Hp ?? 0;
         public override bool IsAvailable => IsBound && Current != null;
 
-        public void Bind(int id, int epoch, string kind, UnitDefinition definition, Action<InputIntent> submit)
+        public void Bind(int id, int epoch, string kind, UnitDefinition definition)
         {
             if (definition == null) throw new ArgumentNullException(nameof(definition));
-            BindEntity(id, epoch, kind, submit);
+            BindEntity(id, epoch, kind, null);
             rules = definition;
         }
 
@@ -81,12 +81,6 @@ namespace DarkNights.View
             ActorVisual.PresentHandheld(actor, Math.Max(0, actionTime - actor.ActionTime));
             return true;
         }
-
-        public bool IssueOrder(int target, float x) => IsAvailable && !Current.Enemy &&
-            Submit(new InputIntent("Orders", new[] { Id }, target, x));
-
-        public bool Train(string kind) => IsAvailable && !Current.Enemy &&
-            Submit(new InputIntent("Train" + kind, new[] { Id }));
 
         protected override bool SupportsView(EntityView value) => value is ActorView;
 

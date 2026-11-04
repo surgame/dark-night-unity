@@ -86,7 +86,7 @@ namespace DarkNights.Runtime.Session
                         var state = actor.Edit();
                         if (state.ExpeditionRole == 2 && state.TaskTarget < 0) { state.TaskTarget = 0; state.TaskPhase = 0; }
                         state.ControlLease = checked(state.ControlLease + 1);
-                        HeroControlBehaviour.ResetInput(state);
+                        PlayerControlBehaviour.ResetInput(state);
                     }
                     return true;
                 });

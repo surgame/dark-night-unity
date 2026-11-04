@@ -29,7 +29,7 @@ namespace DarkNights.Tests
         private double next;
         private Camera camera;
         private readonly SessionNetwork network;
-        private readonly HeroPlayerController controller;
+        private readonly LocalPlayerController controller;
         private readonly bool originalReplay;
         private string motion;
         private bool sending;
@@ -56,9 +56,9 @@ namespace DarkNights.Tests
                 Core.Logic.Lighting.LightWallDistance.Build, original.Settings, Core.Logic.Lighting.LightBoundaryBuilder.Build);
             backend = new WallDiffuseForegroundBackend(original, reference);
             camera = UnityEngine.Object.FindFirstObjectByType<View.Terrain.TerrainPreview>().ViewCamera;
-            controller = network.GetComponent<HeroPlayerController>();
-            originalReplay = (bool)typeof(HeroPlayerController).GetField("replayOnly", Private).GetValue(controller);
-            typeof(HeroPlayerController).GetField("replayOnly", Private).SetValue(controller, true);
+            controller = network.GetComponent<LocalPlayerController>();
+            originalReplay = (bool)typeof(LocalPlayerController).GetField("replayOnly", Private).GetValue(controller);
+            typeof(LocalPlayerController).GetField("replayOnly", Private).SetValue(controller, true);
             frames = network.gameObject.AddComponent<PlayerPerformanceCapture>(); frames.Initialize(network);
             Directory.CreateDirectory(output);
             File.WriteAllText(Path.Combine(output, "input.json"), Newtonsoft.Json.JsonConvert.SerializeObject(new
@@ -155,7 +155,7 @@ namespace DarkNights.Tests
         {
             EditorApplication.update -= Tick; AssemblyReloadEvents.beforeAssemblyReload -= Reloading;
             backend.Pause(); typeof(EnvironmentLighting).GetField("backend", Private).SetValue(environment, original);
-            typeof(HeroPlayerController).GetField("replayOnly", Private).SetValue(controller, originalReplay);
+            typeof(LocalPlayerController).GetField("replayOnly", Private).SetValue(controller, originalReplay);
             backend.Dispose(); reference.RetireAsync(); UnityEngine.Object.Destroy(frames);
             File.WriteAllText(Path.Combine(output, "result.json"), Newtonsoft.Json.JsonConvert.SerializeObject(new
             { complete = error == null, valid = error == null, error = error?.ToString(), reports,

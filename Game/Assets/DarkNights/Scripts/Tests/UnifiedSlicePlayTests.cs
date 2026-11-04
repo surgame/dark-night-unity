@@ -91,14 +91,14 @@ namespace DarkNights.Tests
             {
                 network = UnityEngine.Object.FindAnyObjectByType<SessionNetwork>();
                 return network != null && network.Client != null && network.ObjectResources != null &&
-                    network.GetComponent<HeroPlayerController>() != null;
+                    network.GetComponent<LocalPlayerController>() != null;
             }, "Unified startup");
             string directory = Path.GetFullPath(Path.Combine(Application.dataPath,
                 "../../artifacts/weak-network-completion-20261005/editor-saves", Guid.NewGuid().ToString("N")));
             object storage = typeof(SessionNetwork).GetField("storage", System.Reflection.BindingFlags.Instance |
                 System.Reflection.BindingFlags.NonPublic).GetValue(network);
             storage.GetType().GetMethod("Initialize").Invoke(storage, new object[] { new[] { "--dn-save-dir", directory } });
-            await network.GetComponent<HeroPlayerController>().SetHeroMode(false);
+            await network.GetComponent<LocalPlayerController>().SetHeroMode(false);
             await network.Connect(true, "127.0.0.1", 27981);
             await Until(() => network.Client.Ready, "Host Ready");
             await Until(() => network.Client.Replica.Current.World.Actors.All(actor => actor.ControllerSlot != 0),

@@ -27,7 +27,7 @@ namespace DarkNights.Entry
         private SessionNetwork network;
         private CampInput input;
         private GameInputActions actions;
-        private HeroPlayerController hero;
+        private LocalPlayerController hero;
         private ShipTradeHud trade;
         private SessionEntityViews entities;
         private PinewatchStage stage;
@@ -98,7 +98,7 @@ namespace DarkNights.Entry
             hud = Behaviour<CampHudBehaviour>("Chrome");
             hud.Configure(catalog, expedition);
             if (expedition) hud.MoveSessionControls(View("PauseMenu"));
-            hero = gameObject.AddComponent<HeroPlayerController>();
+            hero = gameObject.AddComponent<LocalPlayerController>();
             hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities, catalog, physics);
             if (expedition)
             {

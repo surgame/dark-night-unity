@@ -103,7 +103,7 @@ MapModuleEntry经既有Bootstrap、UniTask资源链、SessionNetwork／FishNet�
 
 角色坐标唯一归ActorState.X／Height（逻辑像素），EntityPresentationBehaviour将其按100逻辑像素／Unity单位映射为ActorView根的世界x／y。外观子节点仅保留美术局部偏移，不另存业务坐标；地面Height=0时世界y=0正常。运行时手动角色命名为`Hero #<EntityId> (<RuleKey>)`，挂在Stage的Actors分组；UGUIRoot下的`Hero HUD (UI)`是原`ui.hero`面板，不是角色。面板定义键、Prefab和框架装配身份保持。
 
-Host本地主角沿既有身份／控制租约校验取得最新冻结副本，SessionClock每个实际模拟步前只读捕获本地连接所属主角；SessionServer只保留最后一步的旧副本及epoch／tick，按剩余步长采样ActorPresentationSample。白模入口使用同一采样合同；多个追帧步取最后相邻步，无模拟步的渲染帧继续按余量显示，不做运动预测或写回，显示最多滞后一个60Hz模拟步。暂停、加载、epoch／角色／租约变化及传送丢弃旧采样，动作重置不插值旧动作时间，腾空／落地姿态仍读取当前真实支撑。远端角色继续原公共PresentationTimeline。HeroPlayerController先在LateUpdate提交本帧显示坐标，PinewatchStage再统一更新镜头及背景；旧空闲工人黄点仅在营地操作视角的非手动worker显示。
+Host本地主角沿既有身份／控制租约校验取得最新冻结副本，SessionClock每个实际模拟步前只读捕获本地连接所属主角；SessionServer只保留最后一步的旧副本及epoch／tick，按剩余步长采样ActorPresentationSample。白模入口使用同一采样合同；多个追帧步取最后相邻步，无模拟步的渲染帧继续按余量显示，不做运动预测或写回，显示最多滞后一个60Hz模拟步。暂停、加载、epoch／角色／租约变化及传送丢弃旧采样，动作重置不插值旧动作时间，腾空／落地姿态仍读取当前真实支撑。远端角色继续原公共PresentationTimeline。LocalPlayerController先在LateUpdate提交本帧显示坐标，PinewatchStage再统一更新镜头及背景；旧空闲工人黄点仅在营地操作视角的非手动worker显示。
 
 已选Hero沿ActorPresentationBehaviour→ActorView→SpineActorAnimation→官方SkeletonAnimation／SkeletonRenderer消费冻结副本；主角绑定清空旧PoseClip列表，旧帧／Clip／作者数据保留，其他既有单位继续原播放器。动作选择唯一归`Res/Objects/Hero/AnimationSelection.json`，来源聊天《整理主角 Spine 素材并制作预览》；作者源为`美术素材/角色/主角/主角-腾空腿部.spine`。地面用已选run5完整2.4秒，按插值后的实际位移／原基础步速映射，不把整段压入旧片段步距；骨骼主角离开move时保留行走相位。中立身体／速度前倾未制作，不自动替换。
 
@@ -115,9 +115,13 @@ Spine播放器采用ManualUpdate：展示层传入绝对动作时间及本帧有
 
 未来物理边界：ActorState仍独占根位置／运动，Spine只持有可丢弃的外观状态；局部IK／次级运动使用官方Renderer.UpdateLocal／UpdateWorld钩子，先动画再局部骨骼接管再约束／网格，不新增通用动画引擎。参与玩法的ragdoll须由现有Host会话后端在同一手动PhysicsScene2D创建身体代理、明确动画／物理控制权、站起空间和恢复状态，并扩展冻结同步／存档闭包；客户端不能各自独立结算。仅作装饰的骨骼摆动不写业务状态。当前没有ragdoll组件、动态骨骼碰撞、拖拽玩法或新的协议字段，不因预留钩子宣称这些功能完成。
 
-HeroControl／Movement／Inventory及采集／手电能力共用ActorState。ActorBehaviour每步先选择玩家或自动控制决策，再调用一次MovementBehaviour.Tick，最后执行玩家装备后处理。HeroControlBehaviour不积分坐标；自动控制的MoveTo及路径导航只提交本步目标／起跳意图，以实际位置判断到达，不绕过碰撞吸附目标。GameInputActions是正式本地玩家唯一InputAction入口，通过YYGC Interaction Sessions许可提供语义值。HeroInputSampler保存边沿、30 Hz限速和10 Hz保活；Entry发送冻结意图，服务端验证租约和输入超时。跳跃按下绕过发送等待，持续值仍节流。
+PlayerControl／Movement／Inventory及采集／手电能力共用ActorState。ActorBehaviour按PlayerControl装配及ManualControl状态选择控制路径，调用一次MovementBehaviour.Tick；运动结束后依据IMovementCapability.HandledByCabin决定是否直接推进现有装备逻辑。PlayerControlBehaviour集中应用已经校验的玩家操作，管理接管／释放、控制编号及输入清理，移动朝向由MovementBehaviour设置。自动控制的MoveTo及路径导航只提交本步目标／起跳意图，以实际位置判断到达，不绕过碰撞吸附目标。
 
-正式和MapModule共用`Res/Input/Gameplay.inputactions`的Player／Camp／UI三图及既有动作／绑定GUID与改键覆盖。Player/Move为A／D的1DAxis、Jump为空格、Crouch为S下穿、Sprint为左Shift、Attack为鼠标左键当前工具、Interact为E、Item1～4为数字1～4、ToggleLight为F；UI/Point提供鼠标绝对瞄准，UI/Inventory为B。ToggleMode虽保留Tab绑定，但正式HeroPlayerController的营地控制入口关闭，不能将该绑定当作当前已开放模式切换。资产中的Look／Next／Previous及部分设备绑定是保留项，当前GameInputActions并未以它们实现主角瞄准／换槽或完整手柄方案，不应据此宣称已支持相应操作；模板`InputSystem_Actions`不是研究入口输入来源。研究模式复用动作不等于装备／交互目标已全部装配。
+LocalPlayerController挂在本机会话对象Dark Nights Session上，每个本地玩家一份，依据ControllerSlot选择本人角色，衔接输入采样、请求发送、HUD及镜头。HeroInputSampler继续作为普通辅助类保存短按及待发送操作，持续值30Hz限速、10Hz保活，跳跃按下立即发送。GameInputActions通过原YYGC Interaction Sessions提供本机输入。SessionPlayerControl负责可信连接、控制归属、参数／序号校验及默认角色、重连和断线协调，校验通过后调用角色的PlayerControlBehaviour.ApplyInput；超时与暂停调用ClearInput，策略失效调用InvalidateInput，具体状态修改统一归角色控制能力。超时清理保留控制权、输入序号及已生效惯性，重新接管的ResetInput另清连接输入序号；角色状态唯一归ActorState。
+
+ActorPresentationBehaviour只消费冻结副本并驱动位置、姿态、动画及手持外观；Bind仅接收身份与单位定义，派工IssueOrder、训练Train及角色表现输入回调已退役。正式会话、白模与塌方Lab共用该只读绑定。仍被其他单位定义及原生动画资产使用的姿态采样继续由同一表现能力处理。
+
+正式和MapModule共用`Res/Input/Gameplay.inputactions`的Player／Camp／UI三图及既有动作／绑定GUID与改键覆盖。Player/Move为A／D的1DAxis、Jump为空格、Crouch为S下穿、Sprint为左Shift、Attack为鼠标左键当前工具、Interact为E、Item1～4为数字1～4、ToggleLight为F；UI/Point提供鼠标绝对瞄准，UI/Inventory为B。ToggleMode虽保留Tab绑定，但正式LocalPlayerController的营地控制入口关闭，不能将该绑定当作当前已开放模式切换。资产中的Look／Next／Previous及部分设备绑定是保留项，当前GameInputActions并未以它们实现主角瞄准／换槽或完整手柄方案，不应据此宣称已支持相应操作；模板`InputSystem_Actions`不是研究入口输入来源。研究模式复用动作不等于装备／交互目标已全部装配。
 
 MovementBehaviour统一执行玩家与自动单位的水平运动、跳跃、下落及碰撞。MovementHorizontalMotion在同一ActorState内维护HorizontalSpeed与TakeoffHorizontalSpeed；地面即时启停，离地完整继承速度。空中松键保留惯性，反打先刹车再有限反向，Face取最后一次非零方向输入。TerrainHeroMotion按真实脚底支撑决定地面／空中，沿现有身体扫掠裁切位移；PlatformMovement及船舱是同一移动能力调用的环境计算函数，没有独立配置、状态或Behaviour调度。坡道出口已执行横移时只接续纵向运动，不重复积分。历史飞行路径也由该入口执行，不据此恢复暂停玩法。
 
@@ -167,7 +171,7 @@ M17均衡配置采用12×0.32世界单位、每节0.1kg、攀爬0.75世界单位
 
 PhysicsWorldSnapshot冻结关联角色、箱子、绳索、速度／角速度、起跳门闩、输入确认和地形身份；不包含原生接触缓存。网络协议37在既有WorldWire完整投影追加物理闭包，核对角色姿态、租约和端点覆盖；保存v29附加physics字段，清输入序号／租约，恢复在原世界交换事务内分别写回所属State，并整体撤销原生缓存。动态支撑允许接地角色有竖直速度，不再用“接地必为零速”误拒合法箱上站立；原格合同保持。Host所有物理表现共用相邻60Hz采样，客户端共用原PresentationTimeline，不叠原生插值／NetworkTransform。
 
-E连接／解除沿原SessionRequest→SessionHeroControl路径，执行点复核本人租约、策略、暂停、存活、端点和距离。物理研究场景的新建角色配正式矿镐以检查箱上挖地；不向原模块研究或正式新局追加装备，接管／重连／加载不补发。诊断经原工作台显式启动，记录起始v29世界、冻结规则／移动指纹、最多600步输入与接触、最多16次地形变化；达到上限停止而不丢起始帧。导出复用原地图编码，无自动文件写入／日志订阅；这些资料不宣称原生求解器跨平台确定性。
+E连接／解除沿原SessionRequest→SessionPlayerControl路径，执行点复核本人租约、策略、暂停、存活、端点和距离。物理研究场景的新建角色配正式矿镐以检查箱上挖地；不向原模块研究或正式新局追加装备，接管／重连／加载不补发。诊断经原工作台显式启动，记录起始v29世界、冻结规则／移动指纹、最多600步输入与接触、最多16次地形变化；达到上限停止而不丢起始帧。导出复用原地图编码，无自动文件写入／日志订阅；这些资料不宣称原生求解器跨平台确定性。
 
 物理时间仍由会话单一60Hz调度点驱动：验证并消费本步输入／外力 → 准备控制与约束 → 模拟一次 → 收集接触及支撑结果 → 由所属对象提交状态／权威事件 → 冻结网络、存档及表现输入。后续若接FishNet预测时钟，先明确与SessionClock的唯一推进关系；不额外叠加独立FixedUpdate、TimeManager或Render Update推进。一次冲量和关键事件按tick／序号去重，Unity碰撞回调不能直接支付、扣血或改变权威矿格；重演的表现事件不得重复结算。
 

@@ -24,7 +24,7 @@ namespace DarkNights.Entry
         private readonly UIManager manager = new UIManager();
         private SessionNetwork network;
         private GameInputActions actions;
-        private HeroPlayerController hero;
+        private LocalPlayerController hero;
         private SessionEntityViews entities;
         private ShipEquipmentPanel panel;
         private UIDocument document;
@@ -45,7 +45,7 @@ namespace DarkNights.Entry
         private CommandFeedback lastFeedback;
         public bool ShopOpen => panel?.ShopOpen == true || panel?.InventoryOpen == true || panel?.Navigation?.IsOpen == true;
 
-        public async UniTask Initialize(SessionNetwork session, GameInputActions input, HeroPlayerController player,
+        public async UniTask Initialize(SessionNetwork session, GameInputActions input, LocalPlayerController player,
             SessionEntityViews views, GameCatalog rules, Camera camera)
         {
             network = session; actions = input; hero = player; entities = views; catalog = rules;

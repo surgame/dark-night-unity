@@ -14,9 +14,8 @@ namespace DarkNights.Runtime.Objects
     {
         [Inject] private ActorRuleConfig config;
         [Inject] private IMovementCapability movement;
-        [Inject] private IActorCombatCapability combat;
         [Inject] private IAutomaticActorControl automatic;
-        [Inject(Optional = true)] private HeroControlBehaviour hero;
+        [Inject(Optional = true)] private PlayerControlBehaviour playerControl;
         public int Id => Current?.Id ?? 0;
         public string RuleKey => config.RuleKey;
         public string DefinitionGuid => Object.Definition.Guid.ToString();
@@ -34,8 +33,8 @@ namespace DarkNights.Runtime.Objects
         protected override void OnReset()
         {
             base.OnReset();
-            if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) || movement == null || combat == null || automatic == null)
-                throw new InvalidOperationException("Actor requires a RuleKey, movement and combat capabilities.");
+            if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) || movement == null || automatic == null)
+                throw new InvalidOperationException("Actor requires a RuleKey, movement and automatic control capabilities.");
             if (Session != null && !Session.Catalog.Balance.Units.ContainsKey(config.RuleKey))
                 throw new InvalidOperationException("Unknown actor RuleKey: " + config.RuleKey);
         }
@@ -79,14 +78,15 @@ namespace DarkNights.Runtime.Objects
             state.HitFlash = Math.Max(0, state.HitFlash - delta);
             state.AiClock = Math.Max(0, state.AiClock - delta);
             state.Walking = false;
-            bool manual = hero?.PrepareInput() == true;
+            bool manual = playerControl != null && state.ManualControl;
             if (!manual) automatic.Tick(delta);
             movement.Tick(delta);
         }
 
         internal void FinishMotion(double delta)
         {
-            if (hero != null && Read().ManualControl) hero.AfterMovement(delta);
+            if (playerControl != null && Read().ManualControl && !movement.HandledByCabin)
+                HeroEquipment.Tick(this, delta);
         }
     }
 }

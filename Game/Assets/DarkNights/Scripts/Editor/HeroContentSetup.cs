@@ -36,7 +36,7 @@ namespace DarkNights.Editor
                 string rule = definition.SharedConfigs.OfType<ActorRuleConfig>().Single().RuleKey;
                 if (rule == "worker" || rule == "spearman" || rule == "archer")
                 {
-                    Add(definition, typeof(HeroControlBehaviour));
+                    Add(definition, typeof(PlayerControlBehaviour));
                     Add(definition, typeof(HeroInventoryBehaviour));
                     var movement = definition.SharedConfigs.OfType<MovementConfig>().Single();
                     movement.CanJump = movement.EnableAirControl = true;

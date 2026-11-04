@@ -21,7 +21,7 @@ namespace DarkNights.Tests
     {
         internal static async UniTask Check(SessionNetwork network, string output)
         {
-            var controller = UnityEngine.Object.FindAnyObjectByType<HeroPlayerController>();
+            var controller = UnityEngine.Object.FindAnyObjectByType<LocalPlayerController>();
             bool enabled = controller != null && controller.enabled;
             var method = typeof(HeroInputPlayback).Assembly.GetType("DarkNights.Entry.MineralAutomationProbe")
                 .GetMethod("Read", BindingFlags.Static | BindingFlags.NonPublic);

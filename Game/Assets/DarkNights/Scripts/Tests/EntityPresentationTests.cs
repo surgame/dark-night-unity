@@ -37,7 +37,7 @@ namespace DarkNights.Tests
         }
 
         [Test]
-        public void BindDespawnAndReentryClearStateIdentityAndCallbacks()
+        public void BindDespawnAndReentryClearStateAndIdentity()
         {
             ActorPresentationBehaviour actor = Load<ActorPresentationBehaviour>("Worker");
             ActorView visual = (ActorView)actor.Visual;
@@ -46,13 +46,12 @@ namespace DarkNights.Tests
             Assert.That(actor.Present(state, 2, "", 100, 0, Color.white), Is.False);
             visual.Preview(0, 0);
             Assert.That(actor.Current, Is.Null);
-            int oldCalls = 0, newCalls = 0;
-            actor.Bind(7, 2, "worker", catalog.Balance.Units["worker"], _ => oldCalls++);
-            Assert.That(actor.IssueOrder(9, 200), Is.False, "Binding alone is not a received live state.");
+            actor.Bind(7, 2, "worker", catalog.Balance.Units["worker"]);
+            Assert.That(actor.IsAvailable, Is.False, "Binding alone is not a received live state.");
             Assert.That(actor.Present(state, 2, "", 100, 0, Color.white), Is.True);
             Assert.That(actor.Current, Is.SameAs(state));
             Assert.That(actor.MaxHp, Is.EqualTo(catalog.Balance.Units["worker"].Hp));
-            Assert.That(actor.IssueOrder(9, 200), Is.True);
+            Assert.That(actor.IsAvailable, Is.True);
             Assert.That(actor.Present(Actor("worker", "Work", id: 8), 2, "wood", 900, 0, Color.red), Is.False);
             Assert.That(actor.Present(Actor("spearman", "Idle"), 2, "", 900, 0, Color.red), Is.False);
             Assert.That(actor.Present(state, 1, "", 900, 0, Color.red), Is.False);
@@ -61,12 +60,12 @@ namespace DarkNights.Tests
             actor.Unbind();
             Assert.That(actor.Current, Is.Null);
             Assert.That(actor.Id + actor.Epoch + actor.MaxHp, Is.Zero);
-            Assert.That(actor.IssueOrder(9, 200), Is.False);
+            Assert.That(actor.IsAvailable, Is.False);
             for (int epoch = 3; epoch < 6; epoch++)
             {
-                actor.Bind(7, epoch, "worker", catalog.Balance.Units["worker"], _ => newCalls++);
+                actor.Bind(7, epoch, "worker", catalog.Balance.Units["worker"]);
                 Assert.That(actor.Present(state, epoch, "", 100, 0, Color.white), Is.True);
-                Assert.That(actor.Train("spearman"), Is.True);
+                Assert.That(actor.IsAvailable, Is.True);
                 actor.OnDespawn();
                 Assert.That(actor.Current, Is.Null);
                 Assert.That(actor.Visual, Is.Null);
@@ -75,8 +74,6 @@ namespace DarkNights.Tests
                 Assert.That(actor.Visual, Is.SameAs(visual));
                 Assert.That(actor.IsBound || actor.IsAvailable, Is.False);
             }
-            Assert.That(oldCalls, Is.EqualTo(1));
-            Assert.That(newCalls, Is.EqualTo(3));
         }
 
         [Test]
@@ -84,21 +81,18 @@ namespace DarkNights.Tests
         {
             var worker = Load<ActorPresentationBehaviour>("Worker");
             var guard = Load<ActorPresentationBehaviour>("Spearman");
-            int oldCalls = 0, newCalls = 0;
-            worker.Bind(7, 2, "worker", catalog.Balance.Units["worker"], _ => oldCalls++);
+            worker.Bind(7, 2, "worker", catalog.Balance.Units["worker"]);
             worker.Present(Actor("worker", "Training"), 2, "", 100, 0, Color.white);
             worker.Unbind();
-            guard.Bind(7, 2, "spearman", catalog.Balance.Units["spearman"], _ => newCalls++);
+            guard.Bind(7, 2, "spearman", catalog.Balance.Units["spearman"]);
             guard.Present(Actor("spearman", "Idle"), 2, "", 100, 0, Color.white);
             Assert.That(worker.Present(Actor("worker", "Move"), 2, "", 200, 1, Color.white), Is.False);
-            Assert.That(worker.IssueOrder(31, 200), Is.False);
-            Assert.That(guard.IssueOrder(31, 200), Is.True);
+            Assert.That(worker.IsAvailable, Is.False);
+            Assert.That(guard.IsAvailable, Is.True);
             worker.OnDespawn();
             Assert.That(worker.Current, Is.Null);
             Assert.That(guard.Id, Is.EqualTo(7));
             Assert.That(guard.Current.Kind, Is.EqualTo("spearman"));
-            Assert.That(oldCalls, Is.Zero);
-            Assert.That(newCalls, Is.EqualTo(1));
         }
 
         [TestCase("Move", "", "move")]
@@ -111,25 +105,18 @@ namespace DarkNights.Tests
         [TestCase("Work", "iron", "work_mine")]
         [TestCase("Build", "", "build")]
         [TestCase("Training", "", "idle")]
-        public void WorkerOwnsPoseAndExplicitActorOperations(string activity, string work, string pose)
+        public void WorkerPresentsFrozenPoseWithoutChangingActorState(string activity, string work, string pose)
         {
             var actor = Load<ActorPresentationBehaviour>("Worker");
-            var intents = new List<InputIntent>();
-            actor.Bind(7, 2, "worker", catalog.Balance.Units["worker"], intents.Add);
+            actor.Bind(7, 2, "worker", catalog.Balance.Units["worker"]);
             ActorViewData state = Actor("worker", activity);
             actor.Present(state, 2, work, 250, 0.25, Color.white);
             Assert.That(actor.Pose, Is.EqualTo(pose));
             Assert.That(actor.Current.Hp, Is.EqualTo(25));
             Assert.That(actor.Visual.transform.position.x, Is.EqualTo(2.5));
             Assert.That(((ActorView)actor.Visual).Clips.Any(value => value.Name == pose), Is.True);
-            actor.IssueOrder(31, 450);
-            actor.Train("archer");
-            Assert.That(intents[0].Actors, Is.EqualTo(new[] { 7 }));
-            Assert.That(intents[0].Target, Is.EqualTo(31));
-            Assert.That(intents[0].X, Is.EqualTo(450));
-            Assert.That(intents[1].Action, Is.EqualTo("Trainarcher"));
-            Assert.That(intents[1].Actors, Is.EqualTo(new[] { 7 }));
-            Assert.That(state.Hp, Is.EqualTo(25), "Local operations cannot settle damage or training.");
+            Assert.That(state.Activity, Is.EqualTo(activity));
+            Assert.That(state.X, Is.EqualTo(100));
         }
 
         [TestCase("Worker")]
@@ -143,7 +130,7 @@ namespace DarkNights.Tests
             string kind = name.ToLowerInvariant();
             var actor = Load<ActorPresentationBehaviour>(name);
             var expected = Load<ActorPresentationBehaviour>(name);
-            actor.Bind(7, 2, kind, catalog.Balance.Units[kind], null);
+            actor.Bind(7, 2, kind, catalog.Balance.Units[kind]);
             double time = catalog.Balance.Units[kind].AttackSeconds * 0.6;
             actor.Present(Actor(kind, "Attack"), 2, "", 300, time, Color.white);
             var expectedView = (ActorView)expected.Visual;
@@ -229,7 +216,7 @@ namespace DarkNights.Tests
         public void TimelinePauseAndSpeedStillDriveTheSameIndividual()
         {
             var actor = Load<ActorPresentationBehaviour>("Worker");
-            actor.Bind(7, 2, "worker", catalog.Balance.Units["worker"], null);
+            actor.Bind(7, 2, "worker", catalog.Balance.Units["worker"]);
             var timeline = new PresentationTimeline();
             ActorViewData first = Actor("worker", "Move", x: 100, actionTime: 1);
             ActorViewData second = Actor("worker", "Move", x: 200, actionTime: 1.2);

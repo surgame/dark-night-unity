@@ -30,7 +30,7 @@ namespace DarkNights.Editor
     {
         private static bool running;
         private static SessionNetwork network;
-        private static HeroPlayerController hero;
+        private static LocalPlayerController hero;
         private static string folder;
         private static readonly JObject checks = new JObject();
         private static ActorViewData Actor => network.Client.Replica.Current.World.Actors.Single(actor => actor.ControllerSlot == network.Client.PlayerSlot);
@@ -52,7 +52,7 @@ namespace DarkNights.Editor
             try
             {
                 await Until(() => UnityEngine.Object.FindAnyObjectByType<SessionUiController>() != null);
-                network = AppStartup.Instance.Context.Resolve<SessionNetwork>(); hero = network.GetComponent<HeroPlayerController>();
+                network = AppStartup.Instance.Context.Resolve<SessionNetwork>(); hero = network.GetComponent<LocalPlayerController>();
                 if (network.Client.Replica.Current != null) throw new InvalidOperationException("只允许新鲜主菜单，不改动已有运行会话。");
                 InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
                 InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;

@@ -42,7 +42,7 @@ namespace DarkNights.Editor
         {
             if (!EditorApplication.isPlaying) { Notice = "请先进入Play并操控主角。"; Debug.LogWarning(Notice); return; }
             var network = UnityEngine.Object.FindAnyObjectByType<SessionNetwork>();
-            var player = UnityEngine.Object.FindAnyObjectByType<HeroPlayerController>();
+            var player = UnityEngine.Object.FindAnyObjectByType<LocalPlayerController>();
             var workshop = UnityEngine.Object.FindAnyObjectByType<TerrainDebugBootstrap>();
             if (network?.Hosting != true && workshop?.Workshop == null)
             { Notice = "需要本地Host或离线洞穴工作台，客户端没有权威运动步骤。"; Debug.LogWarning(Notice); return; }

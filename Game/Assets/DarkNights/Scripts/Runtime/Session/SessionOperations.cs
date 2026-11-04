@@ -51,7 +51,7 @@ namespace DarkNights.Runtime.Session
             if (r.Operation == SessionOperation.SetHeroLight)
                 return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId == 0 &&
                     r.X == 0 && r.Kind.Length == 0 && (r.Value == 0 || r.Value == 1);
-            if (SessionHeroControl.IsOperation(r.Operation))
+            if (SessionPlayerControl.IsOperation(r.Operation))
                 return r.ActorIds.Count == 1 && r.X == 0 &&
                     (r.Operation == SessionOperation.ClaimHero ? r.ControlLease == 0 : r.ControlLease > 0) &&
                     (r.Operation == SessionOperation.UseHeroItem ? r.Value >= 0 &&

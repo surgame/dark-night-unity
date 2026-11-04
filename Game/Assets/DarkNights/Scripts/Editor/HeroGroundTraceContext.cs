@@ -19,7 +19,7 @@ namespace DarkNights.Editor
         {
             var boot = UnityEngine.Object.FindAnyObjectByType<TerrainDebugBootstrap>();
             var network = UnityEngine.Object.FindAnyObjectByType<SessionNetwork>();
-            var player = UnityEngine.Object.FindAnyObjectByType<HeroPlayerController>();
+            var player = UnityEngine.Object.FindAnyObjectByType<LocalPlayerController>();
             IReadOnlyGrid map;
             float x, height;
             HeroControlDefinition rules;

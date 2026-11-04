@@ -71,7 +71,7 @@ namespace DarkNights.Runtime.Objects
                 state.OwnerSlot = slot; state.ManualControl = true; state.Boarded = false;
                 state.X = state.MoveX = state.RallyX = x; state.Height = height;
                 state.VerticalSpeed = 0; state.SupportPlatform = 0;
-                HeroControlBehaviour.ResetInput(state);
+                PlayerControlBehaviour.ResetInput(state);
                 if (!HeroInventoryBehaviour.Give(state, definition.Guid.ToString()))
                     throw new InvalidOperationException("快速测试矿镐装备失败。");
                 state.SelectedItem = 0; state.AimAngle = aim;

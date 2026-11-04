@@ -6,6 +6,22 @@
 
 ## 当前阶段：CL 矿洞远征核心闭环
 
+2026-11-04 玩家控制整理进入主分支提交与推送（本角色能力评审聊天／Local，CL-08／PH-01）。用户明确要求提交、合并主分支并推送。当前已在main，fetch后与origin/main同为13931cd2；本批提取本聊天的旧入口清理、三项更名及控制职责整理，共享文件按具体改动暂存。独立提交候选基于HEAD和本批内容构成，Core／Runtime／View／Entry／Editor／Tests六程序集隔离C#编译退出码均0；此为编译检查，运行／联机及恢复仍沿原待验项。候选清单、隔离编译、暂存与最终Git身份归`artifacts/player-control-refactor-20261104/publish-main/`，CL继续。
+
+2026-11-04 玩家控制命名与职责整理已实现，C#编译及原生注册／引用核对通过，运行待验（本角色能力评审聊天／Local，CL-08／PH-01）。用户授权按评审方案执行：HeroPlayerController更名LocalPlayerController，HeroControlBehaviour更名PlayerControlBehaviour，SessionHeroControl更名SessionPlayerControl。LocalPlayerController仍由SessionUiController创建在Dark Nights Session上，衔接本机输入、角色选择、HUD和镜头；HeroInputSampler为原本地辅助类。SessionPlayerControl保留连接、角色分配、控制归属、参数／序号和超时检查，调用PlayerControlBehaviour应用或清理操作。ApplyInput、ClearInput及策略失效时的InvalidateInput集中到角色控制能力，Actor继续拥有唯一ActorState。装备后处理直接归Actor.FinishMotion，原船舱门槛通过IMovementCapability.HandledByCabin读取；原讨论的四项能力继续独立装配。
+
+三份脚本及meta通过AssetDatabase.MoveAsset更名，原GUID字节保留，所有正式源码引用、安装入口及相关测试引用同步；Worker／Archer／Spearman三份定义通过原生Undo／SaveAssetIfDirty迁移Behaviour类型字符串，现有其它能力与定义身份保留。保存Archer／Spearman时Unity补写原默认SpeedPreset=0（沿用balance），Worker已选SpeedPreset=2继续保留。34份C#最长300行，除6份职责／接口／说明调整源码外，其余均为精确类型更名。迁移前后输入应用、参数校验、接管／释放、超时条件与输入清理代码的静态等价核对通过；超时清理保留控制权、序号和惯性，失效递增控制编号，重新接管另重置连接输入序号。接收入口同时确认目标具备PlayerControl能力。ARCHITECTURE、MULTIPLAYER及ROADMAP同步当前职责。
+
+复用6000.4.9f1／PID28096单一Editor，集中写入后自动导入／编译完成，回执completed、failed=false、errors=[]；未重复主动刷新或编译。三个新脚本的MonoScript类型、原GUID和Runtime／Entry程序集身份读取通过，PlayerControl生成工厂存在、旧类型注册已退出，三份定义的全部Behaviour均可解析并有生成工厂。10项静态核对、代码／定义差异及原保护输入核对通过；状态数据、网络输入命令、协议38／v30字段及依赖合同沿现行配置。开始与结束均为入口Scene、无脏标记、非Play／非编译。预检可用物理内存约14.47GiB，结束D盘约87.84GiB；备份、GUID迁移、自动编译、原生装配核对及最终身份归`artifacts/player-control-refactor-20261104/`。本片仅编译与静态／引用核对，未执行测试／Play／Player。
+
+待验为本机与来宾各自移动／跳跃／使用工具，确认每次操作只影响本人角色且队友显示正常；菜单／暂停／失焦及500ms输入超时清掉持续按键，已生效惯性继续由原运动推进；控制失效／断线／重连后旧控制编号或重复序号拒绝，接管后短按正常；地面与历史船舱中的装备后处理沿原门槛执行；加载后重新接管与第一批输入不继承旧按键。独立双端及真实保存恢复仍待验，CL继续。
+
+2026-11-04 角色四项Behaviour旧入口清理与职责评审完成，C#编译通过，运行待验（本角色能力评审聊天／Local，CL-08／PH-01）。用户限定MovementBehaviour、HeroControlBehaviour、ActorBehaviour及ActorPresentationBehaviour，要求先清理旧实现再分析。四项均为当前装配入口，旧HeroMotionBehaviour等重复实现已退出Game。本片移除角色表现IssueOrder／Train、Bind输入回调及全部对应调用；正式会话、白模和塌方Lab统一四参数只读绑定，已有表现测试同步移除退休命令断言，继续核对身份／副本／归池。HeroControl移除旧工作／施工取消分支、重复朝向写入及失去实际职责的PrepareInput；Actor直接依据装配及ManualControl选择控制路径，并移除只用于重复装配检查的战斗注入。7份C#与ARCHITECTURE同步，MovementBehaviour源码字节与开工输入一致。
+
+清理后四项分别承担ActorState与步进组织、单步运动执行、玩家控制租约／输入生命周期／装备后处理、冻结副本表现，当前仍有真实调用与装配差异，评审结论为保留四项。HeroControl最薄，但Claim／Release／ResetInput具有独立生命周期。仍被其他单位定义、原生动画及历史含船保存支持使用的共享姿态、目标移动与船舱路径按当前调用保留；本片将“旧”限定为已退役入口及重复实现，不把暂停玩法的全部源码视作废弃实现。
+
+复用6000.4.9f1／PID28096单一Editor，只主动提交一次connected command recompile，回执completed、failed=false、errors=[]；引用与本片差异核对通过。开始与结束均为入口试验场、无脏标记、非Play／非编译。预检可用物理内存约12.08GiB、D盘约88.85GiB；输入备份、编译及最终身份归`artifacts/actor-behaviour-review-20261104/`。本片只执行编译与静态核对，未执行测试／Play／Player；协议38／存档v30字段及依赖合同沿用现行配置，实际接管／释放、移动后手持使用、重绑／归池仍待验，CL继续。
+
 2026-11-04 M17均衡调参与吊绳YYGC对象接入进入主分支提交与推送（本聊天／Local，CL-01／08，M17-05）：用户明确要求提交、合并主分支并推送。当前已在main，fetch后与origin/main无领先／落后，本批直接提交main，范围包含均衡调参、ObjectDefinition／IConfigData接入、原生Prefab与定义／Addressables登记及6份合同／操作／进度文档。16份源码与本片编译通过时的SHA一致，提交前差异及引用核对通过；沿用当前候选的三次C#编译与原生装配回执，实际运行、联机及恢复仍待验。协议／存档字段形状沿原合同，物理配置身份已更新，依赖沿原锁定配置。最终提交与远端身份以Git记录及`artifacts/m17-objectdefinition-20261104/publish-main/`回执为准，CL继续。
 
 2026-11-04 吊绳统一接入YYGC ObjectDefinition已实现，C#编译、生成注册及原生装配核对通过，运行待验（本聊天／Local，CL-01／08，M17-05）：用户要求将吊绳作为ObjectDefinition物体、通过IConfigData公开参数。本片承接上一轮12份未提交均衡成果，新增`Res/Objects/HangingRope/HangingRope.asset／prefab`，定义Key为`environment.hanging-rope`，GUID为`eedc9d6e885c472418bd78c6f0e14e36`。`HangingRopeConfig : IConfigData`在SharedConfigs统一公开15项运动、抓取、质量、碰撞和显示参数；M17制作Prefab移除实例数值字段，仅保留DefinitionReference、固定点及绳ID／起始负ID。工坊新增明确的Definition参数按钮，初始化入口复用同一定义。

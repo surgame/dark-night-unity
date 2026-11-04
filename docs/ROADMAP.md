@@ -721,6 +721,8 @@ R1按用户续接补充[洞室／路线与特殊用途](TERRAIN_GENERATION.md#cl
 
 ### CL-08 玩家反馈、线索与体验记录
 
+- 2026-11-04玩家控制整理：用户授权保留Actor、Movement、PlayerControl及ActorPresentation四项能力，明确本机LocalPlayerController、会话SessionPlayerControl与角色PlayerControlBehaviour的职责；角色输入应用和清理集中到PlayerControl，装备后处理归Actor每步调度。原生定义和源码更名保留GUID，编译、运行及联机／恢复边界分别记录于DEVELOPMENT。
+
 - 2026-11-03物理可演进架构输入：用户希望增加团队物理交互并要求未来定点数迁移和排障可控，当前先落实[替换边界合同](ARCHITECTURE.md#physics-backend-evolution)和下列评估顺序。动态刚体／受限力马达、客户端预测及浮点／定点选择均须区分建议与实际接入；不因方案建档改动已选运动数值、升级依赖或启动测试。
 - 2026-11-03 Hero表现修复与动画机输入：修复HUD／角色识别、白模原生精灵绑定及共用腾空，沿用正式Gameplay输入身份，不改移动数值。用户续接授权补闭眼图、查回并纠正已选run5／jump2及移动／静止腾空腿姿；选择、原用户消息与未选方案唯一记入`Res/Objects/Hero/AnimationSelection.json`，重建不得改回ai_walk或跳跃定格。后续可视化动画机按[架构方案](ARCHITECTURE.md#主角与输入)扩展，新增状态须有实际作者资源及明确选取；替换唯一播放器，不让Animator／PoseClip并行驱动，Spine运行依赖和实时分轨混合另片处理。实现／编译和实走边界归DEVELOPMENT。
 - 2026-10-29主角移动手感切片：按用户选定的AB演示将地面即时启停／有限空控接入原权威角色状态；按后续明确授权统一为一个MovementBehaviour和一份MovementConfig（ObjectDefinition的IConfigData），玩家／自动控制提交意图，移动每步执行一次，跳跃及空控设真实开关。保留手感参数，维护碰撞、船舱、保存及内容一致性；不追加新动画、改变基础balance或恢复暂停玩法。实现、编译与人工手感／联机待验只记录于DEVELOPMENT。

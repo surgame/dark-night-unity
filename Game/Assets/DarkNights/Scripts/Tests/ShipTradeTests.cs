@@ -43,7 +43,7 @@ namespace DarkNights.Tests
             Assert.That(f.Authority.SubmitInput(f.Host, f.Packet(horizontal: 1)), Is.True);
             f.Step(6);
             Assert.That(f.Actor.X - start - sprintDistance, Is.EqualTo(normalDistance).Within(.001));
-            f.Step(SessionHeroControl.InputTimeoutTicks + 2);
+            f.Step(SessionPlayerControl.InputTimeoutTicks + 2);
             Assert.That(f.State.SprintHeld, Is.False);
         });
 

@@ -110,7 +110,7 @@ namespace DarkNights.Entry.Terrain
                 world.Terrain.Map.Changed += OnGeologyMapChanged;
                 heroPresentation = Lab.HeroObject.GetBehaviour<ActorPresentationBehaviour>();
                 if (heroPresentation == null) throw new InvalidOperationException("功能场景主角缺少原生表现能力。");
-                heroPresentation.Bind(Lab.Hero.Id, 1, "worker", catalog.Balance.Units["worker"], null);
+                heroPresentation.Bind(Lab.Hero.Id, 1, "worker", catalog.Balance.Units["worker"]);
                 actions = gameObject.AddComponent<GameInputActions>();
                 actions.Initialize(InputPlayer, YYInteractionSessionService.Instance); actions.SetHero(true); actions.Present(true);
                 Status.text = "CL-02 塌方 · 大小混合版\n挖断起点右侧低矮支撑岩／继续向右进入橙色区域；避让落点后用矿镐清障。\n移动／跳跃／左键沿用正式改键；Esc暂停／继续。停止并重新Play重置。";

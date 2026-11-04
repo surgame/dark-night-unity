@@ -24,7 +24,7 @@ namespace DarkNights.Runtime.Objects
             {
                 ActorBehaviour actor = session.Index.Find<ActorBehaviour>(id);
                 if (actor == null || actor.Enemy || actor.Hp <= 0 ||
-                    (actor.Read().ManualControl && !SessionHeroControl.IsOperation(request.Operation) && request.Operation != SessionOperation.Expedition)) return false;
+                    (actor.Read().ManualControl && !SessionPlayerControl.IsOperation(request.Operation) && request.Operation != SessionOperation.Expedition)) return false;
                 if (session.IsExpedition && request.Operation == SessionOperation.UseHeroItem &&
                     (!session.Expedition.Active || actor.Read().Boarded)) return false;
             }

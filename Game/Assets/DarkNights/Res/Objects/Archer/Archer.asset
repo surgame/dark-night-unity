@@ -41,7 +41,7 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.ActorCombatBehaviour
   - DarkNights.Runtime.Objects.ArrowAttackBehaviour
   - DarkNights.Runtime.Objects.AutomaticActorControlBehaviour
-  - DarkNights.Runtime.Objects.HeroControlBehaviour
+  - DarkNights.Runtime.Objects.PlayerControlBehaviour
   - DarkNights.Runtime.Objects.HeroInventoryBehaviour
   - DarkNights.Runtime.Objects.HeroLightBehaviour
   SharedConfigs:

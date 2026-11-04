@@ -28,7 +28,7 @@ namespace DarkNights.Editor
                 Add<AutomaticActorControlBehaviour>(definition);
                 if (controllable)
                 {
-                    Add<HeroControlBehaviour>(definition);
+                    Add<PlayerControlBehaviour>(definition);
                     Add<HeroInventoryBehaviour>(definition);
                 }
                 if (ruleKey == "archer") Add<ArrowAttackBehaviour>(definition);

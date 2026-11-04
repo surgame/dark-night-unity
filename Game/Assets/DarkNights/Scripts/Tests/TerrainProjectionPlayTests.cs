@@ -31,7 +31,7 @@ namespace DarkNights.Tests
     {
         private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
         private SessionNetwork network;
-        private HeroPlayerController hero;
+        private LocalPlayerController hero;
         private HeroInputPlayback input;
         private string failure;
         private readonly List<object> trace = new List<object>();
@@ -71,8 +71,8 @@ namespace DarkNights.Tests
                 storage.GetType().GetMethod("Initialize").Invoke(storage, new object[] { new[] { "--dn-save-dir", Path.Combine(output, "saves") } });
                 var flow = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
                 await network.Connect(true, "127.0.0.1", 27919, QuickTestPreset.Create(QuickTestPreset.ShipCargoId, flow));
-                hero = network.GetComponent<HeroPlayerController>();
-                typeof(HeroPlayerController).GetField("replayOnly", Private).SetValue(hero, true);
+                hero = network.GetComponent<LocalPlayerController>();
+                typeof(LocalPlayerController).GetField("replayOnly", Private).SetValue(hero, true);
                 input = network.gameObject.AddComponent<HeroInputPlayback>(); input.Initialize(network);
                 await Until(() => hero.Current != null && network.Client.Ready && Preview?.Ready == true, "initial Ready", 150);
                 PreparePickaxe();

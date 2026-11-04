@@ -88,7 +88,7 @@ namespace DarkNights.Entry.Terrain
                 Session = new WhiteboxSession(world, HeroPlacement.PlacementKey);
                 presentation = Session.HeroObject.GetBehaviour<ActorPresentationBehaviour>() ??
                     throw new InvalidOperationException("白模主角缺少正式表现能力。");
-                presentation.Bind(Session.Hero.Id, 1, "worker", catalog.Balance.Units["worker"], null);
+                presentation.Bind(Session.Hero.Id, 1, "worker", catalog.Balance.Units["worker"]);
                 actions = gameObject.AddComponent<GameInputActions>();
                 actions.Initialize(InputPlayer, YYInteractionSessionService.Instance);
                 actions.SetHero(true);

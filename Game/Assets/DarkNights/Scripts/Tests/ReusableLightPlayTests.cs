@@ -39,7 +39,7 @@ namespace DarkNights.Tests
             await UniTask.Yield();
             var ui = network.GetComponent<SessionUiController>();
             ui.ActivateButton("MainMenu", "NewGame");
-            var hero = network.GetComponent<HeroPlayerController>();
+            var hero = network.GetComponent<LocalPlayerController>();
             await Until(() => network.Client.Ready && hero.Current != null, "地面人物Ready");
             Assert.That(hero.Current.Slot0, Is.EqualTo(4));
             Assert.That(hero.Current.Slot0Definition, Is.EqualTo(hero.Current.LightDefinition));

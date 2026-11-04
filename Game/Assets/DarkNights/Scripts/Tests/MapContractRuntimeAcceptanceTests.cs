@@ -100,7 +100,7 @@ namespace DarkNights.Tests
             var storage = typeof(SessionNetwork).GetField("storage", Flags).GetValue(network);
             storage.GetType().GetMethod("Initialize").Invoke(storage, new object[]
                 { new[] { "--dn-save-dir", Path.Combine(Output, "quick-saves") } });
-            var controller = UnityEngine.Object.FindAnyObjectByType<HeroPlayerController>();
+            var controller = UnityEngine.Object.FindAnyObjectByType<LocalPlayerController>();
             bool inputEnabled = controller != null && controller.enabled;
             if (controller != null) controller.enabled = false;
             try

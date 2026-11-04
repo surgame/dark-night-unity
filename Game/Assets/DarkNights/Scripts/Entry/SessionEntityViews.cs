@@ -103,7 +103,7 @@ namespace DarkNights.Entry
                 string group;
                 if (catalog.Balance.Units.TryGetValue(pair.Value, out UnitDefinition rules) && presentation is ActorPresentationBehaviour actor)
                 {
-                    actor.Bind(pair.Key, epoch, pair.Value, rules, submit);
+                    actor.Bind(pair.Key, epoch, pair.Value, rules);
                     group = "Actors/" + pair.Value;
                 }
                 else if (catalog.Balance.Buildings.ContainsKey(pair.Value) && presentation is BuildingPresentationBehaviour building)
