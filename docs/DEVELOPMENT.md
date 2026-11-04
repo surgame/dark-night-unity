@@ -6,7 +6,7 @@
 
 ## 当前阶段：CL 矿洞远征核心闭环
 
-2026-11-04 玩家控制整理进入主分支提交与推送（本角色能力评审聊天／Local，CL-08／PH-01）。用户明确要求提交、合并主分支并推送。当前已在main，fetch后与origin/main同为13931cd2；本批提取本聊天的旧入口清理、三项更名及控制职责整理，共享文件按具体改动暂存。独立提交候选基于HEAD和本批内容构成，Core／Runtime／View／Entry／Editor／Tests六程序集隔离C#编译退出码均0；此为编译检查，运行／联机及恢复仍沿原待验项。候选清单、隔离编译、暂存与最终Git身份归`artifacts/player-control-refactor-20261104/publish-main/`，CL继续。
+2026-11-04 玩家控制整理已提交主分支并推送（本角色能力评审聊天／Local，CL-08／PH-01）。用户明确要求提交、合并主分支并推送。开工main与origin/main同为13931cd2，本聊天的旧入口清理、三项更名及控制职责整理已以99113c40提交并推送origin/main，含50项Git变更；当前本来就在主分支，直接提交。共享文件按具体改动暂存，移动、镜头、地图及美术等其他聊天成果继续由原聊天持有。独立候选基于13931cd2和本批内容构成，Core／Runtime／View／Entry／Editor／Tests六程序集隔离C#编译退出码均0；暂存差异、49份候选内容SHA-256、三份脚本GUID及引用核对通过。此为编译检查，运行／联机及恢复仍沿原待验项。本段随文档收尾提交推送，候选清单、编译、暂存和最终Git身份归`artifacts/player-control-refactor-20261104/publish-main/`，CL继续。
 
 2026-11-04 玩家控制命名与职责整理已实现，C#编译及原生注册／引用核对通过，运行待验（本角色能力评审聊天／Local，CL-08／PH-01）。用户授权按评审方案执行：HeroPlayerController更名LocalPlayerController，HeroControlBehaviour更名PlayerControlBehaviour，SessionHeroControl更名SessionPlayerControl。LocalPlayerController仍由SessionUiController创建在Dark Nights Session上，衔接本机输入、角色选择、HUD和镜头；HeroInputSampler为原本地辅助类。SessionPlayerControl保留连接、角色分配、控制归属、参数／序号和超时检查，调用PlayerControlBehaviour应用或清理操作。ApplyInput、ClearInput及策略失效时的InvalidateInput集中到角色控制能力，Actor继续拥有唯一ActorState。装备后处理直接归Actor.FinishMotion，原船舱门槛通过IMovementCapability.HandledByCabin读取；原讨论的四项能力继续独立装配。
 
