@@ -41,7 +41,8 @@ namespace DarkNights.Runtime.Physics
             var rules = world.Catalog.Balance.HeroControl;
             float seconds = (float)input.DeltaSeconds;
             Vector2 velocity = body.linearVelocity * Scale;
-            bool grounded = Ground(body, out Vector2 normal, out Vector2 support) && velocity.y - support.y <= 1;
+            bool grounded = Ground(body, out Vector2 normal, out Vector2 support) &&
+                Vector2.Dot(velocity - support, normal) <= 1;
             state.HorizontalSpeed = grounded ? velocity.x - support.x : velocity.x;
             state.VerticalSpeed = velocity.y;
             MovementHorizontalMotion.Prepare(state, rules, movement, grounded, seconds,
@@ -51,7 +52,6 @@ namespace DarkNights.Runtime.Physics
                 target = (input.GoalX.Value - state.X) / seconds;
             float limit = input.Direction == 0 ? world.Layout.Physics.GroundBraking : world.Layout.Physics.GroundAcceleration;
             float acceleration = Math.Clamp((target - velocity.x) / seconds, -limit, limit);
-            body.AddForce(Vector2.right * (acceleration * body.mass / Scale), ForceMode2D.Force);
             state.SupportPlatform = grounded ? 0 : -1;
             if (movement.CanJump && HeroJumpMotion.TryStart(state, rules, grounded))
             {
@@ -60,6 +60,9 @@ namespace DarkNights.Runtime.Physics
                 body.AddForce(Vector2.up * ((state.VerticalSpeed - velocity.y) * body.mass / Scale), ForceMode2D.Impulse);
                 grounded = false; velocity.y = state.VerticalSpeed;
             }
+            // 接地力沿真实支撑切线，避免下坡时只向前加速而离开坡面；起跳后恢复空中水平施力。
+            Vector2 drive = grounded ? new Vector2(1, -normal.x / normal.y) : Vector2.right;
+            body.AddForce(drive * (acceleration * body.mass / Scale), ForceMode2D.Force);
             state.VerticalSpeed = velocity.y;
             HeroJumpMotion.Accelerate(state, rules, seconds, input.JumpHeld, jetpack: false);
             float vertical = (state.VerticalSpeed - velocity.y) / seconds;
@@ -75,7 +78,7 @@ namespace DarkNights.Runtime.Physics
             state.X = body.position.x * Scale; state.Height = body.position.y * Scale;
             state.HorizontalSpeed = body.linearVelocity.x * Scale; state.VerticalSpeed = body.linearVelocity.y * Scale;
             bool grounded = Ground(body, out Vector2 normal, out Vector2 support) &&
-                state.VerticalSpeed - support.y <= 1;
+                Vector2.Dot(body.linearVelocity * Scale - support, normal) <= 1;
             state.PhysicsGroundNormalX = normal.x; state.PhysicsGroundNormalY = normal.y;
             state.SupportPlatform = grounded ? 0 : -1;
             if (grounded) { state.JumpAscending = false; state.TakeoffHorizontalSpeed = state.HorizontalSpeed; }

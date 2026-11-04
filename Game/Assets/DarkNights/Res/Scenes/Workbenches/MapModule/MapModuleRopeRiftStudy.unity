@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 128785884}
   - component: {fileID: 128785883}
   m_Layer: 0
-  m_Name: "\u7814\u7A76\u8F93\u5165"
+  m_Name: "\u73A9\u5BB6\u8F93\u5165"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 287020826}
   - component: {fileID: 287020825}
   m_Layer: 0
-  m_Name: "\u4FDD\u7559\u7684Stage\u5929\u7A7A\u7ED1\u5B9A"
+  m_Name: "\u5929\u7A7A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 589560204}
   - component: {fileID: 589560203}
   m_Layer: 0
-  m_Name: "MapModule\u7814\u7A76\u5165\u53E3"
+  m_Name: "\u573A\u666F\u5165\u53E3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,6 +366,7 @@ MonoBehaviour:
   environment: {fileID: 0}
   cameraX: 192
   zoom: 2.8
+  cameraFraming: {fileID: 11400000, guid: e143920dbf1dd1c4b94e461b06c2a5e6, type: 2}
   worldWidth: 5120
 --- !u!114 &589560204
 MonoBehaviour:
@@ -623,7 +624,7 @@ GameObject:
   - component: {fileID: 1190822915}
   - component: {fileID: 1190822913}
   m_Layer: 0
-  m_Name: "\u7814\u7A76\u955C\u5934"
+  m_Name: "\u4E3B\u76F8\u673A"
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

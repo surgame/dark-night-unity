@@ -99,6 +99,14 @@ MapModuleEntry经既有Bootstrap、UniTask资源链、SessionNetwork／FishNet�
 
 主角外观Prefab不含场景专用ObjectDefinitionLoader；Loader与ScenePlacement仅存在于研究Scene实例，显式绑定正式Worker定义和原生视图。新Prefab保存前检查嵌套Loader并拒绝违规输入，不修改或绕过YYGC保存校验。Editor工坊只用本地画布／原生Undo；现有运行UI／投影继续使用原R3订阅生命周期，无需为Editor另加路由或依赖。操作及范围见[地图工坊](EDITOR_WORKBENCH.md#mapmodule-workbench)。
 
+## 地面镜头取景
+
+`View/CameraFraming/CameraFramingConfig`由`Res/Shared/Camera/ExplorationCamera.asset`统一保存本地地面取景。预设为16%、12.4%、10.5%、8%、6%及自定义，默认10.5%；选择预设只填入比例，Inspector直接修改比例后自动切为自定义，原生SerializedProperty负责Undo和保存。12.4%是旧zoom=2.8在1080p的近似比例参照，当前各预设均按相机实际画面高度保持目标占比。
+
+参考人高默认0.48 Unity单位，随既有ActorPresentationScale换算，代表用于取景的人物站立外观高度。正交半高为`参考人高×表现倍率÷(2×占屏比例)`，原Stage逻辑像素缩放为`相机像素高×占屏比例÷(参考人高×表现倍率×100)`。PinewatchStage统一负责跟随、平滑及边界裁切，地面运行读取共享配置；临时滚轮倍率只归本端Stage，新会话重置。姿态／动画会使实际可见高度变化，参考人高可在同一资产校准。
+
+正式远征、MapModule入口／M17及合作物理场景显式引用共享资产，新MapModule初始化检查配置就绪后再创建资产。既有营地与船舱取景继续读取原zoom及整船适配，未装配共享配置的旧场景保留原取景入口。配置属于本地表现，不进入业务状态、网络内容身份或玩家存档。
+
 ## 主角与输入
 
 角色坐标唯一归ActorState.X／Height（逻辑像素），EntityPresentationBehaviour将其按100逻辑像素／Unity单位映射为ActorView根的世界x／y。外观子节点仅保留美术局部偏移，不另存业务坐标；地面Height=0时世界y=0正常。运行时手动角色命名为`Hero #<EntityId> (<RuleKey>)`，挂在Stage的Actors分组；UGUIRoot下的`Hero HUD (UI)`是原`ui.hero`面板，不是角色。面板定义键、Prefab和框架装配身份保持。
@@ -113,6 +121,8 @@ Spine播放器采用ManualUpdate：展示层传入绝对动作时间及本帧有
 
 骨骼资源归`Res/Objects/Hero/Spine`，官方4.3二进制、straight-alpha／Bleed图集及RuntimeManifest保留来源和SHA-256；重建见`tools/hero-whitebox`。受光沿原环境场和局部补光，后者的运行绑定接受Renderer，旧Sprite作者配置保持；CampSpine Shader在线性空间消费贴图与作者顶点色。缺图只在派生输入隐藏，不修改作者工程或补画。后续Rise／Fall、受击、死亡等须有明确选取的作者资源，原AnimatorController候选已由用户选择Spine runtime取代。
 
+主角翻转基准采用已选idle首姿的双脚底边中心。SpineActorAnimation显式配置左右腿网格插槽及小腿骨骼，HeroSpineAssetSetup将校准保存到SkeletonRenderer所在外观子节点。ActorView根继续承接权威脚底坐标，Facing围绕固定支撑中心镜像。SpineFootPlacement在每次采样前恢复上帧局部补偿，通过官方UpdateWorld钩子适配已接地姿态。ActorGroundSurface从本端已知地图读取实际格形，限定16逻辑像素身体宽度、2.5像素接触容差并核对格边连续和支撑高度，平坡过渡按脚下实际高度衔接。连续坡面先把外观基准贴到中间地表，idle再分别调整两侧小腿，每腿位移限8逻辑像素；行走沿原腿部动作。腾空、未知格、断崖／台阶和支撑不吻合时退出适配。正式会话只使用当前epoch已就绪的本地地图副本，白模及塌方Lab读取所属只读地图；适配结果仅属于本端外观生命周期。
+
 未来物理边界：ActorState仍独占根位置／运动，Spine只持有可丢弃的外观状态；局部IK／次级运动使用官方Renderer.UpdateLocal／UpdateWorld钩子，先动画再局部骨骼接管再约束／网格，不新增通用动画引擎。参与玩法的ragdoll须由现有Host会话后端在同一手动PhysicsScene2D创建身体代理、明确动画／物理控制权、站起空间和恢复状态，并扩展冻结同步／存档闭包；客户端不能各自独立结算。仅作装饰的骨骼摆动不写业务状态。当前没有ragdoll组件、动态骨骼碰撞、拖拽玩法或新的协议字段，不因预留钩子宣称这些功能完成。
 
 PlayerControl／Movement／Inventory及采集／手电能力共用ActorState。ActorBehaviour按PlayerControl装配及ManualControl状态选择控制路径，调用一次MovementBehaviour.Tick；运动结束后依据IMovementCapability.HandledByCabin决定是否直接推进现有装备逻辑。PlayerControlBehaviour集中应用已经校验的玩家操作，管理接管／释放、控制编号及输入清理，移动朝向由MovementBehaviour设置。自动控制的MoveTo及路径导航只提交本步目标／起跳意图，以实际位置判断到达，不绕过碰撞吸附目标。
@@ -123,18 +133,33 @@ ActorPresentationBehaviour只消费冻结副本并驱动位置、姿态、动画
 
 正式和MapModule共用`Res/Input/Gameplay.inputactions`的Player／Camp／UI三图及既有动作／绑定GUID与改键覆盖。Player/Move为A／D的1DAxis、Jump为空格、Crouch为S下穿、Sprint为左Shift、Attack为鼠标左键当前工具、Interact为E、Item1～4为数字1～4、ToggleLight为F；UI/Point提供鼠标绝对瞄准，UI/Inventory为B。ToggleMode虽保留Tab绑定，但正式LocalPlayerController的营地控制入口关闭，不能将该绑定当作当前已开放模式切换。资产中的Look／Next／Previous及部分设备绑定是保留项，当前GameInputActions并未以它们实现主角瞄准／换槽或完整手柄方案，不应据此宣称已支持相应操作；模板`InputSystem_Actions`不是研究入口输入来源。研究模式复用动作不等于装备／交互目标已全部装配。
 
-MovementBehaviour统一执行玩家与自动单位的水平运动、跳跃、下落及碰撞。MovementHorizontalMotion在同一ActorState内维护HorizontalSpeed与TakeoffHorizontalSpeed；地面即时启停，离地完整继承速度。空中松键保留惯性，反打先刹车再有限反向，Face取最后一次非零方向输入。TerrainHeroMotion按真实脚底支撑决定地面／空中，沿现有身体扫掠裁切位移；PlatformMovement及船舱是同一移动能力调用的环境计算函数，没有独立配置、状态或Behaviour调度。坡道出口已执行横移时只接续纵向运动，不重复积分。历史飞行路径也由该入口执行，不据此恢复暂停玩法。
+MovementBehaviour统一执行玩家与自动单位的水平运动、跳跃、下落及碰撞。MovementHorizontalMotion在同一ActorState内维护HorizontalSpeed与TakeoffHorizontalSpeed；地面按所选速度预设过渡，离地完整继承速度。空中松键保留惯性，反打先刹车再有限反向，Face取最后一次非零方向输入。TerrainHeroMotion按真实脚底支撑决定地面／空中，沿现有身体扫掠裁切位移；PlatformMovement及船舱是同一移动能力调用的环境计算函数，没有独立配置、状态或Behaviour调度。坡道出口已执行横移时只接续纵向运动，不重复积分。历史飞行路径也由该入口执行，不据此恢复暂停玩法。
 
 所有装配MovementBehaviour的Definition，其SharedConfigs必须有且只有一个MovementConfig（面板“移动”），在角色激活时冻结为纯只读MovementDefinition：
 
 | 配置字段 | 行为 | 参数与来源 |
 | --- | --- | --- |
+| SpeedPreset | 手动角色基础步速、冲刺上限与两档速度过渡 | 非空预设冻结为MovementSpeedDefinition；零值“沿用balance”承接未指定预设的既有配置。自动移动显式单位步速继续优先 |
 | ArrivalDistance | 目标点实际到达容差 | 原值0.8逻辑像素；自动步速仍读取ActorRuleConfig指向的balance单位规则 |
 | CanJump | 是否接受主动起跳请求 | 关闭会清起跳缓冲；重力、已有竖直速度、下落和落地继续执行 |
 | EnableAirControl | 是否接受空中方向修正 | 关闭仍保留离地惯性、松键阻力、重力和碰撞；朝向仍跟随输入 |
-| AirSpeedRatio／AirAccelerationSeconds／AirBrakingSeconds／AirDragPerSecond | 有限空控的四项参数 | 原值分别为0.35／0.28秒／0.55秒／0.08每秒；基础步速、疾跑倍率、跳速和重力唯一读取balance.hero_control |
+| AirSpeedRatio／AirAccelerationSeconds／AirBrakingSeconds／AirDragPerSecond | 有限空控的四项参数 | 原值分别为0.35／0.28秒／0.55秒／0.08每秒；空控参照读取所选预设步速，跳速和重力继续读取balance.hero_control |
 
-AirSpeedRatio是原地跳及反向修正上限占正常步速的比例；参考速度取正常步速和起跳速度绝对值的较大者。Worker／Archer／Spearman保留两项开关开启，其他六份单位定义默认关闭。编辑后重新创建会话／角色生效；所有已装配移动能力的定义身份及完整MovementConfig摘要参与会话握手和存档内容校验，包含开关与到达容差，本次整合会改变内容身份。协议36／存档v28字段形状不变，不承诺接受整合前内容的客户端或存档。输入超时／控制租约撤销只清输入，保留已生效惯性；传送和船内固定放置清除速度。旧HeroMotionBehaviour、HeroAirControlConfig及HeroAirControlDefinition已退出Game；MoveToConfig只保留MovedFrom来源名，原脚本.meta／GUID延续。
+2026-11-04速度预设采用主角手动visualize的七组候选。速度单位为逻辑像素／秒，过渡单位为秒；现行主角Worker选择“均衡探索”。“沿用balance”继续读原基础速度与倍率，两档目标即时切换。游戏参照项只按44像素碰撞身高换算速度，过渡时间为本轮候选。
+
+| 预设 | 步速 | 冲刺 | 提速 | 回落 |
+| --- | --- | --- | --- | --- |
+| 慢速探索 | 72 | 108 | 0.28 | 0.20 |
+| 均衡探索 | 80 | 120 | 0.24 | 0.18 |
+| 利落探索 | 88 | 132 | 0.18 | 0.14 |
+| 低步速／强冲刺 | 72 | 126 | 0.26 | 0.18 |
+| 原游戏速度 | 112 | 176 | 64／2400 | 64／2400 |
+| Minecraft速度参照 | 4.317／1.8×44≈105.527 | 5.612／1.8×44≈137.182 | 0.22 | 0.16 |
+| 泰拉瑞亚跑鞋参照 | 3×60／42×44≈188.571 | 6×60／42×44≈377.143 | 0.40 | 0.26 |
+
+预设仅平滑步速以上的Shift速度区间，普通起步／停步继续沿所选后端执行。原生马达以相对支撑面的真实水平速度推进目标，再受现有GroundAcceleration／GroundBraking限制；格运动、平台和船舱复用同一算法，接地保留本步已计算的过渡／继承速度。运行量继续只归ActorState，未增加冲刺计时或独立速度模型。动画步频在会话绑定时读取同一定义的冻结步速。
+
+AirSpeedRatio是原地跳及反向修正上限占正常步速的比例；参考速度取正常步速和起跳速度绝对值的较大者。Worker／Archer／Spearman保留两项开关开启，其他六份单位定义默认关闭。编辑后重新创建会话／角色生效；所有已装配移动能力的定义身份及完整MovementConfig摘要参与会话握手和存档内容校验，包含开关、到达容差、预设选择及解析后的四项速度数值，编码域为`movement-speed-presets-v1`。协议38／存档v30字段形状沿原合同，内容身份改变后按既有匹配规则处理旧客户端／存档，旧文件保留。输入超时／控制租约撤销只清输入，保留已生效惯性；传送和船内固定放置清除速度。旧HeroMotionBehaviour、HeroAirControlConfig及HeroAirControlDefinition已退出Game；MoveToConfig只保留MovedFrom来源名，原脚本.meta／GUID延续。
 
 每位玩家首次Ready创建专属worker，重复Ready不增员；真正重连与加载的接管区别见联机合同。主角、相机、菜单和改键各有明确生命周期，不共享客户端选择状态。Host本地主角在权威模拟后冻结即时展示，验证epoch／槽位／租约；远端仍消费正式副本和插值，不用本地展示替代网络诊断。
 
@@ -168,6 +193,8 @@ M17均衡配置采用12×0.32世界单位、每节0.1kg、攀爬0.75世界单位
 存在权威地图的物理场景以PlayableTerrain上沿作为顶部外边界，角色投影／保存高度上限扣除44像素身体高度；不能再沿平地HeroControl.MaximumHeight在洞内插入隐形横墙。无地图平地保持原规则，形状及边界版本进入Profile摘要；顶部边界变化不修改角色跳跃数值。
 
 原生碰撞由当前权威Map的整格及12坡形派生，整格按行合并后生成CompositeCollider2D；不读取可见网格或客户端Unknown。地图或revision变化在下一物理步前统一更新，装备挖掘在该步物理结果提交后处理。检查点TerrainRevision记录本步**实际碰撞使用**的revision，诊断另记录随后发生的真实地图版本；不能把步末挖掘版本冒充已求解几何。角色是脚底原点16×44逻辑像素盒，固定旋转；道具初始位置／尺寸唯一从Scene的PhysicsPropPlacement精灵边界冻结，质量来自Profile；Profile不保存并行布局。候选拒绝旧单向平台及旧飞行意图，原入口继续格后端处理这些历史路径。
+
+原生角色接地按相对支撑点速度在支撑法线上的分量判定，允许沿坡向上或随动态支撑上升。接地马达沿实际坡面切线施加有界加速／制动力，起跳后沿空中水平控制推进。支撑形状查询、相对法向速度规则及切向施力版本进入PhysicsProfile内容摘要。
 
 PhysicsWorldSnapshot冻结关联角色、箱子、绳索、速度／角速度、起跳门闩、输入确认和地形身份；不包含原生接触缓存。网络协议37在既有WorldWire完整投影追加物理闭包，核对角色姿态、租约和端点覆盖；保存v29附加physics字段，清输入序号／租约，恢复在原世界交换事务内分别写回所属State，并整体撤销原生缓存。动态支撑允许接地角色有竖直速度，不再用“接地必为零速”误拒合法箱上站立；原格合同保持。Host所有物理表现共用相邻60Hz采样，客户端共用原PresentationTimeline，不叠原生插值／NetworkTransform。
 

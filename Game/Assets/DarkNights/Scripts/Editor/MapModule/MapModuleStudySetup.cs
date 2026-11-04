@@ -31,6 +31,9 @@ namespace DarkNights.Editor.MapModule
                 throw new InvalidOperationException("地图目录中已有文件，请先检查是否已创建过示例地图。");
             for (int i = 0; i < SceneManager.sceneCount; i++)
                 if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("先保存当前场景。");
+            var framing = AssetDatabase.LoadAssetAtPath<View.CameraFraming.CameraFramingConfig>(
+                "Assets/DarkNights/Res/Shared/Camera/ExplorationCamera.asset");
+            if (framing == null) throw new InvalidOperationException("缺少共享地面镜头配置，请检查ExplorationCamera资产。");
             MapModulePaths.EnsureFolder(MapModulePaths.Root); MapModulePaths.EnsureFolder(MapModulePaths.Modules);
             MapModulePaths.EnsureFolder(Path.GetDirectoryName(MapModulePaths.Scene).Replace('\\', '/'));
             var shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
@@ -57,7 +60,7 @@ namespace DarkNights.Editor.MapModule
                 var reference = source.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<WhiteboxEntry>(true)).Single();
                 var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
                 SceneManager.SetActiveScene(scene);
-                var study = new GameObject("入口研究").AddComponent<MapModuleStudyAuthoring>();
+                var study = new GameObject("地图布局").AddComponent<MapModuleStudyAuthoring>();
                 var sample = new GameObject("缓入浅厅 · 继续深入").AddComponent<MapModuleCaseAuthoring>();
                 sample.transform.SetParent(study.transform, false); sample.CaseId = "gentle"; sample.DisplayName = sample.name;
                 var a = (GameObject)PrefabUtility.InstantiatePrefab(first, sample.transform);
@@ -72,7 +75,7 @@ namespace DarkNights.Editor.MapModule
                 sample.PreviewMesh = preview.AddComponent<MeshFilter>();
                 sample.PreviewRenderer = preview.AddComponent<MeshRenderer>(); sample.PreviewRenderer.sharedMaterial = material;
                 study.Cases = new[] { sample };
-                CreateRig(reference, study, scene);
+                CreateRig(reference, study, scene, framing);
                 if (!EditorSceneManager.SaveScene(scene, MapModulePaths.Scene)) throw new InvalidOperationException("示例地图的场景保存失败。");
                 MapModuleCompiler.Prepare(study, sample);
                 AssetDatabase.SaveAssets();
@@ -83,7 +86,8 @@ namespace DarkNights.Editor.MapModule
         private static int[] P(int x, int y) => new[] { x, y };
         private static MapModulePort Port(string id, int x, int bottom, int top, int direction) =>
             new MapModulePort { Id = id, From = new Vector2Int(x, bottom), To = new Vector2Int(x, top), Normal = new Vector2Int(direction, 0) };
-        private static void CreateRig(WhiteboxEntry reference, MapModuleStudyAuthoring study, Scene scene)
+        private static void CreateRig(WhiteboxEntry reference, MapModuleStudyAuthoring study, Scene scene,
+            View.CameraFraming.CameraFramingConfig framing)
         {
             string heroPath = MapModulePaths.Root + "/HeroRig.prefab";
             if (AssetDatabase.LoadMainAssetAtPath(heroPath) != null) throw new InvalidOperationException("主角Prefab已存在。");
@@ -105,25 +109,25 @@ namespace DarkNights.Editor.MapModule
             var hero = heroRoot.AddComponent<ScenePlacement>();
             hero.EditorConfigure(loader, heroRoot.GetComponent<ActorView>(), reference.HeroPlacement.InitialVariant,
                 reference.HeroPlacement.InitialName);
-            var owner = new GameObject("MapModule研究入口");
+            var owner = new GameObject("场景入口");
             var entry = owner.AddComponent<MapModuleEntry>(); entry.Study = study; entry.HeroPlacement = hero;
             var stage = owner.AddComponent<PinewatchStage>(); entry.Stage = stage;
             var camera = UnityEngine.Object.Instantiate(reference.ViewCamera.gameObject).GetComponent<Camera>();
-            // 研究Scene通过Bootstrap运行，监听器由Bootstrap唯一提供，镜头复制不能带入第二个。
+            // 试验场通过Bootstrap运行，监听器由Bootstrap唯一提供，镜头复制不能带入第二个。
             foreach (var listener in camera.GetComponentsInChildren<AudioListener>(true))
                 UnityEngine.Object.DestroyImmediate(listener);
-            camera.name = "研究镜头"; camera.transform.position = new Vector3(3, .4f, -10); camera.orthographicSize = 2.2f;
+            camera.name = "主相机"; camera.transform.position = new Vector3(3, .4f, -10); camera.orthographicSize = 2.2f;
             camera.backgroundColor = new Color(.16f, .23f, .25f); camera.clearFlags = CameraClearFlags.SolidColor;
             var actions = AssetDatabase.LoadAssetAtPath<InputActionAsset>(HeroInputAssetSetup.Path);
             if (actions == null) throw new InvalidOperationException("缺少正式Gameplay输入动作资产。");
             foreach (string map in new[] { "Camp", "Player", "UI" }) actions.FindActionMap(map, true);
-            var input = new GameObject("研究输入").AddComponent<PlayerInput>();
+            var input = new GameObject("玩家输入").AddComponent<PlayerInput>();
             input.actions = actions; input.defaultActionMap = "Camp";
             input.notificationBehavior = PlayerNotifications.InvokeCSharpEvents;
             input.neverAutoSwitchControlSchemes = true;
             input.camera = camera;
             var entities = new GameObject("运行时对象").transform; entities.SetParent(owner.transform, false);
-            var sky = new GameObject("保留的Stage天空绑定").AddComponent<SpriteRenderer>(); sky.transform.SetParent(owner.transform, false);
+            var sky = new GameObject("天空").AddComponent<SpriteRenderer>(); sky.transform.SetParent(owner.transform, false);
             var serialized = new SerializedObject(stage);
             serialized.FindProperty("sceneCamera").objectReferenceValue = camera;
             serialized.FindProperty("inputPlayer").objectReferenceValue = input;
@@ -133,6 +137,7 @@ namespace DarkNights.Editor.MapModule
             serialized.FindProperty("environment").objectReferenceValue = null;
             serialized.FindProperty("cameraX").floatValue = 192;
             serialized.FindProperty("zoom").floatValue = 2.8f;
+            serialized.FindProperty("cameraFraming").objectReferenceValue = framing;
             serialized.FindProperty("worldWidth").floatValue = 5120;
             serialized.ApplyModifiedPropertiesWithoutUndo();
         }

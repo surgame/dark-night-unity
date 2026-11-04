@@ -17,6 +17,8 @@
 | equipment_sha256 | 当前冻结装备、地形／矿床及已装配MovementBehaviour的Definition完整移动配置的组合指纹 |
 | world | 深度冻结的权威数据 |
 
+MovementConfig速度预设的选择及解析后的步速、冲刺上限、提速／回落时间以`movement-speed-presets-v1`编码进入现有equipment_sha256组合。过渡直接使用ActorState已有horizontal_speed和takeoff_horizontal_speed，不新增实例计时／速度保存字段；加载后继续读取匹配的冻结移动配置。v30字段形状沿原合同，旧内容摘要不匹配时按既有校验拒绝恢复并保留文件，实际保存／恢复验收见DEVELOPMENT。
+
 精确嵌套字段以 `ObjectWorldSaveJson`、`SnapshotDocumentJson`、`SnapshotEntityJson`、`TerrainSaveJson`、`MineralSaveJson`、`ExpeditionSaveJson` 及对应Validator的显式映射为准。缺失／未知字段、重复JSON属性、尾随内容、非法enum、非有限数、越界值、重复身份或不兼容摘要拒绝，不用历史样例绕过校验。
 
 当前world强制含`physics`：格运动为null，显式物理候选为完整对象，严格包含`definition`、`tick`、`world_id`、`map_epoch`、`terrain_revision`、`bodies`、`ropes`。后端／规则摘要进入layout_sha256，不能用新后端读取旧物理帧。最多64体、8条角色连接，正ID对应存活手动角色、-1～-32对应冻结Profile的全部道具（包括环境绳节）；端点须在同一闭包，OwnerId唯一，长度不得超过本配置。

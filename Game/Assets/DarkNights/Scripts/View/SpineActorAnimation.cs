@@ -1,4 +1,5 @@
 using System;
+using AnyRules.Next;
 using Spine;
 using Spine.Unity;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace DarkNights.View
 {
     /// <summary>
     /// 主角唯一骨骼播放器；只消费展示动作与连续采样时间，不驱动角色根、物理、伤害或网络状态。
-    /// AnimationState负责混合，外部物理未来通过Renderer的UpdateLocal／UpdateWorld钩子接管指定骨骼。
+    /// AnimationState负责混合，脚底适配在Renderer.UpdateWorld中读取地图并调整局部外观和站立小腿。
     /// 生命周期结束清除轨道与混合；不启动独立Update时钟或在每帧重设动画。
     /// </summary>
     public sealed class SpineActorAnimation : MonoBehaviour
@@ -16,6 +17,11 @@ namespace DarkNights.View
         [SerializeField] private SkeletonRenderer skeletonRenderer;
         [SerializeField] private MeshRenderer lightReceiver;
         [SerializeField, Range(0, .3f)] private float mixSeconds = .1f;
+        [SerializeField] private string leftFootSlot = "left-leg";
+        [SerializeField] private string rightFootSlot = "right-leg";
+        [SerializeField] private string leftShinBone = "left-leg2";
+        [SerializeField] private string rightShinBone = "right-leg2";
+        private SpineFootPlacement feet;
         private string currentPose = "";
         private bool initialized;
         private bool meshDirty;
@@ -24,6 +30,29 @@ namespace DarkNights.View
 
         public SkeletonRenderer Renderer => skeletonRenderer;
         public MeshRenderer LightReceiver => lightReceiver;
+
+        /// <summary>以已选站立双脚的底边中心校准局部原点，供原生资源迁移保存；重复调用保持幂等。</summary>
+        public bool AlignFeet()
+        {
+            Vector2 origin = SpineFootPlacement.ReferenceOrigin(skeletonAnimation.SkeletonDataAsset.GetSkeletonData(false),
+                leftFootSlot, rightFootSlot);
+            Transform art = skeletonRenderer.transform;
+            Vector3 desired = -(art.localRotation * Vector3.Scale(origin, art.localScale));
+            desired.z = art.localPosition.z;
+            if ((art.localPosition - desired).sqrMagnitude < 1e-12f) return false;
+            feet?.Restore();
+            art.localPosition = desired;
+            if (initialized)
+                feet = new SpineFootPlacement(skeletonAnimation.Skeleton, art,
+                    leftFootSlot, rightFootSlot, leftShinBone, rightShinBone);
+            return true;
+        }
+
+        public void SetGround(IReadOnlyGrid map, Transform actor, bool standing)
+        {
+            EnsureReady();
+            feet.Prepare(map, actor, standing);
+        }
 
         public bool HasPose(string pose) => pose == "jump" || pose == "idle" || pose == "move" ||
             pose == "jump_move" || pose == "jump_idle";
@@ -37,6 +66,7 @@ namespace DarkNights.View
         public void Sample(string pose, double seconds, double elapsed)
         {
             EnsureReady();
+            feet.Restore();
             string name = pose == "jump" ? "jump_idle" : pose;
             TrackEntry track = skeletonAnimation.AnimationState.GetTrack(0);
             if (currentPose != name || track == null)
@@ -83,6 +113,8 @@ namespace DarkNights.View
 
         public void ResetPresentation()
         {
+            feet?.Restore();
+            feet?.Prepare(null, null, false);
             currentPose = "";
             meshDirty = true;
             if (!initialized || skeletonAnimation == null || !skeletonAnimation.IsValid) return;
@@ -111,8 +143,13 @@ namespace DarkNights.View
             skeletonRenderer.enabled = false;
             skeletonRenderer.UpdateMode = UpdateMode.FullUpdate;
             initialized = true;
+            feet = new SpineFootPlacement(skeletonAnimation.Skeleton, skeletonRenderer.transform,
+                leftFootSlot, rightFootSlot, leftShinBone, rightShinBone);
+            skeletonRenderer.UpdateWorld -= FitFeet;
+            skeletonRenderer.UpdateWorld += FitFeet;
         }
 
+        private void FitFeet(ISkeletonRenderer renderer) => feet?.Apply();
         private void OnDisable() => ResetPresentation();
     }
 }

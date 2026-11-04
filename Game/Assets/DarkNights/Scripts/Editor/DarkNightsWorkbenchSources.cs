@@ -13,6 +13,7 @@ namespace DarkNights.Editor
     internal sealed class DarkNightsWorkbenchSources : VisualElement, IDisposable
     {
         private UnityEditor.Editor inspector;
+        private VisualElement inspectorContent;
         private readonly VisualElement area = new VisualElement();
         private readonly Label status = new Label();
         private readonly IVisualElementScheduledItem refresh;
@@ -35,8 +36,9 @@ namespace DarkNights.Editor
 
         private void Draw(string path)
         {
+            area.Clear(); inspectorContent = null;
             if (inspector != null) UnityEngine.Object.DestroyImmediate(inspector);
-            inspector = null; area.Clear(); asset = AssetDatabase.LoadMainAssetAtPath(path);
+            inspector = null; asset = AssetDatabase.LoadMainAssetAtPath(path);
             if (asset == null) { area.Add(new HelpBox("资产不存在：" + path, HelpBoxMessageType.Warning)); return; }
             var location = new Label(path); location.AddToClassList("dn-path"); area.Add(location);
             var actions = new VisualElement(); actions.AddToClassList("dn-actions"); area.Add(actions);
@@ -50,11 +52,8 @@ namespace DarkNights.Editor
                 return;
             }
             UnityEditor.Editor.CreateCachedEditor(asset, null, ref inspector);
-            area.Add(new IMGUIContainer(() =>
-            {
-                if (disposed || inspector == null) return;
-                using (new EditorGUI.DisabledScope(DarkNightsNativeWorkspace.Blocked)) inspector.OnInspectorGUI();
-            }));
+            inspectorContent = new InspectorElement(inspector);
+            area.Add(inspectorContent);
             area.Add(status);
             area.Add(new Button(() => { if (!DarkNightsNativeWorkspace.Blocked) AssetDatabase.SaveAssetIfDirty(asset); })
                 { text = "保存当前资产", name = "save-source" });
@@ -76,6 +75,7 @@ namespace DarkNights.Editor
         private void UpdateState()
         {
             if (disposed) return;
+            inspectorContent?.SetEnabled(!DarkNightsNativeWorkspace.Blocked);
             this.Q<Button>("open-source")?.SetEnabled(!DarkNightsNativeWorkspace.Blocked);
             this.Q<Button>("save-source")?.SetEnabled(!DarkNightsNativeWorkspace.Blocked);
             status.text = DarkNightsNativeWorkspace.Blocked ? "Play／导入／编译期间暂停编辑。" :
@@ -86,8 +86,9 @@ namespace DarkNights.Editor
         {
             if (disposed) return;
             disposed = true; refresh.Pause();
+            Clear(); inspectorContent = null;
             if (inspector != null) UnityEngine.Object.DestroyImmediate(inspector);
-            inspector = null; Clear();
+            inspector = null;
         }
     }
 }

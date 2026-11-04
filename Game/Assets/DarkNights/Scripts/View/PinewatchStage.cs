@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DarkNights.Core.ViewData;
 using DarkNights.Core.Config;
+using DarkNights.View.CameraFraming;
 using UnityEngine;
 
 namespace DarkNights.View
@@ -21,11 +22,13 @@ namespace DarkNights.View
         [SerializeField] private NativeEnvironment environment;
         [SerializeField] private float cameraX = 255;
         [SerializeField] private float zoom = 2.8f;
+        [SerializeField, InspectorName("地面镜头配置")] private CameraFramingConfig cameraFraming;
         [SerializeField] private float worldWidth = 1100;
         private float night = 0.16f;
         private float cameraHeight;
         private float targetCameraX = 255, targetCameraHeight, viewZoom = 2.8f;
         private float cameraXVelocity, cameraHeightVelocity, zoomVelocity;
+        private float explorationZoomMultiplier = 1;
         private const float FollowSmoothTime = 0.24f;
         public bool RandomTerrain { get; set; }
         public Terrain.TerrainMiningSelectorSettings MiningSelector { get; set; } = new Terrain.TerrainMiningSelectorSettings();
@@ -62,8 +65,12 @@ namespace DarkNights.View
         private double visualTime;
         private int epoch;
         private bool observing, expedition, shipFraming, cameraInitialized, voyageFraming;
-        private float TargetZoom => shipFraming ? Mathf.Min(zoom, Mathf.Max(.8f, (Screen.width - (voyageFraming ? 64f : 480f)) /
-            (Core.Logic.Terrain.ShipGeometry.HalfWidth * 2 + 64)), Screen.height / (voyageFraming ? 260f : 300f)) : zoom;
+        private int ViewportWidth => Mathf.Max(1, sceneCamera.pixelWidth);
+        private int ViewportHeight => Mathf.Max(1, sceneCamera.pixelHeight);
+        private float ExplorationZoom => expedition && cameraFraming != null
+            ? cameraFraming.ZoomForViewport(ViewportHeight, ActorPresentationScale) * explorationZoomMultiplier : zoom;
+        private float TargetZoom => shipFraming ? Mathf.Min(zoom, Mathf.Max(.8f, (ViewportWidth - (voyageFraming ? 64f : 480f)) /
+            (Core.Logic.Terrain.ShipGeometry.HalfWidth * 2 + 64)), ViewportHeight / (voyageFraming ? 260f : 300f)) : ExplorationZoom;
         private static readonly Color DayAmbient = new Color32(233, 235, 222, 255);
         private static readonly Color NightAmbient = new Color32(113, 135, 169, 255);
         public Camera SceneCamera => sceneCamera;
@@ -82,7 +89,7 @@ namespace DarkNights.View
         }
         public Color Ambient => Color.Lerp(DayAmbient, NightAmbient, night);
         public float CameraX => cameraX;
-        public float Zoom => zoom;
+        public float Zoom => shipFraming ? zoom : ExplorationZoom;
         public double PresentationTime => visualTime;
         public float NightAmount => night;
         public float WorldWidth => worldWidth;
@@ -92,6 +99,7 @@ namespace DarkNights.View
         public void Initialize(LevelLayout layout)
         {
             shipFraming = false;
+            explorationZoomMultiplier = 1;
             expedition = layout.Expedition;
             sky.gameObject.SetActive(!expedition);
             foreach (NativeBackdrop backdrop in backgrounds) backdrop.gameObject.SetActive(!expedition);
@@ -116,7 +124,13 @@ namespace DarkNights.View
         }
         public void ChangeZoom(float factor)
         {
-            zoom = Mathf.Clamp(zoom * factor, 1.2f, 4.5f); UpdateCamera();
+            if (float.IsNaN(factor) || float.IsInfinity(factor) || factor <= 0)
+                throw new System.ArgumentOutOfRangeException(nameof(factor));
+            if (expedition && cameraFraming != null && !shipFraming)
+                explorationZoomMultiplier = Mathf.Clamp(cameraFraming.HeroHeightPercent * explorationZoomMultiplier * factor,
+                    0.1f, 100) / cameraFraming.HeroHeightPercent;
+            else zoom = Mathf.Clamp(zoom * factor, 1.2f, 4.5f);
+            UpdateCamera();
         }
 
         public void Present(SessionViewData frame)
@@ -181,10 +195,10 @@ namespace DarkNights.View
                 viewZoom = Mathf.SmoothDamp(viewZoom, targetZoom, ref zoomVelocity, FollowSmoothTime,
                     Mathf.Infinity, delta);
             }
-            float half = Screen.width * 0.5f / viewZoom;
+            float half = ViewportWidth * 0.5f / viewZoom;
             cameraX = Mathf.Clamp(cameraX, half, Mathf.Max(half, worldWidth - half));
-            sceneCamera.orthographicSize = Screen.height * 0.5f / viewZoom / 100;
-            sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + Screen.height * (expedition ? 0.04f : 0.215f) / viewZoom) / 100, -10);
+            sceneCamera.orthographicSize = ViewportHeight * 0.5f / viewZoom / 100;
+            sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + ViewportHeight * (expedition ? 0.04f : 0.215f) / viewZoom) / 100, -10);
         }
     }
 }

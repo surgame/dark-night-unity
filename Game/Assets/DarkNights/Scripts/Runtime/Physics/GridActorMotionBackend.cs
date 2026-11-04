@@ -38,7 +38,7 @@ namespace DarkNights.Runtime.Physics
         }
 
         internal float MoveSpeed(ActorMotionInput input) => actor.Read().ManualControl
-            ? actor.World.Catalog.Balance.HeroControl.MoveSpeed(input.SprintHeld) * actor.World.DebugHeroSpeedMultiplier
+            ? movement.MoveSpeed(actor.World.Catalog.Balance.HeroControl, input.SprintHeld) * actor.World.DebugHeroSpeedMultiplier
             : input.NormalSpeed ?? (float)actor.Definition.Speed;
 
         internal float HorizontalTarget(ActorMotionInput input, bool grounded) => MovementHorizontalMotion.Target(
@@ -48,7 +48,7 @@ namespace DarkNights.Runtime.Physics
 
         internal void LandHorizontal(ActorMotionInput input) => MovementHorizontalMotion.Land(
             actor.Edit(), actor.World.Catalog.Balance.HeroControl, actor.World.DebugHeroSpeedMultiplier,
-            input.Direction, input.NormalSpeed);
+            input.Direction, input.NormalSpeed, movement);
 
         internal void ContinueFromCabin(ActorMotionInput input, float appliedX) =>
             StepWorld(input, false, false, actor.Read().JumpHeld, appliedX);

@@ -152,7 +152,8 @@ namespace DarkNights.Entry.Terrain
         {
             if (Lab == null) return;
             var hero = Lab.Hero;
-            heroPresentation.Present(hero, 1, "", hero.X, hero.ActionTime, Color.white);
+            heroPresentation.Present(hero, 1, "", hero.X, hero.ActionTime, Color.white,
+                ground: Lab.World.Terrain.Map);
             for (int index = 0; index < EventSlots.Length; index++)
                 EventSlots[index].View.Present(Lab.Events[index].Capture(), Lab.SimulationTime);
             var position = ViewCamera.transform.position;

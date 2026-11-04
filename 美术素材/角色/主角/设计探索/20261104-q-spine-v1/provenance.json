@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-04",
+  "mode": "built-in image_gen",
+  "use_case": "stylized-concept",
+  "purpose": "Q版主角造型与Spine拆件设计参考",
+  "original_generated_path": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a1a345-0b7c-7973-999a-7308e1689058\\call_0tmfSsFyWYWmh8cpBNO85wOK.png",
+  "prompt_source": "README.md 完整生成提示",
+  "output": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角\\设计探索\\20261104-q-spine-v1\\hero-q-spine-design-v1.png",
+    "relative_to_design": "hero-q-spine-design-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "sha256": "3c1eb5e8e74a40fd283aa92f868f4989563e94ac95da7e1a7845045ac7d48765"
+  },
+  "reference_inputs": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角\\images\\head.png",
+      "relative_to_design": "../../images/head.png",
+      "width": 229,
+      "height": 185,
+      "mode": "RGBA",
+      "sha256": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\地图\\20261101-hero-terrain-palette-studies\\01-terracotta-strata.png",
+      "relative_to_design": "../../../../地图/20261101-hero-terrain-palette-studies/01-terracotta-strata.png",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "sha256": "dc941ce1e70a8b7165350432c73bdd746285b296dcf813b01e97f72874d7dd0d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\20261030-cave-explorer-concept\\painted-spine-study-02.png",
+      "relative_to_design": "../../../20261030-cave-explorer-concept/painted-spine-study-02.png",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "sha256": "09895929fa5d1e8bb13365d1685128e100dde665eeca84d6b3446fbb87286112"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角\\images\\body.png",
+      "relative_to_design": "../../images/body.png",
+      "width": 66,
+      "height": 62,
+      "mode": "RGBA",
+      "sha256": "72614ea9d309b30f78fd2287173c107b16bafc9e0bb0c21462460f667eb1d3f2"
+    }
+  ],
+  "status": "待用户视觉评审，未拆件或绑定Spine",
+  "review_notes": [
+    "实际约2头身，较提示中的约2.5头身更短。",
+    "背面视图比例较主视图略小，各方向尚需制作时统一。",
+    "手臂关节为制作示意，须补齐遮挡并在实际骨架中核对。"
+  ]
+}

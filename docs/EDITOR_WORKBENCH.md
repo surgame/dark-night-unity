@@ -16,11 +16,19 @@ CL-00后独立洞穴工作台默认关闭喷气，沿用真实基础跳跃；原
 
 Scene的PhysicsPropPlacement是初始箱子位置／尺寸唯一来源，负ID稳定保存；可在Scene看见并移动／缩放实例，初始旋转／Z和脚底pivot必须合法。Profile保留质量、马达、绳索规则及显示Prefab引用，不另存位置表。候选提供两只箱子，新建研究角色配正式矿镐。A/D、空格、Shift沿原输入；接触推箱，E连接最近角色或箱子，已有连接时E解除。初始绳长由服务器按实际端点距离加8逻辑像素确定，受Profile上限限制。可在箱上向下挖地、连接下落队友；这些是待验操作，不是已经签署的运行结果。
 
+坡面检查使用同一组A/D／空格操作，观察上坡、下坡和松键停步后的支撑状态与动作切换。角色以相对支撑面法向速度判定离地，接地加速／制动沿坡面切线施力，坡上起跳后进入空中状态。回归结果及实际场景待验边界统一见DEVELOPMENT。
+
 研究入口默认Host、端口27779。独立Client可在其场景配置StartAsHost=false、ServerAddress／ServerPort，或使用`--dn-role client --dn-address <Host地址> --dn-port 27779`；可选`--dn-physics-study`选择同一研究Scene。Player须在获准构建中包含该Scene，本轮不生成Player或自动改构建设置。不能用两个Editor并行写Local缓存，也不借连接成功宣称物理同步通过。
 
 运行Host时在本窗口“开始录制／停止录制／导出当前记录”。最多600个物理步或16次地形版本变化后自动停止，保留起始v29冻结世界、配置／移动指纹、逐步运动输入、接触／支撑及变更后地图；每步接触最多256条，截断显式标记。失败保留本步输入及有界异常文本。导出在`artifacts/physics-traces/`创建唯一JSON，不覆盖玩家槽位、不订阅日志。窗口保留最近已观察到的退休会话记录以便导出；关闭窗口或域重载不等于已写盘。资料不包含原生热启动缓存，不自动执行确定性重演。
 
 ## 导航与作者编辑
+
+地面镜头比例在`Res/Shared/Camera/ExplorationCamera.asset`配置，也可从`Dark Nights → 工作台 → 设置／图形 → 扩展 → 地面镜头比例`定位并选中资产。Inspector提供“镜头预设”“人物占屏高度（%）”和“参考人高（Unity单位）”。16%、12.4%、10.5%、8%、6%五档都可修改，默认“截图相近 · 10.5%”；选择预设填入对应数值，直接改百分比会自动切为“自定义”。参考人高默认为0.48，用于校准角色站立外观高度，角色姿态会影响实际可见占比。
+
+正式远征、MapModule入口／M17及合作物理场景的PinewatchStage“地面镜头配置”引用同一资产。选中配置后按Ctrl+S保存；运行期间调节会经现有跟随平滑生效，要保留该值仍须保存资产。各分辨率按相机实际画面高度换算，百分比越小镜头越远。运行镜头由Stage驱动，直接修改Camera的Orthographic Size只用于编辑预览；完整口径见[地面镜头合同](ARCHITECTURE.md#地面镜头取景)。
+
+主角速度预设在`Res/Objects/Worker/Worker.asset`的SharedConfigs“移动”配置中选择，字段为“速度预设”。七组方案的数值见[移动配置合同](ARCHITECTURE.md#主角与输入)，当前选择“均衡探索”，步速80、冲刺120、提速0.24秒、回落0.18秒。先退出Play、修改并保存Definition，再重新进入会话／试玩；原生物理、格运动和主角动画读取同一选择。其他单位的“沿用balance”及自动移动显式步速沿原规则；预设选择不是玩家客户端可提交的运行命令。
 
 主角骨骼资源通过工作台“角色与装备 → 主角骨骼与动画”定位SkeletonData、HeroRig及AnimationSelection。已选主角使用官方Spine运行时；骨骼、图集与混合配置可在原生Inspector查看，实际动作选择仍归AnimationSelection和既有展示状态。原生迁移入口`HeroSpineAssetSetup.Migrate`仅处理已选旧Hero绑定，拒绝Play／编译／脏场景，并保留迁移前资产副本；不在浏览工作台时自动执行。新增作者动作先补来源和选择，不直接覆盖现有图集或重新烘焙旧帧。
 
@@ -312,7 +320,7 @@ M17采用单片4×3U白模，包含左岸、裂谷、右岸、上方奖励岩台
 | --- | --- |
 | 正式入口／快速测试菜单 | `Scenes/Bootstrap.unity` |
 | 正式地面内容 | `DarkNights/Res/Scenes/Expedition/Expedition.unity` |
-| 新版模块入口研究 | `DarkNights/Res/Scenes/Workbenches/MapModule/MapModuleEntranceStudy.unity` |
+| MapModule试验场 · 洞口与浅厅 | `DarkNights/Res/Scenes/Workbenches/MapModule/MapModuleEntranceStudy.unity` |
 | 干净角色白模起点 | `DarkNights/Res/Scenes/Workbenches/Terrain/CaveWhitebox.unity` |
 | 地形预览 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` |
 | 编辑参考与同源Play预览 | `DarkNights/Res/Scenes/References/Terrain/ReferenceChamber.unity` |

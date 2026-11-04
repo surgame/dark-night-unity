@@ -88,7 +88,7 @@ namespace DarkNights.Runtime.Terrain
             else state.SupportPlatform = -1;
             if (movement != null)
             {
-                if (grounded) MovementHorizontalMotion.Land(state, rules, speedMultiplier, direction, normalSpeed);
+                if (grounded) MovementHorizontalMotion.Land(state, rules, speedMultiplier, direction, normalSpeed, movement);
                 if (Math.Abs(state.X - previousX - distance) > .01f) state.HorizontalSpeed = 0;
             }
             if (state.Height >= ceiling || state.Height <= PlayableTerrain.MinimumHeight)

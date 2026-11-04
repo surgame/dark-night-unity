@@ -6,6 +6,16 @@
 
 ## 当前阶段：CL 矿洞远征核心闭环
 
+2026-11-05 本提交集成聊天／Local按用户“看看还有没有未提交内容，帮我提交”及“合并主分支推送”汇总当前仓库全部未提交成果，归CL-01／08及PH-02。开工位于main，HEAD为9e4c014c，fetch后与origin/main一致；本批共74份文件，含46份修改、28份新增，覆盖速度预设、斜坡接地与脚底表现、镜头比例、MapModule命名、吊绳Prefab及主角设计探索。当前直接提交main并推送origin/main，最终身份以Git记录为准。新增Unity资源meta配对、两份来源JSON解析、差异格式及冲突标记核对通过，74份暂存内容与工作区按Git过滤后的对象身份一致，无遗漏文件。本批仅做Git／文件及文档核验，各模块已有编译、测试和待验结论沿本页原记录，未追加Unity编译、测试、Play或Player；实际视觉、操作手感、联机与恢复待验，CL继续。
+
+2026-11-04 主角脚底与翻转轴修复已实现，C#编译及原生资源／引用核对通过，运行待验（本脚底贴地聊天／Local，CL-08）。用户要求合并处理平地脚底正常、斜坡悬空及快速左右换向视觉跳动。原生角色实际为16×44逻辑像素矩形碰撞体，坡面由上坡底角支撑；原Hero迁移按整身外轮廓居中。现按已选idle首姿的两脚底边中心校准SkeletonRenderer外观子节点，HeroRig和9份直接持有该主角的旧白模／洞口／洞厅Scene已通过原生API保存。原偏差约1.722逻辑像素，镜像额外位移约3.444逻辑像素；校准后参考脚底的局部中心残差为0。四项脚部网格／小腿绑定显式保存，后续迁移沿同一校准入口。
+
+SpineFootPlacement按本端已知实际坡形调整外观基准，idle再分别补偿两侧小腿，每腿限8逻辑像素；通过官方UpdateWorld钩子在动画后、约束和网格前接管，每次采样前恢复上次局部改动。行走保留原腿部动作，腾空清掉补偿。ActorGroundSurface核对身体宽度内的实际支撑及格边连续，平地与坡面过渡读取连续高度；未知格、断崖／台阶和支撑高度不符时退出。正式会话接入当前epoch已就绪的本地地图副本，白模与塌方Lab接入所属只读地图。ARCHITECTURE承接该表现合同。
+
+复用6000.4.9f1／PID28096单一Editor，开工记录现场后退出入口研究Play。首轮编译的Spine.AnimationState同名与4.3回调签名错误已修正，最终recompile_status为completed、failed=false、errors=[]。原生校准首次误写播放器所在角色根，已逐份保全失败输出并从本批备份恢复十份完整输入，再修正为骨骼子节点；结果序列化的Vector3自引用问题一并修正。恢复导入后的一次Pipeline主线程5秒超时经检查确认十份输入均未产生校准差异，Editor空闲后续接成功。最终十份资产相对开工备份均只改变1条外观局部位置与新增4项绑定，角色根及其他作者内容的逐行核对通过；HeroRig缺失脚本0，新增两份脚本meta由Unity生成，9份本批C#最长225行。原失败、回退副本、编译、校准、源码／资源身份及核对回执归`artifacts/hero-foot-placement-20261104/`。最低预检可用物理内存约10.81GiB，D盘约88.42GiB；结束为原入口研究Scene、无脏标记、非Play／非编译。
+
+本片仅完成编译与静态／原生资源核对，实际视觉待验。重点为平地静止与快速A／D换向、左右朝向的上／下坡站立、行走与松键停步、平坡／坡顶／坡谷过渡、起跳与落地、暂停及角色重新绑定；预期固定翻转支撑中心、坡面站立两脚分高低、离地及时释放局部补偿，身体保持竖直。动态箱子／绳索附近、客户端局部地图尚未就绪及双端观感继续列为边界待验，本片未启动新的测试／Play／Player，CL继续。
+
 2026-11-04 玩家控制整理已提交主分支并推送（本角色能力评审聊天／Local，CL-08／PH-01）。用户明确要求提交、合并主分支并推送。开工main与origin/main同为13931cd2，本聊天的旧入口清理、三项更名及控制职责整理已以99113c40提交并推送origin/main，含50项Git变更；当前本来就在主分支，直接提交。共享文件按具体改动暂存，移动、镜头、地图及美术等其他聊天成果继续由原聊天持有。独立候选基于13931cd2和本批内容构成，Core／Runtime／View／Entry／Editor／Tests六程序集隔离C#编译退出码均0；暂存差异、49份候选内容SHA-256、三份脚本GUID及引用核对通过。此为编译检查，运行／联机及恢复仍沿原待验项。本段随文档收尾提交推送，候选清单、编译、暂存和最终Git身份归`artifacts/player-control-refactor-20261104/publish-main/`，CL继续。
 
 2026-11-04 玩家控制命名与职责整理已实现，C#编译及原生注册／引用核对通过，运行待验（本角色能力评审聊天／Local，CL-08／PH-01）。用户授权按评审方案执行：HeroPlayerController更名LocalPlayerController，HeroControlBehaviour更名PlayerControlBehaviour，SessionHeroControl更名SessionPlayerControl。LocalPlayerController仍由SessionUiController创建在Dark Nights Session上，衔接本机输入、角色选择、HUD和镜头；HeroInputSampler为原本地辅助类。SessionPlayerControl保留连接、角色分配、控制归属、参数／序号和超时检查，调用PlayerControlBehaviour应用或清理操作。ApplyInput、ClearInput及策略失效时的InvalidateInput集中到角色控制能力，Actor继续拥有唯一ActorState。装备后处理直接归Actor.FinishMotion，原船舱门槛通过IMovementCapability.HandledByCabin读取；原讨论的四项能力继续独立装配。
@@ -16,11 +26,43 @@
 
 待验为本机与来宾各自移动／跳跃／使用工具，确认每次操作只影响本人角色且队友显示正常；菜单／暂停／失焦及500ms输入超时清掉持续按键，已生效惯性继续由原运动推进；控制失效／断线／重连后旧控制编号或重复序号拒绝，接管后短按正常；地面与历史船舱中的装备后处理沿原门槛执行；加载后重新接管与第一批输入不继承旧按键。独立双端及真实保存恢复仍待验，CL继续。
 
+2026-11-04 镜头占屏比例预设已实现，C#编译及原生配置／引用核对通过，运行待验（本镜头配置聊天／Local，CL-08）。用户要求将镜头比例可视化的推荐方案落为可选、可编辑预设，默认10.5%，手动改值自动切为“自定义”。已读取原镜头聊天与可视化输入，新增CameraFramingPreset／CameraFramingConfig及UITK原生Inspector，提供16%／1080p旧参照12.4%／10.5%／8%／6%五档及自定义。共享资产`Res/Shared/Camera/ExplorationCamera.asset`已保存Screenshot105、10.5%、参考人高0.48，通过工作台“设置／图形 → 扩展 → 地面镜头比例”及Project均可定位。
+
+PinewatchStage地面跟随按相机实际像素高度与ActorPresentationScale换算目标比例，沿用同一跟随／平滑／边界入口；临时滚轮倍率只由本端Stage拥有。已核对船舱取景及固定捕获调用的Zoom语义，旧场景仍可走原zoom。正式Expedition、MapModule入口／M17及CooperativePhysicsStudy四场景已原生绑定共享配置；新MapModule初始化先检查配置就绪。主工作台来源面板改为InspectorElement承载原生Inspector，使Project与工坊入口共同加载“改值转自定义”界面；原编辑锁与保存入口继续生效。配置为本地表现资源，业务协议／存档及网络内容身份沿现行合同。
+
+复用6000.4.9f1／PID28096单一Editor，首轮实现、Zoom调用边界修正及工坊Inspector承载补齐后的3次编译均completed、failed=false、errors=[]。原生核对配置Inspector为1个EnumField、2个FloatField及说明，四场景缺失脚本0、MapModule来源摘要保持；相对本片开工备份，场景仅新增4条镜头引用，合作物理场景原生保存另补齐既有空HangingRopes列表。3份新源码及共享资产、3个新目录的meta由Unity生成，最长手写源码204行。结束选中ExplorationCamera，入口Scene无脏标记、非Play／非编译；本片未执行测试、Play或Player。最低可用物理内存约10.26GiB、D盘结束约88.84GiB；输入备份、3轮编译、原生装配／Inspector核对及最终差异归`artifacts/camera-framing-presets-20261104/`。ARCHITECTURE与EDITOR_WORKBENCH已同步。
+
+待验操作为五档切换、手动改比例后显示自定义及Undo／保存重开，运行中调节与分辨率／相机画面改变后稳定占比，地面跟随／暂停／船舱往返和临时滚轮缩放，以及从工作台编辑其他资产时的锁定／保存。预期10.5%按0.48单位站立参照取景，姿态会改变实际可见高度；本片核对不作为运行画面或上述交互验收通过。已有角色能力、移动、斜坡和吊绳成果沿原聊天，CL继续。
+
 2026-11-04 角色四项Behaviour旧入口清理与职责评审完成，C#编译通过，运行待验（本角色能力评审聊天／Local，CL-08／PH-01）。用户限定MovementBehaviour、HeroControlBehaviour、ActorBehaviour及ActorPresentationBehaviour，要求先清理旧实现再分析。四项均为当前装配入口，旧HeroMotionBehaviour等重复实现已退出Game。本片移除角色表现IssueOrder／Train、Bind输入回调及全部对应调用；正式会话、白模和塌方Lab统一四参数只读绑定，已有表现测试同步移除退休命令断言，继续核对身份／副本／归池。HeroControl移除旧工作／施工取消分支、重复朝向写入及失去实际职责的PrepareInput；Actor直接依据装配及ManualControl选择控制路径，并移除只用于重复装配检查的战斗注入。7份C#与ARCHITECTURE同步，MovementBehaviour源码字节与开工输入一致。
 
 清理后四项分别承担ActorState与步进组织、单步运动执行、玩家控制租约／输入生命周期／装备后处理、冻结副本表现，当前仍有真实调用与装配差异，评审结论为保留四项。HeroControl最薄，但Claim／Release／ResetInput具有独立生命周期。仍被其他单位定义、原生动画及历史含船保存支持使用的共享姿态、目标移动与船舱路径按当前调用保留；本片将“旧”限定为已退役入口及重复实现，不把暂停玩法的全部源码视作废弃实现。
 
 复用6000.4.9f1／PID28096单一Editor，只主动提交一次connected command recompile，回执completed、failed=false、errors=[]；引用与本片差异核对通过。开始与结束均为入口试验场、无脏标记、非Play／非编译。预检可用物理内存约12.08GiB、D盘约88.85GiB；输入备份、编译及最终身份归`artifacts/actor-behaviour-review-20261104/`。本片只执行编译与静态核对，未执行测试／Play／Player；协议38／存档v30字段及依赖合同沿用现行配置，实际接管／释放、移动后手持使用、重绑／归池仍待验，CL继续。
+
+2026-11-04 MapModule试验场命名整理已完成，编译及原生引用核对通过（本命名聊天／Local，CL-01／08）。用户明确MapModule场景用于试验场，相机、输入和场景装配等均按正式职责命名。入口及M17场景共9个Hierarchy对象改名为“地图布局”“场景入口”“主相机”“玩家输入”“天空”，入口地图显示名改为“洞口与浅厅”；创建脚本、主工作台说明和现行命名合同已同步。内部序列化类型／StudyId／CaseId及既有场景路径继续承担资源与布局定位。
+
+复用6000.4.9f1／PID28096单一Editor，只主动提交一次编译，completed、failed=false、errors=[]。两场景原生保存前后来源摘要及Bake内容身份一致、缺失脚本0；最终场景差异仅10项名称值。保存附带产生的1条主角m_Mesh空覆盖已通过Prefab API移除，保留处理回执。当前正式Gameplay输入引用核对通过，结束仍为入口场景、无脏标记、非Play／非编译；本批按命名范围仅做编译、场景装配和差异核对，运行验收未执行。开工可用物理内存约12.42GiB、D盘约88.85GiB；输入备份、编译及原生核对归`artifacts/mapmodule-naming-20261104/`。已有移动、斜坡、吊绳和美术成果由原聊天继续持有，CL继续。
+
+2026-11-04 Movement速度预设已实现，C#编译及原生配置核对通过，运行待验（本移动手感聊天／Local，CL-08／PH-02）。用户要求将主角手动visualize的七组速度方案放入MovementConfig并暂用“均衡探索”。新增中文枚举“速度预设”，提供七组方案及零值“沿用balance”；冻结为纯只读MovementSpeedDefinition。Worker已通过原生AssetDatabase／Undo API保存选择BalancedExploration，步速80／冲刺120逻辑像素每秒、提速0.24秒、回落0.18秒；Worker文件仅新增SpeedPreset=2，GUID保留。其他八份移动定义继续沿用balance，自动单位显式步速优先。
+
+MovementHorizontalMotion在已有ActorState.HorizontalSpeed上连续推进Shift速度区间，原生马达继续受原GroundAcceleration／GroundBraking限制；格运动、平台与船舱共用同一过渡，接地保留已计算速度，空控参照及动画步频读取同一冻结步速。未增加实例冲刺计时或第二套状态模型。移动摘要以`movement-speed-presets-v1`同时编码枚举及解析后的四项数值；协议38／存档v30字段形状沿原合同，旧内容失配按既有握手／恢复规则拒绝并保留文件。ARCHITECTURE、EDITOR_WORKBENCH、MULTIPLAYER及SAVE_FORMAT已同步。
+
+复用6000.4.9f1／PID29880单一Editor。首批编译因水平计算局部target重名失败，已改名并保留失败回执；修正后编译completed、failed=false、errors=[]。Unity序列化属性核对8项中文枚举、当前索引2、七组完整冻结数值及九份定义选择通过，新增2份源码meta由Unity生成；10份本批C#最长216行，差异／引用核对通过。退出编译后仅保存Worker，原入口研究Scene保持无脏标记，Selection=0，结束非Play／非编译；原斜坡NativeActorMotor源码与开工备份SHA一致。开工main保留斜坡、吊绳Prefab及其他主角设计聊天成果。两次编译前最低可用物理内存约9.52GiB、D盘约82.17GiB。输入备份、原失败、编译、原生选择／配置核对及最终身份归`artifacts/movement-presets-20261104/`。默认仅编译与配置核对，平地按松Shift、反向／停步、坡面与起跳落地、预设切换后重开，以及独立双端／真实保存恢复仍待验，CL继续。
+
+2026-11-04 简洁Q版主角左右向v2已产出，待视觉评审（本主角设计聊天，CL-08）。用户否定v1，要求简单利落、更Q，明确横版游戏只需左右。内置image_gen重画1536×1024设计板，以约1.6～1.7头身、简化色块和轮廓展示左右站姿与右向侧面展开姿；首张身体偏正面的中间稿保留，第二次修正躯干及脚部朝向。成果、设计前规格、两轮完整提示和输入／输出身份归`美术素材/角色/主角/设计探索/20261104-q-spine-v2/`。已静态核对，图中仍有轻微平滑色彩变化，远侧腿及隐藏关节需后续补绘，实际Spine拆件／绑定／动作待制作。CL继续。
+
+2026-11-04 Q版主角与Spine制作设计候选已产出，待视觉评审（本主角设计聊天，CL-08）。用户要求参考`美术素材/角色/主角/`探索更好看、更Q、带T-Pose且便于Spine制作动画的主角。内置image_gen产出1536×1024不透明设计板，保留浅蓝圆头罩、小脸与V形嘴，包含正面／斜侧／背面T-Pose、纯侧面、三表情及手臂关节重叠示意。实际约2头身，比拟定约2.5头身更短，背面展示尺度略小，后续制作需统一比例、补齐遮挡并绘制透明拆件。成果及设计前规格、完整提示、原生尺寸和输入／输出SHA-256归`美术素材/角色/主角/设计探索/20261104-q-spine-v1/`。仅完成设计板静态核对，Spine实际拆件／绑定／动作及Unity接入待后续，CL继续。
+
+2026-11-04 镜头比例独立visualize已产出，待用户取景选择（本镜头研究聊天／Local，CL-08）：用户认为取景偏近，要求试验不同镜头比例并分析《迷失铁道》截图及相近游戏。用户2114×1170截图中角色耳尖至脚底约115–125px，相对有效高度约1105px为10%–11%，门约1.7个人高；Steam两张《雨世界》样本约5%–6%，《潜渊症》整船远景样本约5%，均为选图／姿态估测。PinewatchStage及M17 Scene的zoom=2.8，按项目H≈0.48换算1080p约12.4%、720p约18.7%，运行时跟随镜头接管Scene预览的5.2半高，不能直接以该预览值推断运行取景。
+
+入口`C:/Users/Jobscn/.codex/visualizations/2026/11/03/01a1a33d-84d8-7491-ba66-52b443bb8b04/camera-study/camera-distance.html`为115,439字节，提供4%–22%连续缩放、当前参照／10.5%／8%／6%等预设、三分辨率参照、并排比较、固定世界光距的暗场、三队友、左右视觉行走及原截图测量。统一16:9、脚底位于画面60%、人物横向43%，洞穴和照明为独立示意，人物复用原PNG站姿；当前参照只比较比例。最终浏览器核对覆盖预设／参照换算、并排与照明／队友、真实键盘／按钮及松键停步、状态恢复和736／360／320双主题布局，8组结果、0脚本错误，主画面／测量框已目视回读；首次浏览器版本缺失及包装拒绝覆盖的过程失败写入同目录manifest。来源图、输入／输出SHA及截图由sources／manifest.json／verification.json保留。正式镜头选择与实机观感待审阅；本片只写独立visualize和本段状态，保留其他会话斜坡／吊绳等修改，未执行Unity编译、测试、Play或Player，CL继续。
+
+2026-11-04 斜坡接地已修复，编译及定向原生物理回归通过（本聊天／Local，CL-08／PH-02）。用户报告站在斜坡上持续显示滞空，已授权相关测试及修复。开工main保留已有吊绳ObjectDefinition等成果，复用6000.4.9f1／PID29880单一Editor。原候选在真实YYGC角色／WhiteboxSession／原生后端复现沿坡上行、松键减速被世界竖直速度门槛误判滞空、起跳输入未消费，以及只施水平力导致下坡短暂脱离。NativeActorMotor准备及提交均改为相对支撑点速度的法向分量判定接地，接地加速／制动沿真实坡面切线施力，起跳后恢复空中水平施力。`contacts-v2-normal-tangent`纳入原PhysicsProfile内容身份，参数及网络／v30字段形状沿原合同，配置失配按原校验拒绝混连／恢复并保留旧文件。
+
+当前源码基于13931cd2加本片差异，C#编译completed、failed=false、errors=[]。NativeSlopeGroundingTests的1项聚合回归通过，覆盖21组合，即平地及左右0.5／1坡度的静止、上行后制动，四种坡面的双向行走、上坡起跳／落坡及近坡真正上升离地，逐步同时检查ActorState和展示投影。原判定复现失败保留；前两批测试入口／模式失败及一批固定FishNet诊断中断也保留，最终只精确接收既有Editor装配夹具的WorldSession未注册Awake诊断，其他错误仍失败。测试期间最低可用物理内存约8.62GiB，D盘结束约82.19GiB。
+
+恢复M17试玩时发现磁盘上既有未提交HangingRope制作Prefab回到了旧实例参数、缺少DefinitionReference，首次重开失败。已保全原字节为`HangingRope.pre-binding-repair.prefab`，经原生Prefab API补回已存在的吊绳定义引用，Unity正常移除当前类型已无的6个旧实例参数字段；预览线宽0.035及转角／端帽0均保留，未回滚其现有修改。M17随后重开成功，Host客户端Ready、1根吊绳、初始角色接地、缺失脚本0，场景无脏标记，结束保持Play供用户试走。M17物理身份为`8737c90757c964ef4ca9a4c1a2644ba7e13d70e7213cf61fee6155b556acb296`。场景字节、另一份绳显示Prefab及依赖锁前后SHA一致。修复、原失败、编译、回归、引用修补、原生启动及源码身份归`artifacts/slope-grounding-20261104/`。ARCHITECTURE及EDITOR_WORKBENCH已同步；M17实际斜坡画面／人工手感、独立Player、双端联机和真实保存恢复仍待验，本片未修改YYGC，CL继续。
 
 2026-11-04 M17均衡调参与吊绳YYGC对象接入进入主分支提交与推送（本聊天／Local，CL-01／08，M17-05）：用户明确要求提交、合并主分支并推送。当前已在main，fetch后与origin/main无领先／落后，本批直接提交main，范围包含均衡调参、ObjectDefinition／IConfigData接入、原生Prefab与定义／Addressables登记及6份合同／操作／进度文档。16份源码与本片编译通过时的SHA一致，提交前差异及引用核对通过；沿用当前候选的三次C#编译与原生装配回执，实际运行、联机及恢复仍待验。协议／存档字段形状沿原合同，物理配置身份已更新，依赖沿原锁定配置。最终提交与远端身份以Git记录及`artifacts/m17-objectdefinition-20261104/publish-main/`回执为准，CL继续。
 

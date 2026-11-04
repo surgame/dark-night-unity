@@ -24,8 +24,8 @@ namespace DarkNights.Entry
         private GameCatalog catalog;
         private PinewatchStage stage;
         private Action<InputIntent> intentHandler;
-        private readonly Dictionary<int, (EntityView Owner, EntityPresentationBehaviour Presentation, string Kind)> views =
-            new Dictionary<int, (EntityView, EntityPresentationBehaviour, string)>();
+        private readonly Dictionary<int, (EntityView Owner, EntityPresentationBehaviour Presentation, string Kind, float WalkSpeed)> views =
+            new Dictionary<int, (EntityView, EntityPresentationBehaviour, string, float)>();
         private readonly Dictionary<int, string> workKinds = new Dictionary<int, string>();
         private int epoch, generation;
         private long connection;
@@ -101,9 +101,12 @@ namespace DarkNights.Entry
                 int captured = generation;
                 Action<InputIntent> submit = intent => Submit(presentation, captured, intent);
                 string group;
+                float walkSpeed = 0;
                 if (catalog.Balance.Units.TryGetValue(pair.Value, out UnitDefinition rules) && presentation is ActorPresentationBehaviour actor)
                 {
                     actor.Bind(pair.Key, epoch, pair.Value, rules);
+                    walkSpeed = owner.Owner.Definition.SharedConfigs.OfType<MovementConfig>().Single()
+                        .Freeze().WalkSpeed(catalog.Balance.HeroControl);
                     group = "Actors/" + pair.Value;
                 }
                 else if (catalog.Balance.Buildings.ContainsKey(pair.Value) && presentation is BuildingPresentationBehaviour building)
@@ -123,7 +126,7 @@ namespace DarkNights.Entry
                 }
                 else throw new InvalidOperationException("Unsupported entity presentation: " + pair.Value);
                 owner.transform.SetParent(stage.RuntimeGroup(group), true);
-                views.Add(pair.Key, (owner, presentation, pair.Value));
+                views.Add(pair.Key, (owner, presentation, pair.Value, walkSpeed));
                 owner.gameObject.name = pair.Value + " #" + pair.Key;
             }
             applied = frame;
@@ -163,7 +166,9 @@ namespace DarkNights.Entry
                     view.Present(displayed, frame.Epoch, kind ?? "", physicsBody != null ? physical.X : current != null ? local.X : timeline.X(actor, now),
                         current != null ? local.ActionTime : timeline.ActionTime(actor, now), stage.Ambient,
                         physicsBody != null ? physical.Height : current != null ? local.Height : timeline.Height(actor, now), stage.ActorPresentationScale,
-                        catalog.Balance.HeroControl.WalkSpeed);
+                        views[actor.Id].WalkSpeed,
+                        network.Terrain?.Epoch == frame.Epoch && network.Terrain.LocalDataReady
+                            ? network.Terrain.Replica : null);
                     ((ActorView)view.Visual).PresentBoarded(frame.World.Expedition?.Crew.FirstOrDefault(c => c.Id == actor.Id)?.Boarded == true);
                 }
             foreach (BuildingViewData building in frame.World.Buildings)

@@ -34,7 +34,7 @@ namespace DarkNights.Runtime.Physics
             using var bytes = new MemoryStream();
             using var writer = new BinaryWriter(bytes);
             writer.Write(PhysicsWorldDefinition.Backend);
-            writer.Write("foot-box-16x44;terrain-shapes-v1;map-top-boundary-v2;hz60;contacts-v1;units100");
+            writer.Write("foot-box-16x44;terrain-shapes-v1;map-top-boundary-v2;hz60;contacts-v2-normal-tangent;units100");
             writer.Write(Application.unityVersion);
             writer.Write(Physics2D.velocityIterations); writer.Write(Physics2D.positionIterations);
             writer.Write(Physics2D.defaultContactOffset); writer.Write(Physics2D.baumgarteScale);

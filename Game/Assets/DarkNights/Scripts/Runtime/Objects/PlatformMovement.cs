@@ -40,7 +40,7 @@ namespace DarkNights.Runtime.Objects
             else if (movement.CanJump) HeroJumpMotion.TryStart(state, rules, state.SupportPlatform >= 0);
             if (state.SupportPlatform >= 0)
             {
-                Land(actor, rules, delta, state.SupportPlatform, direction, normalSpeed);
+                Land(actor, rules, movement, delta, state.SupportPlatform, direction, normalSpeed);
                 return;
             }
             float previous = state.Height;
@@ -58,15 +58,15 @@ namespace DarkNights.Runtime.Objects
             if (state.Height <= landing && state.VerticalSpeed <= 0)
             {
                 state.Height = landing;
-                Land(actor, rules, delta, supportId, direction, normalSpeed);
+                Land(actor, rules, movement, delta, supportId, direction, normalSpeed);
             }
         }
 
-        private static void Land(ActorBehaviour actor, HeroControlDefinition rules, double delta,
+        private static void Land(ActorBehaviour actor, HeroControlDefinition rules, MovementDefinition movement, double delta,
             int support, float direction, float? normalSpeed)
         {
             HeroJumpMotion.Land(actor.Edit(), rules, delta, support, recoverFuel: false);
-            MovementHorizontalMotion.Land(actor.Edit(), rules, actor.World.DebugHeroSpeedMultiplier, direction, normalSpeed);
+            MovementHorizontalMotion.Land(actor.Edit(), rules, actor.World.DebugHeroSpeedMultiplier, direction, normalSpeed, movement);
         }
     }
 }

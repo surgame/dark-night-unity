@@ -1,4 +1,5 @@
 using System;
+using AnyRules.Next;
 using DarkNights.Core.ViewData;
 using UnityEngine;
 
@@ -74,6 +75,9 @@ namespace DarkNights.View
             facing.localScale = new Vector3(face, 1, 1);
             poseRoot.localPosition = standingOffset;
         }
+
+        public void SetGround(IReadOnlyGrid map, bool grounded, bool standing) =>
+            spineAnimation?.SetGround(grounded ? map : null, transform, standing);
 
         public void TintActor(int identity, bool hit, bool training)
         {

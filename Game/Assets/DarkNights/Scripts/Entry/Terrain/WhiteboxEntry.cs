@@ -42,7 +42,6 @@ namespace DarkNights.Entry.Terrain
 
         public async UniTask Initialize(GameCatalog catalog, CancellationToken token)
         {
-            animationWalkSpeed = catalog.Balance.HeroControl.WalkSpeed;
             if (Session != null || SessionDefinition == null || SessionInstance == null || HeroPlacement == null ||
                 HeroPlacement.Loader == null || HeroPlacement.View == null || (Ground == null && TerrainModule == null) ||
                 ViewCamera == null || InputPlayer == null)
@@ -52,6 +51,8 @@ namespace DarkNights.Entry.Terrain
                 (TerrainModule == null && (Math.Abs(Ground.bounds.min.x) > .001f || Math.Abs(Ground.bounds.max.y) > .001f)) ||
                 Math.Abs(HeroPlacement.transform.position.y) > .001f)
                 throw new InvalidOperationException("白模需要正式Worker、从X=0开始且顶面Y=0的平地及脚底出生点。");
+            animationWalkSpeed = worker.SharedConfigs.OfType<MovementConfig>().Single()
+                .Freeze().WalkSpeed(catalog.Balance.HeroControl);
             if (TerrainModule != null && TerrainModule.BakedFingerprint != WhiteboxTerrainBuilder.Fingerprint(TerrainModule))
                 throw new InvalidOperationException("入口轮廓已改动，请先在工作台重建入口白模网格并保存。");
             if (TerrainModule != null && TerrainModule.TerrainArtwork != null &&
@@ -138,7 +139,7 @@ namespace DarkNights.Entry.Terrain
             var sample = ActorPresentationSample.Interpolate(Session.World.Paused ? null : previousHero,
                 hero, accumulator * 60);
             presentation.Present(hero, 1, "", sample.X, sample.ActionTime, Color.white, sample.Height,
-                heroWalkSpeed: animationWalkSpeed);
+                heroWalkSpeed: animationWalkSpeed, ground: Session.World.Terrain?.Map);
             float halfWidth = ViewCamera.orthographicSize * ViewCamera.aspect;
             float width = Session.World.Layout.WorldWidth / EntityView.PixelsPerUnit;
             var point = ViewCamera.transform.position;

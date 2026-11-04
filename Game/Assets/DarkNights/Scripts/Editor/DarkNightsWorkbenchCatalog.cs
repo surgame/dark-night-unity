@@ -31,7 +31,7 @@ namespace DarkNights.Editor
 
         internal static IReadOnlyList<DarkNightsWorkbenchEntry> Entries { get; } = Array.AsReadOnly(new[]
         {
-            Source("hero-spine", Objects, "主角骨骼与动画", "Spine原生数据、已选动作和研究主角Rig；未来物理接管沿渲染器骨骼钩子扩展。",
+            Source("hero-spine", Objects, "主角骨骼与动画", "Spine原生数据、已选动作和主角Prefab；未来物理接管沿渲染器骨骼钩子扩展。",
                 HeroSpineAssetSetup.DataPath, "Assets/DarkNights/Res/Terrain/MapModule/HeroRig.prefab",
                 "Assets/DarkNights/Res/Objects/Hero/AnimationSelection.json"),
             Tool("cooperative-physics", Objects, "合作物理候选与诊断", "独立动态刚体研究场景、配置以及有界录制／导出。", "打开合作物理",
@@ -66,6 +66,8 @@ namespace DarkNights.Editor
                 () => AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(Root + "Input/Gameplay.inputactions"))),
             Tool("quality", Graphics, "画质设置", "原生项目质量档与各平台质量选择。", "打开画质设置",
                 () => SettingsService.OpenProjectSettings("Project/Quality")),
+            Source("camera-framing", Graphics, "地面镜头比例", "16%、12.4%、10.5%、8%、6%预设及自定义比例，手动改值自动切为自定义。",
+                Root + "Shared/Camera/ExplorationCamera.asset"),
             Tool("graphics", Graphics, "渲染管线设置", "原生项目Graphics与渲染管线来源。", "打开图形设置",
                 () => SettingsService.OpenProjectSettings("Project/Graphics")),
             new DarkNightsWorkbenchEntry("lighting-debug", DarkNightsWorkbenchEntryKind.Diagnostic, Graphics, "光照调参台",

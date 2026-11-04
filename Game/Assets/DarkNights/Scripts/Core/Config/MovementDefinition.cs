@@ -3,8 +3,8 @@ using System;
 namespace DarkNights.Core.Config
 {
     /// <summary>
-    /// 单位移动配置在激活时冻结的只读值，统一目标到达、主动跳跃与空中操控开关。
-    /// 不持有速度或输入；基础步速、跳速与重力仍沿用既有balance规则，避免第二份数值源。
+    /// 单位移动配置在激活时冻结的只读值，统一目标到达、速度预设、主动跳跃与空中操控开关。
+    /// 不持有速度或输入；空预设沿用balance步速，跳速与重力继续读取原规则。
     /// </summary>
     public sealed class MovementDefinition
     {
@@ -20,9 +20,11 @@ namespace DarkNights.Core.Config
         public float AirAccelerationSeconds { get; }
         public float AirBrakingSeconds { get; }
         public float AirDragPerSecond { get; }
+        public MovementSpeedDefinition Speed { get; }
 
         public MovementDefinition(float arrivalDistance, bool canJump, bool enableAirControl,
-            float speedRatio, float accelerationSeconds, float brakingSeconds, float dragPerSecond)
+            float speedRatio, float accelerationSeconds, float brakingSeconds, float dragPerSecond,
+            MovementSpeedDefinition speed = null)
         {
             Validate(arrivalDistance, float.Epsilon, 4);
             Validate(speedRatio, 0, 1);
@@ -36,7 +38,13 @@ namespace DarkNights.Core.Config
             AirAccelerationSeconds = accelerationSeconds;
             AirBrakingSeconds = brakingSeconds;
             AirDragPerSecond = dragPerSecond;
+            Speed = speed;
         }
+
+        public float WalkSpeed(HeroControlDefinition rules) => Speed?.WalkSpeed ?? rules.WalkSpeed;
+
+        public float MoveSpeed(HeroControlDefinition rules, bool sprint) =>
+            Speed == null ? rules.MoveSpeed(sprint) : sprint ? Speed.SprintSpeed : Speed.WalkSpeed;
 
         private static void Validate(float value, float minimum, float maximum)
         {

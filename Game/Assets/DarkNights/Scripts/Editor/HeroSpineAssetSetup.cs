@@ -131,9 +131,15 @@ namespace DarkNights.Editor
                 var oldClips = inherited.FindProperty("clips");
                 var oldTargets = inherited.FindProperty("lightTargets");
                 var boundDriver = (SpineActorAnimation)inherited.FindProperty("spineAnimation").objectReferenceValue;
+                bool feetChanged = boundDriver.AlignFeet();
+                if (feetChanged)
+                {
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(boundDriver.Renderer.transform);
+                    EditorUtility.SetDirty(boundDriver.Renderer.transform);
+                }
                 var boundRenderer = boundDriver.Renderer;
                 bool meshSettingChanged = boundRenderer.fixPrefabOverrideViaMeshFilter != SettingsTriState.Enable;
-                if (oldClips.arraySize == 0 && oldTargets.arraySize == 0 && !meshSettingChanged) return false;
+                if (oldClips.arraySize == 0 && oldTargets.arraySize == 0 && !meshSettingChanged) return feetChanged;
                 boundRenderer.fixPrefabOverrideViaMeshFilter = SettingsTriState.Enable;
                 boundRenderer.EditorUpdateMeshFilterHideFlags();
                 PrefabUtility.RecordPrefabInstancePropertyModifications(boundRenderer);
@@ -157,7 +163,6 @@ namespace DarkNights.Editor
             if (targets.arraySize != 1 || !(targets.GetArrayElementAtIndex(0).objectReferenceValue is SpriteRenderer previous))
                 throw new InvalidOperationException("已选主角必须明确绑定唯一作者外观。");
             if (previous.sprite == null) throw new InvalidOperationException("迁移前的作者首帧缺失。");
-            Bounds sourceBounds = previous.sprite.bounds;
             var root = new GameObject("Spine Hero");
             root.transform.SetParent(previous.transform.parent, false);
             root.transform.localPosition = previous.transform.localPosition;
@@ -179,9 +184,7 @@ namespace DarkNights.Editor
             binding.FindProperty("lightReceiver").objectReferenceValue = mesh;
             binding.ApplyModifiedPropertiesWithoutUndo();
             driver.Preview();
-            Bounds nativeBounds = root.GetComponent<MeshFilter>().sharedMesh.bounds;
-            root.transform.localPosition += new Vector3(sourceBounds.center.x - nativeBounds.center.x,
-                sourceBounds.min.y - nativeBounds.min.y, 0);
+            driver.AlignFeet();
             previous.enabled = false;
             properties.FindProperty("spineAnimation").objectReferenceValue = driver;
             properties.FindProperty("clips").arraySize = 0;

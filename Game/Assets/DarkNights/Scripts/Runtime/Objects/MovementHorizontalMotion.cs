@@ -4,7 +4,7 @@ using DarkNights.Core.Config;
 namespace DarkNights.Runtime.Objects
 {
     /// <summary>
-    /// 地面即时启停与有限空控的共用计算；玩家与自动移动使用同一速度和起跳参考。
+    /// 地面启停、预设冲刺过渡与有限空控的共用计算，玩家与自动移动使用同一速度和起跳参考。
     /// 输入朝向与实际速度独立，反打先刹停再有限反向；碰撞方负责裁切位移和清除受阻速度。
     /// </summary>
     public static class MovementHorizontalMotion
@@ -15,10 +15,12 @@ namespace DarkNights.Runtime.Objects
         {
             float axis = direction ?? state.Horizontal;
             if (axis != 0) state.Face = Math.Sign(axis);
-            float walkSpeed = normalSpeed ?? rules.WalkSpeed * speedMultiplier;
+            float walkSpeed = normalSpeed ?? movement.WalkSpeed(rules) * speedMultiplier;
             if (grounded)
             {
-                state.HorizontalSpeed = axis * (normalSpeed ?? rules.MoveSpeed(state.SprintHeld) * speedMultiplier);
+                float groundTarget = axis * (normalSpeed ?? movement.MoveSpeed(rules, state.SprintHeld) * speedMultiplier);
+                state.HorizontalSpeed = normalSpeed.HasValue || movement.Speed == null
+                    ? groundTarget : GroundSpeed(state, movement.Speed, axis, groundTarget, walkSpeed, speedMultiplier, (float)delta);
                 state.TakeoffHorizontalSpeed = state.HorizontalSpeed;
                 return;
             }
@@ -43,10 +45,12 @@ namespace DarkNights.Runtime.Objects
         }
 
         public static void Land(ActorState state, HeroControlDefinition rules, float speedMultiplier = 1,
-            float? direction = null, float? normalSpeed = null)
+            float? direction = null, float? normalSpeed = null, MovementDefinition movement = null)
         {
-            state.HorizontalSpeed = (direction ?? state.Horizontal) *
-                (normalSpeed ?? rules.MoveSpeed(state.SprintHeld) * speedMultiplier);
+            // 预设方案保留本步已推进或离地继承的真实速度，避免每次接地再跳回冲刺上限。
+            if (normalSpeed.HasValue || movement?.Speed == null)
+                state.HorizontalSpeed = (direction ?? state.Horizontal) *
+                    (normalSpeed ?? rules.MoveSpeed(state.SprintHeld) * speedMultiplier);
             state.TakeoffHorizontalSpeed = 0;
         }
 
@@ -54,6 +58,16 @@ namespace DarkNights.Runtime.Objects
         {
             state.HorizontalSpeed = 0;
             state.TakeoffHorizontalSpeed = 0;
+        }
+
+        private static float GroundSpeed(ActorState state, MovementSpeedDefinition speed, float axis,
+            float target, float walkSpeed, float multiplier, float delta)
+        {
+            if (axis == 0) return 0;
+            float current = Math.Max(walkSpeed, axis * state.HorizontalSpeed);
+            float seconds = state.SprintHeld ? speed.SprintAccelerationSeconds : speed.SprintDecelerationSeconds;
+            float rate = (speed.SprintSpeed - speed.WalkSpeed) * multiplier / seconds;
+            return axis * Toward(current, Math.Abs(target), rate * delta);
         }
 
         public static float Target(ActorState state, HeroControlDefinition rules, MovementDefinition movement,

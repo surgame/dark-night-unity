@@ -57,6 +57,7 @@ MonoBehaviour:
     - rid: 6961529563483734805
       type: {class: MovementConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
+        SpeedPreset: 0
         ArrivalDistance: 0.8
         CanJump: 1
         EnableAirControl: 1

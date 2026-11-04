@@ -540,6 +540,7 @@ MonoBehaviour:
   environment: {fileID: 0}
   cameraX: 192
   zoom: 2.8
+  cameraFraming: {fileID: 11400000, guid: e143920dbf1dd1c4b94e461b06c2a5e6, type: 2}
   worldWidth: 5120
 --- !u!114 &589560204
 MonoBehaviour:
@@ -558,6 +559,7 @@ MonoBehaviour:
   Stage: {fileID: 589560203}
   HeroPlacement: {fileID: 858833647}
   PhysicsProfile: {fileID: 11400000, guid: 89997c1400d18e74ca38b381a2667645, type: 2}
+  HangingRopes: []
   PhysicsProps:
   - {fileID: 108622513}
   - {fileID: 321328137}

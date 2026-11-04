@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace DarkNights.View.MapModule
 {
-    /// <summary>研究Scene的主题及样例目录；选择归工作台本机状态，一次运行只冻结一个样例，不创建多套会话Rig。</summary>
+    /// <summary>MapModule试验场的地图布局目录；选择归工作台本机状态，一次运行只冻结一个布局，共用正式场景装配。</summary>
     public sealed class MapModuleStudyAuthoring : MonoBehaviour
     {
         public string StudyId = "entrance";
-        public string DisplayName = "洞口研究";
+        public string DisplayName = "洞口与浅厅";
         public MapModuleCaseAuthoring[] Cases = Array.Empty<MapModuleCaseAuthoring>();
         public MapModuleCaseAuthoring RequiredCase(string id)
         {

@@ -102,7 +102,9 @@ AGENTS只保留长期硬约束、触发条件及导航；本文负责模块开�
 
 2026-11-03方案来源：用户建议工程命名MapModule，要求新版与旧地图工作台分离，并考虑FishNet、YYGC Stateful、R3、UniTask等现有服务。此前设计轮仅交付方案与UI原型；后续原生实施授权以上一段为准，未自动扩大为运行验收授权。长期切片维护于[ROADMAP](ROADMAP.md#cl-mapmodule-plan)，实际状态唯一维护于DEVELOPMENT；当前原生操作见[工作台文档](EDITOR_WORKBENCH.md#mapmodule-workbench)。
 
-工程前缀采用`MapModule`。中文显示建议为“地图工坊”，运行研究入口为“地图试验场”；单个资源称“地形模块”，入口／洞道／洞室是模块类别。此前CaveAssembly命名和CA切片被本方案替代，原方案保留于`artifacts/mapmodule-workflow-20261103/previous-cave-assembly-plan.md`。
+工程前缀采用`MapModule`。中文显示为“地图工坊”，运行场景用于“MapModule试验场”；单个资源称“地形模块”，入口／洞道／洞室是模块类别。此前CaveAssembly命名和CA切片被本方案替代，原方案保留于`artifacts/mapmodule-workflow-20261103/previous-cave-assembly-plan.md`。
+
+2026-11-04用户明确场景用途为MapModule试验场，复用的角色、相机、输入和场景装配均使用正式职责名称。Hierarchy使用“地图布局”“场景入口”“主相机”“玩家输入”“天空”等名称；地图列表使用“洞口与浅厅”“M17 · 悬索裂谷”等内容名。“试验场”描述MapModule场景用途，通用对象名称不附加“研究”标签。内部StudyId／CaseId继续承担布局身份，序列化类型和场景路径按既有资源引用定位。
 
 ## 复评结果
 

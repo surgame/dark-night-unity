@@ -1,4 +1,5 @@
 using System;
+using AnyRules.Next;
 using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
 using UnityEngine;
@@ -31,7 +32,8 @@ namespace DarkNights.View
             rules = definition;
         }
 
-        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient, float? height = null, float visualScale = 1, float heroWalkSpeed = 0)
+        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient, float? height = null, float visualScale = 1, float heroWalkSpeed = 0,
+            IReadOnlyGrid ground = null)
         {
             if (actor == null || !Accept(actor.Id, epoch, actor.Kind)) return false;
             if (Current == null || Current.ManualControl != actor.ManualControl) hasWalkPosition = false;
@@ -75,6 +77,7 @@ namespace DarkNights.View
             lastWalkX = x; lastWalkHeight = footHeight; hasWalkPosition = true;
             lastActionTime = actionTime;
             if (ActorVisual.UsesSkeleton) ActorVisual.SetStanding(actor.Face);
+            ActorVisual.SetGround(ground, actor.ManualControl && actor.SupportPlatform >= 0, Pose == "idle");
             ActorVisual.SamplePose(Pose, seconds, elapsed);
             if (!ActorVisual.UsesSkeleton) ActorVisual.SetStanding(actor.Face);
             ActorVisual.TintActor(actor.Id, actor.HitFlash > 0, actor.Activity == "Training");

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7186773091407613176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0040799975, y: 0.000082187355, z: 0}
+  m_LocalPosition: {x: -0.00022500986, y: 0.0005621894, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -574,6 +574,10 @@ MonoBehaviour:
   skeletonRenderer: {fileID: 6877901248791939927}
   lightReceiver: {fileID: 699958361615631785}
   mixSeconds: 0.1
+  leftFootSlot: left-leg
+  rightFootSlot: right-leg
+  leftShinBone: left-leg2
+  rightShinBone: right-leg2
 --- !u!212 &5646068759755665106 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3782414715536076981, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}

@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-04",
+  "tool": "built-in image_gen",
+  "prompt_source": "README.md",
+  "outputs": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角\\设计探索\\20261104-q-spine-v2\\hero-q-side-draft.png",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "sha256": "297211a4164a1fbc68b5350c202a4364f6b4a75ccb399383822afa9b7db524f9",
+      "original_generated_path": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a1a345-0b7c-7973-999a-7308e1689058\\call_OS2ew7nQYvvxzgOemSw3tI32.png"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角\\设计探索\\20261104-q-spine-v2\\hero-q-side-design-v2.png",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "sha256": "81fff419719bc739ec447f6f2a619b68dc84f45bdcec3b03dcd8bc7453beb0dc",
+      "original_generated_path": "C:\\Users\\Jobscn\\.codex\\generated_images\\01a1a345-0b7c-7973-999a-7308e1689058\\call_guJWezGyh6gothwuspQG4Usd.png"
+    }
+  ],
+  "references": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角\\images\\head.png",
+      "width": 229,
+      "height": 185,
+      "mode": "RGBA",
+      "sha256": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角\\images\\body.png",
+      "width": 66,
+      "height": 62,
+      "mode": "RGBA",
+      "sha256": "72614ea9d309b30f78fd2287173c107b16bafc9e0bb0c21462460f667eb1d3f2"
+    }
+  ],
+  "status": "design candidate, pending user visual review and actual Spine preparation",
+  "notes": [
+    "Draft has frontal body and was corrected in final candidate.",
+    "Final uses profile body and one visible near leg, requiring hidden far limb artwork for actual animation.",
+    "Slight smooth color variation persists despite flat-color request."
+  ]
+}

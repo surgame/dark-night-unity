@@ -23,7 +23,7 @@ namespace DarkNights.Editor
             else if (module == "ship") Ship(page);
             else if (module == "objects") Objects(page);
             else if (module == "map")
-                page.Note("新版大块模块在“地图工坊 · MapModule”编辑并启动研究调试。旧版地图工作台独立保留，原正式地图仍使用旧引用，尚未切换。");
+                page.Note("新版大块模块在“地图工坊 · MapModule”编辑，并进入MapModule试验场调试。旧版地图工作台独立保留，原正式地图仍使用旧引用，尚未切换。");
         }
 
         private static ObjectDefinition Session() =>
